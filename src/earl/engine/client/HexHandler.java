@@ -8,10 +8,7 @@ import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.OMSVGStyle;
-import org.vectomatic.dom.svg.impl.SVGPathElement;
 
-import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -22,18 +19,12 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 
 public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandler {
 
-	private OMSVGImageElement selectedUnit = null;
+	private final Earl earl;
 
-	private void deselectUnit() {
-		if (selectedUnit == null) {
-			return;
-		}
-		OMSVGStyle style = selectedUnit.getStyle();
-		style.setOutlineStyle(OutlineStyle.NONE);
-		style.setOpacity(1);
-		selectedUnit = null;
+	public HexHandler(Earl earl) {
+		this.earl = earl;
 	}
-
+	
 	private OMSVGPoint getCenter(OMSVGPathElement e) {
 		OMSVGRect bbox = e.getBBox();
 		OMSVGSVGElement svg = e.getOwnerSVGElement();
@@ -52,26 +43,25 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		to = to.matrixTransform(m);
 
 		float x = to.getX() - bbox.getWidth() / 2.0f;
-		float y = to.getY() + bbox.getHeight() / 2.0f;
+		float y = to.getY() - bbox.getHeight() / 2.0f;
 		unit.getX().getBaseVal().setValue(x);
 		unit.getY().getBaseVal().setValue(y);
 	}
 
 	@Override
 	public void onClick(ClickEvent event) {
-		if (selectedUnit == null) {
+		if (earl.selectedUnit == null) {
 			return;
 		}
 		OMSVGPathElement hex = getHex(event);
-		// drawMove(selectedUnit, hex);
-		moveToHex(selectedUnit, hex);
-		// parent.menu.gwtexpEarl(selectedUnit.id, e.target.id);
-		deselectUnit();
+		// drawMove(earl.selectedUnit, hex);
+		moveToHex(earl.selectedUnit, hex);
+		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
+		earl.deselectUnit();
 	}
 
 	protected OMSVGPathElement getHex(DomEvent<?> event) {
-		SVGPathElement relativeElement = (SVGPathElement) event.getRelativeElement();
-		return OMSVGDocument.convert(relativeElement);
+		return OMSVGDocument.convert(event.getRelativeElement());
 	}
 
 	@Override
