@@ -18,9 +18,6 @@
    sodipodi:docname="bastogne-opt.svg"
    onload="earl_init(this)"
    zoomAndPan="magnify">
-  <script
-     xlink:href="earl.js"
-     id="script5175" />
   <metadata
      id="metadata8">
     <rdf:RDF>
@@ -29,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -49,8 +46,8 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="0.59868376"
-     inkscape:cx="535.49309"
-     inkscape:cy="586.24368"
+     inkscape:cx="733.4273"
+     inkscape:cy="320.66106"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -77,12 +74,13 @@
      transform="translate(-94.41111,-251.74954)"
      sodipodi:insensitive="true">
     <image
-       y="261.74954"
-       x="119.04062"
-       id="image5030"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/sceno2.jpg"
        xlink:href="sceno2.jpg"
+       width="1164"
        height="890"
-       width="1164" />
+       id="image5030"
+       x="119.04062"
+       y="261.74954" />
   </g>
   <g
      transform="translate(-1459.37,-2742.1391)"
@@ -4678,432 +4676,432 @@
            style="font-weight:bold;-inkscape-font-specification:Arial Bold">Turn 1 - E</tspan></text>
     </g>
     <image
-       sodipodi:absref="units/front/3-1-7+26VG_S-I-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-1-7+26VG_S-I-78_f.png"
        xlink:href="units/front/3-1-7+26VG_S-I-78_f.png"
-       width="40"
-       height="40"
+       y="2960.9409"
+       x="2893.5515"
        id="image5252"
-       x="2893.5515"
-       y="2960.9409" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/3-1-7+26VG_S-II-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-1-7+26VG_S-II-78_f.png"
        xlink:href="units/front/3-1-7+26VG_S-II-78_f.png"
-       width="40"
-       height="40"
-       id="image5263"
+       y="3010.9409"
        x="2893.5515"
-       y="3010.9409" />
+       id="image5263"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2_3-1-8+26VG_8-II-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-8+26VG_8-II-78_f.png"
        xlink:href="units/front/2_3-1-8+26VG_8-II-78_f.png"
-       width="40"
-       height="40"
+       y="3010.9409"
+       x="2843.5515"
        id="image5241"
-       x="2843.5515"
-       y="3010.9409" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_7-II-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_7-II-78_f.png"
        xlink:href="units/front/1-3-6+26VG_7-II-78_f.png"
-       width="40"
-       height="40"
+       y="3010.9409"
+       x="2793.5515"
        id="image5219"
-       x="2793.5515"
-       y="3010.9409" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_6-II-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_6-II-78_f.png"
        xlink:href="units/front/1-3-6+26VG_6-II-78_f.png"
-       width="40"
-       height="40"
+       y="3010.9409"
+       x="2743.5515"
        id="image5208"
-       x="2743.5515"
-       y="3010.9409" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_5-II-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_5-II-78_f.png"
        xlink:href="units/front/1-3-6+26VG_5-II-78_f.png"
-       width="40"
-       height="40"
+       y="3010.9409"
+       x="2693.5515"
        id="image5197"
-       x="2693.5515"
-       y="3010.9409" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2_3-1-8+26VG_4-I-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-8+26VG_4-I-78_f.png"
        xlink:href="units/front/2_3-1-8+26VG_4-I-78_f.png"
-       width="40"
-       height="40"
-       id="image5230"
+       y="2960.9409"
        x="2843.5515"
-       y="2960.9409" />
+       id="image5230"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_3-I-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_3-I-78_f.png"
        xlink:href="units/front/1-3-6+26VG_3-I-78_f.png"
-       width="40"
-       height="40"
-       id="image5186"
+       y="2960.9409"
        x="2793.5515"
-       y="2960.9409" />
+       id="image5186"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_2-I-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_2-I-78_f.png"
        xlink:href="units/front/1-3-6+26VG_2-I-78_f.png"
-       width="40"
-       height="40"
-       id="image5175"
+       y="2960.9409"
        x="2743.5515"
-       y="2960.9409" />
+       id="image5175"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+26VG_1-I-78_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_1-I-78_f.png"
        xlink:href="units/front/1-3-6+26VG_1-I-78_f.png"
-       width="40"
-       height="40"
-       id="image5164"
+       y="2960.9409"
        x="2693.5515"
-       y="2960.9409" />
+       id="image5164"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/0-1-6+Comb_C_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/0-1-6+Comb_C_f.png"
        xlink:href="units/front/0-1-6+Comb_C_f.png"
-       width="40"
-       height="40"
-       id="image4922"
+       y="3326.511"
        x="1738.3268"
-       y="3326.511" />
+       id="image4922"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/0-1-6+Comb_D_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/0-1-6+Comb_D_f.png"
        xlink:href="units/front/0-1-6+Comb_D_f.png"
-       width="40"
-       height="40"
-       id="image4933"
+       y="3353.6765"
        x="1882.4213"
-       y="3353.6765" />
+       id="image4933"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_A-1_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_A-1_f.png"
        xlink:href="units/front/2-4-6+501_A-1_f.png"
-       width="40"
-       height="40"
+       y="3622.5225"
+       x="1469.37"
        id="image4944"
-       x="1469.37"
-       y="3622.5225" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_B-1_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_B-1_f.png"
        xlink:href="units/front/2-4-6+501_B-1_f.png"
-       width="40"
-       height="40"
+       y="3299.1216"
+       x="1469.37"
        id="image4955"
-       x="1469.37"
-       y="3299.1216" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_C-1_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_C-1_f.png"
        xlink:href="units/front/2-4-6+501_C-1_f.png"
-       width="40"
-       height="40"
+       y="3391.522"
+       x="1469.37"
        id="image4966"
-       x="1469.37"
-       y="3391.522" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_D-2_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_D-2_f.png"
        xlink:href="units/front/2-4-6+501_D-2_f.png"
-       width="40"
-       height="40"
+       y="3437.7219"
+       x="1469.37"
        id="image4977"
-       x="1469.37"
-       y="3437.7219" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_E-2_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_E-2_f.png"
        xlink:href="units/front/2-4-6+501_E-2_f.png"
-       width="40"
-       height="40"
+       y="3576.3223"
+       x="1469.37"
        id="image4988"
-       x="1469.37"
-       y="3576.3223" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_F-2_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_F-2_f.png"
        xlink:href="units/front/2-4-6+501_F-2_f.png"
-       width="40"
-       height="40"
+       y="3530.1221"
+       x="1469.37"
        id="image4999"
-       x="1469.37"
-       y="3530.1221" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_G-3_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_G-3_f.png"
        xlink:href="units/front/2-4-6+501_G-3_f.png"
-       width="40"
-       height="40"
+       y="3483.9221"
+       x="1469.37"
        id="image5010"
-       x="1469.37"
-       y="3483.9221" />
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-4-6+501_H-3_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-4-6+501_H-3_f.png"
        xlink:href="units/front/2-4-6+501_H-3_f.png"
-       width="40"
-       height="40"
-       id="image5021"
+       y="3345.3218"
        x="1469.37"
-       y="3345.3218" />
+       id="image5021"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/4_8-1-12+101_327_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/4_8-1-12+101_327_f.png"
        xlink:href="units/front/4_8-1-12+101_327_f.png"
-       width="40"
-       height="40"
-       id="image5032"
+       y="3218.696"
        x="1474.0944"
-       y="3218.696" />
+       id="image5032"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2_3-1-16+Cherry_HHC-3_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-16+Cherry_HHC-3_f.png"
        xlink:href="units/front/2_3-1-16+Cherry_HHC-3_f.png"
-       width="40"
-       height="40"
-       id="image5043"
+       y="3507.4055"
        x="1718.6257"
-       y="3507.4055" />
+       id="image5043"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/3-3-16+Cherry_D-90_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-3-16+Cherry_D-90_f.png"
        xlink:href="units/front/3-3-16+Cherry_D-90_f.png"
-       width="40"
-       height="40"
-       id="image5054"
+       y="3479.6628"
        x="1758.9368"
-       y="3479.6628" />
+       id="image5054"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2_8-1-16+CCR_HHC_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_8-1-16+CCR_HHC_f.png"
        xlink:href="units/front/2_8-1-16+CCR_HHC_f.png"
-       width="40"
-       height="40"
-       id="image5065"
+       y="3214.8967"
        x="2215.8413"
-       y="3214.8967" />
+       id="image5065"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/3-2-14+Cherry_D-3_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-2-14+Cherry_D-3_f.png"
        xlink:href="units/front/3-2-14+Cherry_D-3_f.png"
-       width="40"
-       height="40"
-       id="image5076"
+       y="3219.0725"
        x="2123.9729"
-       y="3219.0725" />
+       id="image5076"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/4-5-14+Cherry_C-20_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/4-5-14+Cherry_C-20_f.png"
        xlink:href="units/front/4-5-14+Cherry_C-20_f.png"
-       width="40"
-       height="40"
-       id="image5087"
+       y="3186.8064"
        x="2172.126"
-       y="3186.8064" />
+       id="image5087"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/1-3-6+SNAFU_AdHoc_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+SNAFU_AdHoc_f.png"
        xlink:href="units/front/1-3-6+SNAFU_AdHoc_f.png"
-       width="40"
-       height="40"
-       id="image5098"
+       y="3245.542"
        x="2360.0137"
-       y="3245.542" />
+       id="image5098"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-3-12+CCR_C-482_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-3-12+CCR_C-482_f.png"
        xlink:href="units/front/2-3-12+CCR_C-482_f.png"
-       width="40"
-       height="40"
-       id="image5109"
+       y="3188.7507"
        x="2364.1895"
-       y="3188.7507" />
+       id="image5109"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/2-3-14+Cherry_C-609_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2-3-14+Cherry_C-609_f.png"
        xlink:href="units/front/2-3-14+Cherry_C-609_f.png"
-       width="40"
-       height="40"
-       id="image5120"
+       y="3103.5637"
        x="2318.2554"
-       y="3103.5637" />
+       id="image5120"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/4_14-1-12+58_Art_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/4_14-1-12+58_Art_f.png"
        xlink:href="units/front/4_14-1-12+58_Art_f.png"
-       width="40"
-       height="40"
-       id="image5131"
+       y="3213.8057"
        x="2317.4199"
-       y="3213.8057" />
+       id="image5131"
+       height="40"
+       width="40" />
     <image
-       sodipodi:absref="units/front/4_14-1-12+73_Art_f.png"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/4_14-1-12+73_Art_f.png"
        xlink:href="units/front/4_14-1-12+73_Art_f.png"
-       width="40"
-       height="40"
-       id="image5142"
+       y="3131.2947"
        x="2268.9763"
-       y="3131.2947" />
-    <image
-       sodipodi:absref="units/front/5-3-12+Cherry_A-3_f.png"
-       xlink:href="units/front/5-3-12+Cherry_A-3_f.png"
-       width="40"
+       id="image5142"
        height="40"
-       id="image5153"
+       width="40" />
+    <image
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/5-3-12+Cherry_A-3_f.png"
+       xlink:href="units/front/5-3-12+Cherry_A-3_f.png"
+       y="3160.8223"
        x="2317.4014"
-       y="3160.8223" />
+       id="image5153"
+       height="40"
+       width="40" />
     <g
        id="g5753"
        transform="translate(-349.60629,184.25196)">
       <image
-         sodipodi:absref="units/front/9-5-12+KG902_5-130_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/9-5-12+KG902_5-130_f.png"
          xlink:href="units/front/9-5-12+KG902_5-130_f.png"
-         y="3038.4973"
-         x="3192.4202"
+         width="40"
+         height="40"
          id="image4950"
-         height="40"
-         width="40" />
+         x="3192.4202"
+         y="3038.4973" />
       <image
-         sodipodi:absref="units/front/9-5-12+KG902_7-130_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/9-5-12+KG902_7-130_f.png"
          xlink:href="units/front/9-5-12+KG902_7-130_f.png"
-         y="3038.4973"
-         x="3242.4202"
+         width="40"
+         height="40"
          id="image4961"
-         height="40"
-         width="40" />
+         x="3242.4202"
+         y="3038.4973" />
       <image
-         sodipodi:absref="units/front/2_3-1-8+KG902_9_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-8+KG902_9_f.png"
          xlink:href="units/front/2_3-1-8+KG902_9_f.png"
-         y="3138.4973"
-         x="3192.4202"
+         width="40"
+         height="40"
          id="image4972"
-         height="40"
-         width="40" />
+         x="3192.4202"
+         y="3138.4973" />
       <image
-         sodipodi:absref="units/front/3-4-10+KG902_5-II_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-4-10+KG902_5-II_f.png"
          xlink:href="units/front/3-4-10+KG902_5-II_f.png"
-         y="3138.4973"
-         x="3042.4202"
+         width="40"
+         height="40"
          id="image4983"
-         height="40"
-         width="40" />
+         x="3042.4202"
+         y="3138.4973" />
       <image
-         sodipodi:absref="units/front/3-4-10+KG902_6-II_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-4-10+KG902_6-II_f.png"
          xlink:href="units/front/3-4-10+KG902_6-II_f.png"
-         y="3138.4973"
-         x="3092.4202"
+         width="40"
+         height="40"
          id="image4994"
-         height="40"
-         width="40" />
+         x="3092.4202"
+         y="3138.4973" />
       <image
-         sodipodi:absref="units/front/3-4-10+KG902_7-II_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-4-10+KG902_7-II_f.png"
          xlink:href="units/front/3-4-10+KG902_7-II_f.png"
-         y="3138.4973"
-         x="3142.4202"
+         width="40"
+         height="40"
          id="image5005"
-         height="40"
-         width="40" />
+         x="3142.4202"
+         y="3138.4973" />
       <image
-         sodipodi:absref="units/front/3-5-14+KG902_10_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-5-14+KG902_10_f.png"
          xlink:href="units/front/3-5-14+KG902_10_f.png"
-         y="3088.4973"
-         x="3042.4202"
+         width="40"
+         height="40"
          id="image5016"
-         height="40"
-         width="40" />
+         x="3042.4202"
+         y="3088.4973" />
       <image
-         sodipodi:absref="units/front/4_14-1-12+KG902_Arty_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/4_14-1-12+KG902_Arty_f.png"
          xlink:href="units/front/4_14-1-12+KG902_Arty_f.png"
-         y="3088.4973"
-         x="3092.4202"
+         width="40"
+         height="40"
          id="image5027"
-         height="40"
-         width="40" />
+         x="3092.4202"
+         y="3088.4973" />
       <image
-         sodipodi:absref="units/front/6-6-14+KG902_1-I_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/6-6-14+KG902_1-I_f.png"
          xlink:href="units/front/6-6-14+KG902_1-I_f.png"
-         y="3038.4973"
-         x="3042.4202"
+         width="40"
+         height="40"
          id="image5038"
-         height="40"
-         width="40" />
+         x="3042.4202"
+         y="3038.4973" />
       <image
-         sodipodi:absref="units/front/6-6-14+KG902_2-I_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/6-6-14+KG902_2-I_f.png"
          xlink:href="units/front/6-6-14+KG902_2-I_f.png"
-         y="3038.4973"
-         x="3092.4202"
+         width="40"
+         height="40"
          id="image5049"
-         height="40"
-         width="40" />
+         x="3092.4202"
+         y="3038.4973" />
       <image
-         sodipodi:absref="units/front/6-6-14+KG902_3-I_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/6-6-14+KG902_3-I_f.png"
          xlink:href="units/front/6-6-14+KG902_3-I_f.png"
-         y="3038.4973"
-         x="3142.4202"
+         width="40"
+         height="40"
          id="image5060"
-         height="40"
-         width="40" />
+         x="3142.4202"
+         y="3038.4973" />
       <image
-         sodipodi:absref="units/front/1-3-6+26VG_1-I-77_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_1-I-77_f.png"
          xlink:href="units/front/1-3-6+26VG_1-I-77_f.png"
-         y="2938.4973"
-         x="3042.4202"
+         width="40"
+         height="40"
          id="image5071"
-         height="40"
-         width="40" />
-      <image
-         sodipodi:absref="units/front/1-3-6+26VG_2-I-77_f.png"
-         xlink:href="units/front/1-3-6+26VG_2-I-77_f.png"
-         y="2938.4973"
-         x="3092.4202"
-         id="image5082"
-         height="40"
-         width="40" />
-      <image
-         sodipodi:absref="units/front/1-3-6+26VG_3-I-77_f.png"
-         xlink:href="units/front/1-3-6+26VG_3-I-77_f.png"
-         y="2938.4973"
-         x="3142.4202"
-         id="image5093"
-         height="40"
-         width="40" />
-      <image
-         sodipodi:absref="units/front/1-3-6+26VG_5-II-77_f.png"
-         xlink:href="units/front/1-3-6+26VG_5-II-77_f.png"
-         y="2988.4973"
          x="3042.4202"
-         id="image5104"
-         height="40"
-         width="40" />
+         y="2938.4973" />
       <image
-         sodipodi:absref="units/front/1-3-6+26VG_6-II-77_f.png"
-         xlink:href="units/front/1-3-6+26VG_6-II-77_f.png"
-         y="2988.4973"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_2-I-77_f.png"
+         xlink:href="units/front/1-3-6+26VG_2-I-77_f.png"
+         width="40"
+         height="40"
+         id="image5082"
          x="3092.4202"
-         id="image5115"
-         height="40"
-         width="40" />
+         y="2938.4973" />
       <image
-         sodipodi:absref="units/front/1-3-6+26VG_7-II-77_f.png"
-         xlink:href="units/front/1-3-6+26VG_7-II-77_f.png"
-         y="2988.4973"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_3-I-77_f.png"
+         xlink:href="units/front/1-3-6+26VG_3-I-77_f.png"
+         width="40"
+         height="40"
+         id="image5093"
          x="3142.4202"
+         y="2938.4973" />
+      <image
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_5-II-77_f.png"
+         xlink:href="units/front/1-3-6+26VG_5-II-77_f.png"
+         width="40"
+         height="40"
+         id="image5104"
+         x="3042.4202"
+         y="2988.4973" />
+      <image
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_6-II-77_f.png"
+         xlink:href="units/front/1-3-6+26VG_6-II-77_f.png"
+         width="40"
+         height="40"
+         id="image5115"
+         x="3092.4202"
+         y="2988.4973" />
+      <image
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/1-3-6+26VG_7-II-77_f.png"
+         xlink:href="units/front/1-3-6+26VG_7-II-77_f.png"
+         width="40"
+         height="40"
          id="image5126"
-         height="40"
-         width="40" />
+         x="3142.4202"
+         y="2988.4973" />
       <image
-         sodipodi:absref="units/front/2_3-1-8+26VG_4-I-77_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-8+26VG_4-I-77_f.png"
          xlink:href="units/front/2_3-1-8+26VG_4-I-77_f.png"
-         y="2938.4973"
-         x="3192.4202"
+         width="40"
+         height="40"
          id="image5137"
-         height="40"
-         width="40" />
-      <image
-         sodipodi:absref="units/front/2_3-1-8+26VG_8-II-77_f.png"
-         xlink:href="units/front/2_3-1-8+26VG_8-II-77_f.png"
-         y="2988.4973"
          x="3192.4202"
+         y="2938.4973" />
+      <image
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/2_3-1-8+26VG_8-II-77_f.png"
+         xlink:href="units/front/2_3-1-8+26VG_8-II-77_f.png"
+         width="40"
+         height="40"
          id="image5148"
-         height="40"
-         width="40" />
+         x="3192.4202"
+         y="2988.4973" />
       <image
-         sodipodi:absref="units/front/3-1-7+26VG_S-I-77_f.png"
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-1-7+26VG_S-I-77_f.png"
          xlink:href="units/front/3-1-7+26VG_S-I-77_f.png"
-         y="2938.4973"
-         x="3242.4202"
+         width="40"
+         height="40"
          id="image5159"
-         height="40"
-         width="40" />
-      <image
-         sodipodi:absref="units/front/3-1-7+26VG_S-II-77_f.png"
-         xlink:href="units/front/3-1-7+26VG_S-II-77_f.png"
-         y="2988.4973"
          x="3242.4202"
-         id="image5170"
+         y="2938.4973" />
+      <image
+         sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/3-1-7+26VG_S-II-77_f.png"
+         xlink:href="units/front/3-1-7+26VG_S-II-77_f.png"
+         width="40"
          height="40"
-         width="40" />
+         id="image5170"
+         x="3242.4202"
+         y="2988.4973" />
     </g>
     <g
        id="g5776"
