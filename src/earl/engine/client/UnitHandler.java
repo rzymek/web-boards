@@ -41,7 +41,7 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 		OMSVGStyle style = earl.selectedUnit.getStyle();
 		style.setOutlineColor("rgba(255,0,0,0.5)");
 		style.setOutlineStyle(OutlineStyle.SOLID);
-		style.setOutlineWidth(10.0, Unit.PX);
+		style.setOutlineWidth(5.0, Unit.PX);
 		style.setOpacity(0.8);
 		unit.getParentNode().appendChild(unit);//move on top
 	}
