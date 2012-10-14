@@ -16,11 +16,7 @@
    width="3020"
    height="2010.8708"
    sodipodi:docname="bastogne.svg"
-   onload="earl_init(this)"
    zoomAndPan="magnify">
-  <script
-     xlink:href="earl.js"
-     id="script5175" />
   <metadata
      id="metadata8">
     <rdf:RDF>

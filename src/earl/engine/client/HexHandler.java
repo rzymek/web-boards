@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -36,7 +37,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		return p;
 	}
 
-	private void moveToHex(OMSVGImageElement unit, OMSVGPathElement hex) {
+	public void moveToHex(OMSVGImageElement unit, OMSVGPathElement hex) {
 		OMSVGRect bbox = unit.getBBox();
 		OMSVGMatrix m = hex.getTransformToElement(unit);
 		OMSVGPoint to = getCenter(hex);
@@ -57,6 +58,8 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		// drawMove(earl.selectedUnit, hex);
 		moveToHex(earl.selectedUnit, hex);
 		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
+		EngineServiceAsync engine = GWT.create(EngineService.class);
+		engine.updateLocation(earl.selectedUnit.getId(), hex.getId(), new EarlCallback());
 		earl.deselectUnit();
 	}
 

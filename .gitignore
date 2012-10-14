@@ -1,2 +1,4 @@
 gwt-unitCache/
 bin/
+.metadata/
+.netrc

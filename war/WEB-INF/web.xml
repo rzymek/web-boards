@@ -16,6 +16,17 @@
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
 
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>engine</servlet-name>
+    <servlet-class>earl.engine.server.EngineServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>engine</servlet-name>
+    <url-pattern>/earl.engine.Earl/engine</url-pattern>
+  </servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
