@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	<!-- TODO: Add <servlet> tags for each servlet here. -->
-	<!-- TODO: Add <servlet-mapping> tags for each <servlet> here. -->
-	<!-- TODO: Optionally add a <welcome-file-list> tag to display a welcome file. -->
 	<servlet>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
@@ -16,18 +13,35 @@
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>engine</servlet-name>
-    <servlet-class>earl.engine.server.EngineServiceImpl</servlet-class>
-  </servlet>
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>engine</servlet-name>
+		<servlet-class>earl.engine.server.EngineServiceImpl</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>engine</servlet-name>
-    <url-pattern>/earl.engine.Earl/engine</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>engine</servlet-name>
+		<url-pattern>/earl.engine.Earl/engine</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<servlet>
+		<servlet-name>ManagerServiceImpl</servlet-name>
+		<servlet-class>earl.manager.server.ManagerServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerServiceImpl</servlet-name>
+		<url-pattern>/earl.manager.Manager/ManagerService</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/manage/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
 </web-app>
