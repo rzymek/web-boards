@@ -54,13 +54,15 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		if (earl.selectedUnit == null) {
 			return;
 		}
+		earl.deselectUnit();
 		OMSVGPathElement hex = getHex(event);
 		// drawMove(earl.selectedUnit, hex);
 		moveToHex(earl.selectedUnit, hex);
 		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
 		EngineServiceAsync engine = GWT.create(EngineService.class);
-		engine.updateLocation(earl.selectedUnit.getId(), hex.getId(), new EarlCallback());
-		earl.deselectUnit();
+		engine.updateLocation(earl.selectedUnit.getId(), 
+				hex.getId(), 
+				new EarlCallback<Void>());
 	}
 
 	protected OMSVGPathElement getHex(DomEvent<?> event) {
