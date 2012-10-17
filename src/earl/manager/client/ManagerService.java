@@ -35,7 +35,7 @@ public interface ManagerService extends RemoteService {
 		}
 	}
 
-	void startGame();
+	String startGame();
 
 	List<String> getUserTables();
 

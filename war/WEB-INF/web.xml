@@ -37,7 +37,7 @@
 	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
-			<url-pattern>/manage/*</url-pattern>
+			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>*</role-name>

@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ManagerServiceAsync {
 
-	void startGame(AsyncCallback<Void> callback);
+	void startGame(AsyncCallback<String> callback);
 
 	void getUserTables(AsyncCallback<List<String>> callback);
 

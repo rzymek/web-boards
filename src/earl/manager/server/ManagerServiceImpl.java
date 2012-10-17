@@ -18,10 +18,13 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
@@ -34,13 +37,16 @@ import earl.manager.client.ManagerService;
 public class ManagerServiceImpl extends RemoteServiceServlet implements ManagerService {
 	
 	@Override
-	public void startGame() {
+	public String startGame() {
 		String username = getCurrentUser();
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Entity table = new Entity("table");
+		String name = UUID.randomUUID().toString();
+		Key key = KeyFactory.createKey("table", name);
+		Entity table = new Entity(key);
 		table.setProperty("created", new Date());
 		table.setProperty("player1", username);
 		ds.put(table);
+		return table.getKey().getName();
 	}
 
 	protected String getCurrentUser() {

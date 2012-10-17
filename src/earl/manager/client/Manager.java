@@ -17,6 +17,7 @@ package earl.manager.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -57,17 +58,46 @@ public class Manager implements EntryPoint {
 		verticalPanel.add(started);
 		started.setWidth("100%");
 		started.setVisibleItemCount(5);
+		
+		Button continueButton = new Button("Continue");
+		continueButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				continueGame();
+			}
+		});
+		verticalPanel.add(continueButton);
 
 		Label lblInvitations = new Label("Join a new game:");
 		verticalPanel.add(lblInvitations);
-
-		invitations = new ListBox();
-		verticalPanel.add(invitations);
-		invitations.setWidth("100%");
-		invitations.setVisibleItemCount(5);
+		
+				invitations = new ListBox();
+				verticalPanel.add(invitations);
+				invitations.setWidth("100%");
+				invitations.setVisibleItemCount(5);
+		
+		Button joinButton = new Button("Join");
+		joinButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				joinGame();
+			}
+		});
+		joinButton.setEnabled(true);
+		verticalPanel.add(joinButton);
 		
 		update();
 		Window.alert("manager loaded.");
+	}
+
+	protected void joinGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void continueGame() {
+		int idx = started.getSelectedIndex();
+		String text = started.getItemText(idx);
 	}
 
 	protected void update() {
@@ -76,11 +106,14 @@ public class Manager implements EntryPoint {
 	}
 
 	public void startNewGame() {
-		manager.startGame(new ManagerCallback<Void>(){
+		manager.startGame(new ManagerCallback<String>(){
 			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Game started.");
-				update();
+			public void onSuccess(String result) {				
+				Window.alert("Game started: "+result);
+				UrlBuilder url = Window.Location.createUrlBuilder();
+				url.setPath("/");
+				url.setParameter("table", result);
+				Window.Location.assign(url.buildString());
 			}			
 		});
 	}

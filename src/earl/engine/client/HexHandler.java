@@ -54,7 +54,6 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		if (earl.selectedUnit == null) {
 			return;
 		}
-		earl.deselectUnit();
 		OMSVGPathElement hex = getHex(event);
 		// drawMove(earl.selectedUnit, hex);
 		moveToHex(earl.selectedUnit, hex);
@@ -63,6 +62,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		engine.updateLocation(earl.selectedUnit.getId(), 
 				hex.getId(), 
 				new EarlCallback<Void>());
+		earl.deselectUnit();
 	}
 
 	protected OMSVGPathElement getHex(DomEvent<?> event) {
