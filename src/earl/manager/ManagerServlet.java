@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
@@ -32,20 +34,22 @@ public class ManagerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
+		String username = getCurrentUser(req);
+		Cookie cookie = new Cookie("earl.user", username);
+		resp.addCookie(cookie);
 		if("/start".equals(pathInfo)){
-			String username = getCurrentUser(req);
 			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 			String name = UUID.randomUUID().toString();
 			Key key = KeyFactory.createKey("table", name);
 			Entity table = new Entity(key);
 			table.setProperty("created", new Date());
 			table.setProperty("player1", username);
+			table.setProperty("player2", null);
 			ds.put(table);
 			String tableId = table.getKey().getName();
 			resp.sendRedirect("/?table="+tableId+copyParams(req));
 		}else if("/join".equals(pathInfo)) {
 			try {
-				String username = getCurrentUser(req);
 				DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 				String tableId = req.getParameter("table");
 				Entity table = ds.get(KeyFactory.createKey("table", tableId));
@@ -92,16 +96,17 @@ public class ManagerServlet extends HttpServlet {
 
 	public List<Table> getStarted(HttpServletRequest req) {
 		String username = getCurrentUser(req);
-		Filter filter= new FilterPredicate("player1", FilterOperator.EQUAL, username);
-		Query query = new Query("table").setFilter(filter);
+		Filter player1 = new FilterPredicate("player1", FilterOperator.EQUAL, username);
+		Filter player2 = new FilterPredicate("player2", FilterOperator.EQUAL, username);
+		Query query = new Query("table").setFilter(CompositeFilterOperator.or(player1, player2));
 		return getTables(query, req);
 	}
 
 	public List<Table> getInvitations(HttpServletRequest req) {
-		String username = getCurrentUser(req);
 		Query q = new Query("table");
-		Filter filter = new FilterPredicate("player1", FilterOperator.NOT_EQUAL, username);
-		q.setFilter(filter);
+		Filter player1 = new FilterPredicate("player1", FilterOperator.EQUAL, null);
+		Filter player2 = new FilterPredicate("player2", FilterOperator.EQUAL, null);
+		q.setFilter(CompositeFilterOperator.or(player1, player2));
 		return getTables(q, req);
 	}
 

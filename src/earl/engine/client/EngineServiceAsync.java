@@ -11,4 +11,6 @@ public interface EngineServiceAsync {
 
 	void getUnits(AsyncCallback<Map<String, String>> callback);
 
+	void openChannel(AsyncCallback<String> callback);
+
 }

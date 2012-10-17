@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.appengine.api.channel.ChannelMessage;
+import com.google.appengine.api.channel.ChannelService;
+import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -39,8 +42,28 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 			Entity unit = new Entity("unit", unitId, tableKey);
 			unit.setProperty("position", hexId);
 			ds.put(unit);
+			
+			Entity table = ds.get(tableKey);
+			ChannelService channelService = ChannelServiceFactory.getChannelService();
+			String tableId = tableKey.getName();
+			String user = getOponent(table);
+			String clientId = (tableId+":"+user).hashCode()+"";
+			String msg = unitId+":"+hexId;
+			ChannelMessage message = new ChannelMessage(clientId, msg);
+			channelService.sendMessage(message);
 		}catch (Exception e) {
 	        throw new AssertionError(e);
+		}
+	}
+
+	private String getOponent(Entity table) {
+		String player1 = (String) table.getProperty("player1");
+		String player2 = (String) table.getProperty("player2");
+		String username = getCurrentUser();
+		if (username.equals(player1)) {
+			return player2;
+		} else {
+			return player1;
 		}
 	}
 
@@ -106,6 +129,15 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		}catch (Exception e) {
 			throw new AssertionError(e);
 		}
-		
 	}
+	
+	@Override
+	public String openChannel() {
+		String tableId = getTableId();
+		String user = getCurrentUser();
+		ChannelService service= ChannelServiceFactory.getChannelService();
+		String clientId = (tableId+":"+user).hashCode()+"";
+		return service.createChannel(clientId);
+	}
+	
 }

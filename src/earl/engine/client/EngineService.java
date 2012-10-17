@@ -10,4 +10,6 @@ public interface EngineService extends RemoteService {
 	void updateLocation(String unitId, String hexId);
 
 	Map<String, String> getUnits();
+	
+	String openChannel();
 }

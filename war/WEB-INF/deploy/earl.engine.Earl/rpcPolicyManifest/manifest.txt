@@ -1,2 +1,3 @@
 # Module earl.engine.Earl
 # RPC service class, partial path of RPC policy file
+earl.engine.client.EngineService, F860EBFD01BB15C93E19975C6704DCC1.gwt.rpc
