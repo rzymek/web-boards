@@ -35,6 +35,14 @@
 		<servlet-name>ManagerServiceImpl</servlet-name>
 		<url-pattern>/earl.manager.Manager/ManagerService</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManagerServlet</servlet-name>
+		<servlet-class>earl.manager.ManagerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerServlet</servlet-name>
+		<url-pattern>/earl/*</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>/*</url-pattern>

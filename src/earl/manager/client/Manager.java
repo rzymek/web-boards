@@ -14,16 +14,22 @@
  *******************************************************************************/
 package earl.manager.client;
 
+import java.util.List;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import earl.engine.client.Table;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -31,7 +37,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class Manager implements EntryPoint {
 	private final ManagerServiceAsync manager = ManagerService.Util.getInstance();
 	private ListBox invitations;
-	private ListBox started;
+	private VerticalPanel started;
 	
 	@Override
 	public void onModuleLoad() {
@@ -53,11 +59,9 @@ public class Manager implements EntryPoint {
 
 		Label lblYourGames = new Label("Continue your game:");
 		verticalPanel.add(lblYourGames);
-
-		started = new ListBox();
+		
+		started = new VerticalPanel();
 		verticalPanel.add(started);
-		started.setWidth("100%");
-		started.setVisibleItemCount(5);
 		
 		Button continueButton = new Button("Continue");
 		continueButton.addClickHandler(new ClickHandler() {
@@ -66,6 +70,9 @@ public class Manager implements EntryPoint {
 				continueGame();
 			}
 		});
+		
+		Hyperlink hprlnkNewHyperlink = new Hyperlink("text", false, "newHistoryToken");
+		verticalPanel.add(hprlnkNewHyperlink);
 		verticalPanel.add(continueButton);
 
 		Label lblInvitations = new Label("Join a new game:");
@@ -96,13 +103,22 @@ public class Manager implements EntryPoint {
 	}
 
 	protected void continueGame() {
-		int idx = started.getSelectedIndex();
-		String text = started.getItemText(idx);
 	}
 
 	protected void update() {
-		manager.getUserTables(new ListUpdateCallback(started));
-		manager.getInvitations(new ListUpdateCallback(invitations));
+		manager.getUserTables(new ManagerCallback<List<Table>>(){
+			@Override
+			public void onSuccess(List<Table> result) {
+				started.clear();
+				for (Table table : result) {					
+					UrlBuilder url = Window.Location.createUrlBuilder();
+					url.setParameter("table", table.id);
+					url.setPath("/");
+					Anchor link = new Anchor(table.opponent+" @ "+table.started, "/?table="+table);
+					started.add(link);
+				}
+			}
+		});
 	}
 
 	public void startNewGame() {

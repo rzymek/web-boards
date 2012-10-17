@@ -20,6 +20,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import earl.engine.client.Table;
+
 @RemoteServiceRelativePath("ManagerService")
 public interface ManagerService extends RemoteService {
 	/**
@@ -37,7 +39,7 @@ public interface ManagerService extends RemoteService {
 
 	String startGame();
 
-	List<String> getUserTables();
+	List<Table> getUserTables();
 
-	List<String> getInvitations();
+	List<Table> getInvitations();
 }
