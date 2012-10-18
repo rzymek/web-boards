@@ -6,7 +6,8 @@
 <title>Earl</title>
 </head>
 <body>
-	<a href="/earl/start?x<%=ManagerServlet.copyParams(request)%>" />Start new game
+	<a href="/earl/start?<%=ManagerServlet.copyParams(request)%>" />Start new
+	game
 	</a>
 	<br /> Your games:
 	<ul>
@@ -15,7 +16,7 @@
 			for (Table t : started) {
 		%>
 		<li><a
-			href="/?table=<%=t.id + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/game?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}
@@ -28,7 +29,7 @@
 			for (Table t : invitations) {
 		%>
 		<li><a
-			href="/earl/join?table=<%=t.id + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/earl/join?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}

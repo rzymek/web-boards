@@ -37,7 +37,7 @@ public class ManagerServlet extends HttpServlet {
 		String username = getCurrentUser(req);
 		Cookie cookie = new Cookie("earl.user", username);
 		resp.addCookie(cookie);
-		if("/start".equals(pathInfo)){
+		if ("/start".equals(pathInfo)) {
 			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 			String name = UUID.randomUUID().toString();
 			Key key = KeyFactory.createKey("table", name);
@@ -47,19 +47,19 @@ public class ManagerServlet extends HttpServlet {
 			table.setProperty("player2", null);
 			ds.put(table);
 			String tableId = table.getKey().getName();
-			resp.sendRedirect("/?table="+tableId+copyParams(req));
-		}else if("/join".equals(pathInfo)) {
+			resp.sendRedirect("/game?table=" + tableId + copyParams(req));
+		} else if ("/join".equals(pathInfo)) {
 			try {
 				DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 				String tableId = req.getParameter("table");
 				Entity table = ds.get(KeyFactory.createKey("table", tableId));
 				table.setProperty("player2", username);
 				ds.put(table);
-				resp.sendRedirect("/?table="+tableId+copyParams(req));
-			}catch (Exception e) {
+				resp.sendRedirect("/game?table=" + tableId + copyParams(req));
+			} catch (Exception e) {
 				throw new AssertionError(e);
 			}
-		}else{
+		} else {
 			List<Table> started = getStarted(req);
 			List<Table> invitations = getInvitations(req);
 			req.setAttribute("earl.started", started);
@@ -71,8 +71,8 @@ public class ManagerServlet extends HttpServlet {
 	@SuppressWarnings("deprecation")
 	public static String copyParams(HttpServletRequest req) {
 		@SuppressWarnings("unchecked")
-		Map<String,String[]> params = req.getParameterMap();
-		if(params.isEmpty()) {
+		Map<String, String[]> params = req.getParameterMap();
+		if (params.isEmpty()) {
 			return "";
 		}
 		StringBuilder buf = new StringBuilder();
@@ -80,7 +80,10 @@ public class ManagerServlet extends HttpServlet {
 			String key = URLEncoder.encode(p.getKey());
 			for (String value : p.getValue()) {
 				String v = URLEncoder.encode(value);
-				buf.append("&").append(key).append("=").append(v);				
+				if (buf.length() > 0) {
+					buf.append("&");
+				}
+				buf.append(key).append("=").append(v);
 			}
 		}
 		return buf.toString();
