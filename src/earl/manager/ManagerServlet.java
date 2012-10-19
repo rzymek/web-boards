@@ -55,7 +55,7 @@ public class ManagerServlet extends HttpServlet {
 				Entity table = ds.get(KeyFactory.createKey("table", tableId));
 				table.setProperty("player2", username);
 				ds.put(table);
-				resp.sendRedirect("/game?table=" + tableId + copyParams(req));
+				resp.sendRedirect("/game/?table=" + tableId + copyParams(req));
 			} catch (Exception e) {
 				throw new AssertionError(e);
 			}
