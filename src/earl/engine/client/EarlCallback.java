@@ -7,6 +7,7 @@ public class EarlCallback<T> implements AsyncCallback<T> {
 
 	@Override
 	public void onFailure(Throwable caught) {
+		Earl.log(caught.toString());
 		Window.alert(caught.toString());
 	}
 	

@@ -13,4 +13,6 @@ public interface EngineServiceAsync {
 
 	void openChannel(AsyncCallback<String> callback);
 
+	void roll(int d, int sides, AsyncCallback<Integer> callback);
+
 }

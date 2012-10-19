@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
@@ -24,6 +25,8 @@ import earl.engine.client.EngineService;
 
 public class EngineServiceImpl extends RemoteServiceServlet implements
 		EngineService {
+	private static Random random = new Random();
+	
 	private static final long serialVersionUID = 1L;
 	
 	protected String getCurrentUser() {
@@ -138,6 +141,15 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		ChannelService service= ChannelServiceFactory.getChannelService();
 		String clientId = (tableId+":"+user).hashCode()+"";
 		return service.createChannel(clientId);
+	}
+	
+	@Override
+	public int roll(int d, int sides) {
+		int sum = 0;
+		for(int i=0;i<d;++i) {
+			sum += random.nextInt(sides)+1;
+		}
+		return sum;
 	}
 	
 }

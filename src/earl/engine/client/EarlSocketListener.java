@@ -2,7 +2,6 @@ package earl.engine.client;
 
 import com.google.gwt.appengine.channel.client.SocketError;
 import com.google.gwt.appengine.channel.client.SocketListener;
-import com.google.gwt.user.client.Window;
 
 public class EarlSocketListener implements SocketListener {
 
@@ -14,7 +13,7 @@ public class EarlSocketListener implements SocketListener {
 
 	@Override
 	public void onOpen() {
-		Window.alert("Channel opened");
+		Earl.log("Channel opened");
 	}
 
 	@Override
@@ -23,16 +22,17 @@ public class EarlSocketListener implements SocketListener {
 		String unitId = split[0].trim();
 		String hexId = split[1].trim();
 		earl.moveToHex(unitId, hexId);
+		Earl.log("Recevied update: "+unitId+" -> "+hexId);
 	}
 
 	@Override
 	public void onError(SocketError error) {
-		Window.alert(error.getDescription());
+		Earl.log("Channel error: "+error.getCode()+":"+error.getDescription());
 	}
 
 	@Override
 	public void onClose() {
-		Window.alert("Channel closed");
+		Earl.log("Channel closed.");
 	}
 
 }

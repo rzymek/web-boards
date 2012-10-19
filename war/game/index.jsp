@@ -6,7 +6,7 @@
 	<frame name="engine" src="engine.html?<%=request.getQueryString()%>"
 		marginheight="0" marginwidth="0" scrolling="no" noresize>
 	<frame name="view" src="../bastogne/bastogne-opt.svg" marginheight="0"
-		marginwidth="0">
+		marginwidth="0" scrolling="auto">
 	<noframes>Frame support required.
 	</noframes>
 </frameset>

@@ -12,4 +12,6 @@ public interface EngineService extends RemoteService {
 	Map<String, String> getUnits();
 	
 	String openChannel();
+	
+	int roll(int d, int sides);
 }

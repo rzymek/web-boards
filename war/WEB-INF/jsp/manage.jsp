@@ -16,7 +16,7 @@
 			for (Table t : started) {
 		%>
 		<li><a
-			href="/game?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/game/?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}
