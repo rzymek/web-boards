@@ -4,6 +4,7 @@ import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGStyle;
 
+import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,6 +36,7 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 		earl.deselectUnit();
 		OMSVGImageElement unit = getUnit(event);
 		if (last == unit) {
+			flip(last);
 			return;
 		}
 		earl.selectedUnit = unit;
@@ -43,7 +45,39 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 		style.setOutlineStyle(OutlineStyle.SOLID);
 		style.setOutlineWidth(5.0, Unit.PX);
 		style.setOpacity(0.8);
-		unit.getParentNode().appendChild(unit);//move on top
+		style.setBorderStyle(BorderStyle.SOLID);
+		style.setBorderWidth(3.0, Unit.PX);
+		style.setBorderColor("green");
+		unit.getParentNode().appendChild(unit);// move on top
+	}
+
+	private void flip(OMSVGImageElement unit) {
+		Earl.log(unit.getId()+" flipped.");
+		String src = unit.getHref().getBaseVal();
+		String earlFlipped = unit.getAttribute("earlFlipped");
+		unit.setAttribute("earlFlipped", src);
+		if("".equals(earlFlipped) || earlFlipped==null) {
+			src = flip(src);
+		}else{
+			src = earlFlipped;
+		}
+		unit.getHref().setBaseVal(src);
+	}
+
+	public static void main(String[] args) {
+		String s = flip("units/front/2_3-1-8+5FJ_4-I-14_f.png");
+		System.out.println(s);
+	}
+
+	protected static String flip(String src) {
+		if (src.endsWith("_f.png")) {
+			String dir = src.substring(0,src.lastIndexOf('/')+1);
+			src = src.substring(src.lastIndexOf('+') + 1);
+			src = src.replace("_f.png", "_b.png");
+			dir = dir.replace("/front/", "/back/");
+			src = dir + src;
+		}
+		return src;
 	}
 
 	private OMSVGImageElement getUnit(ClickEvent event) {

@@ -23,6 +23,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,6 +41,7 @@ public class Earl implements EntryPoint {
 		}
 		OMSVGStyle style = selectedUnit.getStyle();
 		style.setOutlineStyle(OutlineStyle.NONE);
+		style.setBorderStyle(BorderStyle.NONE);
 		style.setOpacity(1);
 		selectedUnit = null;
 	}
