@@ -28,6 +28,7 @@ import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 
 public class Earl implements EntryPoint {
 	public OMSVGImageElement selectedUnit = null;
@@ -90,17 +91,13 @@ public class Earl implements EntryPoint {
 		OMSVGElement loadingLayer = OMSVGDocument.convert(svg.getElementById("loadingLayer"));
 		loadingLayer.getStyle().setVisibility(Visibility.HIDDEN);
 		
-		engine.openChannel(new EarlCallback<String>(){
+		String token = Window.Location.getParameter("token");
+		ChannelFactory.createChannel(token, new ChannelCreatedCallback() {			
 			@Override
-			public void onSuccess(String token) {
-				ChannelFactory.createChannel(token, new ChannelCreatedCallback() {			
-					@Override
-					public void onChannelCreated(Channel channel) {
-						channel.open(new EarlSocketListener(Earl.this));
-					}
-				});				
-			};
-		});
+			public void onChannelCreated(Channel channel) {
+				channel.open(new EarlSocketListener(Earl.this));
+			}
+		});				
 		OMSVGGElement roll = OMSVGDocument.convert(svg.getElementById("roll"));
 		roll.addClickHandler(new ClickHandler() {			
 			@Override

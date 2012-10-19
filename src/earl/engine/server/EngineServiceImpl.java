@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
@@ -44,18 +45,25 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 			Key tableKey = getTableKey();
 			Entity unit = new Entity("unit", unitId, tableKey);
 			unit.setProperty("position", hexId);
-			ds.put(unit);
-			
-			Entity table = ds.get(tableKey);
-			ChannelService channelService = ChannelServiceFactory.getChannelService();
+			ds.put(unit);			
 			String tableId = tableKey.getName();
-			String user = getOponent(table);
-			String clientId = (tableId+":"+user).hashCode()+"";
 			String msg = unitId+":"+hexId;
-			ChannelMessage message = new ChannelMessage(clientId, msg);
-			channelService.sendMessage(message);
+			notifyListeners(tableId, msg);
 		}catch (Exception e) {
 	        throw new AssertionError(e);
+		}
+	}
+
+	private static void notifyListeners(String tableId, String msg) {
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Key table = KeyFactory.createKey("table", tableId);
+		Query query = new Query("listener").setAncestor(table);
+		Iterable<Entity> results = ds.prepare(query).asIterable();
+		ChannelService channelService = ChannelServiceFactory.getChannelService();
+		for (Entity entity : results) {
+			String clientId = entity.getKey().getName();			
+			ChannelMessage message = new ChannelMessage(clientId, msg);
+			channelService.sendMessage(message);
 		}
 	}
 
@@ -141,6 +149,18 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		ChannelService service= ChannelServiceFactory.getChannelService();
 		String clientId = (tableId+":"+user).hashCode()+"";
 		return service.createChannel(clientId);
+	}
+	
+	public static String joinChannel(String tableId) {
+		ChannelService service= ChannelServiceFactory.getChannelService();
+		String clientId = UUID.randomUUID().toString();
+		String token = service.createChannel(clientId);
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Entity listener = new Entity("listener", clientId, KeyFactory.createKey("table", tableId));		
+		listener.setProperty("token", token);
+		ds.put(listener);
+		notifyListeners(tableId, "client connected");
+		return token;
 	}
 	
 	@Override

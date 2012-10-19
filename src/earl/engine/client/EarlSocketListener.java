@@ -14,6 +14,7 @@ public class EarlSocketListener implements SocketListener {
 	@Override
 	public void onOpen() {
 		Earl.log("Channel opened");
+		
 	}
 
 	@Override
