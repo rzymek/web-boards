@@ -154,7 +154,9 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		return service.createChannel(clientId);
 	}
 	
-	public static String joinChannel(String tableId) {
+	@Override
+	public String joinChannel() {
+		String tableId = getTableId();
 		ChannelService service= ChannelServiceFactory.getChannelService();
 		String clientId = UUID.randomUUID().toString();
 		String token = service.createChannel(clientId);

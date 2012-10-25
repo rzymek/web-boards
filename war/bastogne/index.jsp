@@ -10,13 +10,9 @@
 </head>
 <body>
 <%
-InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne-opt.svg");
+InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne5.2.svg");
 IOUtils.copy(in,out);
 %>
-<%/*
-String table = request.getParameter("table");
-String token = earl.engine.server.EngineServiceImpl.joinChannel(table);
-*/%>
 <pre id="log">Loading...
 </pre>
 </body>

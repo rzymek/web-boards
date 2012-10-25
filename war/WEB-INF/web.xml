@@ -31,6 +31,7 @@
 	<servlet-mapping>
 		<servlet-name>ManagerServlet</servlet-name>
 		<url-pattern>/earl/*</url-pattern>
+		<url-pattern>/_ah/channel/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

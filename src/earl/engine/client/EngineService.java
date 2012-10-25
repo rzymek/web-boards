@@ -14,4 +14,6 @@ public interface EngineService extends RemoteService {
 	String openChannel();
 	
 	int roll(int d, int sides);
+
+	String joinChannel();
 }

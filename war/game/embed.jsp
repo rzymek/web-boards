@@ -10,10 +10,6 @@
 </head>
 <body>
 <embed id="view" src="../bastogne/bastogne-opt.svg"></embed>
-<%/*
-String table = request.getParameter("table");
-String token = earl.engine.server.EngineServiceImpl.joinChannel(table);
-*/%>
 <pre id="log">Loading...
 </pre>
 </body>

@@ -5,13 +5,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
-import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGStyle;
-import org.vectomatic.dom.svg.OMSVGTSpanElement;
-import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -25,11 +21,7 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
-import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 
 public class Earl implements EntryPoint {
 	public OMSVGImageElement selectedUnit = null;
@@ -94,26 +86,13 @@ public class Earl implements EntryPoint {
 				}
 			}
 		});
-		OMSVGElement loadingLayer = OMSVGDocument.convert(svg.getElementById("loadingLayer"));
-		loadingLayer.getStyle().setVisibility(Visibility.HIDDEN);
-
-		String token = Window.Location.getParameter("token");
-		if(token != null) {
-			ChannelFactory.createChannel(token, new ChannelCreatedCallback() {
-				@Override
-				public void onChannelCreated(Channel channel) {
-					channel.open(new EarlSocketListener(Earl.this));
-				}
-			});
-		}
-		OMSVGGElement roll = OMSVGDocument.convert(svg.getElementById("roll"));
-		roll.addClickHandler(new ClickHandler() {
+		engine.joinChannel(new EarlCallback<String>(){
 			@Override
-			public void onClick(ClickEvent event) {
-				engine.roll(1, 6, new EarlCallback<Integer>() {
+			public void onSuccess(String token) {
+				ChannelFactory.createChannel(token, new ChannelCreatedCallback() {
 					@Override
-					public void onSuccess(Integer result) {
-						log("1d6:" + result);
+					public void onChannelCreated(Channel channel) {
+						channel.open(new EarlSocketListener(Earl.this));
 					}
 				});
 			}
@@ -133,20 +112,7 @@ public class Earl implements EntryPoint {
 		try {
 			com.google.gwt.user.client.Element log = DOM.getElementById("log");
 			Node text = createTextNode(s + "\n");
-			log.appendChild(text);
-		} catch (Exception e) {
-			console(e);
-		}
-		try {
-			SVGSVGElement svg = getSVG();
-			OMSVGTextElement console = OMSVGDocument.convert(svg.getElementById("console"));
-			OMSVGDocument svgDoc = OMSVGDocument.convert(svg);
-			OMSVGTSpanElement newLine = svgDoc.createSVGTSpanElement();
-			newLine.appendChild(svgDoc.createTextNode(s));
-
-			newLine.setAttribute("x", console.getX().getBaseVal().iterator().next().getValueAsString());
-			newLine.setAttribute("dy", "15");
-			console.appendChild(newLine);
+			log.insertFirst(text);
 		} catch (Exception e) {
 			console(e);
 		}
