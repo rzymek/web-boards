@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
@@ -20,12 +19,10 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import earl.engine.client.EngineService;
+import earl.engine.client.data.GameInfo;
 
 public class EngineServiceImpl extends RemoteServiceServlet implements
 		EngineService {
@@ -58,16 +55,10 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 	}
 
 	private static void notifyListeners(String tableId, String msg) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Filter filter = new FilterPredicate("table", FilterOperator.EQUAL, tableId);
-		Query query = new Query("listener").setFilter(filter);
-		Iterable<Entity> results = ds.prepare(query).asIterable();
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
-		for (Entity entity : results) {
-			String clientId = entity.getKey().getName();
-			ChannelMessage message = new ChannelMessage(clientId, msg);
-			channelService.sendMessage(message);
-		}
+		String clientId = tableId;
+		ChannelMessage message = new ChannelMessage(clientId, msg);
+		channelService.sendMessage(message);
 	}
 
 	private String getOponent(Entity table) {
@@ -127,8 +118,8 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 	        throw new AssertionError(ex);
 	    }
 	}
-	@Override
-	public Map<String, String> getUnits() {
+
+	private Map<String, String> getUnits() {
 		try {
 			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 			Query q = new Query("unit").setAncestor(getTableKey());
@@ -145,37 +136,31 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
-	@Override
-	public String openChannel() {
-		String tableId = getTableId();
-		String user = getCurrentUser();
-		ChannelService service= ChannelServiceFactory.getChannelService();
-		String clientId = (tableId+":"+user).hashCode()+"";
-		return service.createChannel(clientId);
-	}
-	
-	@Override
-	public String joinChannel() {
+	private String joinChannel() {
 		String tableId = getTableId();
 		ChannelService service= ChannelServiceFactory.getChannelService();
-		String clientId = UUID.randomUUID().toString();
-		String token = service.createChannel(clientId);
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Entity listener = new Entity("listener", clientId);		
-		listener.setProperty("token", token);
-		listener.setProperty("table", tableId);
-		ds.put(listener);
 		notifyListeners(tableId, "client connected");
+		String token = service.createChannel(tableId);
 		return token;
 	}
 	
 	@Override
 	public int roll(int d, int sides) {
+		String tableId = getTableId();
 		int sum = 0;
 		for(int i=0;i<d;++i) {
 			sum += random.nextInt(sides)+1;
 		}
+		notifyListeners(tableId, d+"D"+sides+" = ");
 		return sum;
+	}
+	
+	@Override
+	public GameInfo connect() {
+		GameInfo info = new GameInfo();
+		info.channelToken = joinChannel();
+		info.units = getUnits();
+		return info;
 	}
 	
 }

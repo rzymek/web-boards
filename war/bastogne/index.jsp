@@ -13,7 +13,6 @@
 InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne5.2.svg");
 IOUtils.copy(in,out);
 %>
-<pre id="log">Loading...
-</pre>
+<pre id="log">Loading...</pre>
 </body>
 </html>

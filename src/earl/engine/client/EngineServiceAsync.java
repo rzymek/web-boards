@@ -1,20 +1,15 @@
 package earl.engine.client;
 
-import java.util.Map;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import earl.engine.client.data.GameInfo;
 
 public interface EngineServiceAsync {
 
-	void updateLocation(String unitId, String hexId,
-			AsyncCallback<Void> callback);
-
-	void getUnits(AsyncCallback<Map<String, String>> callback);
-
-	void openChannel(AsyncCallback<String> callback);
+	void updateLocation(String unitId, String hexId, AsyncCallback<Void> callback);
 
 	void roll(int d, int sides, AsyncCallback<Integer> callback);
 
-	void joinChannel(AsyncCallback<String> callback);
+	void connect(AsyncCallback<GameInfo> callback);
 
 }

@@ -1,7 +1,9 @@
-package earl.engine.client;
+package earl.engine.client.utils;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import earl.engine.client.Earl;
 
 public class EarlCallback<T> implements AsyncCallback<T> {
 

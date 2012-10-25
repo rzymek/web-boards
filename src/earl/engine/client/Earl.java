@@ -23,6 +23,12 @@ import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.user.client.DOM;
 
+import earl.engine.client.data.GameInfo;
+import earl.engine.client.handlers.HexHandler;
+import earl.engine.client.handlers.UnitHandler;
+import earl.engine.client.utils.EarlCallback;
+import earl.engine.client.utils.EarlChannelListener;
+
 public class Earl implements EntryPoint {
 	public OMSVGImageElement selectedUnit = null;
 	public SVGSVGElement svg;
@@ -40,12 +46,11 @@ public class Earl implements EntryPoint {
 		selectedUnit = null;
 	}
 
-	
 	@Override
 	public void onModuleLoad() {
 		init();
 	}
-		
+
 	public void init() {
 		svg = getSVG();
 		log("Setting up hexes...");
@@ -73,30 +78,34 @@ public class Earl implements EntryPoint {
 				unit.addMouseOutHandler(unitHandler);
 			}
 		}
-		log("Restoring state...");
+		log("Connecting to game server...");
 		final EngineServiceAsync engine = GWT.create(EngineService.class);
-		engine.getUnits(new EarlCallback<Map<String, String>>() {
+		engine.connect(new EarlCallback<GameInfo>() {
 			@Override
-			public void onSuccess(Map<String, String> result) {
-				Set<Entry<String, String>> units = result.entrySet();
-				for (Entry<String, String> unit : units) {
-					String unitId = unit.getKey();
-					String hexId = unit.getValue();
-					moveToHex(unitId, hexId);
-				}
+			public void onSuccess(GameInfo result) {
+				updateUnits(result.units);
+				joinChannel(result.channelToken);
 			}
 		});
-		engine.joinChannel(new EarlCallback<String>(){
+		log("Ready.");
+	}
+
+	protected void joinChannel(String token) {
+		ChannelFactory.createChannel(token, new ChannelCreatedCallback() {
 			@Override
-			public void onSuccess(String token) {
-				ChannelFactory.createChannel(token, new ChannelCreatedCallback() {
-					@Override
-					public void onChannelCreated(Channel channel) {
-						channel.open(new EarlSocketListener(Earl.this));
-					}
-				});
+			public void onChannelCreated(Channel channel) {
+				channel.open(new EarlChannelListener(Earl.this));
 			}
 		});
+	}
+
+	protected void updateUnits(Map<String, String> result) {
+		Set<Entry<String, String>> units = result.entrySet();
+		for (Entry<String, String> unit : units) {
+			String unitId = unit.getKey();
+			String hexId = unit.getValue();
+			moveToHex(unitId, hexId);
+		}
 	}
 
 	public void moveToHex(String unitId, String hexId) {
@@ -108,7 +117,7 @@ public class Earl implements EntryPoint {
 
 	public static void log(String s) {
 		console(s);
-		
+
 		try {
 			com.google.gwt.user.client.Element log = DOM.getElementById("log");
 			Node text = createTextNode(s + "\n");
@@ -116,7 +125,7 @@ public class Earl implements EntryPoint {
 		} catch (Exception e) {
 			console(e);
 		}
-	}		
+	}
 
 	public native static Element createTextNode(String text) /*-{
 		return $doc.createTextNode(text);
@@ -128,30 +137,29 @@ public class Earl implements EntryPoint {
 		}
 	}-*/;
 
-
-	
 	public static native SVGSVGElement getSVG() /*-{
 		var s;
-		if($wnd.parent.view) {
+		if ($wnd.parent.view) {
 			//frames
-			console.log("frames:"+$wnd.parent.view);
+			console.log("frames:" + $wnd.parent.view);
 			s = $wnd.parent.view.getSVGDocument();
-			if(s) {
+			if (s) {
 				console.log("embed");
-			}else{
+			} else {
 				console.log("frames");
-		 		s = $wnd.parent.view.document;
-			}		 	
-		}else{
+				s = $wnd.parent.view.document;
+			}
+		} else {
 			console.log("inline");
 			//inline
-			s = $doc.getElementsByTagNameNS("http://www.w3.org/2000/svg", "svg")[0];
+			s = $doc
+					.getElementsByTagNameNS("http://www.w3.org/2000/svg", "svg")[0];
 		}
-	 	console.log("getSVG="+s);
-	 	return s;
-//		return $wnd.document.getElementById('content').getSVGDocument();
-// 		return $doc.getElementById("content").getSVGDocument();
-//		return Document.get().getElementsByTagName("svg").getItem(0);
+		console.log("getSVG=" + s);
+		return s;
+		//		return $wnd.document.getElementById('content').getSVGDocument();
+		// 		return $doc.getElementById("content").getSVGDocument();
+		//		return Document.get().getElementsByTagName("svg").getItem(0);
 	}-*/;
 
 }

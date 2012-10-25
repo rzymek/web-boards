@@ -1,4 +1,4 @@
-package earl.engine.client;
+package earl.manager;
 
 import java.util.Date;
 

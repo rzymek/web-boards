@@ -1,20 +1,21 @@
-package earl.engine.client;
+package earl.engine.client.utils;
 
 import com.google.gwt.appengine.channel.client.SocketError;
 import com.google.gwt.appengine.channel.client.SocketListener;
 
-public class EarlSocketListener implements SocketListener {
+import earl.engine.client.Earl;
+
+public class EarlChannelListener implements SocketListener {
 
 	private final Earl earl;
 
-	public EarlSocketListener(Earl earl) {
+	public EarlChannelListener(Earl earl) {
 		this.earl = earl;
 	}
 
 	@Override
 	public void onOpen() {
-		Earl.log("Channel opened");
-		
+		Earl.log("Channel opened");		
 	}
 
 	@Override

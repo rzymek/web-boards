@@ -30,7 +30,6 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-import earl.engine.client.Table;
 
 public class ManagerServlet extends HttpServlet {
 

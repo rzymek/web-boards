@@ -1,4 +1,4 @@
-package earl.engine.client;
+package earl.engine.client.handlers;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -13,6 +13,8 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+
+import earl.engine.client.Earl;
 
 public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHandler {
 

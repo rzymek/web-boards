@@ -1,5 +1,5 @@
 <%@page import="earl.manager.ManagerServlet"%>
-<%@page import="earl.engine.client.Table"%>
+<%@page import="earl.manager.Table"%>
 <%@page import="java.util.List"%>
 <html>
 <head>

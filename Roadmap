@@ -1,3 +1,8 @@
 vassal functionality
-build time game tools		
+	online notification (channel api)
+	offline (email/xmpp) notification (presence support)
+	2d6 roll
+	stacking
+	flipping
+build-time game tools		
 game rules implementation
