@@ -57,6 +57,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		OMSVGPathElement hex = getHex(event);
 		// drawMove(earl.selectedUnit, hex);
 		moveToHex(earl.selectedUnit, hex);
+		Earl.log(earl.selectedUnit.getId() + " ->" + hex.getId());
 		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
 		EngineServiceAsync engine = GWT.create(EngineService.class);
 		engine.updateLocation(earl.selectedUnit.getId(), 

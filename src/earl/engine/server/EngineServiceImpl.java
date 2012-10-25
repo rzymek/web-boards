@@ -20,6 +20,9 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import earl.engine.client.EngineService;
@@ -56,12 +59,12 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 
 	private static void notifyListeners(String tableId, String msg) {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key table = KeyFactory.createKey("table", tableId);
-		Query query = new Query("listener").setAncestor(table);
+		Filter filter = new FilterPredicate("table", FilterOperator.EQUAL, tableId);
+		Query query = new Query("listener").setFilter(filter);
 		Iterable<Entity> results = ds.prepare(query).asIterable();
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
 		for (Entity entity : results) {
-			String clientId = entity.getKey().getName();			
+			String clientId = entity.getKey().getName();
 			ChannelMessage message = new ChannelMessage(clientId, msg);
 			channelService.sendMessage(message);
 		}
@@ -156,8 +159,9 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		String clientId = UUID.randomUUID().toString();
 		String token = service.createChannel(clientId);
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Entity listener = new Entity("listener", clientId, KeyFactory.createKey("table", tableId));		
+		Entity listener = new Entity("listener", clientId);		
 		listener.setProperty("token", token);
+		listener.setProperty("table", tableId);
 		ds.put(listener);
 		notifyListeners(tableId, "client connected");
 		return token;

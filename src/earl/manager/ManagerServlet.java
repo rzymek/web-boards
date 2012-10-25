@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.channel.ChannelPresence;
+import com.google.appengine.api.channel.ChannelService;
+import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -47,7 +50,7 @@ public class ManagerServlet extends HttpServlet {
 			table.setProperty("player2", null);
 			ds.put(table);
 			String tableId = table.getKey().getName();
-			resp.sendRedirect("/game?table=" + tableId + copyParams(req));
+			resp.sendRedirect("/bastogne/?table=" + tableId + copyParams(req));
 		} else if ("/join".equals(pathInfo)) {
 			try {
 				DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
@@ -55,7 +58,7 @@ public class ManagerServlet extends HttpServlet {
 				Entity table = ds.get(KeyFactory.createKey("table", tableId));
 				table.setProperty("player2", username);
 				ds.put(table);
-				resp.sendRedirect("/game/?table=" + tableId + copyParams(req));
+				resp.sendRedirect("/bastogne/?table=" + tableId + copyParams(req));
 			} catch (Exception e) {
 				throw new AssertionError(e);
 			}
@@ -65,6 +68,18 @@ public class ManagerServlet extends HttpServlet {
 			req.setAttribute("earl.started", started);
 			req.setAttribute("earl.invitations", invitations);
 			req.getRequestDispatcher("/WEB-INF/jsp/manage.jsp").forward(req, resp);
+		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String requestURI = req.getRequestURI();
+		if(" /_ah/channel/disconnected/".equals(requestURI)){
+			ChannelService channelService = ChannelServiceFactory.getChannelService();
+			ChannelPresence presence = channelService.parsePresence(req);
+			String clientId = presence.clientId();
+			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+			ds.delete(KeyFactory.createKey("listener", clientId));
 		}
 	}
 

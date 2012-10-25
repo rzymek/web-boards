@@ -71,11 +71,11 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 
 	protected static String flip(String src) {
 		if (src.endsWith("_f.png")) {
-			String dir = src.substring(0,src.lastIndexOf('/')+1);
-			src = src.substring(src.lastIndexOf('+') + 1);
-			src = src.replace("_f.png", "_b.png");
-			dir = dir.replace("/front/", "/back/");
-			src = dir + src;
+//			String dir = src.substring(0, src.lastIndexOf('/') + 1);
+//			src = src.substring(src.lastIndexOf('+') + 1);
+//			src = src.replace("_f.png", "_b.png");
+//			dir = dir.replace("/front/", "/back/");
+//			src = dir + src;
 		}
 		return src;
 	}

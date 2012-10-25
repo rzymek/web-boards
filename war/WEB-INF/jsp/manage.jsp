@@ -16,7 +16,7 @@
 			for (Table t : started) {
 		%>
 		<li><a
-			href="/game/?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/bastogne/?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}
@@ -29,7 +29,7 @@
 			for (Table t : invitations) {
 		%>
 		<li><a
-			href="/earl/join?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/bastogne/join?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}
