@@ -66,20 +66,22 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 		unit.getHref().setBaseVal(src);
 	}
 
-	public static void main(String[] args) {
-		String s = flip("units/front/2_3-1-8+5FJ_4-I-14_f.png");
-		System.out.println(s);
-	}
-
-	protected static String flip(String src) {
-		if (src.endsWith("_f.png")) {
+	protected String flip(String src) {
+		String name = src.substring("units/".length());
+		String back = earl.getGameInfo().sides.get(name);
+		if(back != null) {
+			return "units/"+back;
+		}else{
+			return src;
+		}
+//		if (src.endsWith("_f.png")) {
 //			String dir = src.substring(0, src.lastIndexOf('/') + 1);
 //			src = src.substring(src.lastIndexOf('+') + 1);
 //			src = src.replace("_f.png", "_b.png");
 //			dir = dir.replace("/front/", "/back/");
 //			src = dir + src;
-		}
-		return src;
+//		}
+//		return src;
 	}
 
 	private OMSVGImageElement getUnit(ClickEvent event) {

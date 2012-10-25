@@ -1,5 +1,7 @@
 package earl.engine.server;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Principal;
@@ -8,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import org.apache.commons.io.IOUtils;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
@@ -159,8 +163,32 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 	public GameInfo connect() {
 		GameInfo info = new GameInfo();
 		info.channelToken = joinChannel();
-		info.units = getUnits();
+		info.units = getUnits();	
+		info.sides = getSides();
 		return info;
+	}
+
+	private Map<String,String> getSides() {
+		try {
+			Map<String, String> sides = new HashMap<String, String>();
+			InputStream in = getServletContext().getResourceAsStream("/bastogne/units/units.txt");
+			@SuppressWarnings("unchecked")
+			List<String> lines = IOUtils.readLines(in);
+			for (String line : lines) {
+				if(line.trim().isEmpty() || line.startsWith("#")) {
+					continue;
+				}
+				System.out.println(line);
+				String[] split = line.split("=");
+				if(split.length != 2) {
+					continue;
+				}
+				sides.put(split[0], split[1]);
+			}
+			return sides;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }

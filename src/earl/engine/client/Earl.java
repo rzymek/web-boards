@@ -22,6 +22,7 @@ import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.engine.client.data.GameInfo;
 import earl.engine.client.handlers.HexHandler;
@@ -34,6 +35,7 @@ public class Earl implements EntryPoint {
 	public SVGSVGElement svg;
 	public final HexHandler hexHandler = new HexHandler(this);
 	public final UnitHandler unitHandler = new UnitHandler(this);
+	private GameInfo gameInfo;
 
 	public void deselectUnit() {
 		if (selectedUnit == null) {
@@ -48,6 +50,7 @@ public class Earl implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
+		RootPanel rootPanel = RootPanel.get();
 		init();
 	}
 
@@ -85,6 +88,7 @@ public class Earl implements EntryPoint {
 			public void onSuccess(GameInfo result) {
 				updateUnits(result.units);
 				joinChannel(result.channelToken);
+				gameInfo = result;
 			}
 		});
 		log("Ready.");
@@ -114,10 +118,13 @@ public class Earl implements EntryPoint {
 		OMSVGPathElement svghex = OMSVGDocument.convert(svg.getElementById(hexId));
 		hexHandler.moveToHex(svgunit, svghex);
 	}
+	
+	public GameInfo getGameInfo() {
+		return gameInfo;
+	}
 
 	public static void log(String s) {
 		console(s);
-
 		try {
 			com.google.gwt.user.client.Element log = DOM.getElementById("log");
 			Node text = createTextNode(s + "\n");
