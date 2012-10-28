@@ -6,10 +6,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 
@@ -23,6 +26,8 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import earl.engine.client.EngineService;
@@ -56,13 +61,6 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		}catch (Exception e) {
 	        throw new AssertionError(e);
 		}
-	}
-
-	private static void notifyListeners(String tableId, String msg) {
-		ChannelService channelService = ChannelServiceFactory.getChannelService();
-		String clientId = tableId;
-		ChannelMessage message = new ChannelMessage(clientId, msg);
-		channelService.sendMessage(message);
 	}
 
 	private String getOponent(Entity table) {
@@ -139,12 +137,46 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 			throw new AssertionError(e);
 		}
 	}
+	public static void notifyListeners(String tableId, String msg) {
+		ChannelService channelService = ChannelServiceFactory.getChannelService();
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Filter filter = new Query.FilterPredicate("table", FilterOperator.EQUAL, tableId);
+		Query query = new Query("listener").setFilter(filter);
+		Iterable<Entity> results = ds.prepare(query).asIterable();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.HOUR, -2);
+		Date timeout = cal.getTime();
+		List<Key> delete = new ArrayList<Key>();
+		for (Entity entity : results) {
+			Date created = (Date) entity.getProperty("created");
+			if(created.compareTo(timeout) <= 0) {
+				delete.add(entity.getKey());
+			}else{
+				String clientId = entity.getKey().getName();
+				ChannelMessage message = new ChannelMessage(clientId, msg);
+				System.out.println("sending to "+clientId);
+				channelService.sendMessage(message);
+			}
+		}
+		System.out.println("notifyListeners: done");		
+		ds.delete(delete);
+	}
+
 	
 	private String joinChannel() {
 		String tableId = getTableId();
+		String user = getCurrentUser();
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		String clientId = UUID.randomUUID().toString();
+		Entity listener = new Entity(KeyFactory.createKey("listener", clientId));
+		listener.setProperty("table", tableId);
+		listener.setProperty("user", user);
+		listener.setProperty("created", new Date());
+		ds.put(listener);
 		ChannelService service= ChannelServiceFactory.getChannelService();
-		notifyListeners(tableId, "client connected");
-		String token = service.createChannel(tableId);
+		String token = service.createChannel(clientId);
+		System.out.println("client connected: "+clientId+" token="+token);
+		notifyListeners(tableId, "Client connected");
 		return token;
 	}
 	
@@ -155,7 +187,7 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 		for(int i=0;i<d;++i) {
 			sum += random.nextInt(sides)+1;
 		}
-		notifyListeners(tableId, d+"D"+sides+" = ");
+		notifyListeners(tableId, d+"d"+sides+" = "+sum);
 		return sum;
 	}
 	
@@ -178,7 +210,6 @@ public class EngineServiceImpl extends RemoteServiceServlet implements
 				if(line.trim().isEmpty() || line.startsWith("#")) {
 					continue;
 				}
-				System.out.println(line);
 				String[] split = line.split("=");
 				if(split.length != 2) {
 					continue;

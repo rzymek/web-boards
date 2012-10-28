@@ -1,4 +1,6 @@
 vassal functionality
+   Admin markers
+   Removing
 	online notification (channel api)
 	offline (email/xmpp) notification (presence support)
 	2d6 roll

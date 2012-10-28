@@ -5,9 +5,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
+import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGStyle;
+import org.vectomatic.dom.svg.impl.SVGGElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -21,7 +23,11 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.OutlineStyle;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.engine.client.data.GameInfo;
@@ -35,6 +41,7 @@ public class Earl implements EntryPoint {
 	public SVGSVGElement svg;
 	public final HexHandler hexHandler = new HexHandler(this);
 	public final UnitHandler unitHandler = new UnitHandler(this);
+	private EngineServiceAsync engine;
 	private GameInfo gameInfo;
 
 	public void deselectUnit() {
@@ -50,7 +57,27 @@ public class Earl implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		RootPanel rootPanel = RootPanel.get();
+		RootPanel rootPanel = RootPanel.get("controls");
+		rootPanel.getElement().getStyle().setPosition(Position.RELATIVE);
+		
+		final Button btnNewButton = new Button("Roll 2d6");
+		btnNewButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				btnNewButton.setEnabled(false);
+				engine.roll(2, 6, new EarlCallback<Integer>(){
+					@Override
+					public void onSuccess(Integer result) {
+						btnNewButton.setEnabled(true);
+					}
+					@Override
+					public void onFailure(Throwable caught) {
+						onSuccess(null);
+					};					
+				});
+			}
+		});
+		rootPanel.add(btnNewButton, 10, 10);
 		init();
 	}
 
@@ -58,14 +85,24 @@ public class Earl implements EntryPoint {
 		svg = getSVG();
 		log("Setting up hexes...");
 		NodeList<Element> hexes = svg.getElementById("area").getElementsByTagName("path");
-		for (int i = 0; i < hexes.getLength(); ++i) {
-			SVGPathElement item = (SVGPathElement) hexes.getItem(i);
+		for (int i = 0; i < hexes.getLength(); ++i) {			
+			Element element = hexes.getItem(i);
+			SVGPathElement item = (SVGPathElement) element;
 			OMSVGPathElement hex = OMSVGDocument.convert(item);
 			hex.addMouseOverHandler(hexHandler);
 			hex.addMouseOutHandler(hexHandler);
 			hex.addClickHandler(hexHandler);
 		}
-
+		
+		hexes = svg.getElementById("area").getElementsByTagName("g");
+		for (int i = 0; i < hexes.getLength(); ++i) {			
+			Element element = hexes.getItem(i);
+			OMSVGGElement hex = OMSVGDocument.convert((SVGGElement)element);
+			hex.addMouseOverHandler(hexHandler);
+			hex.addMouseOutHandler(hexHandler);
+			hex.addClickHandler(hexHandler);
+		}
+		
 		log("Setting up units...");
 		NodeList<Element> units = svg.getElementById("units").getElementsByTagName("image");
 		for (int i = 0; i < units.getLength(); ++i) {
@@ -82,10 +119,11 @@ public class Earl implements EntryPoint {
 			}
 		}
 		log("Connecting to game server...");
-		final EngineServiceAsync engine = GWT.create(EngineService.class);
+		engine = GWT.create(EngineService.class);
 		engine.connect(new EarlCallback<GameInfo>() {
 			@Override
 			public void onSuccess(GameInfo result) {
+				log("Connected.");
 				updateUnits(result.units);
 				joinChannel(result.channelToken);
 				gameInfo = result;
@@ -94,10 +132,11 @@ public class Earl implements EntryPoint {
 		log("Ready.");
 	}
 
-	protected void joinChannel(String token) {
+	protected void joinChannel(final String token) {
 		ChannelFactory.createChannel(token, new ChannelCreatedCallback() {
 			@Override
 			public void onChannelCreated(Channel channel) {
+				log("Channel created");
 				channel.open(new EarlChannelListener(Earl.this));
 			}
 		});
@@ -168,5 +207,4 @@ public class Earl implements EntryPoint {
 		// 		return $doc.getElementById("content").getSVGDocument();
 		//		return Document.get().getElementsByTagName("svg").getItem(0);
 	}-*/;
-
 }

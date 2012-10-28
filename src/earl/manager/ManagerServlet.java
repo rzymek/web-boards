@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -32,7 +33,8 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 
 public class ManagerServlet extends HttpServlet {
-
+	private final static Logger log = Logger.getLogger(ManagerServlet.class.getName());
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
@@ -77,6 +79,7 @@ public class ManagerServlet extends HttpServlet {
 			ChannelService channelService = ChannelServiceFactory.getChannelService();
 			ChannelPresence presence = channelService.parsePresence(req);
 			String clientId = presence.clientId();
+			log.info("disconnected "+clientId);
 			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 			ds.delete(KeyFactory.createKey("listener", clientId));
 		}

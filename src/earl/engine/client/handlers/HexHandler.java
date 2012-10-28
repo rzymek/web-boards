@@ -4,7 +4,6 @@ import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGMatrix;
-import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
@@ -22,6 +21,7 @@ import earl.engine.client.Earl;
 import earl.engine.client.EngineService;
 import earl.engine.client.EngineServiceAsync;
 import earl.engine.client.utils.EarlCallback;
+import earl.engine.client.utils.SVGUtils;
 
 public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandler {
 
@@ -31,8 +31,8 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		this.earl = earl;
 	}
 	
-	private OMSVGPoint getCenter(OMSVGPathElement e) {
-		OMSVGRect bbox = e.getBBox();
+	private OMSVGPoint getCenter(OMSVGElement e) {
+		OMSVGRect bbox = SVGUtils.getBBox(e);
 		OMSVGSVGElement svg = e.getOwnerSVGElement();
 		OMSVGPoint p = svg.createSVGPoint();
 		float x = bbox.getX() + bbox.getWidth() / 2.0f;
@@ -42,9 +42,9 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		return p;
 	}
 
-	public void moveToHex(OMSVGImageElement unit, OMSVGPathElement hex) {
+	public void moveToHex(OMSVGImageElement unit, OMSVGElement hex) {
 		OMSVGRect bbox = unit.getBBox();
-		OMSVGMatrix m = hex.getTransformToElement(unit);
+		OMSVGMatrix m = SVGUtils.getTransformToElement(hex, unit);
 		OMSVGPoint to = getCenter(hex);
 		to = to.matrixTransform(m);
 
@@ -59,7 +59,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		if (earl.selectedUnit == null) {
 			return;
 		}
-		OMSVGPathElement hex = getHex(event);
+		OMSVGElement hex = getHex(event);
 		// drawMove(earl.selectedUnit, hex);
 		moveToHex(earl.selectedUnit, hex);
 		Earl.log(earl.selectedUnit.getId() + " ->" + hex.getId());
@@ -71,7 +71,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		earl.deselectUnit();
 	}
 
-	protected OMSVGPathElement getHex(DomEvent<?> event) {
+	protected OMSVGElement getHex(DomEvent<?> event) {
 		return OMSVGDocument.convert(event.getRelativeElement());
 	}
 
@@ -86,7 +86,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 	}
 
 	protected void setTargetOpacity(DomEvent<?> evt, double opacity) {
-		OMSVGElement hex = getHex(evt);
+		OMSVGElement hex = OMSVGDocument.convert(evt.getRelativeElement());
 		hex.getStyle().setOpacity(opacity);
 	}
 }

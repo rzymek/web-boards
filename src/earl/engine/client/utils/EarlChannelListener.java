@@ -20,11 +20,15 @@ public class EarlChannelListener implements SocketListener {
 
 	@Override
 	public void onMessage(String message) {
-		String[] split = message.split(":");
-		String unitId = split[0].trim();
-		String hexId = split[1].trim();
-		earl.moveToHex(unitId, hexId);
-		Earl.log("Recevied update: "+unitId+" -> "+hexId);
+		if(message.contains(":")) {
+			String[] split = message.split(":");
+			String unitId = split[0].trim();
+			String hexId = split[1].trim();
+			earl.moveToHex(unitId, hexId);
+			Earl.log("Recevied update: "+unitId+" -> "+hexId);
+		}else{
+			Earl.log("<<< "+message.trim());
+		}
 	}
 
 	@Override

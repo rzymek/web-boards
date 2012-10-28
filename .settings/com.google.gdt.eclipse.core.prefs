@@ -1,6 +1,6 @@
-#Fri Oct 12 10:48:14 CEST 2012
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
+lastWarOutDir=/home/rzymek/Dropbox/devel/earl/war
 launchConfigExternalUrlPrefix=
 warSrcDir=war
-warSrcDirIsOutput=true
+warSrcDirIsOutput=false
