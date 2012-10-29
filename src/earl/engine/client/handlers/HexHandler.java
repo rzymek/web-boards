@@ -1,5 +1,6 @@
 package earl.engine.client.handlers;
 
+import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -30,7 +31,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 	public HexHandler(Earl earl) {
 		this.earl = earl;
 	}
-	
+
 	private OMSVGPoint getCenter(OMSVGElement e) {
 		OMSVGRect bbox = SVGUtils.getBBox(e);
 		OMSVGSVGElement svg = e.getOwnerSVGElement();
@@ -43,15 +44,54 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 	}
 
 	public void moveToHex(OMSVGImageElement unit, OMSVGElement hex) {
-		OMSVGRect bbox = unit.getBBox();
-		OMSVGMatrix m = SVGUtils.getTransformToElement(hex, unit);
-		OMSVGPoint to = getCenter(hex);
-		to = to.matrixTransform(m);
+		String from = unit.getAttribute("earlPosition");
+		if(from != null && !from.isEmpty()) {
+			OMSVGSVGElement svg = unit.getOwnerSVGElement();
+			OMElement area = svg.getElementById(from);
+			String unitList = area.getAttribute("earlUnits");
+			String[] units = unitList.split(":");
+			unitList = "";
+			for (String unitId : units) {
+				if(unit.getId().equals(unitId)) {
+					continue;
+				}
+				if(!unitList.isEmpty()) unitList+=":";
+				unitList += unitId;
+			}
+			area.setAttribute("earlUnits", unitList);
+		}
+		unit.setAttribute("earlPosition", hex.getId());
+		String unitList = hex.getAttribute("earlUnits");
+		if (unitList == null || unitList.isEmpty()) {
+			unitList = unit.getId();
+		} else {
+			unitList += ":" + unit.getId();
+		}
+		hex.setAttribute("earlUnits", unitList);
+		
+		alignStack(hex);
+	}
 
-		float x = to.getX() - bbox.getWidth() / 2.0f;
-		float y = to.getY() - bbox.getHeight() / 2.0f;
-		unit.getX().getBaseVal().setValue(x);
-		unit.getY().getBaseVal().setValue(y);
+	private void alignStack(OMSVGElement hex) {
+		String unitList = hex.getAttribute("earlUnits");
+//		Earl.log("stack="+unitList);
+		String[] stackIds = unitList.split(":");
+		OMSVGSVGElement svg = hex.getOwnerSVGElement();
+		int offset = 0;
+		for (String unitId : stackIds) {
+			OMSVGImageElement unit = (OMSVGImageElement) svg.getElementById(unitId);
+			OMSVGRect bbox = SVGUtils.getBBox(unit);
+			OMSVGMatrix m = SVGUtils.getTransformToElement(hex, unit);
+			OMSVGPoint to = getCenter(hex);
+			to = to.matrixTransform(m);
+
+			float x = to.getX() - bbox.getWidth() / 2.0f + offset;
+			float y = to.getY() - bbox.getHeight() / 2.0f + offset;
+			unit.getX().getBaseVal().setValue(x);
+			unit.getY().getBaseVal().setValue(y);
+			
+			offset += 3;
+		}
 	}
 
 	@Override
@@ -65,9 +105,7 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		Earl.log(earl.selectedUnit.getId() + " ->" + hex.getId());
 		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
 		EngineServiceAsync engine = GWT.create(EngineService.class);
-		engine.updateLocation(earl.selectedUnit.getId(), 
-				hex.getId(), 
-				new EarlCallback<Void>());
+		engine.updateLocation(earl.selectedUnit.getId(), hex.getId(), new EarlCallback<Void>());
 		earl.deselectUnit();
 	}
 

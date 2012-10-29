@@ -33,7 +33,7 @@ public class UnitHandler implements ClickHandler, MouseOverHandler, MouseOutHand
 	}
 
 	@Override
-	public void onClick(ClickEvent event) {
+	public void onClick(ClickEvent event) {		
 		OMSVGImageElement last = earl.selectedUnit;
 		earl.deselectUnit();
 		OMSVGImageElement unit = getUnit(event);
