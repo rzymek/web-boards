@@ -1,14 +1,16 @@
 package earl.manager;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -23,13 +25,15 @@ import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+
+import earl.client.games.Bastogne;
+import earl.client.games.BastogneSide;
 
 
 public class ManagerServlet extends HttpServlet {
@@ -42,30 +46,22 @@ public class ManagerServlet extends HttpServlet {
 		Cookie cookie = new Cookie("earl.user", username);
 		resp.addCookie(cookie);
 		if ("/start".equals(pathInfo)) {
-			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-			String name = UUID.randomUUID().toString();
-			Key key = KeyFactory.createKey("table", name);
-			Entity table = new Entity(key);
-			table.setProperty("created", new Date());
-			table.setProperty("player1", username);
-			table.setProperty("player2", null);
-			ds.put(table);
-			String tableId = table.getKey().getName();
-			resp.sendRedirect("/bastogne/?table=" + tableId + copyParams(req));
+			GameManager manager = GameManager.get();
+			Bastogne game = new Bastogne();
+			game.setupScenarion52();
+			game.setPlayer(BastogneSide.US, username);
+			String tableId = manager.start(game);
+			resp.sendRedirect("/bastogne/?table=" + tableId);
 		} else if ("/join".equals(pathInfo)) {
-			try {
-				DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-				String tableId = req.getParameter("table");
-				Entity table = ds.get(KeyFactory.createKey("table", tableId));
-				table.setProperty("player2", username);
-				ds.put(table);
-				resp.sendRedirect("/bastogne/?table=" + tableId + copyParams(req));
-			} catch (Exception e) {
-				throw new AssertionError(e);
-			}
+			String tableId = req.getParameter("table");
+			resp.sendRedirect("/bastogne/?table=" + tableId);
 		} else {
-			List<Table> started = getStarted(req);
-			List<Table> invitations = getInvitations(req);
+			GameManager manager = GameManager.get();
+			String user = getCurrentUser(req);
+//			Collection<Game> started = manager.getParticipatingIn(user);
+//			Collection<Game> invitations = manager.getInvitationsFor(user);
+			Collection<Table> started = Collections.emptySet();
+			Collection<Table> invitations = Collections.emptySet();
 			req.setAttribute("earl.started", started);
 			req.setAttribute("earl.invitations", invitations);
 			req.getRequestDispatcher("/WEB-INF/jsp/manage.jsp").forward(req, resp);
@@ -83,27 +79,6 @@ public class ManagerServlet extends HttpServlet {
 			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 			ds.delete(KeyFactory.createKey("listener", clientId));
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	public static String copyParams(HttpServletRequest req) {
-		@SuppressWarnings("unchecked")
-		Map<String, String[]> params = req.getParameterMap();
-		if (params.isEmpty()) {
-			return "";
-		}
-		StringBuilder buf = new StringBuilder();
-		for (Entry<String, String[]> p : params.entrySet()) {
-			String key = URLEncoder.encode(p.getKey());
-			for (String value : p.getValue()) {
-				String v = URLEncoder.encode(value);
-				if (buf.length() > 0) {
-					buf.append("&");
-				}
-				buf.append(key).append("=").append(v);
-			}
-		}
-		return buf.toString();
 	}
 
 	protected String getCurrentUser(HttpServletRequest req) {
@@ -152,4 +127,24 @@ public class ManagerServlet extends HttpServlet {
 		return result;
 	}
 
-}
+
+	@SuppressWarnings("deprecation")
+	public static String copyParams(HttpServletRequest req) throws UnsupportedEncodingException {
+		@SuppressWarnings("unchecked")
+		Map<String, String[]> params = req.getParameterMap();
+		if (params.isEmpty()) {
+			return "";
+		}
+		StringBuilder buf = new StringBuilder();
+		for (Entry<String, String[]> p : params.entrySet()) {
+			String key = URLEncoder.encode(p.getKey(),"utf-8");
+			for (String value : p.getValue()) {
+				String v = URLEncoder.encode(value,"utf-8");
+				if (buf.length() > 0) {
+					buf.append("&");
+				}
+				buf.append(key).append("=").append(v);
+			}
+		}
+		return buf.toString();
+	}}

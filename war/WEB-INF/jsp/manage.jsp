@@ -1,22 +1,22 @@
+<%@page import="java.util.Collection"%>
 <%@page import="earl.manager.ManagerServlet"%>
 <%@page import="earl.manager.Table"%>
-<%@page import="java.util.List"%>
 <html>
 <head>
 <title>Earl</title>
 </head>
 <body>
-	<a href="/earl/start?<%=ManagerServlet.copyParams(request)%>" />Start new
+	<a href="/earl/start" />Start new
 	game
 	</a>
 	<br /> Your games:
 	<ul>
 		<%
-			List<Table> started = (List<Table>) request.getAttribute("earl.started");
+			Collection<Table> started = (Collection<Table>) request.getAttribute("earl.started");
 			for (Table t : started) {
 		%>
 		<li><a
-			href="/bastogne/?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/bastogne/?table=<%=t.id%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}
@@ -25,11 +25,11 @@
 	<br /> Join:
 	<ul>
 		<%
-			List<Table> invitations = (List<Table>) request.getAttribute("earl.invitations");
+			Collection<Table> invitations = (Collection<Table>) request.getAttribute("earl.invitations");
 			for (Table t : invitations) {
 		%>
 		<li><a
-			href="/bastogne/join?table=<%=t.id + '&' + ManagerServlet.copyParams(request)%>"><%=t.opponent%>
+			href="/bastogne/join?table=<%=t.id%>"><%=t.opponent%>
 				- <%=t.started%></a></li>
 		<%
 			}

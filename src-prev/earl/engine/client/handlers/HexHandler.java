@@ -21,18 +21,19 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import earl.engine.client.Earl;
 import earl.engine.client.EngineService;
 import earl.engine.client.EngineServiceAsync;
+import earl.engine.client.SVGDisplay;
 import earl.engine.client.utils.EarlCallback;
 import earl.engine.client.utils.SVGUtils;
 
 public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandler {
 
-	private final Earl earl;
+	private final SVGDisplay display;
 
-	public HexHandler(Earl earl) {
-		this.earl = earl;
+	public HexHandler(SVGDisplay display) {
+		this.display = display;
 	}
 
-	private OMSVGPoint getCenter(OMSVGElement e) {
+	public static OMSVGPoint getCenter(OMSVGElement e) {
 		OMSVGRect bbox = SVGUtils.getBBox(e);
 		OMSVGSVGElement svg = e.getOwnerSVGElement();
 		OMSVGPoint p = svg.createSVGPoint();
@@ -72,9 +73,8 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 		alignStack(hex);
 	}
 
-	private void alignStack(OMSVGElement hex) {
+	public static void alignStack(OMSVGElement hex) {
 		String unitList = hex.getAttribute("earlUnits");
-//		Earl.log("stack="+unitList);
 		String[] stackIds = unitList.split(":");
 		OMSVGSVGElement svg = hex.getOwnerSVGElement();
 		int offset = 0;
@@ -96,17 +96,18 @@ public class HexHandler implements MouseOutHandler, MouseOverHandler, ClickHandl
 
 	@Override
 	public void onClick(ClickEvent event) {
-		if (earl.selectedUnit == null) {
+		OMSVGImageElement selectedPiece = display.getSelectedPiece();
+		if (selectedPiece == null) {
 			return;
 		}
 		OMSVGElement hex = getHex(event);
 		// drawMove(earl.selectedUnit, hex);
-		moveToHex(earl.selectedUnit, hex);
-		Earl.log(earl.selectedUnit.getId() + " ->" + hex.getId());
+		moveToHex(selectedPiece, hex);
+		Earl.log(selectedPiece.getId() + " ->" + hex.getId());
 		// parent.menu.gwtexpEarl(earl.selectedUnit.id, e.target.id);
 		EngineServiceAsync engine = GWT.create(EngineService.class);
-		engine.updateLocation(earl.selectedUnit.getId(), hex.getId(), new EarlCallback<Void>());
-		earl.deselectUnit();
+		engine.updateLocation(selectedPiece.getId(), hex.getId(), new EarlCallback<Void>());
+		display.setSelectedPiece(null);
 	}
 
 	protected OMSVGElement getHex(DomEvent<?> event) {

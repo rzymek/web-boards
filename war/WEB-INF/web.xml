@@ -16,12 +16,12 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>engine</servlet-name>
-		<servlet-class>earl.engine.server.EngineServiceImpl</servlet-class>
+		<servlet-class>earl.server.ServerEngineImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>engine</servlet-name>
-		<url-pattern>/earl.engine.Earl/engine</url-pattern>
+		<url-pattern>/earl.ClientEngine/engine</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
