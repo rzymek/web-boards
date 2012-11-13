@@ -62,6 +62,58 @@ public class SVGDisplay implements Display {
 
 	public void alignStack(SVGElement area, List<SVGElement> counters) {
 		OMSVGRect areaBBox = SVGUtils.getBBox(area);
+		float areaWidth = areaBBox.getWidth();
+		float areaHeight = areaBBox.getHeight();
+		float spacing = 3;
+		Dimention counterDim = getMaxCounterSize(counters);
+		Dimention placing = getPlacing(counters, counterDim, areaBBox, spacing);
+		float startx = (areaWidth - (placing.width * (counterDim.width + spacing))) / 2;
+		float starty = (areaHeight - (placing.height * (counterDim.height + spacing))) / 2;
+		startx += areaBBox.getX();
+		starty += areaBBox.getY();
+		float x = 0;
+		float y = 0;
+		int stackOffset = 0;
+		for (SVGElement counter : counters) {
+			float cx = startx + x + stackOffset;
+			float cy = starty + y + stackOffset;
+			SVGUtils.setXY(counter, cx, cy);
+			bringToTop(counter);
+			x += counterDim.width + spacing;
+			if (x + counterDim.width + spacing > areaWidth) {
+				x = 0;
+				y += counterDim.height + spacing;
+			}
+			if (y + counterDim.height + spacing > areaHeight) {
+				x = 0;
+				y = 0;
+				stackOffset += 5;
+			}
+		}
+	}
+
+	private Dimention getPlacing(List<SVGElement> counters, Dimention counterDim, OMSVGRect areaBBox, float spacing) {
+		Dimention dim = new Dimention();
+		float width = areaBBox.getWidth();
+		dim.width = (int) (width / (counterDim.width + spacing));
+		int maxSlots = (int) (areaBBox.getHeight() / (counterDim.height + spacing));
+		int rows = (int) (counters.size() / dim.width + 0.5);
+		dim.height = Math.min(maxSlots, rows);
+		return dim;
+	}
+
+	private Dimention getMaxCounterSize(List<SVGElement> counters) {
+		Dimention max = new Dimention();
+		for (SVGElement svgElement : counters) {
+			OMSVGRect bBox = SVGUtils.getBBox(svgElement);
+			max.width = Math.max(max.width, bBox.getWidth());
+			max.height = Math.max(max.height, bBox.getHeight());
+		}
+		return max;
+	}
+
+	public void alignStack1(SVGElement area, List<SVGElement> counters) {
+		OMSVGRect areaBBox = SVGUtils.getBBox(area);
 		float rowWidth = getRowWidth(counters, areaBBox);
 		float areaWidth = areaBBox.getWidth();
 		float areaHeight = areaBBox.getHeight();
@@ -75,8 +127,8 @@ public class SVGDisplay implements Display {
 			OMSVGRect counterbbox = SVGUtils.getBBox(counter);
 			OMSVGPoint to = SVGUtils.createPoint(svg, x2, y2);
 			OMSVGMatrix matrix = SVGUtils.getTransformToElement(area, counter);
-//			to = to.matrixTransform(matrix);
-			
+			// to = to.matrixTransform(matrix);
+
 			float x = to.getX() + ox + offset;
 			float y = to.getY() + oy + offset;
 			SVGUtils.setXY(counter, x, y);
@@ -111,7 +163,7 @@ public class SVGDisplay implements Display {
 		OMSVGRect bbox = SVGUtils.getBBox(counter);
 		OMSVGMatrix matrix = SVGUtils.getTransformToElement(hex, counter);
 		OMSVGPoint to = SVGUtils.getCenter(hex);
-//		to = to.matrixTransform(matrix);
+		// to = to.matrixTransform(matrix);
 
 		float x = to.getX() - bbox.getWidth() / 2.0f + offset;
 		float y = to.getY() - bbox.getHeight() / 2.0f + offset;

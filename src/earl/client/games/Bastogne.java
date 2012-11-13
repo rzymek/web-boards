@@ -66,7 +66,9 @@ public class Bastogne implements Game {
 	}
 	
 	public void setupScenarion52() {
+
 //		if(System.currentTimeMillis()!=0)return;
+		
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
