@@ -2,10 +2,7 @@ package earl.client.utils;
 
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMSVGAnimatedLength;
-import org.vectomatic.dom.svg.OMSVGGElement;
-import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGMatrix;
-import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
@@ -17,6 +14,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 
 public class SVGUtils {
 	public static OMSVGRect getBBox(SVGElement e) {
@@ -33,7 +31,7 @@ public class SVGUtils {
 		return bBox;
 	}
 
-	private static SVGElement createSVGElement(String tag) {
+	public static SVGElement createSVGElement(String tag) {
 		return (SVGElement) createElementNS("http://www.w3.org/2000/svg", tag);
 	}
 
@@ -93,25 +91,25 @@ public class SVGUtils {
 		}
 	}
 
-	public static void addClickHandler(SVGElement e, ClickHandler clickHandler) {
-		String tag = e.getTagName();
-		if ("path".equals(tag)) {
-			OMElement.<OMSVGPathElement> convert(e).addClickHandler(clickHandler);
-		} else if ("image".equals(tag)) {
-			OMElement.<OMSVGImageElement> convert(e).addClickHandler(clickHandler);
-		} else if ("g".equals(tag)) {
-			OMElement.<OMSVGGElement> convert(e).addClickHandler(clickHandler);
-		} else {
-			throw new RuntimeException("SVGUtils.getBBox: unsupported " + e.getClass().getName() + " " + tag);
-		}
-	}
-//
 //	public static void addClickHandler(SVGElement e, ClickHandler clickHandler) {
-//		OMElement node = OMNode.convert(e);
-//		HasClickHandlers hch = (HasClickHandlers) node;
-//		hch.addClickHandler(clickHandler);
+//		String tag = e.getTagName();
+//		if ("path".equals(tag)) {
+//			OMElement.<OMSVGPathElement> convert(e).addClickHandler(clickHandler);
+//		} else if ("image".equals(tag)) {
+//			OMElement.<OMSVGImageElement> convert(e).addClickHandler(clickHandler);
+//		} else if ("g".equals(tag)) {
+//			OMElement.<OMSVGGElement> convert(e).addClickHandler(clickHandler);
+//		} else {
+//			throw new RuntimeException("SVGUtils.getBBox: unsupported " + e.getClass().getName() + " " + tag);
+//		}
 //	}
-//
+
+	public static void addClickHandler(SVGElement e, ClickHandler clickHandler) {
+		OMElement node = OMElement.convert(e);
+		HasClickHandlers hch = (HasClickHandlers) node;
+		hch.addClickHandler(clickHandler);
+	}
+
 	public static OMSVGPoint createPoint(SVGSVGElement svg, float x, float y) {
 		OMSVGPoint point = svg.createSVGPoint();
 		point.setX(x);
@@ -127,7 +125,7 @@ public class SVGUtils {
 
 	}
 
-	private static native Element createElementNS(final String ns, final String name)/*-{
+	public static native Element createElementNS(final String ns, final String name)/*-{
 	    return document.createElementNS(ns, name);  
 	}-*/;
 }

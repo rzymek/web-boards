@@ -80,18 +80,21 @@ public class Bastogne implements Game {
 		setup("48.23", us_73_Art, "73 Arm Arty Bn");
 		setup("46.22", us_Cherry_C_20, "Team Cherry (C/20 Arm Inf Co)");
 		setup("45.22", us_Cherry_D_3, "Team Cherry (D/3 Arm Platoon)");
-		setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
-		setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
+//		setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
+//		setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
 
-		setup("33.16-21", us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
-		setup("33.16-21", us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
-		setup("33.16-21", us_501_C_1, "1st Bn 501 Abn Inf (C/1)");
-		setup("33.16-21", us_501_D_2, "2nd Bn 501 Abn Inf (D/2)");
-		setup("33.16-21", us_501_E_2, "2nd Bn 501 Abn Inf (E/2)");
-		setup("33.16-21", us_501_F_2, "2nd Bn 501 Abn Inf (F/2)");
-		setup("33.16-21", us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
-		setup("33.16-21", us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
-		setup("33.16-21", us_101_327, "377 Abn Arty Bn");
+		String hexId = "33.16-21";
+		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
+		setup(hexId, us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
+		setup(hexId, us_501_C_1, "1st Bn 501 Abn Inf (C/1)");
+		setup(hexId, us_501_D_2, "2nd Bn 501 Abn Inf (D/2)");
+		setup(hexId, us_501_E_2, "2nd Bn 501 Abn Inf (E/2)");
+		setup(hexId, us_501_F_2, "2nd Bn 501 Abn Inf (F/2)");
+		setup(hexId, us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
+		setup(hexId, us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
+		setup(hexId, us_101_327, "377 Abn Arty Bn");
+//		setup(hexId, us_Comb_C, "Comb Eng Bn (C Co)");
+//		setup(hexId, us_Comb_D, "Comb Eng Bn (D Co)");
 
 		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
 		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");

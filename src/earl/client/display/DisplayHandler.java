@@ -1,6 +1,6 @@
 package earl.client.display;
 
-import java.util.Collection;
+import java.util.List;
 
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -34,12 +34,14 @@ public class DisplayHandler {
 			listener.counterChanged(piece);
 		} else {
 			Hex hex = piece.getPosition();
-			Collection<Counter> stack = hex.getStack();
+			List<Counter> stack = hex.getStack();
 			boolean selectedFromCurrentStack = (currentStack != null && currentStack.getId().equals(hex.getId()));
 			boolean singleCounterSelected = (stack.size() == 1);
-			if(singleCounterSelected || selectedFromCurrentStack) {
+			boolean countersOverlap = listener.areCountersOverlapping(hex, stack);
+			if(singleCounterSelected || selectedFromCurrentStack || !countersOverlap) {
 				setSelectedPiece(piece);
 			}else{
+				setSelectedPiece(null);
 				listener.showStackSelection(hex);
 				stackSelected = hex;
 			}

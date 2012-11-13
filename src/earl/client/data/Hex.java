@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
+@SuppressWarnings("serial")
 public class Hex implements Serializable, Identifiable {
-	protected Collection<Counter> pieces = new ArrayList<Counter>();
+	protected List<Counter> pieces = new ArrayList<Counter>();
 	private String hexId = null;
 	
 	protected Hex() {
@@ -17,8 +19,8 @@ public class Hex implements Serializable, Identifiable {
 		this.hexId = hexId;
 	}
 
-	public Collection<Counter> getStack() {
-		return Collections.unmodifiableCollection(pieces);
+	public List<Counter> getStack() {
+		return Collections.unmodifiableList(pieces);
 	}
 
 	@Override

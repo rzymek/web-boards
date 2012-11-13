@@ -10,10 +10,12 @@ import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
+import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
@@ -28,12 +30,16 @@ public class SVGDisplay implements Display {
 	private final DisplayHandler handler;
 	private Board board;
 	final SVGSVGElement svg;
+	private SVGRectElement selectionRect;
 
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
 		initAreas();
 		initPieces();
 		handler = new DisplayHandler(new SVGDisplayUpdater(this));
+		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
+		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
+		svg.appendChild(selectionRect);
 	}
 
 	public SVGElement getSVGElement(Identifiable c) {
@@ -54,10 +60,16 @@ public class SVGDisplay implements Display {
 	}
 
 	public void alignStack(Hex hex) {
+		hideStackSelection();
+
 		SVGElement h = getSVGElement(hex);
 		Collection<Counter> stack = hex.getStack();
 		List<SVGElement> svgStack = getSVGElements(stack);
 		alignStack(h, svgStack);
+	}
+
+	private void hideStackSelection() {
+		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 	}
 
 	public void alignStack(SVGElement area, List<SVGElement> counters) {
@@ -96,8 +108,8 @@ public class SVGDisplay implements Display {
 		Dimention dim = new Dimention();
 		float width = areaBBox.getWidth();
 		dim.width = (int) (width / (counterDim.width + spacing));
-		int maxSlots = (int) (areaBBox.getHeight() / (counterDim.height + spacing));
-		int rows = (int) (counters.size() / dim.width + 0.5);
+		int maxSlots = (int) (areaBBox.getHeight() / (counterDim.height + spacing) + 0.5);
+		int rows = (int) Math.ceil(counters.size() / dim.width);
 		dim.height = Math.min(maxSlots, rows);
 		return dim;
 	}
@@ -112,7 +124,7 @@ public class SVGDisplay implements Display {
 		return max;
 	}
 
-	public void alignStack1(SVGElement area, List<SVGElement> counters) {
+	private void alignStack1(SVGElement area, List<SVGElement> counters) {
 		OMSVGRect areaBBox = SVGUtils.getBBox(area);
 		float rowWidth = getRowWidth(counters, areaBBox);
 		float areaWidth = areaBBox.getWidth();
@@ -161,9 +173,7 @@ public class SVGDisplay implements Display {
 
 	private void centerInHex(SVGElement hex, SVGElement counter, int offset) {
 		OMSVGRect bbox = SVGUtils.getBBox(counter);
-		OMSVGMatrix matrix = SVGUtils.getTransformToElement(hex, counter);
 		OMSVGPoint to = SVGUtils.getCenter(hex);
-		// to = to.matrixTransform(matrix);
 
 		float x = to.getX() - bbox.getWidth() / 2.0f + offset;
 		float y = to.getY() - bbox.getHeight() / 2.0f + offset;
@@ -197,6 +207,7 @@ public class SVGDisplay implements Display {
 		SVGElement area = (SVGElement) svg.getElementById("area");
 		addClickHandler(area.getElementsByTagName("path"), clickHandler);
 		addClickHandler(area.getElementsByTagName("g"), clickHandler);
+		addClickHandler(area.getElementsByTagName("rect"), clickHandler);
 	}
 
 	protected void initPieces() {
@@ -229,11 +240,27 @@ public class SVGDisplay implements Display {
 		centerInHex(hex, first, 0);
 		float x = SVGUtils.getX(first).getBaseVal().getValue();
 		float y = SVGUtils.getY(first).getBaseVal().getValue();
+		selectionRect.getX().getBaseVal().setValue(x - 5);
+		selectionRect.getY().getBaseVal().setValue(y - 5);
+		first.getParentElement().appendChild(selectionRect);
+		bringToTop(selectionRect);
 		OMSVGRect bbox = SVGUtils.getBBox(first);
 		for (SVGElement c : counters) {
 			SVGUtils.setXY(c, x, y);
 			x += bbox.getWidth() + 5;
 			bringToTop(c);
 		}
+		selectionRect.getWidth().getBaseVal().setValue(x - selectionRect.getX().getBaseVal().getValue());
+		selectionRect.getHeight().getBaseVal().setValue(bbox.getHeight() + 10);
+		selectionRect.getStyle().setVisibility(Visibility.VISIBLE);
+	}
+
+	public boolean areCountersOverlapping(SVGElement area, List<SVGElement> counters) {
+		OMSVGRect areaBBox = SVGUtils.getBBox(area);
+		float spacing = 3;
+		Dimention counterDim = getMaxCounterSize(counters);
+		Dimention placing = getPlacing(counters, counterDim, areaBBox, spacing);
+		float slots = placing.width * placing.height;
+		return (slots < counters.size());
 	}
 }

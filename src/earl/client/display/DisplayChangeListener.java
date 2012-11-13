@@ -1,5 +1,7 @@
 package earl.client.display;
 
+import java.util.List;
+
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 
@@ -16,5 +18,7 @@ public interface DisplayChangeListener {
 	void showStackSelection(Hex hex);
 
 	void alignStack(Hex position);
+
+	boolean areCountersOverlapping(Hex hex, List<Counter> stack);
 
 }
