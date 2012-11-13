@@ -21,6 +21,8 @@ public abstract class Counter implements Identifiable, Serializable {
 
 	@Override
 	public abstract String getId();
+	
+	public abstract String getState();
 
 	public void flip() {
 	}

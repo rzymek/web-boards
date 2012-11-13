@@ -1,5 +1,7 @@
 package earl.client;
 
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Node;
@@ -11,7 +13,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import earl.client.data.Board;
 import earl.client.display.Display;
 import earl.client.display.SVGDisplay;
-import earl.client.dom.SVGElement;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
@@ -28,7 +29,7 @@ public class ClientEngine implements EntryPoint {
 		service.getState(tableId, new AbstractCallback<Board>(){
 			@Override
 			public void onSuccess(Board board) {
-				Display display = new SVGDisplay();
+				Display display = new SVGDisplay(getSVG());
 				display.init(board);
 			}
 		});
@@ -48,7 +49,7 @@ public class ClientEngine implements EntryPoint {
 		}
 	}
 
-	public static native SVGElement getSVG() /*-{
+	public static native SVGSVGElement getSVG() /*-{
 		var s;
 		if ($wnd.parent.view) {
 			//frames

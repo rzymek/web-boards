@@ -13,4 +13,8 @@ public interface DisplayChangeListener {
 
 	void counterSelected(Counter selectedPiece);
 
+	void showStackSelection(Hex hex);
+
+	void alignStack(Hex position);
+
 }

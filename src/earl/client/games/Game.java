@@ -6,5 +6,4 @@ public interface Game {
 	boolean isParticipating(String user);
 
 	Board getBoard();
-
 }

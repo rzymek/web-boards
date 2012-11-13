@@ -9,13 +9,16 @@ public class SCSCounter extends Counter implements Serializable {
 	private String description;
 	private String frontPath = null;
 	private String id;
+	private String back;
+	boolean flipped = false;
 
 	protected SCSCounter() {
 	}
 
-	public SCSCounter(String id, String frontPath) {
+	public SCSCounter(String id, String frontPath, String back) {
 		this.id = id;
 		this.frontPath = frontPath;
+		this.back = back;
 	}
 
 	public void setDescription(String description) {
@@ -31,7 +34,15 @@ public class SCSCounter extends Counter implements Serializable {
 		return id;
 	}
 
-	public String getFrontPath() {
-		return frontPath;
+	@Override
+	public String getState() {
+		return flipped ? back : frontPath;
+	}
+	
+	@Override
+	public void flip() {
+		if(back != null) {
+			flipped = !flipped;
+		}
 	}
 }

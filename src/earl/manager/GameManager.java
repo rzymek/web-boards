@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import earl.client.games.Game;
+import earl.server.ex.EarlServerException;
 
 
 public class GameManager {
@@ -51,7 +52,11 @@ public class GameManager {
 	}
 
 	public Game getGame(String tableId) {
-		return games.get(tableId);
+		Game game = games.get(tableId);
+		if(game == null) {
+			throw new EarlServerException("No such game: "+tableId);
+		}
+		return game;
 	}
 
 }
