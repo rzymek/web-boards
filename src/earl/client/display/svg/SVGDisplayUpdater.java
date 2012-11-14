@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
+import org.vectomatic.dom.svg.impl.SVGRectElement;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Display;
 
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -28,7 +30,7 @@ public class SVGDisplayUpdater implements DisplayChangeListener {
 	@Override
 	public void counterChanged(Counter piece) {
 		SVGImageElement c = (SVGImageElement) display.svg.getElementById(piece.getId());
-		c.getHref().setBaseVal("units/"+piece.getState());
+		c.getHref().setBaseVal(piece.getState());
 	}
 	
 	@Override
@@ -62,14 +64,20 @@ public class SVGDisplayUpdater implements DisplayChangeListener {
 	
 	@Override
 	public void counterDeselected(Counter selectedPiece) {
-		Element c = display.svg.getElementById(selectedPiece.getId());
-		c.setAttribute("style", "opacity: 1");
+//		Element c = display.svg.getElementById(selectedPiece.getId());
+//		c.setAttribute("style", "opacity: 1");
+		SVGRectElement rect = (SVGRectElement) display.svg.getElementById("selection");
+		rect.getStyle().setDisplay(Display.NONE);
 	}
 
 	@Override
 	public void counterSelected(Counter selectedPiece) {
-		SVGElement c = (SVGElement)display.svg.getElementById(selectedPiece.getId());
-		c.setAttribute("style", "opacity: 0.8");
+		SVGImageElement c = (SVGImageElement)display.svg.getElementById(selectedPiece.getId());
+		SVGRectElement rect = (SVGRectElement) display.svg.getElementById("selection");
+		rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
+		rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
+		rect.getStyle().setDisplay(Display.BLOCK);
+		display.bringToTop(rect);
 		display.bringToTop(c);
 	}
 }

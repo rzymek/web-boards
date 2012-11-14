@@ -31,15 +31,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs6">
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 465.19174 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1494.1637 : 465.19174 : 1"
-       inkscape:persp3d-origin="747.08185 : 310.12783 : 1"
-       id="perspective4673" />
-  </defs>
+     id="defs6" />
   <sodipodi:namedview
      pagecolor="#000000"
      bordercolor="#666666"
@@ -53,13 +45,13 @@
      inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.8101934"
-     inkscape:cx="1257.4413"
-     inkscape:cy="842.46374"
+     inkscape:zoom="3.1105901"
+     inkscape:cx="144.96126"
+     inkscape:cy="47.675237"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="area"
+     inkscape:current-layer="units"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -4751,6 +4743,15 @@
      id="units"
      inkscape:label="units"
      style="display:inline">
+    <rect
+       ry="2.5394881"
+       y="958.79852"
+       x="92.88739"
+       height="40"
+       width="40"
+       id="selection"
+       style="fill:none;stroke:#f20000;stroke-width:6.00000001;stroke-miterlimit:4;stroke-opacity:0.74429226000000004;stroke-dasharray:none;stroke-linejoin:miter;stroke-dashoffset:0"
+       inkscape:label="#rect15007" />
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png"
        xlink:href="units/front/us/3-3-16+Cherry_D-90_f.png"
@@ -4758,8 +4759,8 @@
        width="40"
        height="40"
        id="counter"
-       x="104.06162"
-       y="964.26459" />
+       x="92.88739"
+       y="958.79852" />
   </g>
   <rect
      style="fill:#b2b2b2;fill-opacity:0.74429226;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
