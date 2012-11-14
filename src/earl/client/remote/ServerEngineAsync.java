@@ -6,4 +6,6 @@ import earl.client.data.Board;
 
 public interface ServerEngineAsync {
 	void getState(String tableId, AsyncCallback<Board> callback);
+
+	void roll(int dice, int sides, AsyncCallback<Integer> callback);
 }

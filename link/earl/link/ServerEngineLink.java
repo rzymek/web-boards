@@ -16,4 +16,9 @@ public class ServerEngineLink implements ServerEngineAsync {
 	public void getState(String tableId, AsyncCallback<Board> callback) {
 		impl.getState(tableId);
 	}
+
+	@Override
+	public void roll(int dice, int sides, AsyncCallback<Integer> callback) {
+		impl.roll(dice, sides);
+	}
 }

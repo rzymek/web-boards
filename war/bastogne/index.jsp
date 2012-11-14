@@ -36,7 +36,9 @@ IOUtils.copy(in,out);
 %>
 <table width="100%">
 	<tr>
-		<td id="controls" width="30%"></td>
+		<td id="controls" width="30%" valign="top">
+			<button type="button" id="roll2d6">Roll 2d6</button>
+		</td>
 		<td id="log" style="white-space: pre;">Loading...</td>
 	</tr>
 </table>

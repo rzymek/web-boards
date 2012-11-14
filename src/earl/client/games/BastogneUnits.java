@@ -60,12 +60,11 @@ public enum BastogneUnits {
 	public final String back;
 
 	BastogneUnits(String front){
-		this.front = front;
-		back = null;
+		this(front, null);
 	}
 	BastogneUnits(String front, String back){
-		this.front = front;
-		this.back = back;
+		this.front = "units/"+front;
+		this.back = "units/"+back;
 	}
 	
 	public String getId(){

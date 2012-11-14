@@ -1,4 +1,4 @@
-package earl.client.display;
+package earl.client.display.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,6 +24,10 @@ import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
+import earl.client.display.Dimention;
+import earl.client.display.Display;
+import earl.client.display.DisplayHandler;
+import earl.client.games.SCSCounter;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
@@ -35,7 +39,6 @@ public class SVGDisplay implements Display {
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
 		initAreas();
-		initPieces();
 		handler = new DisplayHandler(new SVGDisplayUpdater(this));
 		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
@@ -55,8 +58,30 @@ public class SVGDisplay implements Display {
 		this.board = board;//
 		Collection<Hex> stacks = board.getStacks();
 		for (Hex hex : stacks) {
+			List<Counter> counters = hex.getStack();
+			for (Counter counter : counters) {
+				createCounter((Counter) counter);
+			}
 			alignStack(hex);
 		}
+	}
+
+	private void createCounter(Counter counter) {
+		Element tmpl = svg.getElementById("counter");
+		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
+		c.setId(counter.getId());
+		c.getHref().setBaseVal(counter.getState());
+		ClickHandler clickHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				String id = event.getRelativeElement().getId();
+				ClientEngine.log("click " + id);
+				Counter counter = board.getCounter(id);
+				handler.pieceClicked(counter);
+			}
+		};
+		SVGUtils.addClickHandler(c, clickHandler);
+		svg.getElementById("units").appendChild(c);
 	}
 
 	public void alignStack(Hex hex) {
@@ -208,20 +233,6 @@ public class SVGDisplay implements Display {
 		addClickHandler(area.getElementsByTagName("path"), clickHandler);
 		addClickHandler(area.getElementsByTagName("g"), clickHandler);
 		addClickHandler(area.getElementsByTagName("rect"), clickHandler);
-	}
-
-	protected void initPieces() {
-		ClickHandler clickHandler = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				String id = event.getRelativeElement().getId();
-				ClientEngine.log("click " + id);
-				Counter counter = board.getCounter(id);
-				handler.pieceClicked(counter);
-			}
-		};
-
-		addClickHandler(svg.getElementById("units").getElementsByTagName("image"), clickHandler);
 	}
 
 	private void addClickHandler(NodeList<Element> nodeList, ClickHandler clickHandler) {

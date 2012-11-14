@@ -8,4 +8,5 @@ import earl.client.data.Board;
 @RemoteServiceRelativePath("engine")
 public interface ServerEngine extends RemoteService {
 	Board getState(String tableId);
+	int roll(int dice, int sides);
 }

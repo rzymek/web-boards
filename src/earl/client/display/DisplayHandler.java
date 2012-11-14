@@ -14,7 +14,7 @@ public class DisplayHandler {
 		this.listener = listener;
 	}
 
-	protected void areaClicked(Hex area) {
+	public void areaClicked(Hex area) {
 		hideStackSelection();
 		if (selectedPiece != null) {
 			Hex from = selectedPiece.getPosition();
@@ -25,7 +25,7 @@ public class DisplayHandler {
 		}
 	}
 
-	protected void pieceClicked(Counter piece) {
+	public void pieceClicked(Counter piece) {
 		Hex currentStack = stackSelected;
 		hideStackSelection();
 		if (piece == selectedPiece) {

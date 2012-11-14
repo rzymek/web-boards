@@ -1,4 +1,4 @@
-package earl.client.display;
+package earl.client.display.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +11,7 @@ import com.google.gwt.dom.client.Element;
 
 import earl.client.data.Counter;
 import earl.client.data.Hex;
+import earl.client.display.DisplayChangeListener;
 
 public class SVGDisplayUpdater implements DisplayChangeListener {
 	private final SVGDisplay display;

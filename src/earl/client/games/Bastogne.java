@@ -51,8 +51,6 @@ import static earl.client.games.BastogneUnits.us_Cherry_C_609;
 import static earl.client.games.BastogneUnits.us_Cherry_D_3;
 import static earl.client.games.BastogneUnits.us_Cherry_D_90;
 import static earl.client.games.BastogneUnits.us_Cherry_HHC_3;
-import static earl.client.games.BastogneUnits.us_Comb_C;
-import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 import earl.client.data.Board;
 
@@ -131,6 +129,16 @@ public class Bastogne implements Game {
 		setup(1, "E", ge_26VG_S_II_77, "26 VG I/77 Sturm SMG Co");
 		
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
+		
+		SCSCounter counter;
+		for(int i=0;i<18;i++) {
+			counter = new SCSCounter("us_dg"+i, "admin/misc_us-dg.png", null);
+			counter.setDescription("US Disorganized Units");
+			board.place("us_dg", counter);
+			counter = new SCSCounter("ge_dg"+i, "admin/misc_ge-dg.png", null);
+			counter.setDescription("GE Disorganized Units");
+			board.place("ge_dg", counter);
+		}
 	}
 
 	private void setup(String hexId, BastogneUnits unit, String desc) {
