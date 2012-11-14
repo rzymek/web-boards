@@ -33,14 +33,30 @@
 		<url-pattern>/earl/*</url-pattern>
 		<url-pattern>/_ah/channel/*</url-pattern>
 	</servlet-mapping>
-
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>DemoFilter</filter-name>
+		<filter-class>earl.server.utils.DemoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DemoFilter</filter-name>
+		<url-pattern>/demo/*</url-pattern>
+	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<security-constraint>
 		<web-resource-collection>
-			<url-pattern>/*</url-pattern>
+			<web-resource-name>earl</web-resource-name>
+			<url-pattern>/earl/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>*</role-name>

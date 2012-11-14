@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import earl.client.data.Board;
 import earl.client.display.Display;
 import earl.client.display.svg.SVGDisplay;
+import earl.client.games.Bastogne;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
@@ -28,14 +29,22 @@ public class ClientEngine implements EntryPoint {
 //		RootPanel rootPanel = RootPanel.get("controls");
 
 		final ServerEngineAsync service = GWT.create(ServerEngine.class);
-		String tableId = Window.Location.getParameter("table");
-		service.getState(tableId, new AbstractCallback<Board>(){
-			@Override
-			public void onSuccess(Board board) {
-				Display display = new SVGDisplay(getSVG());
-				display.init(board);
-			}
-		});
+		if(isDemo()) {
+			log("Demo mode");
+			Display display = new SVGDisplay(getSVG());
+			Bastogne bastogne = new Bastogne();
+			bastogne.setupScenarion52();
+			display.init(bastogne.getBoard());
+		} else { 
+			String tableId = Window.Location.getParameter("table");
+			service.getState(tableId, new AbstractCallback<Board>(){
+				@Override
+				public void onSuccess(Board board) {
+					Display display = new SVGDisplay(getSVG());
+					display.init(board);
+				}
+			});
+		}
 		Button roll2d6 = Button.wrap(Document.get().getElementById("roll2d6"));
 		roll2d6.addClickHandler(new ClickHandler() {			
 			@Override
@@ -50,6 +59,10 @@ public class ClientEngine implements EntryPoint {
 			}
 		});
 		log("Started");
+	}
+
+	private boolean isDemo() {
+		return Window.Location.getPath().contains("/demo");
 	}
 
 	public static void log(String s) {

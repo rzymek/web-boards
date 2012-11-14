@@ -1,6 +1,8 @@
 package earl.server.persistence;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -12,6 +14,7 @@ import earl.client.data.Board;
 import earl.client.games.Bastogne;
 import earl.client.games.BastogneSide;
 import earl.manager.Persistence;
+import earl.server.notify.TableListener;
 
 public class DataStorePersistence implements Persistence {
 
@@ -42,6 +45,17 @@ public class DataStorePersistence implements Persistence {
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public List<TableListener> getListeners(String tableId) {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public void delete(TableListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
