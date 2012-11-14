@@ -11,7 +11,7 @@ var loc = parseURL(window.location.href);
 if(loc.params['gwt.codesvr'] == null) {
 	var ref = parseURL(document.referrer);
 	var refgwt = decodeURIComponent(ref.params['gwt.codesvr']);
-	if(refgwt != null) {
+	if(refgwt && refgwt != "undefined") {
 		var c = "?"
 		var s = "";
 		for(key in loc.params) {
