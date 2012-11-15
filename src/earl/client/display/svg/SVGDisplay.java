@@ -17,6 +17,7 @@ import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 
 import earl.client.ClientEngine;
 import earl.client.data.Board;
@@ -27,6 +28,7 @@ import earl.client.display.Dimention;
 import earl.client.display.Display;
 import earl.client.display.DisplayHandler;
 import earl.client.display.GameChangeListener;
+import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
@@ -68,7 +70,15 @@ public class SVGDisplay implements Display {
 	private void createCounter(Counter counter) {
 		Element tmpl = svg.getElementById("counter");
 		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
-		c.setId(counter.getId());
+		String id = counter.getId();
+		com.google.gwt.user.client.Element existing = DOM.getElementById(id);
+		if(existing!=null) {
+			String msg = "Element with id="+id+" aleady exists:"+existing;
+			Browser.console(msg);
+			Browser.console(existing);
+			throw new RuntimeException(msg);
+		}
+		c.setId(id);
 		c.getHref().setBaseVal(counter.getState());
 		ClickHandler clickHandler = new ClickHandler() {
 			@Override

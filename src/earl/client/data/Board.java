@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,8 +40,8 @@ public class Board implements Serializable {
 		}
 	}
 	
-	public List<Hex> getStacks() {
-		List<Hex> stacks = new ArrayList<Hex>();
+	public Collection<Hex> getStacks() {
+		Set<Hex> stacks = new HashSet<Hex>();
 		Set<Entry<String, Counter>> entrySet = counters.entrySet();
 		for (Entry<String, Counter> entry : entrySet) {
 			stacks.add(entry.getValue().getPosition());

@@ -13,6 +13,7 @@ import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 
@@ -24,9 +25,11 @@ public class SVGUtils {
 		}
 		SVGElement owner = (SVGElement) e.getParentElement();
 		SVGGElement g = (SVGGElement) createSVGElement("g");
-		g.appendChild(e.cloneNode(true));
+		Node c = e.cloneNode(true);
+		g.appendChild(c);
 		owner.appendChild(g);
 		OMSVGRect bBox = g.getBBox();
+		g.removeChild(c);
 		owner.removeChild(g);
 		return bBox;
 	}

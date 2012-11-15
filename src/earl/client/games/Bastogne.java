@@ -68,18 +68,7 @@ public class Bastogne implements Game, Serializable {
 	}
 
 	public void setupScenarion52() {
-		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
-		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");
-		setup(1, "D", ge_26VG_3_I_78, "26 VG I/78 3 Inf Co");
-		setup(1, "D", ge_26VG_4_I_78, "26 VG I/78 4 Mortar Co");
-		setup(1, "D", ge_26VG_S_I_78, "26 VG I/78 Sturm SMG Co");
-		setup(1, "D", ge_26VG_5_II_78, "26 VG I/78 5 Inf Co");
-		setup(1, "D", ge_26VG_6_II_78, "26 VG I/78 6 Inf Co");
-		setup(1, "D", ge_26VG_7_II_78, "26 VG I/78 7 Inf Co");
-		setup(1, "D", ge_26VG_8_II_78, "26 VG I/78 8 Mortar Co");
-		setup(1, "D", ge_26VG_S_II_78, "26 VG I/78 Sturm SMG Co");
-
-		if (System.currentTimeMillis() != 0) return;
+//		if (System.currentTimeMillis() != 0) return;
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
