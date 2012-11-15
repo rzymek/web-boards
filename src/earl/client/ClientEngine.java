@@ -41,7 +41,7 @@ public class ClientEngine implements EntryPoint {
 				public void onSuccess(GameInfo info) {
 					Display display = new SVGDisplay(getSVG());
 					display.addGameListener(new UpdateServer(service));
-					display.init(info.game.getBoard());
+					display.init(info.game.getBoard());					
 				}
 			});
 		}

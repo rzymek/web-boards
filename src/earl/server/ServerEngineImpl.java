@@ -1,5 +1,6 @@
 package earl.server;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -17,15 +18,24 @@ import earl.server.utils.HttpUtils;
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final long serialVersionUID = 1L;
 	private Random random = new Random();
-	private Notify notify = new Notify();
+	private Notify notify = new DisabledNotify();
 
 	@Override
 	public GameInfo getState(String tableId) {
 		GameManager manager = GameManager.get();
 		GameInfo info = new GameInfo();
-		info.channelToken = "todo";//openChannel();
+		info.channelToken = notify.openChannel(tableId, getUser());
 		info.game = manager.getGame(tableId);
 		return info;
+	}
+
+	private String getUser() {
+		Principal principal = getThreadLocalRequest().getUserPrincipal();
+		if(principal == null) {
+//			throw new SecurityException("Not logged in.");
+			return null;
+		}
+		return principal.getName();
 	}
 
 	@Override
