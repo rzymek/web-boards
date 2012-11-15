@@ -45,4 +45,8 @@ public class SCSCounter extends Counter implements Serializable {
 			flipped = !flipped;
 		}
 	}
+	@Override
+	public String toString() {
+		return super.toString() + " "+position.getId();
+	}
 }

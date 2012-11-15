@@ -51,6 +51,8 @@ import static earl.client.games.BastogneUnits.us_Cherry_C_609;
 import static earl.client.games.BastogneUnits.us_Cherry_D_3;
 import static earl.client.games.BastogneUnits.us_Cherry_D_90;
 import static earl.client.games.BastogneUnits.us_Cherry_HHC_3;
+import static earl.client.games.BastogneUnits.us_Comb_C;
+import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 
 import java.io.Serializable;
@@ -58,19 +60,26 @@ import java.io.Serializable;
 import earl.client.data.Board;
 
 public class Bastogne implements Game, Serializable {
-	private Board board = null;
+	private Board board = new Board();
 	private String playerUS;
 	private String playerGE;
 
 	public Bastogne() {
-		this.board = new Board();
-		setupScenarion52();
 	}
 
-	private void setupScenarion52() {
+	public void setupScenarion52() {
+		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
+		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");
+		setup(1, "D", ge_26VG_3_I_78, "26 VG I/78 3 Inf Co");
+		setup(1, "D", ge_26VG_4_I_78, "26 VG I/78 4 Mortar Co");
+		setup(1, "D", ge_26VG_S_I_78, "26 VG I/78 Sturm SMG Co");
+		setup(1, "D", ge_26VG_5_II_78, "26 VG I/78 5 Inf Co");
+		setup(1, "D", ge_26VG_6_II_78, "26 VG I/78 6 Inf Co");
+		setup(1, "D", ge_26VG_7_II_78, "26 VG I/78 7 Inf Co");
+		setup(1, "D", ge_26VG_8_II_78, "26 VG I/78 8 Mortar Co");
+		setup(1, "D", ge_26VG_S_II_78, "26 VG I/78 Sturm SMG Co");
 
-		// if(System.currentTimeMillis()!=0)return;
-
+		if (System.currentTimeMillis() != 0) return;
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
@@ -82,8 +91,8 @@ public class Bastogne implements Game, Serializable {
 		setup("48.23", us_73_Art, "73 Arm Arty Bn");
 		setup("46.22", us_Cherry_C_20, "Team Cherry (C/20 Arm Inf Co)");
 		setup("45.22", us_Cherry_D_3, "Team Cherry (D/3 Arm Platoon)");
-		// setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
-		// setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
+		setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
+		setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
 
 		String hexId = "33.16-21";
 		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");

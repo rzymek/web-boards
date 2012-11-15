@@ -26,21 +26,22 @@ public class ManagerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
-		String username = getCurrentUser(req);
+		String user = getCurrentUser(req);
 		GameManager manager = GameManager.get();
-		Cookie cookie = new Cookie("earl.user", username);
+		Cookie cookie = new Cookie("earl.user", user);
 		resp.addCookie(cookie);
 		if ("/start".equals(pathInfo)) {
 			Bastogne game = new Bastogne();
-			game.setPlayer(BastogneSide.US, username);
+			game.setupScenarion52();
+			game.setPlayer(BastogneSide.US, user);
 			String tableId = manager.start(game);
 			resp.sendRedirect("/bastogne/?table=" + tableId);
 		} else if ("/join".equals(pathInfo)) {
 			String tableId = req.getParameter("table");
-			manager.join(tableId, username);
+			manager.join(tableId, user);
 			resp.sendRedirect("/bastogne/?table=" + tableId);
 		} else {
-			Collection<Table> started = Collections.emptySet();
+			Collection<Table> started = manager.getParticipatingIn(user);
 			Collection<Table> invitations = Collections.emptySet();
 			req.setAttribute("earl.started", started);
 			req.setAttribute("earl.invitations", invitations);

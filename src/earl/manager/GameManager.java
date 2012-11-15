@@ -1,5 +1,7 @@
 package earl.manager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,8 +10,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import earl.client.data.Board;
 import earl.client.data.Counter;
-import earl.client.data.Hex;
 import earl.client.games.Game;
 import earl.server.ex.EarlServerException;
 
@@ -49,9 +51,16 @@ public class GameManager {
 		return results;
 	}
 
-	public Collection<Game> getParticipatingIn(String user) {
+	public Collection<Table> getParticipatingIn(String user) {
 		boolean participating = true;
-		return filterGamesByParticipation(user, participating);
+		Collection<Table> tables = new ArrayList<Table>();
+		
+		for (Entry<String, Game> game : games.entrySet()) {
+			Table t = new Table();
+			t.id = game.getKey();
+			t.opponent = Arrays.asList(game.getValue().getPlayers()).toString();
+		}
+		return tables;
 	}
 
 	public Game getGame(String tableId) {
@@ -76,11 +85,12 @@ public class GameManager {
 		
 	}
 
-	public void counterMoved(String tableId, Counter counter, Hex from, Hex to) {
+	public void counterMoved(String tableId, String counterId, String fromId, String toId) {
 		Game game = getGame(tableId);
-		Counter c = game.getBoard().getCounter(counter.getId());
-		c.setPosition(to);
-		PersistenceFactory.get().saveCounterPosition(tableId, counter.getId(), to.getId());
+		Board board = game.getBoard();
+		Counter c = board.getCounter(counterId);
+		c.setPosition(board.getHex(toId));
+		PersistenceFactory.get().saveCounterPosition(tableId, counterId, toId);
 	}
 
 	public void counterChanged(Counter piece) {

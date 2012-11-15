@@ -59,7 +59,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	@Override
 	public void counterMoved(Counter counter, Hex from, Hex to) {
 		String tableId = getTableId();
-		GameManager.get().counterMoved(tableId, counter, from, to);
+		GameManager.get().counterMoved(tableId, counter.getId(), from.getId(), to.getId());
 	}
 
 	protected String getTableId() {

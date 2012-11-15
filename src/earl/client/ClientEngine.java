@@ -23,6 +23,7 @@ import earl.client.utils.AbstractCallback;
 import earl.client.utils.Browser;
 
 public class ClientEngine implements EntryPoint {
+	private Display display;
 
 	@Override
 	public void onModuleLoad() {
@@ -33,13 +34,16 @@ public class ClientEngine implements EntryPoint {
 			log("Demo mode");
 			Display display = new SVGDisplay(getSVG());
 			Bastogne bastogne = new Bastogne();
+			bastogne.setupScenarion52();
 			display.init(bastogne.getBoard());
 		} else { 
 			String tableId = Window.Location.getParameter("table");
 			service.getState(tableId, new AbstractCallback<GameInfo>(){
+
 				@Override
 				public void onSuccess(GameInfo info) {
 					Display display = new SVGDisplay(getSVG());
+					ClientEngine.this.display = display;
 					display.addGameListener(new UpdateServer(service));
 					display.init(info.game.getBoard());					
 				}
@@ -56,6 +60,13 @@ public class ClientEngine implements EntryPoint {
 						log("2d6 = "+result);
 					}
 				});
+			}
+		});
+		Button.wrap(Document.get().getElementById("debug")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				log("debug");
+				((SVGDisplay)display).board.debug();
 			}
 		});
 		log("Started");

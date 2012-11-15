@@ -31,7 +31,7 @@ import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
 	private final DisplayHandler handler;
-	private Board board;
+	public Board board;
 	final SVGSVGElement svg;
 	private SVGRectElement selectionRect;
 
@@ -54,7 +54,7 @@ public class SVGDisplay implements Display {
 
 	@Override
 	public void init(Board board) {
-		this.board = board;//
+		this.board = board;
 		Collection<Hex> stacks = board.getStacks();
 		for (Hex hex : stacks) {
 			List<Counter> counters = hex.getStack();

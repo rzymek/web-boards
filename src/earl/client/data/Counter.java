@@ -1,9 +1,7 @@
 package earl.client.data;
 
-import java.io.Serializable;
 
-
-public abstract class Counter implements Identifiable, Serializable {
+public abstract class Counter extends Identifiable {
 	protected Hex position = null;
 
 	public Hex getPosition() {
@@ -16,12 +14,11 @@ public abstract class Counter implements Identifiable, Serializable {
 			from.pieces.remove(this);
 		}
 		position = to;
-		to.pieces.add(this);
+		if (!to.pieces.contains(this)) {
+			to.pieces.add(this);
+		}
 	}
 
-	@Override
-	public abstract String getId();
-	
 	public abstract String getState();
 
 	public void flip() {

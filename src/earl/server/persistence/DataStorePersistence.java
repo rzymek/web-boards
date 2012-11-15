@@ -50,6 +50,7 @@ public class DataStorePersistence implements Persistence {
 		try {
 			Map<String, Entity> counterState = getCountersState(tableId);
 			Bastogne game = new Bastogne();
+			game.setupScenarion52();
 			Board board = game.getBoard();
 			Collection<Counter> counters = board.getCounters();
 			for (Counter counter : counters) {

@@ -1,13 +1,12 @@
 package earl.client.data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
 @SuppressWarnings("serial")
-public class Hex implements Serializable, Identifiable {
+public class Hex extends Identifiable {
 	protected List<Counter> pieces = new ArrayList<Counter>();
 	private String hexId = null;
 	
@@ -25,5 +24,14 @@ public class Hex implements Serializable, Identifiable {
 	@Override
 	public String getId() {
 		return hexId;
+	}
+	
+	@Override
+	public String toString() {
+		String s = super.toString() + " {";
+		for (Counter c : pieces) {
+			s+=c.getId()+", ";
+		}
+		return s+"}";
 	}
 }
