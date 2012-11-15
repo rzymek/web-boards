@@ -8,10 +8,12 @@ import earl.client.data.Hex;
 public class DisplayHandler {
 	protected Counter selectedPiece = null;
 	protected Hex stackSelected = null;
-	private final DisplayChangeListener listener;
+	private final GameChangeDispather listeners = new GameChangeDispather();
+	private final DisplayChangeListener display;
 
-	public DisplayHandler(DisplayChangeListener listener) {
-		this.listener = listener;
+	public DisplayHandler(DisplayChangeListener display) {
+		this.display = display;
+		this.listeners.add(display);
 	}
 
 	public void areaClicked(Hex area) {
@@ -19,8 +21,8 @@ public class DisplayHandler {
 		if (selectedPiece != null) {
 			Hex from = selectedPiece.getPosition();
 			selectedPiece.setPosition(area);
-			listener.counterMoved(selectedPiece, from, area);
-			listener.alignStack(from);
+			listeners.counterMoved(selectedPiece, from, area);
+			display.alignStack(from);
 			setSelectedPiece(null);
 		}
 	}
@@ -31,18 +33,18 @@ public class DisplayHandler {
 		if (piece == selectedPiece) {
 			// click on an already selected piece -> piece special action
 			piece.flip();
-			listener.counterChanged(piece);
+			listeners.counterChanged(piece);
 		} else {
 			Hex hex = piece.getPosition();
 			List<Counter> stack = hex.getStack();
 			boolean selectedFromCurrentStack = (currentStack != null && currentStack.getId().equals(hex.getId()));
 			boolean singleCounterSelected = (stack.size() == 1);
-			boolean countersOverlap = listener.areCountersOverlapping(hex, stack);
+			boolean countersOverlap = display.areCountersOverlapping(hex, stack);
 			if(singleCounterSelected || selectedFromCurrentStack || !countersOverlap) {
 				setSelectedPiece(piece);
 			}else{
 				setSelectedPiece(null);
-				listener.showStackSelection(hex);
+				display.showStackSelection(hex);
 				stackSelected = hex;
 			}
 		}
@@ -50,19 +52,22 @@ public class DisplayHandler {
 
 	private void hideStackSelection() {
 		if(stackSelected != null) {
-			listener.alignStack(stackSelected);
+			display.alignStack(stackSelected);
 			stackSelected = null;
 		}
 	}
 
 	protected void setSelectedPiece(Counter piece) {
 		if (selectedPiece != null) {
-			listener.counterDeselected(selectedPiece);
+			display.counterDeselected(selectedPiece);
 		}
 		selectedPiece = piece;
 		if (selectedPiece != null) {
-			listener.counterSelected(selectedPiece);
+			display.counterSelected(selectedPiece);
 		}
 	}
 
+	public void addGameListener(GameChangeListener listener){
+		listeners.add(listener);
+	}
 }

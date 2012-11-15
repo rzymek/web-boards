@@ -6,4 +6,6 @@ public interface Display {
 
 	public abstract void init(Board board);
 
+	public abstract void addGameListener(GameChangeListener listener);
+
 }

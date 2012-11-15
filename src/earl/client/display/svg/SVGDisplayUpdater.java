@@ -8,7 +8,6 @@ import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 
 import earl.client.data.Counter;

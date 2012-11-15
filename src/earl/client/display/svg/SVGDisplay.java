@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.vectomatic.dom.svg.OMSVGMatrix;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
@@ -27,7 +26,7 @@ import earl.client.data.Identifiable;
 import earl.client.display.Dimention;
 import earl.client.display.Display;
 import earl.client.display.DisplayHandler;
-import earl.client.games.SCSCounter;
+import earl.client.display.GameChangeListener;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
@@ -149,53 +148,6 @@ public class SVGDisplay implements Display {
 		return max;
 	}
 
-	private void alignStack1(SVGElement area, List<SVGElement> counters) {
-		OMSVGRect areaBBox = SVGUtils.getBBox(area);
-		float rowWidth = getRowWidth(counters, areaBBox);
-		float areaWidth = areaBBox.getWidth();
-		float areaHeight = areaBBox.getHeight();
-		float x2 = areaBBox.getX();
-		float y2 = areaBBox.getY();
-		float startx = (areaWidth - rowWidth) / 2;
-		float ox = startx;
-		float oy = 0;
-		float offset = 0;
-		for (SVGElement counter : counters) {
-			OMSVGRect counterbbox = SVGUtils.getBBox(counter);
-			OMSVGPoint to = SVGUtils.createPoint(svg, x2, y2);
-			OMSVGMatrix matrix = SVGUtils.getTransformToElement(area, counter);
-			// to = to.matrixTransform(matrix);
-
-			float x = to.getX() + ox + offset;
-			float y = to.getY() + oy + offset;
-			SVGUtils.setXY(counter, x, y);
-			ox += counterbbox.getWidth();
-			if (ox + counterbbox.getWidth() > areaWidth) {
-				ox = startx;
-				oy += counterbbox.getHeight();
-			}
-			if (oy + counterbbox.getHeight() > areaBBox.getHeight()) {
-				ox = startx;
-				oy = 0;
-				offset += 5;
-			}
-		}
-	}
-
-	private float getRowWidth(List<SVGElement> counters, OMSVGRect areaBBox) {
-		float width = 0;
-		float max = areaBBox.getWidth();
-		for (int i = 0; i < counters.size(); i++) {
-			float w = SVGUtils.getBBox(counters.get(i)).getWidth();
-			if (width + w < max) {
-				width += w;
-			} else {
-				break;
-			}
-		}
-		return width;
-	}
-
 	private void centerInHex(SVGElement hex, SVGElement counter, int offset) {
 		OMSVGRect bbox = SVGUtils.getBBox(counter);
 		OMSVGPoint to = SVGUtils.getCenter(hex);
@@ -274,4 +226,8 @@ public class SVGDisplay implements Display {
 		float slots = placing.width * placing.height;
 		return (slots < counters.size());
 	}
+	
+	public void addGameListener(GameChangeListener listener) {
+		handler.addGameListener(listener);
+	};
 }

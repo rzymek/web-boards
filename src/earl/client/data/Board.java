@@ -16,7 +16,7 @@ public class Board implements Serializable {
 		counters = new HashMap<String, Counter>();
 		hexes = new HashMap<String, Hex>();
 	}
-	
+
 	public Collection<Hex> getStacks() {
 		Set<Hex> stacks = new HashSet<Hex>();
 		Set<Entry<String, Counter>> entrySet = counters.entrySet();
@@ -24,6 +24,10 @@ public class Board implements Serializable {
 			stacks.add(entry.getValue().getPosition());
 		}
 		return stacks;
+	}
+
+	public Collection<Counter> getCounters() {
+		return counters.values();
 	}
 
 	public Hex getHex(String hexId) {

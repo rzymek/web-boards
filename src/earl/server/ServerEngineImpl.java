@@ -6,8 +6,9 @@ import java.util.Random;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import earl.client.data.Board;
-import earl.client.games.Game;
+import earl.client.data.Counter;
+import earl.client.data.GameInfo;
+import earl.client.data.Hex;
 import earl.client.remote.ServerEngine;
 import earl.manager.GameManager;
 import earl.server.notify.Notify;
@@ -19,10 +20,12 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private Notify notify = new Notify();
 
 	@Override
-	public Board getState(String tableId) {
+	public GameInfo getState(String tableId) {
 		GameManager manager = GameManager.get();
-		Game game = manager.getGame(tableId);
-		return game.getBoard();
+		GameInfo info = new GameInfo();
+		info.channelToken = "todo";//openChannel();
+		info.game = manager.getGame(tableId);
+		return info;
 	}
 
 	@Override
@@ -36,6 +39,17 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			notify.notifyListeners(tableId, d + "d" + sides + " = " + sum);
 		}
 		return sum;
+	}
+	
+	@Override
+	public void counterChanged(Counter piece) {
+		GameManager.get().counterChanged(piece);
+	}
+	
+	@Override
+	public void counterMoved(Counter counter, Hex from, Hex to) {
+		String tableId = getTableId();
+		GameManager.get().counterMoved(tableId, counter, from, to);
 	}
 
 	protected String getTableId() {

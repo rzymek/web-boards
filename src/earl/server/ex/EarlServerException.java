@@ -6,4 +6,8 @@ public class EarlServerException extends RuntimeException {
 		super(string);
 	}
 
+	public EarlServerException(Exception e) {
+		super(e);
+	}
+
 }

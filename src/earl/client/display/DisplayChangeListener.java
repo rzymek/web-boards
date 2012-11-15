@@ -5,11 +5,7 @@ import java.util.List;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 
-public interface DisplayChangeListener {
-
-	void counterMoved(Counter counter, Hex from, Hex to);
-
-	void counterChanged(Counter piece);
+public interface DisplayChangeListener extends GameChangeListener {
 
 	void counterDeselected(Counter selectedPiece);
 

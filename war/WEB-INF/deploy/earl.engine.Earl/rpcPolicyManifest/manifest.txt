@@ -1,2 +1,0 @@
-# Module earl.engine.Earl
-# RPC service class, partial path of RPC policy file

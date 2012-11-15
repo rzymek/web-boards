@@ -52,21 +52,25 @@ import static earl.client.games.BastogneUnits.us_Cherry_D_3;
 import static earl.client.games.BastogneUnits.us_Cherry_D_90;
 import static earl.client.games.BastogneUnits.us_Cherry_HHC_3;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
+
+import java.io.Serializable;
+
 import earl.client.data.Board;
 
-public class Bastogne implements Game {
-	private final Board board;
+public class Bastogne implements Game, Serializable {
+	private Board board = null;
 	private String playerUS;
 	private String playerGE;
 
 	public Bastogne() {
 		this.board = new Board();
+		setupScenarion52();
 	}
-	
-	public void setupScenarion52() {
 
-//		if(System.currentTimeMillis()!=0)return;
-		
+	private void setupScenarion52() {
+
+		// if(System.currentTimeMillis()!=0)return;
+
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
@@ -78,8 +82,8 @@ public class Bastogne implements Game {
 		setup("48.23", us_73_Art, "73 Arm Arty Bn");
 		setup("46.22", us_Cherry_C_20, "Team Cherry (C/20 Arm Inf Co)");
 		setup("45.22", us_Cherry_D_3, "Team Cherry (D/3 Arm Platoon)");
-//		setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
-//		setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
+		// setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
+		// setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
 
 		String hexId = "33.16-21";
 		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
@@ -91,8 +95,8 @@ public class Bastogne implements Game {
 		setup(hexId, us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
 		setup(hexId, us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
 		setup(hexId, us_101_327, "377 Abn Arty Bn");
-//		setup(hexId, us_Comb_C, "Comb Eng Bn (C Co)");
-//		setup(hexId, us_Comb_D, "Comb Eng Bn (D Co)");
+		// setup(hexId, us_Comb_C, "Comb Eng Bn (C Co)");
+		// setup(hexId, us_Comb_D, "Comb Eng Bn (D Co)");
 
 		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
 		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");
@@ -116,7 +120,7 @@ public class Bastogne implements Game {
 		setup(1, "E", ge_KG902_5_130, "KG 902 5/130 Pz Co");
 		setup(1, "E", ge_KG902_7_130, "KG 902 7/130 Pz Co");
 		setup(1, "E", ge_KG902_Arty, "KG 902 Arty Bn");
-		
+
 		setup(1, "E", ge_26VG_1_I_77, "26 VG I/77 1 Inf Co");
 		setup(1, "E", ge_26VG_2_I_77, "26 VG I/77 2 Inf Co");
 		setup(1, "E", ge_26VG_3_I_77, "26 VG I/77 3 Inf Co");
@@ -127,15 +131,15 @@ public class Bastogne implements Game {
 		setup(1, "E", ge_26VG_7_II_77, "26 VG I/77 7 Inf Co");
 		setup(1, "E", ge_26VG_8_II_77, "26 VG I/77 8 Mortar Co");
 		setup(1, "E", ge_26VG_S_II_77, "26 VG I/77 Sturm SMG Co");
-		
+
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
-		
+
 		SCSCounter counter;
-		for(int i=0;i<18;i++) {
-			counter = new SCSCounter("us_dg"+i, "admin/misc_us-dg.png", null);
+		for (int i = 0; i < 18; i++) {
+			counter = new SCSCounter("us_dg" + i, "admin/misc_us-dg.png", null);
 			counter.setDescription("US Disorganized Units");
 			board.place("us_dg", counter);
-			counter = new SCSCounter("ge_dg"+i, "admin/misc_ge-dg.png", null);
+			counter = new SCSCounter("ge_dg" + i, "admin/misc_ge-dg.png", null);
 			counter.setDescription("GE Disorganized Units");
 			board.place("ge_dg", counter);
 		}
@@ -145,11 +149,11 @@ public class Bastogne implements Game {
 		String id = unit.getId();
 		SCSCounter counter = new SCSCounter(id, unit.front, unit.back);
 		counter.setDescription(desc);
-		board.place(hexId, counter);		
+		board.place(hexId, counter);
 	}
 
 	private void setup(int turn, String area, BastogneUnits unit, String desc) {
-		String hexId = turn+area;
+		String hexId = turn + area;
 		setup(hexId, unit, desc);
 	}
 
@@ -177,6 +181,11 @@ public class Bastogne implements Game {
 	@Override
 	public boolean isParticipating(String user) {
 		return user.equals(playerUS) || user.equals(playerGE);
+	}
+
+	@Override
+	public String[] getPlayers() {
+		return new String[] { playerUS, playerGE };
 	}
 
 }

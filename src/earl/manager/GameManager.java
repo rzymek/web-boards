@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import earl.client.data.Counter;
+import earl.client.data.Hex;
 import earl.client.games.Game;
 import earl.server.ex.EarlServerException;
 
@@ -26,6 +28,7 @@ public class GameManager {
 	public String start(Game game) {
 		String id = UUID.randomUUID().toString();		
 		games.put(id, game);
+		PersistenceFactory.get().persist(game);
 		return id;
 	}
 
@@ -54,9 +57,35 @@ public class GameManager {
 	public Game getGame(String tableId) {
 		Game game = games.get(tableId);
 		if(game == null) {
-			throw new EarlServerException("No such game: "+tableId);
+			game = PersistenceFactory.get().getTable(tableId);
+			if(game == null) {
+				throw new EarlServerException("No such game: "+tableId);
+			}
+			games.put(tableId, game);
 		}
 		return game;
+	}
+
+	public void join(String tableId, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteListener(String clientId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void counterMoved(String tableId, Counter counter, Hex from, Hex to) {
+		Game game = getGame(tableId);
+		Counter c = game.getBoard().getCounter(counter.getId());
+		c.setPosition(to);
+		PersistenceFactory.get().saveCounterPosition(tableId, counter.getId(), to.getId());
+	}
+
+	public void counterChanged(Counter piece) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -13,7 +13,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 
-import earl.client.data.Board;
+import earl.client.data.GameInfo;
 import earl.client.display.Display;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.games.Bastogne;
@@ -33,15 +33,15 @@ public class ClientEngine implements EntryPoint {
 			log("Demo mode");
 			Display display = new SVGDisplay(getSVG());
 			Bastogne bastogne = new Bastogne();
-			bastogne.setupScenarion52();
 			display.init(bastogne.getBoard());
 		} else { 
 			String tableId = Window.Location.getParameter("table");
-			service.getState(tableId, new AbstractCallback<Board>(){
+			service.getState(tableId, new AbstractCallback<GameInfo>(){
 				@Override
-				public void onSuccess(Board board) {
+				public void onSuccess(GameInfo info) {
 					Display display = new SVGDisplay(getSVG());
-					display.init(board);
+					display.addGameListener(new UpdateServer(service));
+					display.init(info.game.getBoard());
 				}
 			});
 		}
@@ -79,26 +79,6 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	public static native SVGSVGElement getSVG() /*-{
-		var s;
-		if ($wnd.parent.view) {
-			//frames
-			console.log("frames:" + $wnd.parent.view);
-			s = $wnd.parent.view.getSVGDocument();
-			if (s) {
-				console.log("embed");
-			} else {
-				console.log("frames");
-				s = $wnd.parent.view.document;
-			}
-		} else {
-			console.log("inline");
-			//inline
-			s = $doc.getElementsByTagNameNS("http://www.w3.org/2000/svg", "svg")[0];
-		}
-		console.log("getSVG=" + s);
-		return s;
-		//		return $wnd.document.getElementById('content').getSVGDocument();
-		// 		return $doc.getElementById("content").getSVGDocument();
-		//		return Document.get().getElementsByTagName("svg").getItem(0);
+ 		return $doc.getElementsByTagNameNS("http://www.w3.org/2000/svg", "svg")[0];
 	}-*/;
 }
