@@ -11,7 +11,7 @@ public class DisabledNotify extends Notify {
 	}
 	
 	@Override
-	public void notifyListeners(String tableId, String msg) {
+	public void notifyListeners(String tableId, Op op) {
 	}
 	
 }

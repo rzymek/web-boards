@@ -34,10 +34,11 @@ if(loc.params['gwt.codesvr'] == null) {
 InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne5.2.svg");
 IOUtils.copy(in,out);
 %>
+<input id="chat" type="text" size="200"></input><br>
 <table width="100%">
 	<tr>
 		<td id="controls" width="30%" valign="top">
-			<button type="button" id="roll2d6">Roll 2d6</button><br>
+			<button type="button" id="roll2d6" style="height: 50px; margin-bottom: 15px">Roll 2d6</button><br>
 			<button type="button" id="debug">Debug</button>
 		</td>
 		<td id="log" style="white-space: pre;">Loading...</td>

@@ -25,12 +25,17 @@ public class ServerEngineLink implements ServerEngineAsync {
 	}
 
 	@Override
-	public void counterChanged(Counter piece, AsyncCallback<Void> callback) {
-		impl.counterChanged(piece);
+	public void counterFlipped(Counter piece, AsyncCallback<Void> callback) {
+		impl.counterFlipped(piece);
 	}
 
 	@Override
 	public void counterMoved(Counter counter, Hex from, Hex to, AsyncCallback<Void> callback) {
 		impl.counterMoved(counter, from, to);
+	}
+
+	@Override
+	public void chat(String text, AsyncCallback<Void> callback) {
+		impl.chat(text);
 	}
 }

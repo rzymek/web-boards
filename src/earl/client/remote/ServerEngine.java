@@ -10,4 +10,5 @@ import earl.client.display.GameChangeListener;
 public interface ServerEngine extends RemoteService, GameChangeListener {
 	GameInfo getState(String tableId);
 	int roll(int dice, int sides);
+	void chat(String text);
 }

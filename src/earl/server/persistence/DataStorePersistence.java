@@ -1,5 +1,6 @@
 package earl.server.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -13,13 +14,15 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.games.Bastogne;
 import earl.client.games.Game;
-import earl.manager.Persistence;
+import earl.server.Op;
+import earl.server.Op.Type;
 import earl.server.ex.EarlServerException;
 import earl.server.notify.TableListener;
 
@@ -67,6 +70,27 @@ public class DataStorePersistence implements Persistence {
 			throw new EarlServerException(e);
 		}
 	}
+	public String getLog(String tableId) {
+		Query query = new Query(tableId+"-op");
+		query.addSort("tstamp", SortDirection.ASCENDING);
+		Iterable<Entity> results = service.prepare(query).asIterable();
+		StringBuilder log = new StringBuilder();
+		for (Entity entity : results) {
+			String type = (String) entity.getProperty("type");
+			Date tstamp = (Date) entity.getProperty("tstamp");
+			List<String> args = new ArrayList<String>();
+			for(int i=0; ;i++) {
+				String arg = (String) entity.getProperty(String.valueOf(i));
+				if(arg == null){
+					break;
+				}
+				args.add(arg);				
+			}
+			Op op = new Op(Type.valueOf(type), args.toArray(new String[args.size()]));
+			log.append(String.format("[%s] %s\n", tstamp, op.toString()));
+		}
+		return log.toString();
+	}
 
 	private Map<String, Entity> getCountersState(String tableId) {
 		Query query = new Query(tableId);
@@ -102,4 +126,19 @@ public class DataStorePersistence implements Persistence {
 		}
 	}
 
+	@Override
+	public void save(String tableId, Op op) {
+		try {
+			Entity entity = new Entity(tableId+"-op");
+			entity.setProperty("type", op.getType().name());
+			entity.setProperty("tstamp", new Date());
+			String[] args = op.getArgs();
+			for (int i = 0; i < args.length; i++) {
+				entity.setProperty(String.valueOf(i), args[i]);
+			}
+			service.put(entity);
+		} catch (Exception e) {
+			throw new EarlServerException(e);
+		}		
+	}
 }

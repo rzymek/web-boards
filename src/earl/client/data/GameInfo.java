@@ -7,4 +7,5 @@ import earl.client.games.Game;
 public class GameInfo implements Serializable {
 	public Game game;
 	public String channelToken;
+	public String log;
 }

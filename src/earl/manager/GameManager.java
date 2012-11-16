@@ -13,7 +13,9 @@ import java.util.UUID;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.games.Game;
+import earl.server.Op;
 import earl.server.ex.EarlServerException;
+import earl.server.persistence.PersistenceFactory;
 
 
 public class GameManager {
@@ -96,6 +98,10 @@ public class GameManager {
 	public void counterChanged(Counter piece) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void log(String tableId, Op op) {
+		PersistenceFactory.get().save(tableId, op);
 	}
 
 }

@@ -11,7 +11,9 @@ public interface ServerEngineAsync {
 
 	void roll(int dice, int sides, AsyncCallback<Integer> callback);
 
-	void counterChanged(Counter piece, AsyncCallback<Void> callback);
+	void counterFlipped(Counter piece, AsyncCallback<Void> callback);
 
 	void counterMoved(Counter counter, Hex from, Hex to, AsyncCallback<Void> callback);
+
+	void chat(String text, AsyncCallback<Void> callback);
 }

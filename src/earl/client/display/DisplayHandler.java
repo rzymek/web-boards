@@ -33,7 +33,7 @@ public class DisplayHandler {
 		if (piece == selectedPiece) {
 			// click on an already selected piece -> piece special action
 			piece.flip();
-			listeners.counterChanged(piece);
+			listeners.counterFlipped(piece);
 		} else {
 			Hex hex = piece.getPosition();
 			List<Counter> stack = hex.getStack();

@@ -12,7 +12,9 @@ import earl.client.data.GameInfo;
 import earl.client.data.Hex;
 import earl.client.remote.ServerEngine;
 import earl.manager.GameManager;
+import earl.server.Op.Type;
 import earl.server.notify.Notify;
+import earl.server.persistence.PersistenceFactory;
 import earl.server.utils.HttpUtils;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
@@ -26,6 +28,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		GameInfo info = new GameInfo();
 		info.channelToken = notify.openChannel(tableId, getUser());
 		info.game = manager.getGame(tableId);
+		info.log = PersistenceFactory.get().getLog(tableId);
 		return info;
 	}
 
@@ -40,19 +43,43 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	@Override
 	public int roll(int d, int sides) {
-		int sum = 0;
-		for (int i = 0; i < d; ++i) {
-			sum += random.nextInt(sides) + 1;
+		int[] dice = rollDice(d, sides);
+		int sum = getSum(dice);
+		int[] oparg = new int[3+dice.length];
+		oparg[0] = d;
+		oparg[1] = sides;
+		oparg[2] = sum;
+		for (int i = 0; i < dice.length; i++) {
+			oparg[i+3] = dice[i];
 		}
 		String tableId = getTableId();
+		Op roll = new Op(Type.ROLL, oparg);
+		GameManager.get().log(tableId, roll);
 		if(tableId != null) {
-			notify.notifyListeners(tableId, d + "d" + sides + " = " + sum);
+			notify.notifyListeners(tableId, roll);
 		}
 		return sum;
 	}
+
+	private int getSum(int[] dice) {
+		int sum=0;
+		for (int d : dice) {
+			sum += d;
+		}
+		return sum;
+	}
+
+	private int[] rollDice(int d, int sides) {
+		int[] dice = new int[d];
+		for (int i = 0; i < d; ++i) {
+			int die = random.nextInt(sides) + 1;
+			dice[i] = die;
+		}
+		return dice;
+	}
 	
 	@Override
-	public void counterChanged(Counter piece) {
+	public void counterFlipped(Counter piece) {
 		GameManager.get().counterChanged(piece);
 	}
 	
@@ -71,5 +98,12 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}
 		String tableId = list.get(0);
 		return tableId;
+	}
+	
+	
+	@Override
+	public void chat(String text) {
+		String tableId = getTableId();
+		PersistenceFactory.get().save(tableId, new Op(Type.CHAT, text));
 	}
 }

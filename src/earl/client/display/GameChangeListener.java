@@ -7,6 +7,6 @@ public interface GameChangeListener {
 
 	void counterMoved(Counter counter, Hex from, Hex to);
 
-	void counterChanged(Counter piece);
+	void counterFlipped(Counter piece);
 
 }

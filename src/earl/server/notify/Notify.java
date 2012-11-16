@@ -13,19 +13,20 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 
-import earl.manager.Persistence;
-import earl.manager.PersistenceFactory;
+import earl.server.Op;
+import earl.server.persistence.Persistence;
+import earl.server.persistence.PersistenceFactory;
 
 public class Notify {
 	private Persistence persistence = PersistenceFactory.get();
 
-	public void notifyListeners(String tableId, String msg) {
+	public void notifyListeners(String tableId, Op roll) {
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
 		List<TableListener> listeners = persistence.getListeners(tableId);
 		removeObsoleteListeners(listeners);
 		for (TableListener listener : listeners) {
 			String clientId = listener.getClientId();
-			ChannelMessage message = new ChannelMessage(clientId, msg);
+			ChannelMessage message = new ChannelMessage(clientId, roll.toMessage());
 			System.out.println("sending to " + clientId);
 			channelService.sendMessage(message);
 		}
@@ -55,7 +56,7 @@ public class Notify {
 		ChannelService service= ChannelServiceFactory.getChannelService();
 		String token = service.createChannel(clientId);
 		System.out.println("client connected: "+clientId+" token="+token);
-		notifyListeners(tableId, "Client connected");
+		notifyListeners(tableId, new Op(Op.Type.CONNECTED, user));
 		return token;
 	}
 }

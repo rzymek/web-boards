@@ -21,8 +21,8 @@ public class UpdateServer implements GameChangeListener {
 	}
 
 	@Override
-	public void counterChanged(Counter piece) {
-		service.counterChanged(piece, new AbstractCallback<Void>() {
+	public void counterFlipped(Counter piece) {
+		service.counterFlipped(piece, new AbstractCallback<Void>() {
 		});
 	}
 

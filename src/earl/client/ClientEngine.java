@@ -8,10 +8,13 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.TextBox;
 
 import earl.client.data.GameInfo;
 import earl.client.display.Display;
@@ -41,16 +44,16 @@ public class ClientEngine implements EntryPoint {
 			service.getState(tableId, new AbstractCallback<GameInfo>(){
 
 				@Override
-				public void onSuccess(GameInfo info) {
+				public void onSuccess(GameInfo info) {					
 					Display display = new SVGDisplay(getSVG());
 					ClientEngine.this.display = display;
 					display.addGameListener(new UpdateServer(service));
-					display.init(info.game.getBoard());					
+					display.init(info.game.getBoard());
+					log(info.log);
 				}
 			});
 		}
-		Button roll2d6 = Button.wrap(Document.get().getElementById("roll2d6"));
-		roll2d6.addClickHandler(new ClickHandler() {			
+		Button.wrap(Document.get().getElementById("roll2d6")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				log("Rolling 2d6...");
@@ -60,6 +63,24 @@ public class ClientEngine implements EntryPoint {
 						log("2d6 = "+result);
 					}
 				});
+			}
+		});
+		
+		final TextBox chat = TextBox.wrap(Document.get().getElementById("chat"));
+		chat.addKeyPressHandler(new KeyPressHandler() {			
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				char code = event.getCharCode();
+				if(code == '\r') {
+					final String text = chat.getText();
+					service.chat(text, new AbstractCallback<Void>(){
+						@Override
+						public void onSuccess(Void result) {
+							log(">>>"+text);
+						}
+					});
+					chat.setText("");
+				}
 			}
 		});
 		Button.wrap(Document.get().getElementById("debug")).addClickHandler(new ClickHandler() {			

@@ -1,8 +1,7 @@
-package earl.manager;
+package earl.server.persistence;
 
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
-import earl.server.persistence.DataStorePersistence;
 
 public class PersistenceFactory {
 	public static Persistence get() {		

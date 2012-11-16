@@ -17,9 +17,9 @@ public class GameChangeDispather implements GameChangeListener {
 	}
 
 	@Override
-	public void counterChanged(Counter piece) {
+	public void counterFlipped(Counter piece) {
 		for (GameChangeListener l : listeners) {
-			l.counterChanged(piece);
+			l.counterFlipped(piece);
 		}
 	}
 

@@ -27,7 +27,7 @@ public class SVGDisplayUpdater implements DisplayChangeListener {
 	}
 
 	@Override
-	public void counterChanged(Counter piece) {
+	public void counterFlipped(Counter piece) {
 		SVGImageElement c = (SVGImageElement) display.svg.getElementById(piece.getId());
 		c.getHref().setBaseVal(piece.getState());
 	}
