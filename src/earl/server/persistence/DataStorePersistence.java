@@ -64,6 +64,10 @@ public class DataStorePersistence implements Persistence {
 				String hexId = (String) entity.getProperty("position");
 				Hex hex = board.getHex(hexId);
 				counter.setPosition(hex);
+				Boolean flipped = (Boolean) entity.getProperty("flipped");
+				if(flipped != null && flipped) {
+					counter.flip();
+				}
 			}
 			return game;
 		} catch (Exception e) {
@@ -72,7 +76,7 @@ public class DataStorePersistence implements Persistence {
 	}
 	public String getLog(String tableId) {
 		Query query = new Query(tableId+"-op");
-		query.addSort("tstamp", SortDirection.ASCENDING);
+		query.addSort("tstamp", SortDirection.DESCENDING);
 		Iterable<Entity> results = service.prepare(query).asIterable();
 		StringBuilder log = new StringBuilder();
 		for (Entity entity : results) {
@@ -115,11 +119,12 @@ public class DataStorePersistence implements Persistence {
 	}
 
 	@Override
-	public void saveCounterPosition(String tableId, String counterId, String hexId) {
+	public void saveCounterPosition(String tableId, String counterId, String hexId, boolean flipped) {
 		try {
 			Key key = KeyFactory.createKey(tableId, counterId);
 			Entity table = new Entity(key);
-			table.setProperty("position", hexId);
+			table.setProperty("position", hexId);			
+			table.setProperty("flipped", flipped);
 			service.put(table);
 		} catch (Exception e) {
 			throw new EarlServerException(e);

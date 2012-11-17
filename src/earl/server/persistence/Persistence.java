@@ -15,9 +15,9 @@ public interface Persistence {
 
 	void delete(TableListener listener);
 
-	void saveCounterPosition(String tableId, String id, String id2);
-
 	void save(String tableId, Op op);
 
 	String getLog(String tableId);
+
+	void saveCounterPosition(String tableId, String counterId, String hexId, boolean flipped);
 }

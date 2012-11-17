@@ -3,6 +3,7 @@ package earl.client.data;
 
 public abstract class Counter extends Identifiable {
 	protected Hex position = null;
+	protected boolean flipped = false;
 
 	public Hex getPosition() {
 		return position;
@@ -22,5 +23,10 @@ public abstract class Counter extends Identifiable {
 	public abstract String getState();
 
 	public void flip() {
+		flipped = !flipped;
+	}
+
+	public boolean isFlipped() {
+		return flipped;
 	}
 }

@@ -71,7 +71,7 @@ public class ClientEngine implements EntryPoint {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				char code = event.getCharCode();
-				if(code == '\r') {
+				if(code == '\r' || code == '\n') {
 					final String text = chat.getText();
 					service.chat(text, new AbstractCallback<Void>(){
 						@Override

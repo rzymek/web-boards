@@ -34,6 +34,7 @@ public class DisplayHandler {
 			// click on an already selected piece -> piece special action
 			piece.flip();
 			listeners.counterFlipped(piece);
+			setSelectedPiece(null);
 		} else {
 			Hex hex = piece.getPosition();
 			List<Counter> stack = hex.getStack();

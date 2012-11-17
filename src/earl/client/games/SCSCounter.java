@@ -10,7 +10,6 @@ public class SCSCounter extends Counter implements Serializable {
 	private String frontPath = null;
 	private String id;
 	private String back;
-	boolean flipped = false;
 
 	protected SCSCounter() {
 	}

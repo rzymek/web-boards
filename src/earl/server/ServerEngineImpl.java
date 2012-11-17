@@ -80,7 +80,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	
 	@Override
 	public void counterFlipped(Counter piece) {
-		GameManager.get().counterChanged(piece);
+		String tableId = getTableId();
+		GameManager.get().counterChanged(tableId, piece.getId());
 	}
 	
 	@Override

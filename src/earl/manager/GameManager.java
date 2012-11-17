@@ -92,12 +92,16 @@ public class GameManager {
 		Board board = game.getBoard();
 		Counter c = board.getCounter(counterId);
 		c.setPosition(board.getHex(toId));
-		PersistenceFactory.get().saveCounterPosition(tableId, counterId, toId);
+		PersistenceFactory.get().saveCounterPosition(tableId, counterId, toId, c.isFlipped());
 	}
 
-	public void counterChanged(Counter piece) {
-		// TODO Auto-generated method stub
-		
+	public void counterChanged(String tableId, String counterId) {
+		Game game = getGame(tableId);
+		Board board = game.getBoard();
+		Counter c = board.getCounter(counterId);
+		c.flip();
+		String toId = c.getPosition().getId();
+		PersistenceFactory.get().saveCounterPosition(tableId, counterId, toId, c.isFlipped());
 	}
 
 	public void log(String tableId, Op op) {
