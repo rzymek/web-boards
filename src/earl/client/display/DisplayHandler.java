@@ -5,7 +5,7 @@ import java.util.List;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 
-public class DisplayHandler {
+public class DisplayHandler implements GameHandler {
 	protected Counter selectedPiece = null;
 	protected Hex stackSelected = null;
 	private final GameChangeDispather listeners = new GameChangeDispather();
@@ -58,7 +58,7 @@ public class DisplayHandler {
 		}
 	}
 
-	protected void setSelectedPiece(Counter piece) {
+	public void setSelectedPiece(Counter piece) {
 		if (selectedPiece != null) {
 			display.counterDeselected(selectedPiece);
 		}
@@ -68,6 +68,10 @@ public class DisplayHandler {
 		}
 	}
 
+	public Counter getSelectedPiece() {
+		return selectedPiece;
+	}
+	
 	public void addGameListener(GameChangeListener listener){
 		listeners.add(listener);
 	}

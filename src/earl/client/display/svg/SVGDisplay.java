@@ -14,6 +14,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -28,19 +29,23 @@ import earl.client.display.Dimention;
 import earl.client.display.Display;
 import earl.client.display.DisplayHandler;
 import earl.client.display.GameChangeListener;
+import earl.client.display.GameHandler;
+import earl.client.games.bastogne.BastogneHandler;
 import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
-	private final DisplayHandler handler;
+	private final GameHandler handler;
 	public Board board;
 	final SVGSVGElement svg;
 	private SVGRectElement selectionRect;
+	private DisplayHandler displayHandler;
 
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
 		initAreas();
-		handler = new DisplayHandler(new SVGDisplayUpdater(this));
+		displayHandler = new DisplayHandler(new SVGDisplayUpdater(this));
+		handler = new BastogneHandler(displayHandler);
 		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 		svg.appendChild(selectionRect);
@@ -238,6 +243,15 @@ public class SVGDisplay implements Display {
 	}
 	
 	public void addGameListener(GameChangeListener listener) {
-		handler.addGameListener(listener);
+		displayHandler.addGameListener(listener);
 	};
+	
+	@Override
+	public void toggleUnits() {
+		Element e = svg.getElementById("units");
+		Style style = e.getStyle();
+		String current = style.getVisibility();		
+		Visibility newValue = !Visibility.HIDDEN.getCssName().equalsIgnoreCase(current) ? Visibility.HIDDEN : Visibility.VISIBLE;
+		style.setVisibility(newValue);
+	}
 }

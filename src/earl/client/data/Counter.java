@@ -29,4 +29,5 @@ public abstract class Counter extends Identifiable {
 	public boolean isFlipped() {
 		return flipped;
 	}
+
 }

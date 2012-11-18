@@ -132,12 +132,12 @@ public class Bastogne implements Game, Serializable {
 
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
 
-		SCSCounter counter;
+		SCSMarker counter;
 		for (int i = 0; i < 18; i++) {
-			counter = new SCSCounter("us_dg" + i, "admin/misc_us-dg.png", null);
+			counter = new SCSMarker("us_dg" + i, "admin/misc_us-dg.png", BastogneSide.US);
 			counter.setDescription("US Disorganized Units");
 			board.place("us_dg", counter);
-			counter = new SCSCounter("ge_dg" + i, "admin/misc_ge-dg.png", null);
+			counter = new SCSMarker("ge_dg" + i, "admin/misc_ge-dg.png", BastogneSide.GE);
 			counter.setDescription("GE Disorganized Units");
 			board.place("ge_dg", counter);
 		}
@@ -145,7 +145,9 @@ public class Bastogne implements Game, Serializable {
 
 	private void setup(String hexId, BastogneUnits unit, String desc) {
 		String id = unit.getId();
-		SCSCounter counter = new SCSCounter(id, unit.front, unit.back);
+		String side = unit.name().substring(0,2).toUpperCase();
+		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side),
+				unit.attack, unit.range, unit.defence, unit.movement);
 		counter.setDescription(desc);
 		board.place(hexId, counter);
 	}

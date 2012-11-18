@@ -10,14 +10,24 @@ public class SCSCounter extends Counter implements Serializable {
 	private String frontPath = null;
 	private String id;
 	private String back;
+	private BastogneSide owner;
+	private int attack;
+	private int range;
+	private int defence;
+	private int movement;
 
 	protected SCSCounter() {
 	}
 
-	public SCSCounter(String id, String frontPath, String back) {
+	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, int range, int defence, int movement) {
 		this.id = id;
 		this.frontPath = frontPath;
 		this.back = back;
+		this.owner = owner;
+		this.attack = attack;
+		this.range = range;
+		this.defence = defence;
+		this.movement = movement;
 	}
 
 	public void setDescription(String description) {
@@ -38,6 +48,26 @@ public class SCSCounter extends Counter implements Serializable {
 		return flipped ? back : frontPath;
 	}
 	
+	public BastogneSide getOwner() {
+		return owner;
+	}
+	
+	public int getAttack() {
+		return attack;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public int getDefence() {
+		return defence;
+	}
+
+	public int getMovement() {
+		return movement;
+	}
+
 	@Override
 	public void flip() {
 		if(back != null) {
@@ -46,6 +76,9 @@ public class SCSCounter extends Counter implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return super.toString() + " "+position.getId();
+		String def = range > 0 ?
+				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
+				"["+attack+"-"+defence+"-"+movement+"]";
+		return getId() + def+" @ "+position.getId();
 	}
 }

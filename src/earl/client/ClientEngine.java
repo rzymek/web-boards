@@ -65,6 +65,18 @@ public class ClientEngine implements EntryPoint {
 				});
 			}
 		});
+		Button.wrap(Document.get().getElementById("rolld6")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				log("Rolling d6...");
+				service.roll(1, 6, new AbstractCallback<Integer>(){
+					@Override
+					public void onSuccess(Integer result) {
+						log("d6 = "+result);
+					}
+				});
+			}
+		});
 		
 		final TextBox chat = TextBox.wrap(Document.get().getElementById("chat"));
 		chat.addKeyPressHandler(new KeyPressHandler() {			
@@ -88,6 +100,12 @@ public class ClientEngine implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				log("debug");
 				((SVGDisplay)display).board.debug();
+			}
+		});
+		Button.wrap(Document.get().getElementById("toggle")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				display.toggleUnits();
 			}
 		});
 		log("Started");

@@ -8,4 +8,6 @@ public interface Display {
 
 	public abstract void addGameListener(GameChangeListener listener);
 
+	public abstract void toggleUnits();
+
 }
