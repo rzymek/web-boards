@@ -104,6 +104,13 @@ public class ClientEngine implements EntryPoint {
 				((SVGDisplay)display).board.debug();
 			}
 		});
+		Button.wrap(Document.get().getElementById("deselect")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				log("debug");
+				((SVGDisplay)display).getDisplayHandler().setSelectedPiece(null);
+			}
+		});
 		Button.wrap(Document.get().getElementById("toggle")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {

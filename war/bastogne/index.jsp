@@ -41,6 +41,7 @@ IOUtils.copy(in,out);
 			<button type="button" id="roll2d6" style="height: 50px; margin-bottom: 15px">Roll 2d6</button>
 			<button type="button" id="rolld6" style="height: 50px; margin-bottom: 15px">Roll d6</button>
 			<button type="button" id="toggle" style="height: 50px; margin-bottom: 15px">Toggle units</button>
+			<button type="button" id="deselect" style="height: 50px; margin-bottom: 15px">Deselect</button>
 			<button type="button" id="mark" style="height: 50px; margin-bottom: 15px">Mark</button><br>
 			<button type="button" id="debug">Debug</button>
 		</td>
