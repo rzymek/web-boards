@@ -10,4 +10,6 @@ public interface Display {
 
 	public abstract void toggleUnits();
 
+	DisplayHandler getDisplayHandler();
+
 }

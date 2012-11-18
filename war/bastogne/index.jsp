@@ -40,7 +40,8 @@ IOUtils.copy(in,out);
 		<td id="controls" width="30%" valign="top">
 			<button type="button" id="roll2d6" style="height: 50px; margin-bottom: 15px">Roll 2d6</button>
 			<button type="button" id="rolld6" style="height: 50px; margin-bottom: 15px">Roll d6</button>
-			<button type="button" id="toggle" style="height: 50px; margin-bottom: 15px">Toggle units</button><br>
+			<button type="button" id="toggle" style="height: 50px; margin-bottom: 15px">Toggle units</button>
+			<button type="button" id="mark" style="height: 50px; margin-bottom: 15px">Mark</button><br>
 			<button type="button" id="debug">Debug</button>
 		</td>
 		<td id="log" style="white-space: pre;">Loading...</td>

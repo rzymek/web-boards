@@ -1,11 +1,13 @@
 package earl.client;
 
+import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -106,6 +108,22 @@ public class ClientEngine implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				display.toggleUnits();
+			}
+		});
+		Button.wrap(Document.get().getElementById("mark")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				SVGElement selected = ((SVGDisplay)display).getSelected();
+				if (selected != null) {
+					Style style = selected.getStyle();
+					try {
+						double opacity = Double.parseDouble(style.getOpacity());
+						opacity = (opacity < 0.9 ? 1.0 : 0.6);
+						style.setOpacity(opacity);
+					} catch (NumberFormatException ex) {
+						style.setOpacity(0.6);
+					}
+				}
 			}
 		});
 		log("Started");

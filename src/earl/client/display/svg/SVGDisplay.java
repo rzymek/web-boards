@@ -254,4 +254,16 @@ public class SVGDisplay implements Display {
 		Visibility newValue = !Visibility.HIDDEN.getCssName().equalsIgnoreCase(current) ? Visibility.HIDDEN : Visibility.VISIBLE;
 		style.setVisibility(newValue);
 	}
+	
+	public DisplayHandler getDisplayHandler() {
+		return displayHandler;
+	}
+
+	public SVGElement getSelected() {
+		Counter selected = displayHandler.getSelectedPiece();
+		if(selected == null) {
+			return null;
+		}
+		return getSVGElement(selected);
+	}
 }
