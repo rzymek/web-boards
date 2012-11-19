@@ -8,3 +8,9 @@ vassal functionality
 	flipping
 build-time game tools		
 game rules implementation
+
+
+1.Sprawdzanie zasad (zasięg ruchu, siła ataku) to oczywiście full wypas. 
+	W przypadku ataku fajnie by było oznaczyć atak + przycisk, który by rzucał kością i podawał wynik w postaci AxDx.
+4.Lista rozgrywek też fajna sprawa - autoryzacja użytkownika :)
+5.W ramach rozgrywki można by oznaczać jakoś fazę (ruch Niemców, atak, barrage, itd.).
