@@ -30,6 +30,8 @@ import earl.client.display.Display;
 import earl.client.display.DisplayHandler;
 import earl.client.display.GameChangeListener;
 import earl.client.display.GameHandler;
+import earl.client.games.Bastogne;
+import earl.client.games.Game;
 import earl.client.games.bastogne.BastogneHandler;
 import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
@@ -38,14 +40,14 @@ public class SVGDisplay implements Display {
 	private final GameHandler handler;
 	public Board board;
 	final SVGSVGElement svg;
-	private SVGRectElement selectionRect;
-	private DisplayHandler displayHandler;
+	private final SVGRectElement selectionRect;
+	private final DisplayHandler displayHandler;
 
-	public SVGDisplay(SVGSVGElement svg) {
+	public SVGDisplay(SVGSVGElement svg, Game game) {
 		this.svg = svg;
 		initAreas();
 		displayHandler = new DisplayHandler(new SVGDisplayUpdater(this));
-		handler = new BastogneHandler(displayHandler);
+		handler = new BastogneHandler(displayHandler, (Bastogne)game);
 		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 		svg.appendChild(selectionRect);
@@ -66,7 +68,7 @@ public class SVGDisplay implements Display {
 		for (Hex hex : stacks) {
 			List<Counter> counters = hex.getStack();
 			for (Counter counter : counters) {
-				createCounter((Counter) counter);
+				createCounter(counter);
 			}
 			alignStack(hex);
 		}
@@ -89,7 +91,7 @@ public class SVGDisplay implements Display {
 			@Override
 			public void onClick(ClickEvent event) {
 				String id = event.getRelativeElement().getId();
-				ClientEngine.log("click " + id);
+				ClientEngine.log(id);
 				Counter counter = board.getCounter(id);
 				handler.pieceClicked(counter);
 			}
@@ -191,7 +193,7 @@ public class SVGDisplay implements Display {
 			@Override
 			public void onClick(ClickEvent event) {
 				String id = event.getRelativeElement().getId();
-				ClientEngine.log("click " + id);
+				ClientEngine.log(id);
 				Hex hex = board.getHex(id);
 				handler.areaClicked(hex);
 			}
@@ -242,6 +244,7 @@ public class SVGDisplay implements Display {
 		return (slots < counters.size());
 	}
 	
+	@Override
 	public void addGameListener(GameChangeListener listener) {
 		displayHandler.addGameListener(listener);
 	};
@@ -255,6 +258,7 @@ public class SVGDisplay implements Display {
 		style.setVisibility(newValue);
 	}
 	
+	@Override
 	public DisplayHandler getDisplayHandler() {
 		return displayHandler;
 	}

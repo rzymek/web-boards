@@ -2,14 +2,13 @@ package earl.server.persistence;
 
 import java.util.List;
 
+import earl.client.data.Board;
 import earl.client.games.Game;
 import earl.server.Op;
 import earl.server.notify.TableListener;
 
 public interface Persistence {
 	String persist(Game game);
-
-	Game getTable(String tableId);
 
 	List<TableListener> getListeners(String tableId);
 
@@ -20,4 +19,6 @@ public interface Persistence {
 	String getLog(String tableId);
 
 	void saveCounterPosition(String tableId, String counterId, String hexId, boolean flipped);
+
+	Board getTable(String tableId, Board board);
 }

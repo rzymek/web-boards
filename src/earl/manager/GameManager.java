@@ -1,5 +1,7 @@
 package earl.manager;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,12 +9,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 
 import earl.client.data.Board;
 import earl.client.data.Counter;
+import earl.client.games.Bastogne;
 import earl.client.games.Game;
+import earl.client.games.bastogne.BastogneHandler;
 import earl.server.Op;
 import earl.server.ex.EarlServerException;
 import earl.server.persistence.PersistenceFactory;
@@ -31,6 +36,7 @@ public class GameManager {
 
 	public String start(Game game) {
 		String id = UUID.randomUUID().toString();		
+		((Bastogne)game).setMapInfo(loadMapInfo());
 		games.put(id, game);
 		PersistenceFactory.get().persist(game);
 		return id;
@@ -68,13 +74,35 @@ public class GameManager {
 	public Game getGame(String tableId) {
 		Game game = games.get(tableId);
 		if(game == null) {
-			game = PersistenceFactory.get().getTable(tableId);
-			if(game == null) {
-				throw new EarlServerException("No such game: "+tableId);
-			}
+			game = new Bastogne();
+			Bastogne bastogne = (Bastogne)game;
+			bastogne.setupScenarion52();
+			Board board = game.getBoard();
+			bastogne.setMapInfo(loadMapInfo());
+			PersistenceFactory.get().getTable(tableId, board);
 			games.put(tableId, game);
 		}
 		return game;
+	}
+
+	private Map<String,String> loadMapInfo() {
+		try {
+			Properties p = new Properties();
+			InputStream in = BastogneHandler.class.getResourceAsStream("/bastogne-map.properties");
+			try {
+				p.load(in);
+			} finally {
+				in.close();
+			}
+			Set<Entry<Object, Object>> entrySet = p.entrySet();
+			Map<String, String> info = new HashMap<String, String>();
+			for (Entry<Object, Object> entry : entrySet) {
+				info.put((String)entry.getKey(), (String) entry.getValue());
+			}
+			return info;
+		}catch (IOException e) {
+			throw new EarlServerException(e);
+		}
 	}
 
 	public void join(String tableId, String username) {

@@ -56,15 +56,18 @@ import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import earl.client.data.Board;
 
 public class Bastogne implements Game, Serializable {
-	private Board board = new Board();
+	private Board board = null;
 	private String playerUS;
 	private String playerGE;
+	private Map<String, String> mapInfo;
 
 	public Bastogne() {
+		board = new Board();
 	}
 
 	public void setupScenarion52() {
@@ -188,4 +191,11 @@ public class Bastogne implements Game, Serializable {
 		return new String[] { playerUS, playerGE };
 	}
 
+	public void setMapInfo(Map<String, String> mapInfo) {
+		this.mapInfo = mapInfo;		
+	}
+	
+	public Map<String, String> getMapInfo() {
+		return mapInfo;
+	}
 }

@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import earl.client.data.GameInfo;
 import earl.client.display.Display;
 import earl.client.display.svg.SVGDisplay;
-import earl.client.games.Bastogne;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
@@ -35,26 +34,18 @@ public class ClientEngine implements EntryPoint {
 //		RootPanel rootPanel = RootPanel.get("controls");
 
 		final ServerEngineAsync service = GWT.create(ServerEngine.class);
-		if(isDemo()) {
-			log("Demo mode");
-			Display display = new SVGDisplay(getSVG());
-			Bastogne bastogne = new Bastogne();
-			bastogne.setupScenarion52();
-			display.init(bastogne.getBoard());
-		} else { 
-			String tableId = Window.Location.getParameter("table");
-			service.getState(tableId, new AbstractCallback<GameInfo>(){
+		String tableId = Window.Location.getParameter("table");
+		service.getState(tableId, new AbstractCallback<GameInfo>(){
 
-				@Override
-				public void onSuccess(GameInfo info) {					
-					Display display = new SVGDisplay(getSVG());
-					ClientEngine.this.display = display;
-					display.addGameListener(new UpdateServer(service));
-					display.init(info.game.getBoard());
-					log(info.log);
-				}
-			});
-		}
+			@Override
+			public void onSuccess(GameInfo info) {					
+				Display display = new SVGDisplay(getSVG(), info.game);
+				ClientEngine.this.display = display;
+				display.addGameListener(new UpdateServer(service));
+				display.init(info.game.getBoard());
+				log(info.log);
+			}
+		});
 		Button.wrap(Document.get().getElementById("roll2d6")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {

@@ -19,7 +19,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
-import earl.client.games.Bastogne;
 import earl.client.games.Game;
 import earl.server.Op;
 import earl.server.Op.Type;
@@ -49,12 +48,9 @@ public class DataStorePersistence implements Persistence {
 	}
 
 	@Override
-	public Game getTable(String tableId) {
+	public Board getTable(String tableId, Board board) {
 		try {
 			Map<String, Entity> counterState = getCountersState(tableId);
-			Bastogne game = new Bastogne();
-			game.setupScenarion52();
-			Board board = game.getBoard();
 			Collection<Counter> counters = board.getCounters();
 			for (Counter counter : counters) {
 				Entity entity = counterState.get(counter.getId());
@@ -69,11 +65,12 @@ public class DataStorePersistence implements Persistence {
 					counter.flip();
 				}
 			}
-			return game;
+			return board;
 		} catch (Exception e) {
 			throw new EarlServerException(e);
 		}
 	}
+	@Override
 	public String getLog(String tableId) {
 		Query query = new Query(tableId+"-op");
 		query.addSort("tstamp", SortDirection.DESCENDING);
