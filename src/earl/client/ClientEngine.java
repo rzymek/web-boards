@@ -1,6 +1,7 @@
 package earl.client;
 
 import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
 
+import earl.client.data.Counter;
 import earl.client.data.GameInfo;
 import earl.client.display.Display;
 import earl.client.display.svg.SVGDisplay;
@@ -28,6 +30,7 @@ import earl.client.utils.Browser;
 
 public class ClientEngine implements EntryPoint {
 	private Display display;
+	private SVGSVGElement svg;
 
 	@Override
 	public void onModuleLoad() {
@@ -39,7 +42,8 @@ public class ClientEngine implements EntryPoint {
 
 			@Override
 			public void onSuccess(GameInfo info) {					
-				Display display = new SVGDisplay(getSVG(), info.game);
+				svg = getSVG();
+				Display display = new SVGDisplay(svg, info.game);
 				ClientEngine.this.display = display;
 				display.addGameListener(new UpdateServer(service));
 				display.init(info.game.getBoard());
@@ -106,6 +110,15 @@ public class ClientEngine implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				display.toggleUnits();
+			}
+		});
+		Button.wrap(Document.get().getElementById("flip")).addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				Counter piece = display.getDisplayHandler().getSelectedPiece();
+				piece.flip();
+				SVGImageElement c = (SVGImageElement) svg.getElementById(piece.getId());
+				c.getHref().setBaseVal(piece.getState());
 			}
 		});
 		Button.wrap(Document.get().getElementById("mark")).addClickHandler(new ClickHandler() {			

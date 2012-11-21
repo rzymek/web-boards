@@ -1,15 +1,20 @@
 package earl.client.display;
 
+import java.util.Map;
+
 import earl.client.data.Board;
+import earl.client.games.SCSCounter;
 
 public interface Display {
 
-	public abstract void init(Board board);
+	void init(Board board);
 
-	public abstract void addGameListener(GameChangeListener listener);
+	void addGameListener(GameChangeListener listener);
 
-	public abstract void toggleUnits();
+	void toggleUnits();
 
 	DisplayHandler getDisplayHandler();
+
+	void showAttacks(Map<SCSCounter, SCSCounter> attacks);
 
 }

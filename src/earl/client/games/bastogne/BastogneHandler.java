@@ -3,39 +3,37 @@ package earl.client.games.bastogne;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import earl.client.ClientEngine;
 import earl.client.data.Counter;
-import earl.client.data.Hex;
+import earl.client.display.Display;
+import earl.client.display.DisplayChangeListener;
 import earl.client.display.DisplayHandler;
-import earl.client.display.GameHandler;
 import earl.client.games.Bastogne;
 import earl.client.games.SCSCounter;
 
-public class BastogneHandler implements GameHandler {
+public class BastogneHandler extends DisplayHandler {
 
-	private final DisplayHandler delegate;
 	private final Bastogne game;
-	private final Map<SCSCounter, Set<SCSCounter>> attacks = new HashMap<SCSCounter, Set<SCSCounter>>();
+	private final Map<SCSCounter, SCSCounter> attacks = new HashMap<SCSCounter, SCSCounter>();
+	private final Display display;
 
-	public BastogneHandler(DisplayHandler displayHandler, Bastogne game) {
-		this.delegate = displayHandler;
+	public BastogneHandler(Bastogne game, Display display, DisplayChangeListener listener) {
+		super(listener);
 		this.game = game;
-	}
-
-	@Override
-	public void areaClicked(Hex area) {
-		delegate.areaClicked(area);
+		this.display = display;
 	}
 
 	@Override
 	public void pieceClicked(Counter piece) {
 		if (piece instanceof SCSCounter) {
 			SCSCounter defending = (SCSCounter) piece;
-			SCSCounter attacking = (SCSCounter) delegate.getSelectedPiece();
+			SCSCounter attacking = (SCSCounter) super.getSelectedPiece();
 			if (attacking != null) {
 				if (!defending.getOwner().equals(attacking.getOwner())) {
+					super.pieceClicked(piece);
 					Set<SCSCounter> attackers = joinAttack(defending, attacking);					
 					
 					ClientEngine.log(attackers + " attacks " + defending);
@@ -66,26 +64,26 @@ public class BastogneHandler implements GameHandler {
 						int b = Math.round(defence / smaller);
 						ClientEngine.log("Odds: "+a+":"+b+" - "+attack
 								+" | "+defence+" ("+defending.getDefence() + ") mods: "+s);
-						
+						setSelectedPiece(null);
+						display.showAttacks(attacks);
 					}
+					return;
 				}
 			}
 		}
-		delegate.pieceClicked(piece);
+		super.pieceClicked(piece);
 	}
 
 	protected Set<SCSCounter> joinAttack(SCSCounter defending, SCSCounter attacking) {
-		Set<SCSCounter> attackers = attacks.get(defending);
-		if(attackers == null) {
-			attacks.put(defending, attackers = new HashSet<SCSCounter>());
+		attacks.put(attacking, defending);
+		Set<SCSCounter> attackers = new HashSet<SCSCounter>();
+		for (Entry<SCSCounter, SCSCounter> e: attacks.entrySet()) {
+			SCSCounter def = e.getValue();
+			SCSCounter att = e.getKey();
+			if(def.equals(defending)) {
+				attackers.add(att);
+			}
 		}
-		attackers.add(attacking);
 		return attackers;
 	}
-
-	@Override
-	public void setSelectedPiece(Counter piece) {
-		delegate.setSelectedPiece(piece);
-	}
-
 }

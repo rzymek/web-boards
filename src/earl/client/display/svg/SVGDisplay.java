@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.vectomatic.dom.svg.OMSVGPathSeg;
+import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
+import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -29,25 +34,23 @@ import earl.client.display.Dimention;
 import earl.client.display.Display;
 import earl.client.display.DisplayHandler;
 import earl.client.display.GameChangeListener;
-import earl.client.display.GameHandler;
 import earl.client.games.Bastogne;
 import earl.client.games.Game;
+import earl.client.games.SCSCounter;
 import earl.client.games.bastogne.BastogneHandler;
 import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay implements Display {
-	private final GameHandler handler;
+	private final DisplayHandler handler;
 	public Board board;
 	final SVGSVGElement svg;
 	private final SVGRectElement selectionRect;
-	private final DisplayHandler displayHandler;
 
 	public SVGDisplay(SVGSVGElement svg, Game game) {
 		this.svg = svg;
 		initAreas();
-		displayHandler = new DisplayHandler(new SVGDisplayUpdater(this));
-		handler = new BastogneHandler(displayHandler, (Bastogne)game);
+		handler = new BastogneHandler((Bastogne)game, this, new SVGDisplayUpdater(this));
 		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 		svg.appendChild(selectionRect);
@@ -246,7 +249,7 @@ public class SVGDisplay implements Display {
 	
 	@Override
 	public void addGameListener(GameChangeListener listener) {
-		displayHandler.addGameListener(listener);
+		handler.addGameListener(listener);
 	};
 	
 	@Override
@@ -260,14 +263,50 @@ public class SVGDisplay implements Display {
 	
 	@Override
 	public DisplayHandler getDisplayHandler() {
-		return displayHandler;
+		return handler;
 	}
 
 	public SVGElement getSelected() {
-		Counter selected = displayHandler.getSelectedPiece();
+		Counter selected = handler.getSelectedPiece();
 		if(selected == null) {
 			return null;
 		}
 		return getSVGElement(selected);
+	}
+
+	@Override
+	public void showAttacks(Map<SCSCounter, SCSCounter> attacks) {
+		Element markers = svg.getElementById("markers");
+		while(markers.hasChildNodes()) {
+			markers.removeChild(markers.getLastChild());
+		}
+		for (Entry<SCSCounter, SCSCounter> e : attacks.entrySet()) {
+			String fromId = e.getKey().getPosition().getId();
+			String toId = e.getValue().getPosition().getId();
+			showAttack(fromId, toId);
+		}
+	}
+	
+	public void showAttack(String hexFromId, String hexToId) {
+		SVGPathElement arrow = (SVGPathElement) svg.getElementById("attackArrow");
+		arrow = (SVGPathElement) arrow.cloneNode(true);
+		Browser.console(arrow.getAttribute("d"));
+		OMSVGPoint from = SVGUtils.getCenter((SVGElement) svg.getElementById(hexFromId));
+		OMSVGPoint to = SVGUtils.getCenter((SVGElement) svg.getElementById(hexToId));
+		OMSVGPathSegList seg = arrow.getPathSegList();
+
+		OMSVGPathSeg start = arrow.createSVGPathSegMovetoAbs(from.getX(), from.getY());
+		seg.replaceItem(start, 0);
+		OMSVGPathSeg end = arrow.createSVGPathSegLinetoAbs(to.getX(), to.getY());
+		seg.replaceItem(end, 1);		
+		
+//		Browser.console(start);
+//		Browser.console(end);
+		Browser.console(arrow);
+//		arrow.setAttribute("d", "M "+from.getX()+","+from.getY()+" "+to.getX()+","+to.getY());
+		Browser.console(arrow.getAttribute("d"));
+//		svg.getElementById("units").appendChild(arrow);
+		svg.getElementById("markers").appendChild(arrow);
+//		bringToTop(arrow);
 	}
 }

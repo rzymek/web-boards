@@ -16,6 +16,7 @@ public class DisplayHandler implements GameHandler {
 		this.listeners.add(display);
 	}
 
+	@Override
 	public void areaClicked(Hex area) {
 		hideStackSelection();
 		if (selectedPiece != null) {
@@ -27,13 +28,14 @@ public class DisplayHandler implements GameHandler {
 		}
 	}
 
+	@Override
 	public void pieceClicked(Counter piece) {
 		Hex currentStack = stackSelected;
 		hideStackSelection();
 		if (piece == selectedPiece) {
 			// click on an already selected piece -> piece special action
-			piece.flip();
-			listeners.counterFlipped(piece);
+//			piece.flip();
+//			listeners.counterFlipped(piece);
 			setSelectedPiece(null);
 		} else {
 			Hex hex = piece.getPosition();
@@ -58,6 +60,7 @@ public class DisplayHandler implements GameHandler {
 		}
 	}
 
+	@Override
 	public void setSelectedPiece(Counter piece) {
 		if (selectedPiece != null) {
 			display.counterDeselected(selectedPiece);

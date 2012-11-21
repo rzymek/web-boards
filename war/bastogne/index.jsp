@@ -43,6 +43,7 @@ IOUtils.copy(in,out);
 			<button type="button" id="toggle" style="height: 50px; margin-bottom: 15px">Toggle units</button>
 			<button type="button" id="deselect" style="height: 50px; margin-bottom: 15px">Deselect</button>
 			<button type="button" id="mark" style="height: 50px; margin-bottom: 15px">Mark</button><br>
+			<button type="button" id="flip" style="height: 50px; margin-bottom: 15px">Flip</button><br>
 			<button type="button" id="debug">Debug</button>
 		</td>
 		<td id="log" style="white-space: pre;">Loading...</td>
