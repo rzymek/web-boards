@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.vectomatic.dom.svg.OMSVGPathSeg;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
@@ -292,21 +291,19 @@ public class SVGDisplay implements Display {
 		arrow = (SVGPathElement) arrow.cloneNode(true);
 		Browser.console(arrow.getAttribute("d"));
 		OMSVGPoint from = SVGUtils.getCenter((SVGElement) svg.getElementById(hexFromId));
-		OMSVGPoint to = SVGUtils.getCenter((SVGElement) svg.getElementById(hexToId));
+		SVGElement hexTo = (SVGElement) svg.getElementById(hexToId);
+		OMSVGPoint to = SVGUtils.getCenter(hexTo);
 		OMSVGPathSegList seg = arrow.getPathSegList();
 
-		OMSVGPathSeg start = arrow.createSVGPathSegMovetoAbs(from.getX(), from.getY());
-		seg.replaceItem(start, 0);
-		OMSVGPathSeg end = arrow.createSVGPathSegLinetoAbs(to.getX(), to.getY());
-		seg.replaceItem(end, 1);		
+		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(from.getX(), from.getY()), 0);
+		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(to.getX(), to.getY()), 1);
+		float w = SVGUtils.getBBox(hexTo).getWidth()/2;
+		float totalLength = arrow.getTotalLength();
+		OMSVGPoint p = arrow.getPointAtLength(totalLength - w);
+		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(p.getX(), p.getY()), 1);
 		
-//		Browser.console(start);
-//		Browser.console(end);
 		Browser.console(arrow);
-//		arrow.setAttribute("d", "M "+from.getX()+","+from.getY()+" "+to.getX()+","+to.getY());
 		Browser.console(arrow.getAttribute("d"));
-//		svg.getElementById("units").appendChild(arrow);
 		svg.getElementById("markers").appendChild(arrow);
-//		bringToTop(arrow);
 	}
 }
