@@ -20,6 +20,7 @@ import earl.client.games.Game;
 import earl.client.games.bastogne.BastogneHandler;
 import earl.server.Op;
 import earl.server.ex.EarlServerException;
+import earl.server.persistence.Persistence;
 import earl.server.persistence.PersistenceFactory;
 
 
@@ -79,7 +80,9 @@ public class GameManager {
 			bastogne.setupScenarion52();
 			Board board = game.getBoard();
 			bastogne.setMapInfo(loadMapInfo());
-			PersistenceFactory.get().getTable(tableId, board);
+			Persistence p = PersistenceFactory.get();
+			p.getTable(tableId, board);
+			bastogne.attacks = p.getAttacks(tableId);
 			games.put(tableId, game);
 		}
 		return game;

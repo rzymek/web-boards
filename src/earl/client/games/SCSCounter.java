@@ -5,7 +5,6 @@ import java.io.Serializable;
 import earl.client.data.Counter;
 
 public class SCSCounter extends Counter implements Serializable {
-
 	private String description;
 	private String frontPath = null;
 	private String id;
@@ -79,6 +78,6 @@ public class SCSCounter extends Counter implements Serializable {
 		String def = range > 0 ?
 				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
 				"["+attack+"-"+defence+"-"+movement+"]";
-		return getId() + def+" @ "+position.getId();
+		return getId() + def;
 	}
 }

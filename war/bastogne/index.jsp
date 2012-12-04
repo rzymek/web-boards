@@ -4,7 +4,7 @@
 <%@page import="org.apache.commons.io.FileUtils"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Earl</title>
+<title>Bastogne</title>
 <script language="javascript" src="../js/utils.js"></script>
 <script language="javascript">
 var loc = parseURL(window.location.href);

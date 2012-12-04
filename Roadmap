@@ -14,3 +14,6 @@ game rules implementation
 	W przypadku ataku fajnie by było oznaczyć atak + przycisk, który by rzucał kością i podawał wynik w postaci AxDx.
 4.Lista rozgrywek też fajna sprawa - autoryzacja użytkownika :)
 5.W ramach rozgrywki można by oznaczać jakoś fazę (ruch Niemców, atak, barrage, itd.).
+
+* przesuwanie i skalowanie planszy myszą
+* pełny scenariusz bastogne

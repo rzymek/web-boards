@@ -56,15 +56,24 @@ import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import earl.client.ClientEngine;
 import earl.client.data.Board;
+import earl.client.data.Counter;
+import earl.client.data.Hex;
 
 public class Bastogne implements Game, Serializable {
 	private Board board = null;
 	private String playerUS;
 	private String playerGE;
 	private Map<String, String> mapInfo;
+	public Map<String, String> attacks = Collections.emptyMap();
 
 	public Bastogne() {
 		board = new Board();
@@ -197,5 +206,58 @@ public class Bastogne implements Game, Serializable {
 	
 	public Map<String, String> getMapInfo() {
 		return mapInfo;
+	}
+	
+	public int[] calculateOdds(Hex target) {
+		Set<Counter> attackers = getAttackers(target);
+		List<Counter> defending = target.getStack();
+		ClientEngine.log(attackers + " attacks " + defending);
+		String hexId = target.getId();
+		String hexInfo = mapInfo.get(hexId);
+		float defence = getDefence(defending);
+		if (hexInfo != null) {
+			boolean forrest = hexInfo.contains("F");
+			boolean city = hexInfo.contains("C");
+			if (forrest) {
+				defence *= 2;
+			}
+			if (city) {
+				defence *= 2;
+			}
+		}
+		float attack = getAttack(attackers);
+		float smaller = Math.min(attack, defence);
+		int a = Math.round(attack / smaller);
+		int b = Math.round(defence / smaller);
+		int[] odds = {a,b};
+		return odds;
+	}
+
+	private float getAttack(Set<Counter> attackers) {
+		float attack = 0;
+		for (Counter a : attackers) {
+			attack += ((SCSCounter)a).getAttack();
+		}
+		return attack;
+	}
+
+
+	private float getDefence(List<Counter> defending) {
+		float defence = 0;
+		for (Counter counter : defending) {
+			defence += ((SCSCounter)counter).getDefence();
+		}
+		return defence;
+	}
+
+	private Set<Counter> getAttackers(Hex defending) {
+		Set<Counter> attackers = new HashSet<Counter>();
+		for (Entry<String, String> attack : attacks.entrySet()) {
+			if(attack.getValue().equals(defending.getId())) {
+				List<Counter> stack = board.getHex(attack.getKey()).getStack();
+				attackers.addAll(stack);
+			}
+		}
+		return attackers;
 	}
 }

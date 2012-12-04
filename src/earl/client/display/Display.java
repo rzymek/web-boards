@@ -3,7 +3,8 @@ package earl.client.display;
 import java.util.Map;
 
 import earl.client.data.Board;
-import earl.client.games.SCSCounter;
+import earl.client.data.Hex;
+import earl.client.games.Bastogne;
 
 public interface Display {
 
@@ -15,6 +16,6 @@ public interface Display {
 
 	DisplayHandler getDisplayHandler();
 
-	void showAttacks(Map<SCSCounter, SCSCounter> attacks);
+	void showAttacks(Map<Hex, Hex> attacks, Bastogne game);
 
 }

@@ -1,10 +1,13 @@
 package earl.link;
 
+import java.util.Map;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import earl.client.data.Counter;
 import earl.client.data.GameInfo;
 import earl.client.data.Hex;
+import earl.client.op.Operation;
 import earl.client.remote.ServerEngineAsync;
 import earl.server.ServerEngineImpl;
 
@@ -37,5 +40,15 @@ public class ServerEngineLink implements ServerEngineAsync {
 	@Override
 	public void chat(String text, AsyncCallback<Void> callback) {
 		impl.chat(text);
+	}
+	
+	@Override
+	public void setAttacks(Map<String, String> attackHexes, AsyncCallback<Void> callback) {
+		impl.setAttacks(attackHexes);
+	}
+
+	@Override
+	public void process(Operation op, AsyncCallback<Void> abstractCallback) {
+		impl.process(op);
 	}
 }

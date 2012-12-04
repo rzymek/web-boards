@@ -28,14 +28,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1280"
-     inkscape:window-height="945"
+     inkscape:window-height="957"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="0.87171887"
-     inkscape:cx="681.31313"
-     inkscape:cy="281.84663"
+     inkscape:zoom="0.64"
+     inkscape:cx="860.79468"
+     inkscape:cy="442.12914"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="units"
      showguides="true"
@@ -89,11 +89,11 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/board5.2.jpg"
        xlink:href="board5.2.jpg"
-       width="1164"
-       height="890"
-       id="image5030"
+       y="-307.87045"
        x="119.04062"
-       y="-307.87045" />
+       id="image5030"
+       height="890"
+       width="1164" />
   </g>
   <g
      style="display:inline"
@@ -4751,6 +4751,24 @@
          y="661.52686"
          x="1230.7882"
          sodipodi:role="line">Dead pool</tspan></text>
+    <path
+       inkscape:tile-y0="4263.254"
+       inkscape:tile-x0="9.0968435"
+       sodipodi:type="star"
+       style="opacity:0.08230453;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-opacity:1;display:inline"
+       id="44.29"
+       sodipodi:sides="6"
+       sodipodi:cx="3879.8828"
+       sodipodi:cy="1004.8828"
+       sodipodi:r1="71.843369"
+       sodipodi:r2="62.218182"
+       sodipodi:arg1="1.0471976"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 3915.8045,1067.101 -71.8434,0 -35.9217,-62.2182 35.9217,-62.21817 71.8434,0 35.9217,62.21817 z"
+       transform="matrix(0.44391556,0,0,0.44475269,-1087.5387,-368.45765)" />
   </g>
   <g
      style="display:inline"
@@ -4769,22 +4787,52 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png"
        xlink:href="units/front/us/3-3-16+Cherry_D-90_f.png"
-       width="40"
-       height="40"
-       id="counter"
+       y="997.75806"
        x="100.46606"
-       y="997.75806" />
+       id="counter"
+       height="40"
+       width="40" />
     <path
-       style="opacity:0.72972968999999999;fill:none;stroke:#ff0f0f;stroke-width:13.60000038000000089;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
+       style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="m 603.79386,962.03115 155.67407,1.74038"
        id="attackArrow"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+    <g
+       id="target">
+      <path
+         transform="matrix(1.038961,0,0,1.038961,-360.25973,158.81625)"
+         d="m 366.5,742.13348 c 0,10.63149 -8.61852,19.25 -19.25,19.25 -10.63148,0 -19.25,-8.61851 -19.25,-19.25 0,-10.63148 8.61852,-19.25 19.25,-19.25 10.63148,0 19.25,8.61852 19.25,19.25 z"
+         sodipodi:ry="19.25"
+         sodipodi:rx="19.25"
+         sodipodi:cy="742.13348"
+         sodipodi:cx="347.25"
+         id="path4099"
+         style="opacity:0.56790125;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <text
+         sodipodi:linespacing="100%"
+         id="odds-txt"
+         y="939.35028"
+         x="0.66597611"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;opacity:0.56790125;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Impact;-inkscape-font-specification:Impact Bold"
+           y="939.35028"
+           x="0.66597611"
+           id="odds"
+           sodipodi:role="line">1:1</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
      id="markers"
      inkscape:label="markers" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="controls"
+     style="display:none" />
   <rect
      ry="10.255082"
      y="959.44574"

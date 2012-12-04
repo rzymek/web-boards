@@ -2,15 +2,17 @@ package earl.client.display.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
@@ -35,7 +37,6 @@ import earl.client.display.DisplayHandler;
 import earl.client.display.GameChangeListener;
 import earl.client.games.Bastogne;
 import earl.client.games.Game;
-import earl.client.games.SCSCounter;
 import earl.client.games.bastogne.BastogneHandler;
 import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
@@ -274,20 +275,40 @@ public class SVGDisplay implements Display {
 	}
 
 	@Override
-	public void showAttacks(Map<SCSCounter, SCSCounter> attacks) {
+	public void showAttacks(java.util.Map<Hex,Hex> attacks, Bastogne game) {
+		clearMarkers();
+		for (Entry<Hex, Hex> e : attacks.entrySet()) {
+			String fromId = e.getKey().getId();
+			String toId = e.getValue().getId();
+			showAttack(fromId, toId);
+		}
+		Set<Hex> targets = new HashSet<Hex>(attacks.values());
+		for (Hex hex : targets) {
+			SVGGElement target = (SVGGElement) svg.getElementById("target").cloneNode(true);
+			target.setId(hex.getId()+"target");
+			target.getStyle().setProperty("pointerEvents", "none");
+			Element markers = svg.getElementById("markers");
+			int[] odds = game.calculateOdds(hex);
+			target.getElementsByTagName("tspan").getItem(0).setInnerText(odds[0]+":"+odds[1]);
+			OMSVGPoint center = SVGUtils.getCenter(getSVGElement(hex));
+			Browser.console(center);			
+			float y = -(svg.getViewBox().getBaseVal().getHeight()-center.getY());
+			target.setAttribute("transform", "translate("+center.getX()+","+y+")");
+			markers.appendChild(target);
+			Browser.console(target);
+		}
+	}
+
+	private void clearMarkers() {
 		Element markers = svg.getElementById("markers");
 		while(markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());
-		}
-		for (Entry<SCSCounter, SCSCounter> e : attacks.entrySet()) {
-			String fromId = e.getKey().getPosition().getId();
-			String toId = e.getValue().getPosition().getId();
-			showAttack(fromId, toId);
 		}
 	}
 	
 	public void showAttack(String hexFromId, String hexToId) {
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById("attackArrow");
+		arrow.getStyle().setProperty("pointerEvents", "none");
 		arrow = (SVGPathElement) arrow.cloneNode(true);
 		Browser.console(arrow.getAttribute("d"));
 		OMSVGPoint from = SVGUtils.getCenter((SVGElement) svg.getElementById(hexFromId));
@@ -297,13 +318,20 @@ public class SVGDisplay implements Display {
 
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(from.getX(), from.getY()), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(to.getX(), to.getY()), 1);
-		float w = SVGUtils.getBBox(hexTo).getWidth()/2;
-		float totalLength = arrow.getTotalLength();
-		OMSVGPoint p = arrow.getPointAtLength(totalLength - w);
-		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(p.getX(), p.getY()), 1);
+		shortenArrow(arrow, hexTo, seg);
 		
 		Browser.console(arrow);
 		Browser.console(arrow.getAttribute("d"));
 		svg.getElementById("markers").appendChild(arrow);
+	}
+
+	/**
+	 * Shortens arrow point by half the hex size (bbox height)
+	 */
+	protected void shortenArrow(SVGPathElement arrow, SVGElement hexTo, OMSVGPathSegList seg) {
+		float w = SVGUtils.getBBox(hexTo).getHeight()/2;
+		float totalLength = arrow.getTotalLength();
+		OMSVGPoint p = arrow.getPointAtLength(totalLength - w);
+		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(p.getX(), p.getY()), 1);
 	}
 }

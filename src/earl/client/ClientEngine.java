@@ -1,14 +1,15 @@
 package earl.client;
 
-import org.vectomatic.dom.svg.impl.SVGElement;
-import org.vectomatic.dom.svg.impl.SVGImageElement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -19,23 +20,25 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
 
-import earl.client.data.Counter;
+import earl.client.data.Board;
 import earl.client.data.GameInfo;
-import earl.client.display.Display;
-import earl.client.display.svg.SVGDisplay;
+import earl.client.data.Hex;
+import earl.client.display.svg.SVGDisplay2;
+import earl.client.games.Bastogne;
+import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
 import earl.client.utils.Browser;
 
 public class ClientEngine implements EntryPoint {
-	private Display display;
+	private SVGDisplay2 display;
 	private SVGSVGElement svg;
 
 	@Override
 	public void onModuleLoad() {
 //		RootPanel rootPanel = RootPanel.get("controls");
-
+		
 		final ServerEngineAsync service = GWT.create(ServerEngine.class);
 		String tableId = Window.Location.getParameter("table");
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
@@ -43,12 +46,19 @@ public class ClientEngine implements EntryPoint {
 			@Override
 			public void onSuccess(GameInfo info) {					
 				svg = getSVG();
-				Display display = new SVGDisplay(svg, info.game);
+				Bastogne game = (Bastogne) info.game;
+				display = new SVGDisplay2(svg);
 				ClientEngine.this.display = display;
-				display.addGameListener(new UpdateServer(service));
-				display.init(info.game.getBoard());
+				Board board = game.getBoard();
+				display.setBoard(board);
+				for (Operation op : info.ops) {
+					op.execute(null);
+					op.draw(display);
+					log(op.toString());
+				}
 				log(info.log);
 			}
+
 		});
 		Button.wrap(Document.get().getElementById("roll2d6")).addClickHandler(new ClickHandler() {			
 			@Override
@@ -96,45 +106,44 @@ public class ClientEngine implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				log("debug");
-				((SVGDisplay)display).board.debug();
 			}
 		});
 		Button.wrap(Document.get().getElementById("deselect")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				log("debug");
-				((SVGDisplay)display).getDisplayHandler().setSelectedPiece(null);
+//				((SVGDisplay)display).getDisplayHandler().setSelectedPiece(null);
 			}
 		});
 		Button.wrap(Document.get().getElementById("toggle")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				display.toggleUnits();
+//				display.toggleUnits();
 			}
 		});
 		Button.wrap(Document.get().getElementById("flip")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				Counter piece = display.getDisplayHandler().getSelectedPiece();
-				piece.flip();
-				SVGImageElement c = (SVGImageElement) svg.getElementById(piece.getId());
-				c.getHref().setBaseVal(piece.getState());
+//				Counter piece = display.getDisplayHandler().getSelectedPiece();
+//				piece.flip();
+//				SVGImageElement c = (SVGImageElement) svg.getElementById(piece.getId());
+//				c.getHref().setBaseVal(piece.getState());
 			}
 		});
 		Button.wrap(Document.get().getElementById("mark")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				SVGElement selected = ((SVGDisplay)display).getSelected();
-				if (selected != null) {
-					Style style = selected.getStyle();
-					try {
-						double opacity = Double.parseDouble(style.getOpacity());
-						opacity = (opacity < 0.9 ? 1.0 : 0.6);
-						style.setOpacity(opacity);
-					} catch (NumberFormatException ex) {
-						style.setOpacity(0.6);
-					}
-				}
+//				SVGElement selected = ((SVGDisplay)display).getSelected();
+//				if (selected != null) {
+//					Style style = selected.getStyle();
+//					try {
+//						double opacity = Double.parseDouble(style.getOpacity());
+//						opacity = (opacity < 0.9 ? 1.0 : 0.6);
+//						style.setOpacity(opacity);
+//					} catch (NumberFormatException ex) {
+//						style.setOpacity(0.6);
+//					}
+//				}
 			}
 		});
 		log("Started");
@@ -155,6 +164,13 @@ public class ClientEngine implements EntryPoint {
 			GWT.log(s, e);
 			Browser.console(e);
 		}
+	}
+	private Map<Hex, Hex> toHexMap(Board b, Map<String, String> attacks) {
+		Map<Hex, Hex> hexes = new HashMap<Hex, Hex>(attacks.size());
+		for (Entry<String, String> e : attacks.entrySet()) {
+			hexes.put(b.getHex(e.getKey()), b.getHex(e.getValue()));			
+		}
+		return hexes;
 	}
 
 	public static native SVGSVGElement getSVG() /*-{

@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -142,5 +144,32 @@ public class DataStorePersistence implements Persistence {
 		} catch (Exception e) {
 			throw new EarlServerException(e);
 		}		
+	}
+	
+	@Override
+	public void save(String tableId, Map<String, String> attackHexes) {
+		try {
+			Entity entity = new Entity(tableId+"-attacks","attacks");
+			for (Entry<String, String> e : attackHexes.entrySet()) {
+				entity.setProperty(e.getKey(), e.getValue());				
+			}
+			service.put(entity);
+		} catch (Exception e) {
+			throw new EarlServerException(e);
+		}		
+	}
+	
+	
+	public Map<String, String> getAttacks(String tableId) {
+		Query query = new Query(tableId+"-attacks");
+		Iterable<Entity> results = service.prepare(query).asIterable();
+		Map<String, String> attacks = new HashMap<String, String>();
+		for (Entity entity : results) {
+			Set<Entry<String, Object>> entrySet = entity.getProperties().entrySet();
+			for (Entry<String, Object> entry : entrySet) {
+				attacks.put(entry.getKey(), (String) entry.getValue());
+			}
+		}
+		return attacks;
 	}
 }
