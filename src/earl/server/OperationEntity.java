@@ -1,5 +1,8 @@
 package earl.server;
 
+import java.util.Arrays;
+import java.util.Date;
+
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -13,6 +16,13 @@ public class OperationEntity {
 	@Index
 	public String sessionId;
 	public String data;
-	//class name
-	public String type;
+	public String className;
+	@Index
+	public Date timestamp;
+	
+	@Override
+	public String toString() {
+		return Arrays.asList(id,sessionId,data,className).toString();
+	}
 }
+

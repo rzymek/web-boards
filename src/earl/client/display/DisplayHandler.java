@@ -8,12 +8,10 @@ import earl.client.data.Hex;
 public class DisplayHandler implements GameHandler {
 	protected Counter selectedPiece = null;
 	protected Hex stackSelected = null;
-	private final GameChangeDispather listeners = new GameChangeDispather();
 	private final DisplayChangeListener display;
 
 	public DisplayHandler(DisplayChangeListener display) {
 		this.display = display;
-		this.listeners.add(display);
 	}
 
 	@Override
@@ -22,7 +20,6 @@ public class DisplayHandler implements GameHandler {
 		if (selectedPiece != null) {
 			Hex from = selectedPiece.getPosition();
 			selectedPiece.setPosition(area);
-			listeners.counterMoved(selectedPiece, from, area);
 			display.alignStack(from);
 			setSelectedPiece(null);
 		}
@@ -75,7 +72,5 @@ public class DisplayHandler implements GameHandler {
 		return selectedPiece;
 	}
 	
-	public void addGameListener(GameChangeListener listener){
-		listeners.add(listener);
-	}
+	
 }

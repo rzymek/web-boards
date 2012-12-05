@@ -10,7 +10,7 @@ import earl.client.op.Operation;
 
 public class BasicDisplayHandler {
 	protected Counter selectedPiece = null;
-	private final EarlDisplay display;
+	protected final EarlDisplay display;
 
 	public BasicDisplayHandler(EarlDisplay display) {
 		this.display = display;
@@ -24,25 +24,39 @@ public class BasicDisplayHandler {
 				//when no unit is selected
 				return null;
 			}
-			setSelectedPiece(stack.get(stack.size() - 1));
+			return startStackSelection(area);
 		} else {
 			if (selectedPiece.getPosition().equals(area)) {
-				List<Counter> stack = area.getStack();
-				int index = stack.indexOf(selectedPiece) - 1;
-				if(index < 0) {
-					display.alignStack(area);
-					setSelectedPiece(null);
-				}else{
-					setSelectedPiece(stack.get(index));
-				}
+				return toggleStackSelection(area);
 			}else{
-				Move move = new Move();
-				move.counter = selectedPiece;
-				move.from = selectedPiece.getPosition();
-				move.to = area;
-				setSelectedPiece(null);
-				return move;
+				return moveToHex(area);
 			}
+		}
+	}
+
+	protected Operation startStackSelection(Hex area) {
+		List<Counter> stack = area.getStack();
+		setSelectedPiece(stack.get(stack.size() - 1));
+		return null;
+	}
+
+	protected Operation moveToHex(Hex area) {
+		Move move = new Move();
+		move.counter = selectedPiece;
+		move.from = selectedPiece.getPosition();
+		move.to = area;
+		setSelectedPiece(null);
+		return move;
+	}
+
+	protected Operation toggleStackSelection(Hex area) {
+		List<Counter> stack = area.getStack();
+		int index = stack.indexOf(selectedPiece) - 1;
+		if(index < 0) {
+			display.alignStack(area);
+			setSelectedPiece(null);
+		}else{
+			setSelectedPiece(stack.get(index));
 		}
 		return null;
 	}

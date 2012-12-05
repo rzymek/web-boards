@@ -7,15 +7,18 @@ import earl.client.data.Board;
 import earl.client.data.Identifiable;
 
 public abstract class Operation implements Serializable {
-	public abstract void draw(EarlDisplay g);
+	public void draw(EarlDisplay g) {		
+	}
 
-	public abstract void execute(OperationContext ctx);
+	public void execute(OperationContext ctx){
+		
+	}
 
 	public void drawDetails(EarlDisplay g) {
 	}
 
-	public boolean isValid(OperationContext ctx) {
-		return true;
+	public void serverExecute() {
+
 	}
 
 	public abstract String encode();
@@ -29,6 +32,17 @@ public abstract class Operation implements Serializable {
 				buf.append(":");
 			}
 			buf.append(arg.getId());
+		}
+		return buf.toString();
+	}
+
+	protected static String encode(Object... args) {
+		StringBuilder buf = new StringBuilder();
+		for (Object arg : args) {
+			if (buf.length() != 0) {
+				buf.append(":");
+			}
+			buf.append(arg);
 		}
 		return buf.toString();
 	}

@@ -1,5 +1,17 @@
 package earl.client.games;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import earl.client.ClientEngine;
+import earl.client.data.Board;
+import earl.client.data.Counter;
+import earl.client.data.Hex;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.BastogneUnits.ge_26VG_2_I_77;
@@ -54,19 +66,6 @@ import static earl.client.games.BastogneUnits.us_Cherry_HHC_3;
 import static earl.client.games.BastogneUnits.us_Comb_C;
 import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
-
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import earl.client.ClientEngine;
-import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
 
 public class Bastogne implements Game, Serializable {
 	private Board board = null;

@@ -30,7 +30,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ManagerServlet</servlet-name>
-		<url-pattern>/earl/*</url-pattern>
 		<url-pattern>/_ah/channel/*</url-pattern>
 	</servlet-mapping>
 	<filter>
@@ -40,14 +39,6 @@
 	<filter-mapping>
 		<filter-name>ObjectifyFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>DemoFilter</filter-name>
-		<filter-class>earl.server.utils.DemoFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>DemoFilter</filter-name>
-		<url-pattern>/demo/*</url-pattern>
 	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

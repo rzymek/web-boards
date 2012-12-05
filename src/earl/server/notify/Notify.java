@@ -1,5 +1,6 @@
 package earl.server.notify;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,15 +15,12 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 
 import earl.server.Op;
-import earl.server.persistence.Persistence;
-import earl.server.persistence.PersistenceFactory;
 
 public class Notify {
-	private Persistence persistence = PersistenceFactory.get();
 
 	public void notifyListeners(String tableId, Op roll) {
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
-		List<TableListener> listeners = persistence.getListeners(tableId);
+		List<TableListener> listeners = new ArrayList<TableListener>();//TODO
 		removeObsoleteListeners(listeners);
 		for (TableListener listener : listeners) {
 			String clientId = listener.getClientId();
@@ -39,7 +37,8 @@ public class Notify {
 		for (TableListener listener : listeners) {
 			Date created = listener.getCreated();
 			if (created.compareTo(timeout) <= 0) {
-				persistence.delete(listener);
+//				TODO: persistence.delete(listener);
+				
 			} 
 		}
 	}

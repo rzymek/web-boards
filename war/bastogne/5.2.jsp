@@ -4,14 +4,13 @@
 <%@page import="org.apache.commons.io.FileUtils"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Bastogne</title>
-<script language="javascript" src="../js/SVGPan.js"></script>
+<title>Bastogne 5.2</title>
 <script language="javascript"
 	src="../earl.ClientEngine/earl.ClientEngine.nocache.js"></script>
 </head>
 <body id="body">
 <%
-InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg");
+InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne5.2.svg");
 IOUtils.copy(in,out);
 %>
 <img id="menu" src="../menu.svg" style="position:fixed; right:0;top:0;width:50px">

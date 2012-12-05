@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
+import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -19,13 +21,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
-import earl.client.ClientEngine;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
 import earl.client.display.Dimention;
 import earl.client.display.handler.BasicDisplayHandler;
+import earl.client.display.handler.SCSDisplayHandler;
 import earl.client.games.SCSCounter;
 import earl.client.op.Operation;
 import earl.client.op.Position;
@@ -39,7 +41,7 @@ public class SVGDisplay2 extends BasicDisplay {
 
 	public SVGDisplay2(SVGSVGElement svg) {
 		this.svg = svg;
-		this.handler = new BasicDisplayHandler(this);
+		this.handler = new SCSDisplayHandler(this);
 		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 	}
@@ -224,9 +226,40 @@ public class SVGDisplay2 extends BasicDisplay {
 
 	@Override
 	public void drawArrow(Position start, Position end) {
-		ClientEngine.log("drawArrow: " + start + " -> " + end);
+		SVGPathElement arrow = (SVGPathElement) svg.getElementById("attackArrow");
+		arrow.getStyle().setProperty("pointerEvents", "none");
+		arrow = (SVGPathElement) arrow.cloneNode(true);
+		Browser.console(arrow.getAttribute("d"));
+		OMSVGPathSegList seg = arrow.getPathSegList();
+
+		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
+		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
+		shortenArrow(arrow, seg);
+		
+		Browser.console(arrow);
+		Browser.console(arrow.getAttribute("d"));
+		svg.getElementById("markers").appendChild(arrow);
 	}
 
+
+	private void clearMarkers() {
+		Element markers = svg.getElementById("markers");
+		while(markers.hasChildNodes()) {
+			markers.removeChild(markers.getLastChild());
+		}
+	}
+
+
+	/**
+	 * Shortens arrow point by half the hex size (bbox height)
+	 */
+	protected void shortenArrow(SVGPathElement arrow, OMSVGPathSegList seg) {
+		float w = 30;//SVGUtils.getBBox(end).getHeight()/2;
+		float totalLength = arrow.getTotalLength();
+		OMSVGPoint p = arrow.getPointAtLength(totalLength - w);
+		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(p.getX(), p.getY()), 1);
+	}
+	
 	@Override
 	public void update(Identifiable counter, String state) {
 		SVGImageElement img = (SVGImageElement) getSVGElement(counter);

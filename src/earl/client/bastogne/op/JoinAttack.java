@@ -16,24 +16,30 @@ public class JoinAttack extends Operation {
 	@Override
 	public void draw(EarlDisplay g) {
 		Position start = g.getCenter(from);
-		Position end = g.getCenter(from);
+		Position end = g.getCenter(target	);
 		g.drawArrow(start, end);
 	}
 
 	@Override
 	public void execute(OperationContext ctx) {
-		ctx.add(target, from);
+//		ctx.add(target, from);
 	}
 
 	@Override
 	public String encode() {
-		// TODO Auto-generated method stub
-		return null;
+		return encode(from, target);
 	}
 
 	@Override
 	public void decode(Board board, String s) {
-		// TODO Auto-generated method stub
-		
+		String[] data = s.split(":");
+		from = board.getHex(data[0]);
+		target = board.getHex(data[1]);
 	}
+	
+	@Override
+	public String toString() {
+		return "Declared attack from "+from.getId()+" to "+target.getId();
+	}
+	
 }

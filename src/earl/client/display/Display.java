@@ -10,8 +10,6 @@ public interface Display {
 
 	void init(Board board);
 
-	void addGameListener(GameChangeListener listener);
-
 	void toggleUnits();
 
 	DisplayHandler getDisplayHandler();

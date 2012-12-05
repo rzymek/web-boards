@@ -1,9 +1,7 @@
 package earl.client;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import org.vectomatic.dom.svg.OMDocument;
+import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -14,17 +12,25 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import earl.client.bastogne.op.ChatMessage;
+import earl.client.bastogne.op.DiceRoll;
 import earl.client.data.Board;
 import earl.client.data.GameInfo;
-import earl.client.data.Hex;
 import earl.client.display.svg.SVGDisplay2;
 import earl.client.games.Bastogne;
+import earl.client.op.OpData;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
@@ -34,54 +40,46 @@ import earl.client.utils.Browser;
 public class ClientEngine implements EntryPoint {
 	private SVGDisplay2 display;
 	private SVGSVGElement svg;
+	protected Board board;
+	private ServerEngineAsync service;
 
 	@Override
 	public void onModuleLoad() {
-//		RootPanel rootPanel = RootPanel.get("controls");
+		RootPanel rootPanel = RootPanel.get("body");
+		testTouch(rootPanel);
 		
-		final ServerEngineAsync service = GWT.create(ServerEngine.class);
-		String tableId = Window.Location.getParameter("table");
-		service.getState(tableId, new AbstractCallback<GameInfo>(){
+		svg = getSVG();
+		OMSVGSVGElement omsvg = OMDocument.convert(svg);
+		SVGZoomAndPanHandler zoomAndPan = new SVGZoomAndPanHandler(svg);
+		omsvg.addMouseDownHandler(zoomAndPan);
+		omsvg.addMouseUpHandler(zoomAndPan);
+		omsvg.addMouseMoveHandler(zoomAndPan);
+		rootPanel.addDomHandler(zoomAndPan, MouseWheelEvent.getType());
+		connect();
+		bindButtons();
+		Window.setTitle("Bastogne!");
+		log("Started");
+	}
 
-			@Override
-			public void onSuccess(GameInfo info) {					
-				svg = getSVG();
-				Bastogne game = (Bastogne) info.game;
-				display = new SVGDisplay2(svg);
-				ClientEngine.this.display = display;
-				Board board = game.getBoard();
-				display.setBoard(board);
-				for (Operation op : info.ops) {
-					op.execute(null);
-					op.draw(display);
-					log(op.toString());
-				}
-				log(info.log);
-			}
-
-		});
+	protected void bindButtons() {
 		Button.wrap(Document.get().getElementById("roll2d6")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				log("Rolling 2d6...");
-				service.roll(2, 6, new AbstractCallback<Integer>(){
-					@Override
-					public void onSuccess(Integer result) {
-						log("2d6 = "+result);
-					}
-				});
+				DiceRoll op = new DiceRoll();
+				op.dice = 2;
+				op.sides = 6;
+				service.process(op, new LogExecutedOperation(ClientEngine.this, op));
 			}
 		});
 		Button.wrap(Document.get().getElementById("rolld6")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				log("Rolling d6...");
-				service.roll(1, 6, new AbstractCallback<Integer>(){
-					@Override
-					public void onSuccess(Integer result) {
-						log("d6 = "+result);
-					}
-				});
+				DiceRoll op = new DiceRoll();
+				op.dice = 1;
+				op.sides = 6;
+				service.process(op, new LogExecutedOperation(ClientEngine.this, op));
 			}
 		});
 		
@@ -91,13 +89,9 @@ public class ClientEngine implements EntryPoint {
 			public void onKeyPress(KeyPressEvent event) {
 				char code = event.getCharCode();
 				if(code == '\r' || code == '\n') {
-					final String text = chat.getText();
-					service.chat(text, new AbstractCallback<Void>(){
-						@Override
-						public void onSuccess(Void result) {
-							log(">>>"+text);
-						}
-					});
+					final ChatMessage op = new ChatMessage();
+					op.text = chat.getText();
+					service.process(op, new LogExecutedOperation(ClientEngine.this, op));
 					chat.setText("");
 				}
 			}
@@ -146,11 +140,44 @@ public class ClientEngine implements EntryPoint {
 //				}
 			}
 		});
-		log("Started");
 	}
 
-	private boolean isDemo() {
-		return Window.Location.getPath().contains("/demo");
+	protected void connect() {
+		service = GWT.create(ServerEngine.class);
+		String tableId = Window.Location.getParameter("table");
+		service.getState(tableId, new AbstractCallback<GameInfo>(){
+			@Override
+			public void onSuccess(GameInfo info) {					
+				Bastogne game = new Bastogne();
+				game.setupScenarion52();
+				game.setMapInfo(info.mapInfo);
+				display = new SVGDisplay2(svg);
+				ClientEngine.this.display = display;
+				board = game.getBoard();
+				display.setBoard(board);
+				for (OpData data : info.ops) {
+					Operation op= data.get(board);					
+					op.execute(null);
+					op.draw(display);
+					log(op.toString());
+				}
+			}
+		});
+	}
+
+	protected void testTouch(RootPanel rootPanel) {
+		rootPanel.addDomHandler(new TouchStartHandler() {			
+			@Override
+			public void onTouchStart(TouchStartEvent event) {
+				log("touch start "+Window.getClientWidth());
+			}
+		}, TouchStartEvent.getType());
+		rootPanel.addDomHandler(new TouchEndHandler() {			
+			@Override
+			public void onTouchEnd(TouchEndEvent event) {
+				log("touch end "+Window.getClientWidth());
+			}
+		}, TouchEndEvent.getType());
 	}
 
 	public static void log(String s) {
@@ -164,13 +191,6 @@ public class ClientEngine implements EntryPoint {
 			GWT.log(s, e);
 			Browser.console(e);
 		}
-	}
-	private Map<Hex, Hex> toHexMap(Board b, Map<String, String> attacks) {
-		Map<Hex, Hex> hexes = new HashMap<Hex, Hex>(attacks.size());
-		for (Entry<String, String> e : attacks.entrySet()) {
-			hexes.put(b.getHex(e.getKey()), b.getHex(e.getValue()));			
-		}
-		return hexes;
 	}
 
 	public static native SVGSVGElement getSVG() /*-{

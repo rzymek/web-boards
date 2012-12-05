@@ -1,4 +1,3 @@
-<%@page import="earl.manager.ManagerServlet"%>
 <%
-	response.sendRedirect("/earl");
+	response.sendRedirect("/bastogne/?table=1");
 %>

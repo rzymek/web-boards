@@ -28,7 +28,6 @@ public class PerformAttack extends Operation {
 		// TODO
 	}
 
-	@Override
 	public boolean isValid(OperationContext ctx) {
 		return !ctx.get(target).isEmpty();
 	}

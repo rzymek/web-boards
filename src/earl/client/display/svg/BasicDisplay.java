@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.core.shared.GWT;
 
+import earl.client.ClientEngine;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -38,9 +39,10 @@ public abstract class BasicDisplay implements EarlDisplay {
 		if (op == null) {
 			return;
 		}
+		ClientEngine.log("local: "+op);
 		op.execute(null);
 		op.draw(this);
-		service.process(op, new AbstractCallback<Void>());
+		service.process(op, new AbstractCallback<String>());
 	}
 
 	protected abstract void createCounter(Counter counter, Board board);
