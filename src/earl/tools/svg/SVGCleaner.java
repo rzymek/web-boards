@@ -24,6 +24,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import earl.tools.svg.cleaners.ApplyTransform;
 import earl.tools.svg.cleaners.FindCommonStyles;
 import earl.tools.svg.cleaners.NamespacesFix;
 import earl.tools.svg.cleaners.RelativeImagePath;
@@ -50,6 +51,7 @@ public class SVGCleaner {
 //		writer = new OmmitXMLDeclaration(writer);
 		writer = new RemoveHexColor(writer);
 		writer = new RelativeImagePath(writer);
+		writer = new ApplyTransform(writer);
 		
 		Source source = new StreamSource(in);
 		Result result = new StAXResult(writer);
