@@ -17,7 +17,7 @@ public class JoinAttack extends Operation {
 	public void draw(EarlDisplay g) {
 		Position start = g.getCenter(from);
 		Position end = g.getCenter(target	);
-		g.drawArrow(start, end);
+		g.drawArrow(start, end, from.getId());
 	}
 
 	@Override

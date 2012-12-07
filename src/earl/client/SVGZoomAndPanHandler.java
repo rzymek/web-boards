@@ -25,13 +25,17 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseWheel(MouseWheelEvent event) {
-		float deltaY = 1.0f + event.getDeltaY() / 20.0f;
+		float scale = 1.0f + event.getDeltaY() / 20.0f;
+		float x = event.getX();
+		float y = event.getY();
+		ClientEngine.log(x + ", " + y);
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
-		viewbox.setWidth(viewbox.getWidth() * deltaY);
-		viewbox.setHeight(viewbox.getHeight() * deltaY);
-		int x = event.getX();
-		int y = event.getY();
-		ClientEngine.log(x+", "+y);		
+		viewbox.setWidth(viewbox.getWidth() * scale);
+		viewbox.setHeight(viewbox.getHeight() * scale);
+		x -= viewbox.getX();
+		y -= viewbox.getY();
+		viewbox.setX(viewbox.getX() / scale);
+		viewbox.setY(viewbox.getY() / scale);
 		event.preventDefault();
 	}
 
@@ -43,7 +47,6 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 		OMSVGRect viewBox = svg.getViewBox().getBaseVal();
 		int x = event.getX();
 		int y = event.getY();
-
 		viewBox.setX(viewBox.getX() + (start.x - x));
 		viewBox.setY(viewBox.getY() + (start.y - y));
 		start.x = x;
@@ -52,7 +55,7 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		ClientEngine.log("mouse up");
+//		ClientEngine.log("mouse up");
 		start = null;
 	}
 

@@ -23,7 +23,8 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			SCSCounter counter = (SCSCounter) area.getStack().get(0);
 			BastogneSide player = BastogneSide.US;//TODO
 			if (counter.getOwner() == player) {
-				setSelectedPiece(counter);
+				return super.moveToHex(area);
+//				setSelectedPiece(counter);
 			} else {
 				if (isAdjacent(counter, selectedPiece)) {
 					JoinAttack join = new JoinAttack();

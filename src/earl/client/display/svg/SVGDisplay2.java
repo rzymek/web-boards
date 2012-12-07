@@ -37,13 +37,13 @@ import earl.client.utils.SVGUtils;
 public class SVGDisplay2 extends BasicDisplay {
 	private final SVGSVGElement svg;
 	private final BasicDisplayHandler handler;
-	private final SVGRectElement selectionRect;
+//	private final SVGRectElement selectionRect;
 
 	public SVGDisplay2(SVGSVGElement svg) {
 		this.svg = svg;
 		this.handler = new SCSDisplayHandler(this);
-		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
-		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
+//		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
+//		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
@@ -79,7 +79,7 @@ public class SVGDisplay2 extends BasicDisplay {
 	}
 
 	private void hideStackSelection() {
-		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
+		//selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 	}
 
 	public void alignStack(SVGElement area, List<SVGElement> counters) {
@@ -225,17 +225,21 @@ public class SVGDisplay2 extends BasicDisplay {
 	}
 
 	@Override
-	public void drawArrow(Position start, Position end) {
-		SVGPathElement arrow = (SVGPathElement) svg.getElementById("attackArrow");
-		arrow.getStyle().setProperty("pointerEvents", "none");
-		arrow = (SVGPathElement) arrow.cloneNode(true);
-		Browser.console(arrow.getAttribute("d"));
+	public void drawArrow(Position start, Position end, String id) {		
+		SVGPathElement arrow;
+		final String arrowId = "attackArrow";
+		arrow = (SVGPathElement) svg.getElementById(arrowId+"_"+id);
+		Browser.console("existing arrow "+id+": "+arrow);
+		if(arrow == null) {
+			arrow = (SVGPathElement) svg.getElementById(arrowId);
+			arrow.getStyle().setProperty("pointerEvents", "none");
+			arrow = (SVGPathElement) arrow.cloneNode(true);
+			arrow.setId(arrowId+"_"+id);
+		}
 		OMSVGPathSegList seg = arrow.getPathSegList();
-
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
-		shortenArrow(arrow, seg);
-		
+		shortenArrow(arrow, seg);		
 		Browser.console(arrow);
 		Browser.console(arrow.getAttribute("d"));
 		svg.getElementById("markers").appendChild(arrow);
