@@ -49,16 +49,20 @@ public class ClientEngine implements EntryPoint {
 		testTouch(rootPanel);
 		
 		svg = getSVG();
+//		zoomAndPan(rootPanel);
+		connect();
+		bindButtons();
+		Window.setTitle("Bastogne!");
+		log("Started");
+	}
+
+	protected void zoomAndPan(RootPanel rootPanel) {
 		OMSVGSVGElement omsvg = OMDocument.convert(svg);
 		SVGZoomAndPanHandler zoomAndPan = new SVGZoomAndPanHandler(svg);
 		omsvg.addMouseDownHandler(zoomAndPan);
 		omsvg.addMouseUpHandler(zoomAndPan);
 		omsvg.addMouseMoveHandler(zoomAndPan);
 		rootPanel.addDomHandler(zoomAndPan, MouseWheelEvent.getType());
-		connect();
-		bindButtons();
-		Window.setTitle("Bastogne!");
-		log("Started");
 	}
 
 	protected void bindButtons() {
