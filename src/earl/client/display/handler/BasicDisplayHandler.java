@@ -10,11 +10,7 @@ import earl.client.op.Operation;
 
 public class BasicDisplayHandler {
 	protected Counter selectedPiece = null;
-	protected final EarlDisplay display;
-
-	public BasicDisplayHandler(EarlDisplay display) {
-		this.display = display;
-	}
+	protected EarlDisplay display;
 
 	public Operation areaClicked(Hex area) {
 		if (selectedPiece == null) {
@@ -80,5 +76,9 @@ public class BasicDisplayHandler {
 
 	public Counter getSelectedPiece() {
 		return selectedPiece;
+	}
+
+	public void setDisplay(EarlDisplay display) {
+		this.display = display;
 	}
 }

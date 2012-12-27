@@ -94,6 +94,9 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	
 	@Override
 	public String process(Operation op) {
+		Bastogne bastogne = new Bastogne();
+		bastogne.setMapInfo(loadMapInfo());
+		op.game = bastogne;		
 		op.serverExecute();
 		ObjectifyService.register(OperationEntity.class);
 		OperationEntity e = new OperationEntity();
@@ -104,4 +107,5 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		ofy().save().entity(e);
 		return e.data;
 	}
+	
 }

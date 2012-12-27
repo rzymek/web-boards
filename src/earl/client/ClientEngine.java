@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -28,6 +29,8 @@ import earl.client.bastogne.op.ChatMessage;
 import earl.client.bastogne.op.DiceRoll;
 import earl.client.data.Board;
 import earl.client.data.GameInfo;
+import earl.client.display.handler.BasicDisplayHandler;
+import earl.client.display.handler.SCSDisplayHandler;
 import earl.client.display.svg.SVGDisplay2;
 import earl.client.games.Bastogne;
 import earl.client.op.OpData;
@@ -46,6 +49,9 @@ public class ClientEngine implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		RootPanel rootPanel = RootPanel.get("body");
+		if(rootPanel == null) {
+			return;//ugly hack
+		}
 		testTouch(rootPanel);
 		
 		svg = getSVG();
@@ -69,11 +75,10 @@ public class ClientEngine implements EntryPoint {
 		Button.wrap(Document.get().getElementById("roll2d6")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				log("Rolling 2d6...");
 				DiceRoll op = new DiceRoll();
 				op.dice = 2;
 				op.sides = 6;
-				service.process(op, new LogExecutedOperation(ClientEngine.this, op));
+				display.process(op);
 			}
 		});
 		Button.wrap(Document.get().getElementById("rolld6")).addClickHandler(new ClickHandler() {			
@@ -155,13 +160,14 @@ public class ClientEngine implements EntryPoint {
 				Bastogne game = new Bastogne();
 				game.setupScenarion52();
 				game.setMapInfo(info.mapInfo);
-				display = new SVGDisplay2(svg);
+				BasicDisplayHandler handler = new SCSDisplayHandler(game);
+				display = new SVGDisplay2(svg, handler);
 				ClientEngine.this.display = display;
 				board = game.getBoard();
 				display.setBoard(board);
 				for (OpData data : info.ops) {
 					Operation op= data.get(board);					
-					op.execute(null);
+					op.clientExecute();
 					op.draw(display);
 					log(op.toString());
 				}
@@ -173,16 +179,25 @@ public class ClientEngine implements EntryPoint {
 		rootPanel.addDomHandler(new TouchStartHandler() {			
 			@Override
 			public void onTouchStart(TouchStartEvent event) {
-				log("touch start "+Window.getClientWidth());
+				log("1 touch start "+Window.getClientWidth());
+				Document.get().getElementById("menu").getStyle().setDisplay(Display.NONE);
 			}
 		}, TouchStartEvent.getType());
 		rootPanel.addDomHandler(new TouchEndHandler() {			
 			@Override
-			public void onTouchEnd(TouchEndEvent event) {
-				log("touch end "+Window.getClientWidth());
+			public void onTouchEnd(TouchEndEvent event) {				
+				log("2 touch end "+getInfo());
+				Document.get().getElementById("menu").getStyle().setDisplay(Display.BLOCK);
 			}
 		}, TouchEndEvent.getType());
 	}
+	public static native String getInfo()/*-{
+		var x =+$doc.getElementById('viewport.x');
+		var w =+$doc.getElementById('viewport.width');
+		return "iw="+$wnd.innerWidth+", pXo="+$wnd.pageXOffset+
+			", screen.width="+screen.width+", "+
+			", viewport.x="+x.offsetLeft+", viewport.width="+w.clientWidth;
+	}-*/;
 
 	public static void log(String s) {
 		Browser.console(s);

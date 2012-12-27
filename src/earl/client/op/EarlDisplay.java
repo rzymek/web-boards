@@ -17,4 +17,6 @@ public interface EarlDisplay {
 
 	void select(Identifiable i);
 
+	void drawOds(Position center, int[] odds);
+
 }

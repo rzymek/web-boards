@@ -1,14 +1,11 @@
 package earl.client.bastogne.op;
 
-import com.googlecode.objectify.annotation.EntitySubclass;
-
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.op.EarlDisplay;
 import earl.client.op.Operation;
 
-@EntitySubclass
-public class Flip extends Operation {
+public class Flip extends Operation  implements Undoable {
 	Counter counter;
 
 	@Override
@@ -17,7 +14,7 @@ public class Flip extends Operation {
 	}
 
 	@Override
-	public void execute(OperationContext ctx) {
+	public void clientExecute() {
 		counter.flip();
 	}
 
@@ -28,6 +25,11 @@ public class Flip extends Operation {
 
 	@Override
 	public void decode(Board board, String s) {
+	}
+
+	@Override
+	public void undo() {
+		counter.flip();
 	}
 
 }

@@ -18,12 +18,14 @@ import earl.client.utils.AbstractCallback;
 public abstract class BasicDisplay implements EarlDisplay {
 
 	private final ServerEngineAsync service;
+	private Board board;
 
 	protected BasicDisplay() {
 		service = GWT.create(ServerEngine.class);
 	}
 	
 	public void setBoard(final Board board) {
+		this.board = board;
 		initAreas(board);
 		Collection<Hex> stacks = board.getStacks();
 		for (Hex hex : stacks) {
@@ -35,14 +37,19 @@ public abstract class BasicDisplay implements EarlDisplay {
 		}
 	}
 
-	protected void process(Operation op) {
+	public void process(final Operation op) {
 		if (op == null) {
 			return;
 		}
-		ClientEngine.log("local: "+op);
-		op.execute(null);
 		op.draw(this);
-		service.process(op, new AbstractCallback<String>());
+		service.process(op, new AbstractCallback<String>(){
+			@Override
+			public void onSuccess(String result) {
+				op.decode(board, result);
+				op.clientExecute();
+				ClientEngine.log("executed: "+op);
+			}
+		});		
 	}
 
 	protected abstract void createCounter(Counter counter, Board board);

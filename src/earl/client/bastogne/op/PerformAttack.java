@@ -1,63 +1,56 @@
 package earl.client.bastogne.op;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import com.googlecode.objectify.annotation.EntitySubclass;
+import java.util.Arrays;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
 import earl.client.data.Hex;
-import earl.client.games.SCSCounter;
+import earl.client.games.Bastogne;
 import earl.client.op.EarlDisplay;
 import earl.client.op.Operation;
 
-@EntitySubclass
 public class PerformAttack extends Operation {
 	public Hex target;
+	public Hex[] attacking;
+	public CombatResult result;
+	public String rollResult;	
 
 	@Override
 	public void draw(EarlDisplay g) {
 	}
 
-	
 	@Override
-	public void execute(OperationContext ctx) {
-		List<SCSCounter> attacking = getAttackUnits(ctx);
-		// TODO
+	public void clientExecute() {
 	}
 
-	public boolean isValid(OperationContext ctx) {
-		return !ctx.get(target).isEmpty();
+	@Override
+	public void serverExecute() {
+		Bastogne game = (Bastogne) this.game;
+		int[] odds = game.calculateOdds(target, Arrays.asList(attacking));
+		DiceRoll roll = new DiceRoll();
+		roll.dice = 2;
+		roll.sides = 6;
+		roll.serverExecute();	
+		int sum = roll.getSum();
+		rollResult = roll.toString();
+		result = game.getCombatResult(odds, sum);
 	}
-	
-	protected List<SCSCounter> getAttackUnits(OperationContext ctx) {
-		@SuppressWarnings("unchecked")
-		Collection<Hex> from = (Collection<Hex>) ((Collection<?>) ctx.get(target));
-		List<SCSCounter> attacking = new ArrayList<SCSCounter>();
-		for (Hex hex : from) {
-			List<Counter> stack = hex.getStack();
-			for (Counter counter : stack) {
-				if (counter instanceof SCSCounter) {
-					attacking.add((SCSCounter) counter);
-				}
-			}
-		}
-		return attacking;
-	}
-
 
 	@Override
 	public String encode() {
-		// TODO Auto-generated method stub
-		return null;
+		String att = encode(attacking);
+		return encodeObj(target.getId(), result, rollResult, att);
 	}
-
 
 	@Override
 	public void decode(Board board, String s) {
-		// TODO Auto-generated method stub
-		
+		String[] data = s.split(":");
+		target = board.getHex(data[0]);
+		result = new CombatResult(data[1]);
+		rollResult = data[2];
+		int listOffset = 3;
+		attacking = new Hex[data.length-listOffset];		
+		for (int i = listOffset; i < data.length; ++i) {
+			attacking[i-listOffset] = board.getHex(data[i]);
+		}
 	}
 }

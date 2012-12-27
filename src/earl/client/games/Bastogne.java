@@ -1,17 +1,14 @@
 package earl.client.games;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import earl.client.ClientEngine;
+import earl.client.bastogne.op.CombatResult;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
+import earl.client.ex.EarlException;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.BastogneUnits.ge_26VG_2_I_77;
@@ -67,19 +64,18 @@ import static earl.client.games.BastogneUnits.us_Comb_C;
 import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 
-public class Bastogne implements Game, Serializable {
+public class Bastogne implements Game {
 	private Board board = null;
 	private String playerUS;
 	private String playerGE;
 	private Map<String, String> mapInfo;
-	public Map<String, String> attacks = Collections.emptyMap();
 
 	public Bastogne() {
 		board = new Board();
 	}
 
 	public void setupScenarion52() {
-//		if (System.currentTimeMillis() != 0) return;
+		//		if (System.currentTimeMillis() != 0) return;
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
@@ -156,9 +152,9 @@ public class Bastogne implements Game, Serializable {
 
 	private void setup(String hexId, BastogneUnits unit, String desc) {
 		String id = unit.getId();
-		String side = unit.name().substring(0,2).toUpperCase();
-		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side),
-				unit.attack, unit.range, unit.defence, unit.movement);
+		String side = unit.name().substring(0, 2).toUpperCase();
+		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
+				unit.range, unit.defence, unit.movement);
 		counter.setDescription(desc);
 		board.place(hexId, counter);
 	}
@@ -200,20 +196,18 @@ public class Bastogne implements Game, Serializable {
 	}
 
 	public void setMapInfo(Map<String, String> mapInfo) {
-		this.mapInfo = mapInfo;		
+		this.mapInfo = mapInfo;
 	}
-	
+
 	public Map<String, String> getMapInfo() {
 		return mapInfo;
 	}
-	
-	public int[] calculateOdds(Hex target) {
-		Set<Counter> attackers = getAttackers(target);
+
+	public int[] calculateOdds(Hex target, Collection<Hex> attacking) {
 		List<Counter> defending = target.getStack();
-		ClientEngine.log(attackers + " attacks " + defending);
 		String hexId = target.getId();
-		String hexInfo = mapInfo.get(hexId);
-		float defence = getDefence(defending);
+		String hexInfo = getMapInfo().get(hexId);
+		float defence = getDefenceRawSum(defending);
 		if (hexInfo != null) {
 			boolean forrest = hexInfo.contains("F");
 			boolean city = hexInfo.contains("C");
@@ -224,39 +218,67 @@ public class Bastogne implements Game, Serializable {
 				defence *= 2;
 			}
 		}
-		float attack = getAttack(attackers);
+		float attack = getAttackRawSum(attacking);
 		float smaller = Math.min(attack, defence);
 		int a = Math.round(attack / smaller);
 		int b = Math.round(defence / smaller);
-		int[] odds = {a,b};
+		int[] odds = { a, b };
 		return odds;
 	}
 
-	private float getAttack(Set<Counter> attackers) {
-		float attack = 0;
-		for (Counter a : attackers) {
-			attack += ((SCSCounter)a).getAttack();
-		}
-		return attack;
-	}
-
-
-	private float getDefence(List<Counter> defending) {
+	private float getDefenceRawSum(Collection<Counter> defending) {
 		float defence = 0;
 		for (Counter counter : defending) {
-			defence += ((SCSCounter)counter).getDefence();
+			defence += ((SCSCounter) counter).getDefence();
 		}
 		return defence;
 	}
 
-	private Set<Counter> getAttackers(Hex defending) {
-		Set<Counter> attackers = new HashSet<Counter>();
-		for (Entry<String, String> attack : attacks.entrySet()) {
-			if(attack.getValue().equals(defending.getId())) {
-				List<Counter> stack = board.getHex(attack.getKey()).getStack();
-				attackers.addAll(stack);
+	private float getAttackRawSum(Collection<Hex> list) {
+		float attack = 0;
+		for (Hex hex : list) {
+			for (Counter c : hex.getStack()) {
+				attack += ((SCSCounter) c).getAttack();
 			}
 		}
-		return attackers;
+		return attack;
 	}
+
+	private static final String[][] CRT = {//@formatter:off
+		{"     ","1:3 ","1:2 ","1:1 ","2:1 ","3:1 ","4:1 ","5:1"},
+		{"2    ","A1r2","A1r2","A1r2","A1r1","A1r1","A1  ","A1  "},
+		{"3    ","A1r2","A1r2","A1r1","A1r1","A1  ","A1  ","A1D1"},
+		{"4    ","A1r2","A1r1","A1r1","A1  ","A1  ","A1D1","D1r1"},
+		{"5    ","A1r1","A1r1","A1  ","A1  ","A1D1","D1r1","D1r2"},
+		{"6    ","A1r1","A1  ","A1  ","A1D1","D1r1","D1r2","D1r2"},
+		{"7    ","A1  ","A1  ","A1D1","D1r1","D1r2","D1r2","D1r3"},
+		{"8    ","A1  ","A1  ","A1D1","D1r1","D1r2","D1r2","D1r3"},//same
+		{"9    ","A1  ","A1D1","D1r1","D1r2","D1r2","D1r3","D1r4"},
+		{"10   ","A1  ","D1r1","D1r2","D1r2","D1r3","D1r3","D2r5"}, 
+		{"11   ","A1  ","D1r1","D1r2","D1r2","D1r3","D1r3","D2r5"},//same 
+		{"12   ","A1D1","D1r2","D1r2","D1r3","D1r3","D2r4","D2r6"},		
+	};//@formatter:on
+
+	public CombatResult getCombatResult(int[] odds, int sum) {
+		int col = getCRTColumn(odds);
+		int row = sum - 1;
+		String value = CRT[row][col];
+		return new CombatResult(value);
+	}
+
+	private int getCRTColumn(int[] odds) {
+		if (3 < odds[1]) {
+			return 1;
+		} else if (odds[0] > 5) {
+			return 7;
+		}
+		String oddsValue = odds[0] + ":" + odds[1];
+		for (int col = 1; col < CRT[0].length; col++) {
+			if (oddsValue.equals(CRT[0][col].trim())) {
+				return col;
+			}
+		}
+		throw new EarlException("invalid odds:" + oddsValue);
+	}
+
 }

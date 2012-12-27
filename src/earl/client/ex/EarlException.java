@@ -7,4 +7,8 @@ public class EarlException extends RuntimeException {
 		super(e);
 	}
 
+	public EarlException(String string) {
+		super(string);
+	}
+
 }

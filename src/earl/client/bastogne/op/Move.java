@@ -1,21 +1,18 @@
 package earl.client.bastogne.op;
 
-import com.googlecode.objectify.annotation.EntitySubclass;
-
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.op.EarlDisplay;
 import earl.client.op.Operation;
 
-@EntitySubclass
-public class Move extends Operation {
+public class Move extends Operation implements Undoable {
 	public Counter counter;
 	public Hex from;
 	public Hex to;
 
 	@Override
-	public void execute(OperationContext ctx) {
+	public void clientExecute() {
 		counter.setPosition(to);
 	}
 
@@ -39,5 +36,10 @@ public class Move extends Operation {
 	@Override
 	public String toString() {
 		return counter+" moves from "+from.getId()+" to "+to.getId();
+	}
+
+	@Override
+	public void undo() {
+		counter.setPosition(from);
 	}
 }

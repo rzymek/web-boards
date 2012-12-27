@@ -12,11 +12,13 @@ import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
+import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Visibility;
+import com.google.gwt.dom.client.Text;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
@@ -27,7 +29,6 @@ import earl.client.data.Hex;
 import earl.client.data.Identifiable;
 import earl.client.display.Dimention;
 import earl.client.display.handler.BasicDisplayHandler;
-import earl.client.display.handler.SCSDisplayHandler;
 import earl.client.games.SCSCounter;
 import earl.client.op.Operation;
 import earl.client.op.Position;
@@ -39,9 +40,11 @@ public class SVGDisplay2 extends BasicDisplay {
 	private final BasicDisplayHandler handler;
 //	private final SVGRectElement selectionRect;
 
-	public SVGDisplay2(SVGSVGElement svg) {
+	public SVGDisplay2(SVGSVGElement svg, BasicDisplayHandler handler) {
 		this.svg = svg;
-		this.handler = new SCSDisplayHandler(this);
+		this.handler = handler;
+		handler.setDisplay(this);
+		svg.getElementById("target").getStyle().setVisibility(Visibility.HIDDEN);
 //		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
 //		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
 	}
@@ -165,7 +168,7 @@ public class SVGDisplay2 extends BasicDisplay {
 			throw new RuntimeException(msg);
 		}
 		c.setId(id);
-		c.getStyle().setProperty("pointerEvents", "none");
+		c.getStyle().setProperty("pointerEvents", "none");//TODO: move to svg
 		c.getHref().setBaseVal(counter.getState());
 		ClickHandler clickHandler = new ClickHandler() {
 			@Override
@@ -251,6 +254,29 @@ public class SVGDisplay2 extends BasicDisplay {
 		while(markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());
 		}
+	}
+	
+	@Override
+	public void drawOds(Position center, int[] odds) {
+		final String id = "tg@"+center;
+		SVGElement target = (SVGElement) svg.getElementById(id);
+		if(target == null) {
+			target = (SVGElement) svg.getElementById("target");
+			Element parent = target.getParentElement();
+			target = (SVGElement) target.cloneNode(true);
+			target.setId(id);		
+			parent.appendChild(target);
+		}
+		target.getStyle().setProperty("pointerEvents", "none");
+		target.getStyle().setVisibility(Visibility.VISIBLE);
+		String oddsText = odds[0]+":"+odds[1];
+		Browser.console(oddsText);
+		SVGTSpanElement tspan = (SVGTSpanElement) target.getElementsByTagName("tspan").getItem(0);
+		Text item = (Text) tspan.getChildNodes().getItem(0);
+		item.setNodeValue(oddsText);
+		target.setAttribute("transform", "translate("+center.x+", "+center.y+")");
+		bringToTop(target);
+		Browser.console(target);
 	}
 
 

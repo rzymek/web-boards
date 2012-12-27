@@ -65,7 +65,7 @@ public class DiceRoll extends Operation {
 			buf.append(dice);
 		}
 		buf.append('d').append(sides).append(": ");
-		buf.append(getSum(results)).append(" (");
+		buf.append(getSum()).append(" (");
 		for (int i = 0; i < results.length; i++) {
 			if(i>0) {
 				buf.append(", ");			
@@ -74,5 +74,9 @@ public class DiceRoll extends Operation {
 		}
 		buf.append(")");
 		return  buf.toString();
+	}
+
+	public int getSum() {
+		return getSum(results);
 	}
 }
