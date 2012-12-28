@@ -55,7 +55,7 @@ public class ClientEngine implements EntryPoint {
 		testTouch(rootPanel);
 		
 		svg = getSVG();
-//		zoomAndPan(rootPanel);
+		zoomAndPan(rootPanel);
 		connect();
 		bindButtons();
 		Window.setTitle("Bastogne!");

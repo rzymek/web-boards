@@ -14,7 +14,7 @@
 InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg");
 IOUtils.copy(in,out);
 %>
-<div id="menu" style="position:fixed; right:0;top:0;width:30%;height:10%;background:red"></div>
+<div id="menu" style="position:fixed; right:0;top:0;width:10%;height:20%;background:gray"></div>
 <div id="viewport.x" style="position:fixed; right:0;top:0;width:1px; height:1px;"></div>
 <div id="viewport.width" style="position:fixed; right:0;top:0;width:100%; height:1px;"></div>
 <input id="chat" type="text" size="200"></input><br>
