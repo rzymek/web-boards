@@ -40,15 +40,15 @@ public class SVGCleaner {
 		File out = new File("../earl/war/bastogne/bastogne.svg");
 		File in = new File("../earl/sources/bastogne-orig.svg");
 
-		ByteArrayOutputStream buf = new ByteArrayOutputStream(); 
+		ByteArrayOutputStream buf = new ByteArrayOutputStream();
 		Result run1Result = new StreamResult(buf);
+//		Result run1Result = new StreamResult(new FileOutputStream(out));
 		XMLStreamWriter writer = XMLOutputFactory.newInstance().createXMLStreamWriter(run1Result);
 		
 		Map<String, Integer> count = new HashMap<String, Integer>();
 		writer = new FindCommonStyles(writer, count);		
 		writer = new NamespacesFix(writer);
 		writer = new RemoveIds(writer);
-//		writer = new OmmitXMLDeclaration(writer);
 		writer = new RemoveHexColor(writer);
 		writer = new RelativeImagePath(writer);
 		writer = new ApplyTransform(writer);

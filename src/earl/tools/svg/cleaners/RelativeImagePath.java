@@ -36,6 +36,7 @@ public class RelativeImagePath extends StreamCopy {
 		value = makeRelative(localName, value);
 		super.writeAttribute(prefix, namespaceURI, localName, value);
 	}
+	
 	private String makeRelative(String localName, String value) {
 		if("href".equals(localName)) {
 			final String dir = "/war/bastogne/";
