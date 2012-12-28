@@ -10,4 +10,5 @@ import earl.client.op.Operation;
 public interface ServerEngine extends RemoteService {
 	GameInfo getState(String tableId);
 	String process(Operation op);
+	void join(String tableId);
 }

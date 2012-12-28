@@ -153,7 +153,7 @@ public class ClientEngine implements EntryPoint {
 
 	protected void connect() {
 		service = GWT.create(ServerEngine.class);
-		String tableId = Window.Location.getParameter("table");
+		final String tableId = Window.Location.getParameter("table");
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {					
@@ -170,6 +170,12 @@ public class ClientEngine implements EntryPoint {
 					op.clientExecute();
 					op.draw(display);
 					log(op.toString());
+				}
+				if(info.joinAs != null) {
+					boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
+					if (yes) {
+						service.join(tableId, new AbstractCallback<Void>());
+					}
 				}
 			}
 		});

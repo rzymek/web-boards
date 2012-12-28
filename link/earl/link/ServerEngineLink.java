@@ -22,4 +22,10 @@ public class ServerEngineLink implements ServerEngineAsync {
 	public void process(Operation op, AsyncCallback<String> abstractCallback) {
 		impl.process(op);
 	}
+
+	@Override
+	public void join(String tableId, AsyncCallback<Void> abstractCallback) {
+		impl.join(tableId);
+	}
+
 }

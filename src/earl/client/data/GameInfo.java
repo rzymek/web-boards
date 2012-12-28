@@ -10,4 +10,5 @@ public class GameInfo implements Serializable {
 	public String channelToken;
 	public List<OpData> ops;
 	public Map<String, String> mapInfo;
+	public String joinAs;
 }

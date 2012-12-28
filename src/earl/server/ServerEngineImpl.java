@@ -15,13 +15,16 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 
 import earl.client.data.GameInfo;
 import earl.client.games.Bastogne;
+import earl.client.games.BastogneSide;
 import earl.client.op.OpData;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
+import earl.manager.Table;
 import earl.server.ex.EarlServerException;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
@@ -41,13 +44,22 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		GameInfo info = new GameInfo();
 		info.channelToken = notify.openChannel(tableId, getUser());
 		info.mapInfo = loadMapInfo();
-		LoadType<OperationEntity> load = ObjectifyService.ofy().load().type(OperationEntity.class);
+		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
 		List<OperationEntity> results = load.filter("sessionId", tableId).order("timestamp").list();
 		info.ops = new ArrayList<OpData>(results.size());
 		for (OperationEntity e : results) {
 			Operation inst = Utils.newInstance(e.className);
 			OpData op = new OpData(e.data, inst);
 			info.ops.add(op);
+		}
+		Table table = ofy().load().type(Table.class).id(Long.valueOf(tableId)).get();
+		String user = getUser();
+		if(table.player1 == null) {
+			info.joinAs = BastogneSide.US.name();
+		}else if(table.player2 == null) {
+			info.joinAs = BastogneSide.GE.name();
+		}else if(!user.equals(table.player1) && !user.equals(table.player2)) {
+			throw new EarlServerException("This is not your game");
 		}
 		return info;
 	}
@@ -75,8 +87,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private String getUser() {
 		Principal principal = getThreadLocalRequest().getUserPrincipal();
 		if(principal == null) {
-//			throw new SecurityException("Not logged in.");
-			return null;
+			throw new SecurityException("Not logged in.");
 		}
 		return principal.getName();
 	}
@@ -108,4 +119,23 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return e.data;
 	}
 	
+	@Override
+	public void join(final String tableId) {
+		ofy().transact(new Work<Table>() {
+			@Override
+			public Table run() {
+				Long id = Long.valueOf(tableId);
+				Table table = ofy().load().type(Table.class).id(id).get();
+				if(table.player1 == null) {
+					table.player1 = getUser();
+				}else if(table.player2 == null) {
+					table.player2 = getUser();
+				}else{
+					throw new EarlServerException("This game is already full");
+				}
+				ofy().save().entity(table).now();
+				return table;
+			}
+		});
+	}
 }

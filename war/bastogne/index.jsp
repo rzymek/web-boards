@@ -14,9 +14,11 @@
 InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg");
 IOUtils.copy(in,out);
 %>
-<img id="menu" src="../menu.svg" style="position:fixed; right:0;top:0;width:50px">
+<div id="menu" style="position:fixed; right:0;top:0;width:30%;height:10%;background:red"></div>
+<div id="viewport.x" style="position:fixed; right:0;top:0;width:1px; height:1px;"></div>
+<div id="viewport.width" style="position:fixed; right:0;top:0;width:100%; height:1px;"></div>
 <input id="chat" type="text" size="200"></input><br>
-<table width="100%">
+<table width="100%"> 
 	<tr>
 		<td id="controls" width="30%" valign="top">
 			<button type="button" id="roll2d6" style="height: 50px; margin-bottom: 15px">Roll 2d6</button>

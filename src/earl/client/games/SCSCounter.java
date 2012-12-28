@@ -11,14 +11,14 @@ public class SCSCounter extends Counter implements Serializable {
 	private String back;
 	private BastogneSide owner;
 	private int attack;
-	private int range;
+	private Integer range;
 	private int defence;
 	private int movement;
 
 	protected SCSCounter() {
 	}
 
-	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, int range, int defence, int movement) {
+	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, Integer range, int defence, int movement) {
 		this.id = id;
 		this.frontPath = frontPath;
 		this.back = back;

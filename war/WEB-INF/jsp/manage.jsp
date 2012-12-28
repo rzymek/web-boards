@@ -15,9 +15,7 @@
 			Collection<Table> started = (Collection<Table>) request.getAttribute("earl.started");
 			for (Table t : started) {
 		%>
-		<li><a
-			href="/bastogne/?table=<%=t.id%>"><%=t.opponent%>
-				- <%=t.started%></a></li>
+		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
 			}
 		%>
@@ -28,9 +26,7 @@
 			Collection<Table> invitations = (Collection<Table>) request.getAttribute("earl.invitations");
 			for (Table t : invitations) {
 		%>
-		<li><a
-			href="/bastogne/join?table=<%=t.id%>"><%=t.opponent%>
-				- <%=t.started%></a></li>
+		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
 			}
 		%>
