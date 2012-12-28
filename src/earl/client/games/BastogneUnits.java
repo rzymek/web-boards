@@ -243,8 +243,9 @@ public enum BastogneUnits {
 	BastogneUnits(BastogneSide side, int attack, Integer range, int defence, int movement, int steps, String desc, String front, String back) {
 		this.side = side;
 		this.desc = desc;
-		this.front = "units/"+front;
-		this.back = (back == null ? null : ("units/"+back));
+		String lowerSide = side.name().toLowerCase();
+		this.front = "units/front/"+lowerSide+"/"+front;
+		this.back = (back == null ? null : ("units/back/"+lowerSide+"/"+back));
 		this.attack = attack;
 		this.range = range;
 		this.defence = defence;
