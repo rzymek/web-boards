@@ -1,14 +1,5 @@
 package earl.client.games;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import earl.client.bastogne.op.CombatResult;
-import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
-import earl.client.ex.EarlException;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.BastogneUnits.ge_26VG_2_I_77;
@@ -64,6 +55,16 @@ import static earl.client.games.BastogneUnits.us_Comb_C;
 import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import earl.client.bastogne.op.CombatResult;
+import earl.client.data.Board;
+import earl.client.data.Counter;
+import earl.client.data.Hex;
+import earl.client.ex.EarlException;
+
 public class Bastogne implements Game {
 	private Board board = null;
 	private String playerUS;
@@ -75,7 +76,7 @@ public class Bastogne implements Game {
 	}
 
 	public void setupScenarion52() {
-		//		if (System.currentTimeMillis() != 0) return;
+				if (System.currentTimeMillis() != 0) return;
 		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");

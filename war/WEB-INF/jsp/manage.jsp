@@ -6,9 +6,13 @@
 <title>Earl</title>
 </head>
 <body>
-	<a href="/earl/start" />Start new
-	game
-	</a>
+	<form type="get">
+		Start new game as: <select name="side">
+			<option>US</option>
+			<option>GE</option>
+		</select><input type="submit" value="Start" />
+	</form>
+
 	<br /> Your games:
 	<ul>
 		<%

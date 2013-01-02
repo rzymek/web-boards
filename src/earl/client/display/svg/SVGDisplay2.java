@@ -296,4 +296,9 @@ public class SVGDisplay2 extends BasicDisplay {
 		img.getHref().setBaseVal(state);
 	}
 
+	@Override
+	public void mark(List<Hex> hexes) {
+		
+		
+	}
 }

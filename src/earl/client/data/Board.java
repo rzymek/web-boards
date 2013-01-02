@@ -20,7 +20,7 @@ public class Board implements Serializable {
 		counters = new HashMap<String, Counter>();
 	}
 
-	public void debug() {		
+	public void debug() {
 		cleanupHexes();
 		Counter[] c = counters.values().toArray(new Counter[0]);
 		Hex[] h = hexes.values().toArray(new Hex[0]);
@@ -31,7 +31,7 @@ public class Board implements Serializable {
 	private void cleanupHexes() {
 		List<String> empty = new ArrayList<String>();
 		for (Hex hex : hexes.values()) {
-			if(hex.pieces.isEmpty()) {
+			if (hex.pieces.isEmpty()) {
 				empty.add(hex.getId());
 			}
 		}
@@ -39,7 +39,7 @@ public class Board implements Serializable {
 			hexes.remove(string);
 		}
 	}
-	
+
 	public Collection<Hex> getStacks() {
 		Set<Hex> stacks = new HashSet<Hex>();
 		Set<Entry<String, Counter>> entrySet = counters.entrySet();
@@ -54,29 +54,29 @@ public class Board implements Serializable {
 	}
 
 	public Hex getHex(String hexId) {
-//		if(hexes == null) {
-//			hexes = new HashMap<String, Hex>();
-//			for (Counter counter : counters.values()) {
-//				Hex hex = counter.getPosition();
-//				Hex existing = hexes.get(hex.getId());
-//				if(existing == null){
-//					hexes.put(hex.getId(), hex);
-//				}else{
-//					counter.position = existing;
-//				}
-//			}
-//		}if(hexes == null) {
-//		hexes = new HashMap<String, Hex>();
-//		for (Counter counter : counters.values()) {
-//			Hex hex = counter.getPosition();
-//			Hex existing = hexes.get(hex.getId());
-//			if(existing == null){
-//				hexes.put(hex.getId(), hex);
-//			}else{
-//				counter.position = existing;
-//			}
-//		}
-//	}
+		// if(hexes == null) {
+		// hexes = new HashMap<String, Hex>();
+		// for (Counter counter : counters.values()) {
+		// Hex hex = counter.getPosition();
+		// Hex existing = hexes.get(hex.getId());
+		// if(existing == null){
+		// hexes.put(hex.getId(), hex);
+		// }else{
+		// counter.position = existing;
+		// }
+		// }
+		// }if(hexes == null) {
+		// hexes = new HashMap<String, Hex>();
+		// for (Counter counter : counters.values()) {
+		// Hex hex = counter.getPosition();
+		// Hex existing = hexes.get(hex.getId());
+		// if(existing == null){
+		// hexes.put(hex.getId(), hex);
+		// }else{
+		// counter.position = existing;
+		// }
+		// }
+		// }
 		Hex hex = hexes.get(hexId);
 		if (hex == null) {
 			hexes.put(hexId, hex = new Hex(hexId));
@@ -92,9 +92,28 @@ public class Board implements Serializable {
 		Hex hex = getHex(hexId);
 		counter.setPosition(hex);
 		Counter prev = counters.put(counter.getId(), counter);
-		if(prev != null){
-			throw new RuntimeException(counter.getId()+" aleader placed");
+		if (prev != null) {
+			throw new RuntimeException(counter.getId() + " aleader placed");
 		}
+	}
+
+	public List<Hex> getAdjacet(Hex position) {
+		String id = position.getId();
+		String[] coord = id.split("[.]");
+		int x = Integer.parseInt(coord[0]);
+		int y = Integer.parseInt(coord[1]);
+		List<Hex> adj = new ArrayList<Hex>(6);
+		//@formatter:off
+								adj.add(toId(x,y+1));
+		adj.add(toId(x-1,y+1));						  adj.add(toId(x+1,y+1));	
+		adj.add(toId(x-1,y));						  adj.add(toId(x+1,y));
+								adj.add(toId(x,y-1));
+		//@formatter:on
+		return adj;
+	}
+
+	private Hex toId(int x, int y) {
+		return getHex(x+"."+y);
 	}
 
 }

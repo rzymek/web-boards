@@ -1,6 +1,6 @@
 package earl.server.utils;
 
-import earl.server.ex.EarlServerException;
+import earl.client.ex.EarlServerException;
 
 public class Utils {
 

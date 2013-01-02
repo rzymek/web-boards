@@ -7,8 +7,8 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -60,6 +60,16 @@ public class ClientEngine implements EntryPoint {
 		bindButtons();
 		Window.setTitle("Bastogne!");
 		log("Started");
+		centerView();
+	}
+
+	private void centerView() {
+		int w = Document.get().getClientWidth();
+		float x = svg.getViewBox().getBaseVal().getCenterX() - w/2;
+		svg.getViewBox().getBaseVal().setX(x);
+		int h = Document.get().getClientHeight();
+		float y = svg.getViewBox().getBaseVal().getCenterY() - h/2;
+		svg.getViewBox().getBaseVal().setY(y);
 	}
 
 	protected void zoomAndPan(RootPanel rootPanel) {
@@ -160,7 +170,7 @@ public class ClientEngine implements EntryPoint {
 				Bastogne game = new Bastogne();
 				game.setupScenarion52();
 				game.setMapInfo(info.mapInfo);
-				BasicDisplayHandler handler = new SCSDisplayHandler(game);
+				BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
 				display = new SVGDisplay2(svg, handler);
 				ClientEngine.this.display = display;
 				board = game.getBoard();
@@ -185,18 +195,26 @@ public class ClientEngine implements EntryPoint {
 		rootPanel.addDomHandler(new TouchStartHandler() {			
 			@Override
 			public void onTouchStart(TouchStartEvent event) {
-				log("1 touch start "+Window.getClientWidth());
-				Document.get().getElementById("menu").getStyle().setDisplay(Display.NONE);
+//				log("1 touch start "+Window.getClientWidth());
+//				Document.get().getElementById("menu").getStyle().setDisplay(Display.NONE);
 			}
 		}, TouchStartEvent.getType());
 		rootPanel.addDomHandler(new TouchEndHandler() {			
 			@Override
 			public void onTouchEnd(TouchEndEvent event) {				
+//				Document.get().getElementById("menu").getStyle().setDisplay(Display.BLOCK);
+				ImageElement img = (ImageElement) Document.get().getElementById("menuimg");
 				log("2 touch end "+getInfo());
-				Document.get().getElementById("menu").getStyle().setDisplay(Display.BLOCK);
+				int w = getViewportWidth();
+				img.setWidth(w/8);
+				img.setHeight(w/8);
 			}
 		}, TouchEndEvent.getType());
 	}
+	public static native int getViewportWidth()/*-{
+		var w =+$doc.getElementById('viewport.width');
+		return w.clientWidth;
+	}-*/;
 	public static native String getInfo()/*-{
 		var x =+$doc.getElementById('viewport.x');
 		var w =+$doc.getElementById('viewport.width');

@@ -1,6 +1,6 @@
 package earl.server;
 
-import earl.server.ex.EarlServerException;
+import earl.client.ex.EarlServerException;
 
 public class Op {
 	private Type type;

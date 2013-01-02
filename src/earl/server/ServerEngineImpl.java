@@ -1,5 +1,7 @@
 package earl.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
@@ -19,18 +21,16 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 
 import earl.client.data.GameInfo;
+import earl.client.ex.EarlServerException;
 import earl.client.games.Bastogne;
 import earl.client.games.BastogneSide;
 import earl.client.op.OpData;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.manager.Table;
-import earl.server.ex.EarlServerException;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
 import earl.server.utils.Utils;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
@@ -53,13 +53,25 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			info.ops.add(op);
 		}
 		Table table = ofy().load().type(Table.class).id(Long.valueOf(tableId)).get();
+		if(table == null) {
+			throw new EarlServerException("Invalid table id="+tableId);
+		}
 		String user = getUser();
-		if(table.player1 == null) {
-			info.joinAs = BastogneSide.US.name();
-		}else if(table.player2 == null) {
-			info.joinAs = BastogneSide.GE.name();
-		}else if(!user.equals(table.player1) && !user.equals(table.player2)) {
-			throw new EarlServerException("This is not your game");
+		System.out.println("user="+user);
+		System.out.println("table="+table);
+		if(user.equals(table.player1)){
+			info.side = BastogneSide.US;
+		}else if( user.equals(table.player2)) {
+			info.side = BastogneSide.GE;
+		}else{
+			//not your game
+			if(table.player1 == null) {
+				info.joinAs = BastogneSide.US;
+			}else if(table.player2 == null) {
+				info.joinAs = BastogneSide.GE;
+			}else{
+				throw new EarlServerException("This is not your game");
+			}
 		}
 		return info;
 	}

@@ -9,12 +9,22 @@
 <script language="javascript"
 	src="../earl.ClientEngine/earl.ClientEngine.nocache.js"></script>
 </head>
+<style type="text/css">
+ /*
+ #h3715 {fill:#ff0000;fill-opacity:0.5; }
+ */
+</style>
 <body id="body">
 <%
-InputStream in = config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg");
-IOUtils.copy(in,out);
+IOUtils.copy(config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg"),out);
 %>
-<div id="menu" style="position:fixed; right:0;top:0;width:10%;height:20%;background:gray"></div>
+<div id="menu" style="position:fixed; right:0;top:0;width:45px;text-align:right">
+	<img id="menuimg" src="../menu.svg" alt="menu" onclick="alert('menu')">
+	<input type="button" value="End turn"/>
+	<input type="button" value="Toggle units"/>
+	<input type="button" value="2d6"/>
+	<input type="button" value="d6"/>
+</div>
 <div id="viewport.x" style="position:fixed; right:0;top:0;width:1px; height:1px;"></div>
 <div id="viewport.width" style="position:fixed; right:0;top:0;width:100%; height:1px;"></div>
 <input id="chat" type="text" size="200"></input><br>

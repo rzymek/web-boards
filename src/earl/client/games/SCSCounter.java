@@ -75,7 +75,7 @@ public class SCSCounter extends Counter implements Serializable {
 	}
 	@Override
 	public String toString() {
-		String def = range > 0 ?
+		String def = range != null ?
 				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
 				"["+attack+"-"+defence+"-"+movement+"]";
 		return getId() + def;

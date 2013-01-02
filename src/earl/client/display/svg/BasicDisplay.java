@@ -41,12 +41,12 @@ public abstract class BasicDisplay implements EarlDisplay {
 		if (op == null) {
 			return;
 		}
+		op.clientExecute();
 		op.draw(this);
 		service.process(op, new AbstractCallback<String>(){
 			@Override
 			public void onSuccess(String result) {
 				op.decode(board, result);
-				op.clientExecute();
 				ClientEngine.log("executed: "+op);
 			}
 		});		
