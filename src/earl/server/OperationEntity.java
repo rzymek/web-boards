@@ -20,6 +20,7 @@ public class OperationEntity {
 	@Index
 	public Date timestamp;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public String toString() {
 		return Arrays.asList(id,sessionId,data,className).toString();

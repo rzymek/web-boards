@@ -1,5 +1,14 @@
 package earl.client.games;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import earl.client.bastogne.op.CombatResult;
+import earl.client.data.Board;
+import earl.client.data.Counter;
+import earl.client.data.Hex;
+import earl.client.ex.EarlException;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.BastogneUnits.ge_26VG_2_I_77;
@@ -54,16 +63,6 @@ import static earl.client.games.BastogneUnits.us_Cherry_HHC_3;
 import static earl.client.games.BastogneUnits.us_Comb_C;
 import static earl.client.games.BastogneUnits.us_Comb_D;
 import static earl.client.games.BastogneUnits.us_SNAFU_AdHoc;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import earl.client.bastogne.op.CombatResult;
-import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
-import earl.client.ex.EarlException;
 
 public class Bastogne implements Game {
 	private Board board = null;

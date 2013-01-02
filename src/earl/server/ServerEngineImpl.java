@@ -1,7 +1,5 @@
 package earl.server;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
@@ -31,6 +29,8 @@ import earl.manager.Table;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
 import earl.server.utils.Utils;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
