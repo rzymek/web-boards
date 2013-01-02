@@ -6,18 +6,8 @@ import javax.xml.stream.XMLStreamWriter;
 import earl.tools.svg.utils.StreamCopy;
 
 public class RelativeImagePath extends StreamCopy {
-	private boolean inImage = false;
-
 	public RelativeImagePath(XMLStreamWriter delegate) {
 		super(delegate);
-	}
-	
-	@Override
-	public void writeStartElement(String localName) throws XMLStreamException {
-		if("image".equals(localName)) {
-			inImage = true;
-		}
-		super.writeStartElement(localName);
 	}
 	
 	@Override
@@ -48,11 +38,5 @@ public class RelativeImagePath extends StreamCopy {
 			System.out.println("img:"+value);
 		}
 		return value;
-	}
-
-	@Override
-	public void writeEndElement() throws XMLStreamException {
-		inImage = false;
-		super.writeEndElement();
 	}
 }

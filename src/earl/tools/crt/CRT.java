@@ -39,7 +39,7 @@ public class CRT {
 			System.out.println(s);
 		}
 	}
-	private void foo() {
+	protected void foo() {
 		CombatResult[][] crt=new CombatResult[10][7];
 		crt[ 0]=crt("A1r2", "A1r2", "A1r2", "A1r1", "A1r1", "A1  ", "A1  ");
 		crt[ 1]=crt("A1r2", "A1r2", "A1r1", "A1r1", "A1  ", "A1  ", "A1D1");

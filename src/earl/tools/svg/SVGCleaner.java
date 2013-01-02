@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import earl.tools.svg.cleaners.ApplyTransform;
 import earl.tools.svg.cleaners.FindCommonStyles;
+import earl.tools.svg.cleaners.FixHexIds;
 import earl.tools.svg.cleaners.NamespacesFix;
 import earl.tools.svg.cleaners.RelativeImagePath;
 import earl.tools.svg.cleaners.RemoveHexColor;
@@ -46,6 +47,7 @@ public class SVGCleaner {
 		XMLStreamWriter writer = XMLOutputFactory.newInstance().createXMLStreamWriter(run1Result);
 		
 		Map<String, Integer> count = new HashMap<String, Integer>();
+		writer = new FixHexIds(writer);
 		writer = new FindCommonStyles(writer, count);		
 		writer = new NamespacesFix(writer);
 		writer = new RemoveIds(writer);
