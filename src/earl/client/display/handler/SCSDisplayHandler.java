@@ -85,7 +85,8 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 	}
 
 	private boolean isAdjacent(Counter a, Counter b) {
-		return game.getBoard().getAdjacent(a.getPosition()).contains(b.getPosition());
+		List<Hex> adjacent = game.getBoard().getAdjacent(a.getPosition());
+		return adjacent.contains(b.getPosition());
 	}
 
 	@Override
@@ -96,12 +97,51 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			if(counter != null && counter.getOwner() != player) {
 				return; //not your counter
 			}else{
-				List<Hex> adjacent = game.getBoard().getAdjacent(counter.getPosition());
-				display.mark(adjacent);
+				showMoves(counter);
 			}
 		}
 		selectedPiece = piece;
 		display.select(selectedPiece);
+	}
+
+	public void showMoves(SCSCounter counter) {
+		int movementLeft = counter.getMovement();
+		List<Hex> adjacent = game.getBoard().getAdjacent(counter.getPosition());
+		Map<Hex, Integer> costInfo = new HashMap<Hex, Integer>();		
+		process(adjacent, movementLeft, costInfo);
+//		ClientEngine.log("results------------------------------------");
+//		for (Entry<Hex, Integer> e : costInfo.entrySet()) {
+//			ClientEngine.log(e.getKey().getId()+": "+e.getValue());
+//		}
+		display.mark(costInfo.keySet());
+	}
+
+	private void process(List<Hex> process, int movementLeft, Map<Hex, Integer> costInfo) {
+//		ClientEngine.log(movementLeft+": "+process);
+		for (Hex hex : process) {
+			calculateMoveTo(hex, movementLeft, costInfo);
+		}
+	}
+
+	private void calculateMoveTo(Hex hex, int movementLeft, Map<Hex, Integer> costInfo) {
+		int cost = game.getMovementCost(hex);
+		int afterMoveMPs = movementLeft - cost;
+		if(afterMoveMPs < 0) {
+			return;
+		}
+		Integer otherPathCost = costInfo.get(hex);
+		boolean notVisitedYet = (otherPathCost == null);
+		if(notVisitedYet) {
+			costInfo.put(hex, afterMoveMPs);
+//			ClientEngine.log(hex+": "+afterMoveMPs);
+			process(game.getBoard().getAdjacent(hex), afterMoveMPs, costInfo);
+		}else{
+			boolean thisIsCheaperPath = (afterMoveMPs > otherPathCost);
+			if(thisIsCheaperPath) {
+				costInfo.put(hex, afterMoveMPs);
+				process(game.getBoard().getAdjacent(hex), afterMoveMPs, costInfo);				
+			}
+		}
 	}
 
 	@Override

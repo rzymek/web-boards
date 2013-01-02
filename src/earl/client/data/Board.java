@@ -116,8 +116,12 @@ public class Board implements Serializable {
 		return adj;
 	}
 
-	private Hex toId(int x, int y) {
-		return getHex("h"+x+""+y);
+	private Hex toId(int x, int y) {		
+		return getHex("h"+dig(x)+""+dig(y));
+	}
+	
+	private static String dig(int x){
+		return x<10 ? "0"+x : ""+x;
 	}
 
 }

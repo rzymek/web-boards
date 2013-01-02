@@ -198,15 +198,24 @@ public class Bastogne implements Game {
 	public void setMapInfo(Map<String, String> mapInfo) {
 		this.mapInfo = mapInfo;
 	}
-
-	public Map<String, String> getMapInfo() {
-		return mapInfo;
+	
+	public int getMovementCost(Hex target) {
+		String info = getHexInfo(target);
+		int cost = 1;
+		if(info != null) {
+			if(info.contains("F")) {
+				cost = 2;
+			}
+			if(info.contains("R") && !info.contains("C")) {
+				cost +=1;
+			}
+		}
+		return cost;
 	}
 
 	public int[] calculateOdds(Hex target, Collection<Hex> attacking) {
 		List<Counter> defending = target.getStack();
-		String hexId = target.getId();
-		String hexInfo = getMapInfo().get(hexId);
+		String hexInfo = getHexInfo(target);
 		float defence = getDefenceRawSum(defending);
 		if (hexInfo != null) {
 			boolean forrest = hexInfo.contains("F");
@@ -224,6 +233,13 @@ public class Bastogne implements Game {
 		int b = Math.round(defence / smaller);
 		int[] odds = { a, b };
 		return odds;
+	}
+
+	public String getHexInfo(Hex target) {
+		String id = target.getId();
+		int x = Integer.parseInt(id.substring(1, 3));
+		int y = Integer.parseInt(id.substring(3, 5));
+		return mapInfo.get(x+"."+y);
 	}
 
 	private float getDefenceRawSum(Collection<Counter> defending) {

@@ -297,19 +297,20 @@ public class SVGDisplay2 extends BasicDisplay {
 	}
 
 	@Override
-	public void mark(List<Hex> hexes) {
+	public void mark(Collection<Hex> hexes) {
 		StringBuilder buf = new StringBuilder();
 		for (Hex hex : hexes) {
-			if(buf.length() != 0) {
+			if (buf.length() != 0) {
 				buf.append(",");
 			}
 			buf.append("#").append(hex.getId());
 		}
-		buf.append("{fill:#0000ff;fill-opacity:0.5}");
-		svg.getElementById("dyncss").setInnerText(buf.toString());		
+		buf.append("{fill:#0000ff;fill-opacity:0.1}");
+		svg.getElementById("dyncss").setInnerText(buf.toString());
 	}
+
 	@Override
 	public void clearMarks() {
-		svg.getElementById("dyncss").setInnerText("");		
+		svg.getElementById("dyncss").setInnerText("");
 	}
 }

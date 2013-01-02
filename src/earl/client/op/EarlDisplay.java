@@ -1,6 +1,6 @@
 package earl.client.op;
 
-import java.util.List;
+import java.util.Collection;
 
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
@@ -21,7 +21,7 @@ public interface EarlDisplay {
 
 	void drawOds(Position center, int[] odds);
 
-	void mark(List<Hex> hexes);
+	void mark(Collection<Hex> hexes);
 
 	void clearMarks();
 
