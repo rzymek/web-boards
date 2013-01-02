@@ -47,9 +47,11 @@
          id="path5934"
          transform="scale(0.2,0.2)" />
     </marker>
+	<style type="text/css"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
+	</style>
     <style
        type="text/css"
-       id="style7"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
+       id="dyncss">
     </style>
   </defs>
   <sodipodi:namedview

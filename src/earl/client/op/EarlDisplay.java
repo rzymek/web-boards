@@ -23,4 +23,6 @@ public interface EarlDisplay {
 
 	void mark(List<Hex> hexes);
 
+	void clearMarks();
+
 }

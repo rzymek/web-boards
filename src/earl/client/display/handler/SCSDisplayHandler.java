@@ -2,6 +2,7 @@ package earl.client.display.handler;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -84,17 +85,19 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 	}
 
 	private boolean isAdjacent(Counter a, Counter b) {
-		return game.getBoard().getAdjacet(a.getPosition()).contains(b.getPosition());
+		return game.getBoard().getAdjacent(a.getPosition()).contains(b.getPosition());
 	}
 
 	@Override
 	public void setSelectedPiece(Counter piece) {
+		display.clearMarks();
 		if(piece instanceof SCSCounter) {
 			SCSCounter counter = (SCSCounter) piece;
 			if(counter != null && counter.getOwner() != player) {
 				return; //not your counter
 			}else{
-				display.mark(game.getBoard().getAdjacet(counter.getPosition()));
+				List<Hex> adjacent = game.getBoard().getAdjacent(counter.getPosition());
+				display.mark(adjacent);
 			}
 		}
 		selectedPiece = piece;

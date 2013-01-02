@@ -1,6 +1,6 @@
 <%@page import="java.util.Collection"%>
 <%@page import="earl.manager.ManagerServlet"%>
-<%@page import="com.eulerhermes.oadm.util.Table"%>
+<%@page import="earl.manager.Table"%>
 <html>
 <head>
 <title>Earl</title>

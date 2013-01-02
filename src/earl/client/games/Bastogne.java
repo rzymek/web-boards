@@ -75,22 +75,22 @@ public class Bastogne implements Game {
 	}
 
 	public void setupScenarion52() {
-				if (System.currentTimeMillis() != 0) return;
-		setup("37.17", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
-		setup("37.17", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
-		setup("50.21", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
-		setup("50.22", us_CCR_C_482, "CCR (C/482 Arm AA Co)");
-		setup("47.22", us_CCR_HHC, "CCR (HHC Arm Arty Platoon)");
-		setup("49.22", us_58_Art, "58 Arty Bn");
-		setup("49.24", us_Cherry_C_609, "Team Cherry (C/609 TD Platoon)");
-		setup("49.23", us_Cherry_A_3, "Team Cherry (A/3 Arm Co)");
-		setup("48.23", us_73_Art, "73 Arm Arty Bn");
-		setup("46.22", us_Cherry_C_20, "Team Cherry (C/20 Arm Inf Co)");
-		setup("45.22", us_Cherry_D_3, "Team Cherry (D/3 Arm Platoon)");
-		setup("37.20", us_Comb_C, "Comb Eng Bn (C Co)");
-		setup("40.19", us_Comb_D, "Comb Eng Bn (D Co)");
+//		if (System.currentTimeMillis() != 0) return;
+		setup("h3717", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
+		setup("h3717", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
+		setup("h5021", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
+		setup("h5022", us_CCR_C_482, "CCR (C/482 Arm AA Co)");
+		setup("h4722", us_CCR_HHC, "CCR (HHC Arm Arty Platoon)");
+		setup("h4922", us_58_Art, "58 Arty Bn");
+		setup("h4924", us_Cherry_C_609, "Team Cherry (C/609 TD Platoon)");
+		setup("h4923", us_Cherry_A_3, "Team Cherry (A/3 Arm Co)");
+		setup("h4823", us_73_Art, "73 Arm Arty Bn");
+		setup("h4622", us_Cherry_C_20, "Team Cherry (C/20 Arm Inf Co)");
+		setup("h4522", us_Cherry_D_3, "Team Cherry (D/3 Arm Platoon)");
+		setup("h3720", us_Comb_C, "Comb Eng Bn (C Co)");
+		setup("h4019", us_Comb_D, "Comb Eng Bn (D Co)");
 
-		String hexId = "33.16-21";
+		String hexId = "h3217";
 		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
 		setup(hexId, us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
 		setup(hexId, us_501_C_1, "1st Bn 501 Abn Inf (C/1)");

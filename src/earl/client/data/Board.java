@@ -14,7 +14,7 @@ import earl.client.utils.Browser;
 
 public class Board implements Serializable {
 	private Map<String, Counter> counters = null;
-	private Map<String, Hex> hexes = new HashMap<String, Hex>();;
+	private final Map<String, Hex> hexes = new HashMap<String, Hex>();;
 
 	public Board() {
 		counters = new HashMap<String, Counter>();
@@ -97,23 +97,27 @@ public class Board implements Serializable {
 		}
 	}
 
-	public List<Hex> getAdjacet(Hex position) {
+	public List<Hex> getAdjacent(Hex position) {
 		String id = position.getId();
-		String[] coord = id.split("[.]");
-		int x = Integer.parseInt(coord[0]);
-		int y = Integer.parseInt(coord[1]);
+		return getAdjacent(id);
+	}
+
+	public List<Hex> getAdjacent(String id) {
+		int x = Integer.parseInt(id.substring(1, 3));
+		int y = Integer.parseInt(id.substring(3, 5));
 		List<Hex> adj = new ArrayList<Hex>(6);
+		int o = (x % 2 == 0) ? 0 : -1;
 		//@formatter:off
 								adj.add(toId(x,y+1));
-		adj.add(toId(x-1,y+1));						  adj.add(toId(x+1,y+1));	
-		adj.add(toId(x-1,y));						  adj.add(toId(x+1,y));
+		adj.add(toId(x-1,y+1+o));					adj.add(toId(x+1,y+1+o));	
+		adj.add(toId(x-1,y+o));						adj.add(toId(x+1,y+o));
 								adj.add(toId(x,y-1));
 		//@formatter:on
 		return adj;
 	}
 
 	private Hex toId(int x, int y) {
-		return getHex(x+"."+y);
+		return getHex("h"+x+""+y);
 	}
 
 }
