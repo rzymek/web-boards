@@ -9,20 +9,12 @@ import java.util.Map.Entry;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import earl.client.display.svg.edit.EditService;
 
 public class EditServiceImpl extends RemoteServiceServlet implements EditService {
-	private final List<Entity> results = new ArrayList<Entity>();
-
-	public EditServiceImpl() {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		List<Entity> list = ds.prepare(new Query("edit")).asList(FetchOptions.Builder.withDefaults());
-		results.addAll(list);
-	}
 	
 	@Override
 	public void save(Long id, String color, String src) throws Exception {
@@ -32,12 +24,13 @@ public class EditServiceImpl extends RemoteServiceServlet implements EditService
 		entity.setProperty("color", color);
 		entity.setProperty("src", src);
 		ds.put(entity);
-		results.add(entity);
 	}
 	
 	@Override
 	public List<Map<String, String>> load() {
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Iterable<Entity> results = ds.prepare(new Query("edit")).asIterable();
 		for (Entity e : results) {
 			HashMap<String, String> map = new HashMap<String, String>();
 			for (Entry<String, Object> tmp : e.getProperties().entrySet()) {
