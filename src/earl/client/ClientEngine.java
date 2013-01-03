@@ -32,6 +32,7 @@ import earl.client.data.GameInfo;
 import earl.client.display.handler.BasicDisplayHandler;
 import earl.client.display.handler.SCSDisplayHandler;
 import earl.client.display.svg.SVGDisplay2;
+import earl.client.display.svg.edit.EditDisplay;
 import earl.client.games.Bastogne;
 import earl.client.op.OpData;
 import earl.client.op.Operation;
@@ -45,6 +46,7 @@ public class ClientEngine implements EntryPoint {
 	private SVGSVGElement svg;
 	protected Board board;
 	private ServerEngineAsync service;
+	private final boolean editMode = true;
 
 	@Override
 	public void onModuleLoad() {
@@ -56,7 +58,13 @@ public class ClientEngine implements EntryPoint {
 		
 		svg = getSVG();
 		zoomAndPan(rootPanel);
-		connect();
+		if(editMode) {
+			display = new EditDisplay(svg);
+			Bastogne game = new Bastogne();
+			display.setBoard(game.getBoard());
+		}else{
+			connect();
+		}
 		bindButtons();
 		Window.setTitle("Bastogne!");
 		log("Started");
@@ -64,6 +72,9 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	private void centerView() {
+		if(isTouchDevice()) {
+			return;
+		}
 		int w = Document.get().getClientWidth();
 		float x = svg.getViewBox().getBaseVal().getCenterX() - w/2;
 		svg.getViewBox().getBaseVal().setX(x);
@@ -71,6 +82,10 @@ public class ClientEngine implements EntryPoint {
 		float y = svg.getViewBox().getBaseVal().getCenterY() - h/2;
 		svg.getViewBox().getBaseVal().setY(y);
 	}
+
+	private native boolean isTouchDevice() /*-{
+		return 'ontouchstart' in $wnd || 'onmsgesturechange' in $wnd;
+	}-*/;
 
 	protected void zoomAndPan(RootPanel rootPanel) {
 		OMSVGSVGElement omsvg = OMDocument.convert(svg);
@@ -115,25 +130,6 @@ public class ClientEngine implements EntryPoint {
 				}
 			}
 		});
-		Button.wrap(Document.get().getElementById("debug")).addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				log("debug");
-			}
-		});
-		Button.wrap(Document.get().getElementById("deselect")).addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				log("debug");
-//				((SVGDisplay)display).getDisplayHandler().setSelectedPiece(null);
-			}
-		});
-		Button.wrap(Document.get().getElementById("toggle")).addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-//				display.toggleUnits();
-			}
-		});
 		Button.wrap(Document.get().getElementById("flip")).addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -141,22 +137,6 @@ public class ClientEngine implements EntryPoint {
 //				piece.flip();
 //				SVGImageElement c = (SVGImageElement) svg.getElementById(piece.getId());
 //				c.getHref().setBaseVal(piece.getState());
-			}
-		});
-		Button.wrap(Document.get().getElementById("mark")).addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-//				SVGElement selected = ((SVGDisplay)display).getSelected();
-//				if (selected != null) {
-//					Style style = selected.getStyle();
-//					try {
-//						double opacity = Double.parseDouble(style.getOpacity());
-//						opacity = (opacity < 0.9 ? 1.0 : 0.6);
-//						style.setOpacity(opacity);
-//					} catch (NumberFormatException ex) {
-//						style.setOpacity(0.6);
-//					}
-//				}
 			}
 		});
 	}

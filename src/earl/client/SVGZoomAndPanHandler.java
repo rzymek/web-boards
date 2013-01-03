@@ -81,7 +81,9 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-//		ClientEngine.log("mouse up");
+		if(start != null) {
+			event.preventDefault();
+		}
 		start = null;
 		SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
 		boardImg.getHref().setBaseVal("board.jpg");

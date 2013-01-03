@@ -36,7 +36,7 @@ import earl.client.utils.Browser;
 import earl.client.utils.SVGUtils;
 
 public class SVGDisplay2 extends BasicDisplay {
-	private final SVGSVGElement svg;
+	protected final SVGSVGElement svg;
 	private final BasicDisplayHandler handler;
 //	private final SVGRectElement selectionRect;
 
@@ -223,21 +223,18 @@ public class SVGDisplay2 extends BasicDisplay {
 		return new Position((int) center.getX(), (int) center.getY());
 	}
 
-	@Override
-	public void setCenter(Identifiable counter, Position dest) {
-	}
-
+	private static final String ARROW_ID_PREFIX = "attackArrow";
+	
 	@Override
 	public void drawArrow(Position start, Position end, String id) {		
 		SVGPathElement arrow;
-		final String arrowId = "attackArrow";
-		arrow = (SVGPathElement) svg.getElementById(arrowId+"_"+id);
+		arrow = (SVGPathElement) svg.getElementById(ARROW_ID_PREFIX+"_"+id);
 		Browser.console("existing arrow "+id+": "+arrow);
 		if(arrow == null) {
-			arrow = (SVGPathElement) svg.getElementById(arrowId);
+			arrow = (SVGPathElement) svg.getElementById(ARROW_ID_PREFIX);
 			arrow.getStyle().setProperty("pointerEvents", "none");
 			arrow = (SVGPathElement) arrow.cloneNode(true);
-			arrow.setId(arrowId+"_"+id);
+			arrow.setId(ARROW_ID_PREFIX+"_"+id);
 		}
 		OMSVGPathSegList seg = arrow.getPathSegList();
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
@@ -248,8 +245,11 @@ public class SVGDisplay2 extends BasicDisplay {
 		svg.getElementById("markers").appendChild(arrow);
 	}
 
-
-	private void clearMarkers() {
+	public void clearArrow(String id) {
+		svg.getElementById(ARROW_ID_PREFIX + "_" + id).removeFromParent();
+	}
+	
+	public void clearMarkers() {
 		Element markers = svg.getElementById("markers");
 		while(markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());

@@ -1,5 +1,7 @@
 package earl.manager;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -21,8 +23,6 @@ import com.googlecode.objectify.cmd.Query;
 
 import earl.client.games.BastogneSide;
 import earl.server.OperationEntity;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ManagerServlet extends HttpServlet {
 	private final static Logger log = Logger.getLogger(ManagerServlet.class.getName());
@@ -48,7 +48,7 @@ public class ManagerServlet extends HttpServlet {
 			}
 			Result<Key<Table>> result = ofy().save().entity(table);
 			String tableId = String.valueOf(result.now().getId());
-			resp.sendRedirect("/bastogne/?table=" + tableId);
+			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
 		} else {
 			req.setAttribute("earl.started", getStarted(user));
 			req.setAttribute("earl.invitations", getVacant(user));

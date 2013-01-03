@@ -55,8 +55,12 @@ public class SCSCounter extends Counter implements Serializable {
 		return attack;
 	}
 
-	public int getRange() {
+	public Integer getRange() {
 		return range;
+	}
+	
+	public boolean isRanged() {
+		return range != null;
 	}
 
 	public int getDefence() {

@@ -9,8 +9,6 @@ public interface EarlDisplay {
 
 	Position getCenter(Identifiable to);
 
-	void setCenter(Identifiable counter, Position dest);
-
 	void drawArrow(Position start, Position end, String id);
 
 	void update(Identifiable counter, String state);

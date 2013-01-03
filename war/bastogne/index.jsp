@@ -8,21 +8,20 @@
 <script language="javascript"
 	src="../earl.ClientEngine/earl.ClientEngine.nocache.js"></script>
 </head>
-<style type="text/css">
- /*
- #h3715 {fill:#ff0000;fill-opacity:0.5; }
- */
-</style>
 <body id="body">
 <%
 IOUtils.copy(config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg"),out);
 %>
-<div id="menu" style="position:fixed; right:0;top:0;width:45px;text-align:right">
-	<img id="menuimg" src="../menu.svg" alt="menu" onclick="alert('menu')">
-	<input type="button" value="End turn"/>
-	<input type="button" value="Toggle units"/>
-	<input type="button" value="2d6"/>
-	<input type="button" value="d6"/>
+<div id="menu" style="position:fixed; right:0;top:0;width:45px;text-align:right; border:solid 1px red">
+	<img id="menuimg" src="../menu.svg" alt="menu" width="45" height="45"
+		onclick="s=document.getElementById('menu.contents').style; s.display = (s.display=='none'?'block':'none')">
+	<span id="menu.contents" style="display:none; width:45px">
+		<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
+		<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
+		<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
+		<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
+		<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
+	</span>
 </div>
 <div id="viewport.x" style="position:fixed; right:0;top:0;width:1px; height:1px;"></div>
 <div id="viewport.width" style="position:fixed; right:0;top:0;width:100%; height:1px;"></div>

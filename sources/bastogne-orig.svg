@@ -47,12 +47,13 @@
          id="path5934"
          transform="scale(0.2,0.2)" />
     </marker>
-	<style type="text/css"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
+    <style
+       type="text/css"
+       id="style2990"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
 	</style>
     <style
        type="text/css"
-       id="dyncss">
-    </style>
+       id="dyncss" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -67,9 +68,9 @@
      inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="2.1639171"
-     inkscape:cx="26.073314"
-     inkscape:cy="1903.0936"
+     inkscape:zoom="8.6556684"
+     inkscape:cx="-1.8993719"
+     inkscape:cy="1977.4029"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -98,7 +99,7 @@
        xlink:href="/home/rzymek/Dropbox/devel/earl/war/bastogne/board.jpg"
        y="37.070801"
        x="10"
-       id="image10"
+       id="img"
        height="1941.1765"
        width="3000" />
   </g>
@@ -33749,13 +33750,13 @@
       <text
          sodipodi:linespacing="100%"
          id="odds-txt"
-         y="8.4389248"
-         x="-0.18150583"
-         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;opacity:0.56790125;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold"
+         y="5.6312742"
+         x="-0.12246795"
+         style="font-size:17.12854767px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;opacity:0.56790125;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Impact;-inkscape-font-specification:Impact Bold"
-           y="8.4389248"
-           x="-0.18150583"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Bold"
+           y="5.6312742"
+           x="-0.12246816"
            id="odds"
            sodipodi:role="line">1:1</tspan></text>
     </g>

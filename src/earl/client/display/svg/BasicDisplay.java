@@ -17,8 +17,8 @@ import earl.client.utils.AbstractCallback;
 
 public abstract class BasicDisplay implements EarlDisplay {
 
-	private final ServerEngineAsync service;
-	private Board board;
+	protected final ServerEngineAsync service;
+	protected Board board;
 
 	protected BasicDisplay() {
 		service = GWT.create(ServerEngine.class);
@@ -27,6 +27,10 @@ public abstract class BasicDisplay implements EarlDisplay {
 	public void setBoard(final Board board) {
 		this.board = board;
 		initAreas(board);
+		initCounters(board);
+	}
+
+	protected void initCounters(final Board board) {
 		Collection<Hex> stacks = board.getStacks();
 		for (Hex hex : stacks) {
 			List<Counter> counters = hex.getStack();

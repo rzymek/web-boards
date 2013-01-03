@@ -33,20 +33,28 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			return super.moveToHex(area);
 		}else{
 			Counter piece = area.getStack().get(0);
-			if(piece instanceof SCSCounter) {
-				SCSCounter counter = (SCSCounter) piece;
-				if (counter.getOwner() == player) {
+			if(piece instanceof SCSCounter && selectedPiece instanceof SCSCounter) {
+				SCSCounter target = (SCSCounter) piece;
+				SCSCounter selected = (SCSCounter) selectedPiece;
+				if (target.getOwner() == player) {
 					return super.moveToHex(area);
-				} else {
-					if (isAdjacent(counter, selectedPiece)) {
-						Hex target = counter.getPosition();
+				} else {					
+					if(selected.isRanged()) {
+						Hex from = selected.getPosition();
+						Position start = display.getCenter(from);
+						Position end = display.getCenter(target.getPosition());
+						display.drawArrow(start, end, from.getId());
+						setSelectedPiece(null);
+						return null;
+					}else if (isAdjacent(target, selectedPiece)) {
+						Hex targetHex = target.getPosition();
 						Hex attacking = selectedPiece.getPosition();
-						attacks.put(attacking, target);
+						attacks.put(attacking, targetHex);
 						Position start = display.getCenter(attacking);
-						Position end = display.getCenter(target);
+						Position end = display.getCenter(targetHex);
 						display.drawArrow(start, end, attacking.getId());
-						int[] odds = game.calculateOdds(target, getAttacking(target));
-						display.drawOds(display.getCenter(target), odds);
+						int[] odds = game.calculateOdds(targetHex, getAttacking(targetHex));
+						display.drawOds(display.getCenter(targetHex), odds);
 						setSelectedPiece(null);
 						return null;
 					}
@@ -97,7 +105,7 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			if(counter != null && counter.getOwner() != player) {
 				return; //not your counter
 			}else{
-				showMoves(counter);
+//				showMoves(counter);
 			}
 		}
 		selectedPiece = piece;
@@ -106,19 +114,14 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 
 	public void showMoves(SCSCounter counter) {
 		int movementLeft = counter.getMovement();
-		List<Hex> adjacent = game.getBoard().getAdjacent(counter.getPosition());
 		Map<Hex, Integer> costInfo = new HashMap<Hex, Integer>();		
-		process(adjacent, movementLeft, costInfo);
-//		ClientEngine.log("results------------------------------------");
-//		for (Entry<Hex, Integer> e : costInfo.entrySet()) {
-//			ClientEngine.log(e.getKey().getId()+": "+e.getValue());
-//		}
+		calulateMovesFrom(counter.getPosition(), movementLeft, costInfo);
 		display.mark(costInfo.keySet());
 	}
 
-	private void process(List<Hex> process, int movementLeft, Map<Hex, Integer> costInfo) {
-//		ClientEngine.log(movementLeft+": "+process);
-		for (Hex hex : process) {
+	private void calulateMovesFrom(Hex start, int movementLeft, Map<Hex, Integer> costInfo) {
+		List<Hex> adj = game.getBoard().getAdjacent(start);
+		for (Hex hex : adj) {
 			calculateMoveTo(hex, movementLeft, costInfo);
 		}
 	}
@@ -133,13 +136,12 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 		boolean notVisitedYet = (otherPathCost == null);
 		if(notVisitedYet) {
 			costInfo.put(hex, afterMoveMPs);
-//			ClientEngine.log(hex+": "+afterMoveMPs);
-			process(game.getBoard().getAdjacent(hex), afterMoveMPs, costInfo);
+			calulateMovesFrom(hex, afterMoveMPs, costInfo);
 		}else{
 			boolean thisIsCheaperPath = (afterMoveMPs > otherPathCost);
 			if(thisIsCheaperPath) {
 				costInfo.put(hex, afterMoveMPs);
-				process(game.getBoard().getAdjacent(hex), afterMoveMPs, costInfo);				
+				calulateMovesFrom(hex, afterMoveMPs, costInfo);				
 			}
 		}
 	}
