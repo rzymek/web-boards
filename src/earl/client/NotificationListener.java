@@ -4,8 +4,12 @@ import com.google.gwt.appengine.channel.client.SocketError;
 import com.google.gwt.appengine.channel.client.SocketListener;
 import com.google.gwt.user.client.Window;
 
+import earl.client.bastogne.op.ChatMessage;
+import earl.client.bastogne.op.DiceRoll;
+import earl.client.bastogne.op.Flip;
 import earl.client.bastogne.op.Move;
 import earl.client.bastogne.op.OpponentConnected;
+import earl.client.bastogne.op.PerformAttack;
 import earl.client.data.Board;
 import earl.client.ex.EarlException;
 import earl.client.op.EarlDisplay;
@@ -42,10 +46,18 @@ public final class NotificationListener implements SocketListener {
 	}
 
 	private Operation getOperation(String type) {
-		if (Move.class.getName().equals(type)) {
-			return new Move();
+		if (ChatMessage.class.getName().equals(type)) {
+			return new ChatMessage();
+		} else if (PerformAttack.class.getName().equals(type)) {
+			return new PerformAttack();
 		} else if (OpponentConnected.class.getName().equals(type)) {
 			return new OpponentConnected();
+		} else if (DiceRoll.class.getName().equals(type)) {
+			return new DiceRoll();
+		} else if (Move.class.getName().equals(type)) {
+			return new Move();
+		} else if (Flip.class.getName().equals(type)) {
+			return new Flip();
 		} else {
 			throw new EarlException("Unknow operation type:" + type);
 		}
