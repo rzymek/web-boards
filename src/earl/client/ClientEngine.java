@@ -4,6 +4,9 @@ import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
+import com.google.gwt.appengine.channel.client.Channel;
+import com.google.gwt.appengine.channel.client.ChannelFactory;
+import com.google.gwt.appengine.channel.client.ChannelFactory.ChannelCreatedCallback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
@@ -31,7 +34,7 @@ import earl.client.data.Board;
 import earl.client.data.GameInfo;
 import earl.client.display.handler.BasicDisplayHandler;
 import earl.client.display.handler.SCSDisplayHandler;
-import earl.client.display.svg.SVGDisplay2;
+import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.edit.EditDisplay;
 import earl.client.games.Bastogne;
 import earl.client.op.OpData;
@@ -42,23 +45,22 @@ import earl.client.utils.AbstractCallback;
 import earl.client.utils.Browser;
 
 public class ClientEngine implements EntryPoint {
-	private SVGDisplay2 display;
+	private SVGDisplay display;
 	private SVGSVGElement svg;
 	protected Board board;
 	private ServerEngineAsync service;
-	private final boolean editMode = true;
 
 	@Override
 	public void onModuleLoad() {
 		RootPanel rootPanel = RootPanel.get("body");
 		if(rootPanel == null) {
 			return;//ugly hack
-		}
+		}		
 		testTouch(rootPanel);
 		
 		svg = getSVG();
 		zoomAndPan(rootPanel);
-		if(editMode) {
+		if ("qp".equals(Window.Location.getParameter("editor"))) {
 			display = new EditDisplay(svg);
 			Bastogne game = new Bastogne();
 			display.setBoard(game.getBoard());
@@ -67,8 +69,18 @@ public class ClientEngine implements EntryPoint {
 		}
 		bindButtons();
 		Window.setTitle("Bastogne!");
-		log("Started");
 		centerView();
+		RootPanel.get().addDomHandler(new KeyPressHandler() {			
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if(GWT.isProdMode() && event.getCharCode()=='z') {
+					Browser.console(event);
+					String url = Window.Location.getHref();
+					url += url.contains("?") ? '&' : '?';
+					Window.Location.replace(url+"gwt.codesvr="+Window.Location.getHostName()+":9997");
+				}				
+			}
+		}, KeyPressEvent.getType());
 	}
 
 	private void centerView() {
@@ -147,14 +159,20 @@ public class ClientEngine implements EntryPoint {
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {					
-				Bastogne game = new Bastogne();
+				final Bastogne game = new Bastogne();
 				game.setupScenarion52();
 				game.setMapInfo(info.mapInfo);
 				BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
-				display = new SVGDisplay2(svg, handler);
+				display = new SVGDisplay(svg, handler);
 				ClientEngine.this.display = display;
 				board = game.getBoard();
 				display.setBoard(board);
+				ChannelFactory.createChannel(info.channelToken, new ChannelCreatedCallback() {					
+					@Override
+					public void onChannelCreated(Channel channel) {
+						channel.open(new NotificationListener(game.getBoard(), display));						
+					}
+				});
 				for (OpData data : info.ops) {
 					Operation op= data.get(board);					
 					op.clientExecute();

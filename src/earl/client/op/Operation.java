@@ -55,4 +55,7 @@ public abstract class Operation implements Serializable {
 		return getClass().getName() + ": " + encode();
 	}
 
+	public void postServer(EarlDisplay basicDisplay) {
+	}
+
 }

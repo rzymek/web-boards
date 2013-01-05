@@ -43,7 +43,7 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 						Hex from = selected.getPosition();
 						Position start = display.getCenter(from);
 						Position end = display.getCenter(target.getPosition());
-						display.drawArrow(start, end, from.getId());
+						display.drawArrow(start, end, from);
 						setSelectedPiece(null);
 						return null;
 					}else if (isAdjacent(target, selectedPiece)) {
@@ -52,7 +52,7 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 						attacks.put(attacking, targetHex);
 						Position start = display.getCenter(attacking);
 						Position end = display.getCenter(targetHex);
-						display.drawArrow(start, end, attacking.getId());
+						display.drawArrow(start, end, attacking);
 						int[] odds = game.calculateOdds(targetHex, getAttacking(targetHex));
 						display.drawOds(display.getCenter(targetHex), odds);
 						setSelectedPiece(null);

@@ -2,7 +2,6 @@ package earl.client.display.svg.edit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -30,11 +29,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import earl.client.data.Board;
 import earl.client.data.Hex;
 import earl.client.display.handler.BasicDisplayHandler;
-import earl.client.display.svg.SVGDisplay2;
+import earl.client.display.svg.SVGDisplay;
 import earl.client.op.Position;
 import earl.client.utils.AbstractCallback;
 
-public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPressHandler, MouseDownHandler {
+public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPressHandler, MouseDownHandler {
 	private String color = "black";
 	private long id = 1;
 	private Element source = null;
@@ -98,6 +97,7 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 		line.setId("editline-" + id);
 		line.getStyle().setSVGProperty("stroke-width", "5");
 		line.getStyle().setSVGProperty("stroke", color);
+		line.getStyle().setSVGProperty("opacity", "0.75");
 		svg.getElementById("markers").appendChild(line.getElement());
 	}
 
@@ -110,8 +110,14 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 	public void onKeyPress(KeyPressEvent event) {
 		char c = event.getCharCode();
 		if (c == 'h' || c == '?') {
-			Window.alert("Help:\n" + "q - Undo\n" + "l - load all\n" + "c - clear/reset" + "n - save current and start next segment" + "t - set color" + "o - open by id"
-					+ "s - save current");
+			Window.alert("Help:\n" + 
+					"q - Undo\n" + 
+					"l - load all\n" + 
+					"c - clear/reset\n" + 
+					"n - save current and start next segment\n" + 
+					"t - set color" + "o - open by id\n" + 
+					"s - save current\n" +
+					"i - init from file");
 		} else if (c == 'q') {
 			removeLine(path.pop().getId());
 			setCurrent(path.peek());
@@ -119,6 +125,24 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 			loadAll();
 		} else if (c == 'c') {
 			clearMarkers();
+		} else if (c == 'd') {
+			status("Dump...");
+			EditServiceAsync service = GWT.create(EditService.class);
+			service.dump(new AbstractCallback<String>(){
+				@Override
+				public void onSuccess(String result) {
+					status("Dumped");
+					show(result);
+				}
+			});
+		} else if (c == 'i') {
+			EditServiceAsync service = GWT.create(EditService.class);
+			service.initialize(new AbstractCallback<Void>(){
+				@Override
+				public void onSuccess(Void result) {
+					status("Initialized");
+				}
+			});
 		} else if (c == 'n') {
 			nextSegment();
 		} else if (c == 't') {
@@ -144,6 +168,7 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 					id = Math.max(Long.parseLong(map.get("id")), id);					
 					draw(map.get("src"));
 				}
+				++id;
 				status("Loaded all - "+id);
 			}
 		});
@@ -194,7 +219,7 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 	}
 
 	private void status(String string) {
-		Window.setTitle(string+" /"+new Date().getSeconds());
+		Window.setTitle(string);
 	}
 
 	public void removeLine(String id) {
@@ -206,4 +231,7 @@ public class EditDisplay extends SVGDisplay2 implements MouseMoveHandler, KeyPre
 		super.clearMarkers();
 		reset();
 	}
+	public static native void show(String s) /*-{
+		window.open('', 'src', 'width=600,height=600').document.writeln('<pre>'+s+'</pre>');
+	}-*/;
 }

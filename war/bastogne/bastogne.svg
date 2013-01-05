@@ -4,14 +4,13 @@
     <marker id="TriangleOutSJ" refX="0" refY="0" orient="auto" style="overflow:visible">
       <path transform="scale(0.2,0.2)" d="m 5.77,0 -8.65,5 0,-10 8.65,5 z" style="fill:#ff0f0f;fill-rule:evenodd;stroke:#ff0f0f;stroke-width:1pt;marker-start:none"/>
     </marker>
-	<style type="text/css"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
+    <style type="text/css"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
 	</style>
-    <style type="text/css" id="dyncss">
-    </style>
+    <style type="text/css" id="dyncss"/>
   </defs>
   
   <g style="display:inline">
-    <image xlink:href="board.jpg" y="37.070801" x="10" height="1941.1765" width="3000"/>
+    <image xlink:href="board.jpg" y="37.070801" x="10" id="img" height="1941.1765" width="3000"/>
   </g>
   <g id="area" style="display:inline">
     <path id="h0101" d="m 61.852783,1973.443359 -31.892456,0.000000 -15.946167,-27.671631 15.946167,-27.671753 31.892456,0.000000 15.946167,27.671753 z" class="h"/>
@@ -1879,7 +1878,7 @@
   <g id="markers" style="display:inline">
     <g id="target">
       <path d="m 366.5,742.13348 c 0,10.63149 -8.61852,19.25 -19.25,19.25 -10.63148,0 -19.25,-8.61851 -19.25,-19.25 0,-10.63148 8.61852,-19.25 19.25,-19.25 10.63148,0 19.25,8.61852 19.25,19.25 z" transform="matrix(1.038961,0,0,1.038961,-361.10721,-772.0951)" style="opacity:0.56790125000000002;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"/>
-      <text id="odds-txt" y="8.4389248" x="-0.18150583" style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;opacity:0.56790125;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold"><tspan y="8.4389248" x="-0.18150583" id="odds" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Impact;-inkscape-font-specification:Impact Bold">1:1</tspan></text>
+      <text id="odds-txt" y="5.6312742" x="-0.12246795" style="font-size:17.12854767px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;opacity:0.56790125;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan y="5.6312742" x="-0.12246816" id="odds" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Bold">1:1</tspan></text>
     </g>
   </g>
 </svg>

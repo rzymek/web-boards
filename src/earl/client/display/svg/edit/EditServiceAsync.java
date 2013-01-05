@@ -11,4 +11,8 @@ public interface EditServiceAsync {
 
 	void load(AsyncCallback<List<Map<String, String>>> callback);
 
+	void initialize(AsyncCallback<Void> callback);
+
+	void dump(AsyncCallback<String> callback);
+
 }

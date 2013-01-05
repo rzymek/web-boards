@@ -1,5 +1,7 @@
 package earl.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
@@ -36,13 +38,11 @@ import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
 import earl.server.utils.Utils;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
 
 	private static final long serialVersionUID = 1L;
-	private final Notify notify = new DisabledNotify();
+	private final Notify notify = new Notify();
 
 	private final Cache cache;
 
@@ -55,11 +55,11 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	@Override
 	public GameInfo getState(String tableId) {
 		GameInfo info = new GameInfo();
-		info.channelToken = notify.openChannel(tableId, getUser());
+		long tid = Long.parseLong(tableId);
+		info.channelToken = notify.openChannel(tid, getUser());
 		info.mapInfo = loadMapInfo();
-		List<OpData> ops = loadOps(tableId);
-		info.ops = ops;
-		Table table = ofy().load().type(Table.class).id(Long.valueOf(tableId)).get();
+		info.ops = loadOps(tableId);
+		Table table = ofy().load().type(Table.class).id(tid).get();
 		if (table == null) {
 			throw new EarlServerException("Invalid table id=" + tableId);
 		}
@@ -171,7 +171,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String newKey = e.sessionId+e.timestamp;
 		cache.put(newKey, c);
 		cache.put(e.sessionId, newKey);
-		
+		long tableId = Long.parseLong(getTableId());
+		notify.notifyListeners(tableId, op, getUser());
 		return e.data;
 	}
 

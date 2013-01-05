@@ -51,6 +51,7 @@ public abstract class BasicDisplay implements EarlDisplay {
 			@Override
 			public void onSuccess(String result) {
 				op.decode(board, result);
+				op.postServer(BasicDisplay.this);
 				ClientEngine.log("executed: "+op);
 			}
 		});		

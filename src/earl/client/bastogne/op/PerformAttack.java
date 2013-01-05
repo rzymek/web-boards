@@ -2,6 +2,8 @@ package earl.client.bastogne.op;
 
 import java.util.Arrays;
 
+import com.google.gwt.user.client.Window;
+
 import earl.client.data.Board;
 import earl.client.data.Hex;
 import earl.client.games.Bastogne;
@@ -51,6 +53,15 @@ public class PerformAttack extends Operation {
 		attacking = new Hex[data.length-listOffset];		
 		for (int i = listOffset; i < data.length; ++i) {
 			attacking[i-listOffset] = board.getHex(data[i]);
+		}
+	}
+	@Override
+	public void postServer(EarlDisplay display) {
+		Window.alert("Dice roll: "+rollResult+"\n" +
+				"Attack result: "+result);
+		display.clearOds(display.getCenter(target));
+		for (Hex from: attacking) {			
+			display.clearArrow(from);
 		}
 	}
 }

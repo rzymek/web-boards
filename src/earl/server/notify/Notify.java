@@ -1,61 +1,54 @@
 package earl.server.notify;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
 
-import earl.server.Op;
+import earl.client.bastogne.op.OpponentConnected;
+import earl.client.op.Operation;
+import earl.manager.Table;
 
 public class Notify {
 
-	public void notifyListeners(String tableId, Op roll) {
+	public void notifyListeners(long tableId, Operation op, String fromUser) {
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
-		List<TableListener> listeners = new ArrayList<TableListener>();//TODO
-		removeObsoleteListeners(listeners);
-		for (TableListener listener : listeners) {
-			String clientId = listener.getClientId();
-			ChannelMessage message = new ChannelMessage(clientId, roll.toMessage());
-			System.out.println("sending to " + clientId);
-			channelService.sendMessage(message);
+		Table table = ofy().load().type(Table.class).id(tableId).get();
+		String recipient = getRecipient(fromUser, table);
+		if(recipient == null){
+			return;
+		}
+		String clientId = getClientId(tableId, recipient);
+		ChannelMessage message = new ChannelMessage(clientId, toMessage(op));
+		channelService.sendMessage(message);
+	}
+
+	private String toMessage(Operation op) {
+		return op.getClass().getName()+":"+op.encode();
+	}
+
+	private String getRecipient(String fromUser, Table table) {
+		if(fromUser.equals(table.player1)) {
+			return table.player2;
+		}else if(fromUser.equals(table.player2)){
+			return table.player1;
+		}else{
+			return null;
 		}
 	}
 
-	private void removeObsoleteListeners(List<TableListener> listeners) {
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.HOUR, -2);
-		Date timeout = cal.getTime();
-		for (TableListener listener : listeners) {
-			Date created = listener.getCreated();
-			if (created.compareTo(timeout) <= 0) {
-//				TODO: persistence.delete(listener);
-				
-			} 
-		}
-	}
-
-	public String openChannel(String tableId, String user) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		String clientId = UUID.randomUUID().toString();
-		Entity listener = new Entity(KeyFactory.createKey("listener", clientId));
-		listener.setProperty("table", tableId);
-		listener.setProperty("user", user);
-		listener.setProperty("created", new Date());
-		ds.put(listener);
-		
+	public String openChannel(long tableId, String user) {
 		ChannelService service= ChannelServiceFactory.getChannelService();
+		String clientId = getClientId(tableId, user);
 		String token = service.createChannel(clientId);
 		System.out.println("client connected: "+clientId+" token="+token);
-		notifyListeners(tableId, new Op(Op.Type.CONNECTED, user));
+		notifyListeners(tableId, new OpponentConnected(user), user);
 		return token;
+	}
+
+	private String getClientId(long tableId, String user) {
+		String clientId = tableId+"-"+user;
+		return clientId;
 	}
 }
