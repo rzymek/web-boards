@@ -4,9 +4,6 @@ import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
-import com.google.gwt.appengine.channel.client.Channel;
-import com.google.gwt.appengine.channel.client.ChannelFactory;
-import com.google.gwt.appengine.channel.client.ChannelFactory.ChannelCreatedCallback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
@@ -73,12 +70,13 @@ public class ClientEngine implements EntryPoint {
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
-				if(GWT.isProdMode() && event.getCharCode()=='z') {
+				char c = event.getCharCode();
+				if(GWT.isProdMode() && c=='z') {
 					Browser.console(event);
 					String url = Window.Location.getHref();
 					url += url.contains("?") ? '&' : '?';
 					Window.Location.replace(url+"gwt.codesvr="+Window.Location.getHostName()+":9997");
-				}				
+				}
 			}
 		}, KeyPressEvent.getType());
 	}
@@ -105,7 +103,8 @@ public class ClientEngine implements EntryPoint {
 		omsvg.addMouseDownHandler(zoomAndPan);
 		omsvg.addMouseUpHandler(zoomAndPan);
 		omsvg.addMouseMoveHandler(zoomAndPan);
-		rootPanel.addDomHandler(zoomAndPan, MouseWheelEvent.getType());
+		RootPanel.get().addDomHandler(zoomAndPan, MouseWheelEvent.getType());
+		RootPanel.get().addDomHandler(zoomAndPan, KeyPressEvent.getType());
 	}
 
 	protected void bindButtons() {
@@ -167,12 +166,14 @@ public class ClientEngine implements EntryPoint {
 				ClientEngine.this.display = display;
 				board = game.getBoard();
 				display.setBoard(board);
+				/*
 				ChannelFactory.createChannel(info.channelToken, new ChannelCreatedCallback() {					
 					@Override
 					public void onChannelCreated(Channel channel) {
 						channel.open(new NotificationListener(game.getBoard(), display));						
 					}
 				});
+				*/
 				for (OpData data : info.ops) {
 					Operation op= data.get(board);					
 					op.clientExecute();
