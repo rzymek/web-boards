@@ -4,6 +4,9 @@ import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
+import com.google.gwt.appengine.channel.client.Channel;
+import com.google.gwt.appengine.channel.client.ChannelFactory;
+import com.google.gwt.appengine.channel.client.ChannelFactory.ChannelCreatedCallback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
@@ -158,34 +161,7 @@ public class ClientEngine implements EntryPoint {
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {					
-				final Bastogne game = new Bastogne();
-				game.setupScenarion52();
-				game.setMapInfo(info.mapInfo);
-				BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
-				display = new SVGDisplay(svg, handler);
-				ClientEngine.this.display = display;
-				board = game.getBoard();
-				display.setBoard(board);
-				/*
-				ChannelFactory.createChannel(info.channelToken, new ChannelCreatedCallback() {					
-					@Override
-					public void onChannelCreated(Channel channel) {
-						channel.open(new NotificationListener(game.getBoard(), display));						
-					}
-				});
-				*/
-				for (OpData data : info.ops) {
-					Operation op= data.get(board);					
-					op.clientExecute();
-					op.draw(display);
-					log(op.toString());
-				}
-				if(info.joinAs != null) {
-					boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
-					if (yes) {
-						service.join(tableId, new AbstractCallback<Void>());
-					}
-				}
+				start(tableId, info);
 			}
 		});
 	}
@@ -210,6 +186,37 @@ public class ClientEngine implements EntryPoint {
 			}
 		}, TouchEndEvent.getType());
 	}
+	private void start(final String tableId, GameInfo info) {
+		final Bastogne game = new Bastogne();
+		game.setupScenarion52();
+		game.setMapInfo(info.mapInfo);
+		BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
+		display = new SVGDisplay(svg, handler);
+		ClientEngine.this.display = display;
+		board = game.getBoard();
+		display.setBoard(board);
+		if (Window.Location.getParameter("i") != null) {
+			ChannelFactory.createChannel(info.channelToken, new ChannelCreatedCallback() {					
+				@Override
+				public void onChannelCreated(Channel channel) {
+					channel.open(new NotificationListener(game.getBoard(), display));						
+				}
+			});
+		}
+		for (OpData data : info.ops) {
+			Operation op= data.get(board);					
+			op.clientExecute();
+			op.draw(display);
+			log(op.toString());
+		}
+		if(info.joinAs != null) {
+			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
+			if (yes) {
+				service.join(tableId, new AbstractCallback<Void>());
+			}
+		}
+	}
+
 	public static native int getViewportWidth()/*-{
 		var w =+$doc.getElementById('viewport.width');
 		return w.clientWidth;
