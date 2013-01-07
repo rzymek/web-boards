@@ -51,30 +51,40 @@ public class ManagerServlet extends HttpServlet {
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
 		} else {
 			req.setAttribute("earl.started", getStarted(user));
+			req.setAttribute("earl.waiting", getWaitingForOp(user));
 			req.setAttribute("earl.invitations", getVacant(user));
-			Query<Table> query = ofy().load().type(Table.class).limit(15);
-			query = query.filter("player1 in", new String[] { user, null });
-			query = query.filter("player2 in", new String[] { user, null });
-
 			req.getRequestDispatcher("/WEB-INF/jsp/manage.jsp").forward(req, resp);
 		}
 	}
 
+	private Object getWaitingForOp(String user) {
+		Query<Table> query = ofy().load().type(Table.class).limit(15);
+		Query<Table> q1 = query.filter("player1 =", user).filter("player2 =", null);
+		Query<Table> q2 = query.filter("player2 =", user).filter("player1 =", null);
+		List<Table> results = new ArrayList<Table>();
+		results.addAll(q1.list());
+		results.addAll(q2.list());
+		return results;
+	}
+
 	public List<Table> getStarted(String user) {
 		Query<Table> query = ofy().load().type(Table.class).limit(15);
-		query = query.filter("player1 in", new String[] { user, null });
-		query = query.filter("player2 in", new String[] { user, null });
-		return query.list();
+		Query<Table> q1 = query.filter("player1 =", user).filter("player2 !=", null);
+		Query<Table> q2 = query.filter("player2 =", user).filter("player1 !=", null);
+		List<Table> results = new ArrayList<Table>();
+		results.addAll(q1.list());
+		results.addAll(q2.list());
+		return results;
 	}
 
 	public List<Table> getVacant(String user) {
 		Query<Table> query = ofy().load().type(Table.class).limit(15);
 		Query<Table> q1 = query.filter("player1 !=", user).filter("player2 =", null);
 		Query<Table> q2 = query.filter("player2 !=", user).filter("player1 =", null);
-		List<Table> vacant = new ArrayList<Table>();
-		vacant.addAll(q1.list());
-		vacant.addAll(q2.list());
-		return vacant;
+		List<Table> results = new ArrayList<Table>();
+		results.addAll(q1.list());
+		results.addAll(q2.list());
+		return results;
 	}
 
 	@Override

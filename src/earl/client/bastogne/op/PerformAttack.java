@@ -33,7 +33,7 @@ public class PerformAttack extends Operation {
 		roll.sides = 6;
 		roll.serverExecute();	
 		int sum = roll.getSum();
-		rollResult = roll.toString();
+		rollResult = String.valueOf(sum);
 		result = game.getCombatResult(odds, sum);
 	}
 
@@ -57,11 +57,7 @@ public class PerformAttack extends Operation {
 	}
 	@Override
 	public void postServer(EarlDisplay display) {
-		Window.alert("Dice roll: "+rollResult+"\n" +
-				"Attack result: "+result);
 		display.clearOds(display.getCenter(target));
-		for (Hex from: attacking) {			
-			display.clearArrow(from);
-		}
+		display.showResults(display.getCenter(target), result.toString());
 	}
 }

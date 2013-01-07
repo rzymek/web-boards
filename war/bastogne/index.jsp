@@ -13,9 +13,9 @@
 IOUtils.copy(config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg"),out);
 %>
 <!--
-<div id="menu1" style="position:fixed; right:0;top:0;width:100px;height:100px;text-align:right; border:solid 1px red"></div>
+<div id="menu1" style="position:fixed; right:0;top:0;width:100px;height:100px;text-align:right"></div>
 -->
-<div id="menu" style="position:fixed; right:0;top:0;width:45px;text-align:right; border:solid 1px red">
+<div id="menu" style="position:fixed; right:0; top:0; width:45px; text-align:right">
 	<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
 	<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">
 	<img src="../menu.svg" alt="menu"  width="45" height="45" onclick="alert('ok')">

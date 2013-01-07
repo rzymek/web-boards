@@ -12,12 +12,23 @@
 			<option>GE</option>
 		</select><input type="submit" value="Start" />
 	</form>
-
+	<% Collection<Table> list; %>
 	<br /> Your games:
 	<ul>
 		<%
-			Collection<Table> started = (Collection<Table>) request.getAttribute("earl.started");
-			for (Table t : started) {
+			list = (Collection<Table>) request.getAttribute("earl.started");
+			for (Table t : list) {
+		%>
+		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
+		<%
+			}
+		%>
+	</ul>
+	<br /> Waiting for opponent:
+	<ul>
+		<%
+			list = (Collection<Table>) request.getAttribute("earl.waiting");
+			for (Table t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
@@ -27,8 +38,8 @@
 	<br /> Join:
 	<ul>
 		<%
-			Collection<Table> invitations = (Collection<Table>) request.getAttribute("earl.invitations");
-			for (Table t : invitations) {
+			list = (Collection<Table>) request.getAttribute("earl.invitations");
+			for (Table t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%

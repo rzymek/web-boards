@@ -60,7 +60,7 @@ public class ClientEngine implements EntryPoint {
 		
 		svg = getSVG();
 		zoomAndPan(rootPanel);
-		if ("qp".equals(Window.Location.getParameter("editor"))) {
+		if (Window.Location.getParameter("editor") != null) {
 			display = new EditDisplay(svg);
 			Bastogne game = new Bastogne();
 			display.setBoard(game.getBoard());

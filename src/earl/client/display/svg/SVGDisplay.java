@@ -229,7 +229,7 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void drawArrow(Position start, Position end, Hex hex) {		
 		SVGPathElement arrow;
-		String id = ARROW_ID_PREFIX+"_"+hex.getId();
+		String id = getArrowId(hex);
 		arrow = (SVGPathElement) svg.getElementById(id);
 		if(arrow == null) {
 			arrow = (SVGPathElement) svg.getElementById(ARROW_ID_PREFIX);
@@ -247,7 +247,15 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	public void clearArrow(Hex from) {
-		svg.getElementById(ARROW_ID_PREFIX + "_" + from.getId()).removeFromParent();
+		String id = getArrowId(from);
+		Browser.console(id);
+		Element arrow = svg.getElementById(id);
+		Browser.console(arrow);
+		arrow.removeFromParent();
+	}
+
+	private String getArrowId(Hex from) {
+		return ARROW_ID_PREFIX + "_" + from.getId();
 	}
 	
 	public void clearMarkers() {
@@ -259,10 +267,15 @@ public class SVGDisplay extends BasicDisplay {
 	
 	@Override
 	public void drawOds(Position center, int[] odds) {
+		String text = odds[0]+":"+odds[1];
 		final String id = "tg@"+center.x+"_"+center.y;
+		drawFromTemplate(center, "target", text, id);
+	}
+
+	private void drawFromTemplate(Position center, String templateId, String text, final String id) {
 		SVGElement target = (SVGElement) svg.getElementById(id);
 		if(target == null) {
-			target = (SVGElement) svg.getElementById("target");
+			target = (SVGElement) svg.getElementById(templateId);
 			Element parent = target.getParentElement();
 			target = (SVGElement) target.cloneNode(true);
 			target.setId(id);		
@@ -270,14 +283,11 @@ public class SVGDisplay extends BasicDisplay {
 		}
 		target.getStyle().setProperty("pointerEvents", "none");
 		target.getStyle().setVisibility(Visibility.VISIBLE);
-		String oddsText = odds[0]+":"+odds[1];
-		Browser.console(oddsText);
 		SVGTSpanElement tspan = (SVGTSpanElement) target.getElementsByTagName("tspan").getItem(0);
 		Text item = (Text) tspan.getChildNodes().getItem(0);
-		item.setNodeValue(oddsText);
+		item.setNodeValue(text);
 		target.setAttribute("transform", "translate("+center.x+", "+center.y+")");
 		bringToTop(target);
-		Browser.console(target);
 	}
 
 	@Override
@@ -319,5 +329,11 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void clearMarks() {
 		svg.getElementById("dyncss").setInnerText("");
+	}
+	
+	@Override
+	public void showResults(Position center, String result) {
+		final String id = "boom@"+center.x+"_"+center.y;
+		drawFromTemplate(center, "boom", result, id);
 	}
 }
