@@ -1,0 +1,3 @@
+#!/bin/bash
+pass=$1
+git push https://rzymek:$pass@code.google.com/p/earl/ 
