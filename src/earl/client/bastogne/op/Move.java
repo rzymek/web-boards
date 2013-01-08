@@ -7,39 +7,36 @@ import earl.client.op.EarlDisplay;
 import earl.client.op.Operation;
 
 public class Move extends Operation implements Undoable {
-	public Counter counter;
-	public Hex from;
-	public Hex to;
+	private static final long serialVersionUID = 1L;
+	public CounterRef counterRef;
+	public HexRef fromRef;
+	public HexRef toRef;
 
 	@Override
-	public void clientExecute() {
+	public void clientExecute(Board board) {
+		Counter counter = board.get(counterRef);
+		Hex to = board.get(toRef);
 		counter.setPosition(to);
 	}
 
 	@Override
-	public void draw(EarlDisplay g) {
+	public void draw(Board board, EarlDisplay g) {
+		Hex from = board.get(fromRef);
+		Hex to = board.get(toRef);
 		g.alignStack(from);
 		g.alignStack(to);
 	}
 	
 	@Override
-	public String encode() {
-		return encode(counter, from, to);
-	}
-	@Override
-	public void decode(Board board, String s) {
-		String[] data = s.split(":");
-		counter = board.getCounter(data[0]);
-		from = board.getHex(data[1]);
-		to = board.getHex(data[2]);
-	}
-	@Override
 	public String toString() {
-		return counter+" moves from "+from.getId()+" to "+to.getId();
+		return counterRef+" moves from "+fromRef.getId()+" to "+toRef.getId();
 	}
 
 	@Override
-	public void undo() {
+	public void undo(Board board) {
+		Counter counter = board.get(counterRef);
+		Hex from = board.get(fromRef);
 		counter.setPosition(from);
 	}
+
 }

@@ -104,8 +104,8 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	}
 
 	private void updateImageResolution() {
-		SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
-		boardImg.getHref().setBaseVal(lowRes ? "board-low.jpg" : "board.jpg");
+//		SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
+//		boardImg.getHref().setBaseVal(lowRes ? "board-low.jpg" : "board.jpg");
 	}
 
 	private void updateMousePosition(MouseEvent<?> e) {

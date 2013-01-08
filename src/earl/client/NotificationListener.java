@@ -35,10 +35,10 @@ public final class NotificationListener implements SocketListener {
 		int idx = message.indexOf(':');
 		String type = message.substring(0, idx);
 		try {
-			Operation op = getOperation(type);
-			op.decode(board, message.substring(idx + 1));
-			op.clientExecute();
-			op.draw(display);
+			//TODO:
+//			Operation op = getOperation(type);
+//			op.clientExecute();
+//			op.draw(display);
 		} catch (Exception e) {
 			ClientEngine.log("[Channel API] " + e.toString());			
 		}

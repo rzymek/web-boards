@@ -3,21 +3,17 @@ package earl.client;
 import earl.client.op.Operation;
 import earl.client.utils.AbstractCallback;
 
-final class LogExecutedOperation extends AbstractCallback<String> {
-	/**
-	 * 
-	 */
+public final class LogExecutedOperation extends AbstractCallback<Operation> {
 	private final ClientEngine clientEngine;
 	private final Operation op;
 
-	LogExecutedOperation(ClientEngine clientEngine, Operation op) {
+	public LogExecutedOperation(ClientEngine clientEngine, Operation op) {
 		this.clientEngine = clientEngine;
 		this.op = op;
 	}
 
 	@Override
-	public void onSuccess(String result) {
-		op.decode(this.clientEngine.board, result);
+	public void onSuccess(Operation result) {
 		ClientEngine.log(op.toString());
 	}
 }

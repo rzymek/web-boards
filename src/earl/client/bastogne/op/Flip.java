@@ -6,30 +6,24 @@ import earl.client.op.EarlDisplay;
 import earl.client.op.Operation;
 
 public class Flip extends Operation  implements Undoable {
-	Counter counter;
+	private static final long serialVersionUID = 1L;
+	private CounterRef counterRef;
 
 	@Override
-	public void draw(EarlDisplay g) {
+	public void draw(Board board, EarlDisplay g) {
+		Counter counter = board.get(counterRef);
 		g.update(counter, counter.getState());
 	}
 
 	@Override
-	public void clientExecute() {
+	public void clientExecute(Board board) {
+		Counter counter = board.get(counterRef);
 		counter.flip();
 	}
 
 	@Override
-	public String encode() {
-		return null;
-	}
-
-	@Override
-	public void decode(Board board, String s) {
-	}
-
-	@Override
-	public void undo() {
+	public void undo(Board board) {
+		Counter counter = board.get(counterRef);
 		counter.flip();
 	}
-
 }

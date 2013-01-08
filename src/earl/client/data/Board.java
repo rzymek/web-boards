@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import earl.client.bastogne.op.CounterRef;
+import earl.client.bastogne.op.HexRef;
 import earl.client.utils.Browser;
 
 public class Board implements Serializable {
@@ -122,6 +124,14 @@ public class Board implements Serializable {
 	
 	private static String dig(int x){
 		return x<10 ? "0"+x : ""+x;
+	}
+
+	public Counter get(CounterRef ref) {
+		return getCounter(ref.getId());
+	}
+
+	public Hex get(HexRef ref) {
+		return getHex(ref.getId());
 	}
 
 }

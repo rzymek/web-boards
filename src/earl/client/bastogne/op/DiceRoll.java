@@ -2,10 +2,10 @@ package earl.client.bastogne.op;
 
 import java.util.Random;
 
-import earl.client.data.Board;
 import earl.client.op.Operation;
 
 public class DiceRoll extends Operation {
+	private static final long serialVersionUID = 1L;
 	public int dice = 2;
 	public int sides = 6;
 	private int[] results;
@@ -35,27 +35,6 @@ public class DiceRoll extends Operation {
 			sum += d;
 		}
 		return sum;
-	}
-
-	@Override
-	public String encode() {
-		StringBuilder s = new StringBuilder();
-		s.append(dice).append(':').append(sides);
-		for (int r : results) {
-			s.append(':').append(r);
-		}
-		return s.toString();
-	}
-
-	@Override
-	public void decode(Board board, String s) {
-		String[] data = s.split(":");
-		dice = Integer.parseInt(data[0]);
-		sides = Integer.parseInt(data[1]);
-		results = new int[data.length - 2];
-		for (int i = 2; i < data.length; i++) {
-			results[i-2] = Integer.parseInt(data[i]);
-		}
 	}
 
 	@Override

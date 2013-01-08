@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("serial")
+import earl.client.bastogne.op.HexRef;
+
 public class Hex extends Identifiable {
 	protected List<Counter> pieces = new ArrayList<Counter>();
 	private String hexId = null;
@@ -48,5 +49,9 @@ public class Hex extends Identifiable {
 		} else {
 			return false;
 		}
+	}
+
+	public HexRef ref() {
+		return new HexId(hexId);
 	}
 }

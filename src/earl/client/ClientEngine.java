@@ -37,12 +37,12 @@ import earl.client.display.handler.SCSDisplayHandler;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.edit.EditDisplay;
 import earl.client.games.Bastogne;
-import earl.client.op.OpData;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
 import earl.client.utils.Browser;
+import earl.server.OperationEntity;
 
 public class ClientEngine implements EntryPoint {
 	private SVGDisplay display;
@@ -203,10 +203,9 @@ public class ClientEngine implements EntryPoint {
 				}
 			});
 		}
-		for (OpData data : info.ops) {
-			Operation op= data.get(board);					
-			op.clientExecute();
-			op.draw(display);
+		for (Operation op : info.ops) {
+			op.clientExecute(board);
+			op.draw(board, display);
 			log(op.toString());
 		}
 		if(info.joinAs != null) {

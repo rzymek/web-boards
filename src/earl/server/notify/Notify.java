@@ -25,7 +25,7 @@ public class Notify {
 	}
 
 	private String toMessage(Operation op) {
-		return op.getClass().getName()+":"+op.encode();
+		return op.getClass().getName();//TODO
 	}
 
 	private String getRecipient(String fromUser, Table table) {

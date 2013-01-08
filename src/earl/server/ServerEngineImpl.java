@@ -2,8 +2,13 @@ package earl.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,13 +35,11 @@ import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
 import earl.client.games.Bastogne;
 import earl.client.games.BastogneSide;
-import earl.client.op.OpData;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.manager.Table;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
-import earl.server.utils.Utils;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
@@ -83,20 +86,31 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return info;
 	}
 
-	public List<OpData> loadOps(String tableId) {
+	public Collection<Operation> loadOps(String tableId) {
 		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		List<OperationEntity> res = load.filter("sessionId", tableId).order("timestamp").list();		
-		Collection<OperationEntity> results = updateWithPending(tableId, res);		
-		List<OpData> ops = new ArrayList<OpData>(results.size());
-		for (OperationEntity e : results) {
-			Operation inst = Utils.newInstance(e.className);
-			OpData op = new OpData(e.data, inst);
-			ops.add(op);
+		Collection<OperationEntity> res = load.filter("sessionId", tableId).order("timestamp").list();		
+		res = updateWithPending(tableId, res);
+		List<Operation> results = new ArrayList<Operation>();
+		for (OperationEntity operationEntity : res) {
+			results.add(deserialize(operationEntity.data));
 		}
-		return ops;
+		return results;
 	}
 
-	public Set<OperationEntity> updateWithPending(String tableId, List<OperationEntity> res) {
+	private Operation deserialize(byte[] data) {
+		try{
+			ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(data));
+			try {
+				return (Operation) in.readObject();
+			}finally{
+				in.close();
+			}
+		}catch (Exception e) {
+			throw new EarlServerException(e);
+		}
+	}
+
+	public Set<OperationEntity> updateWithPending(String tableId, Collection<OperationEntity> res) {
 		Set<OperationEntity> results = new TreeSet<OperationEntity>(res);
 		String key = (String) cache.get(tableId);
 		if(key != null) {
@@ -152,14 +166,14 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 
 	@Override
-	public String process(Operation op) {
+	public Operation process(Operation op) {
 		Bastogne bastogne = new Bastogne();
 		bastogne.setMapInfo(loadMapInfo());
 		op.game = bastogne;
 		op.serverExecute();
 		OperationEntity e = new OperationEntity();
-		e.sessionId = getTableId();
-		e.data = op.encode();
+		e.sessionId = getTableId();		
+		e.data = serialize(op);
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
 		ofy().save().entity(e);
@@ -173,7 +187,22 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		cache.put(e.sessionId, newKey);
 		long tableId = Long.parseLong(getTableId());
 		notify.notifyListeners(tableId, op, getUser());
-		return e.data;
+		return op;
+	}
+
+	private byte[] serialize(Serializable op) {
+		ByteArrayOutputStream buf = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(buf);
+			try {
+				out.writeObject(op);
+			}finally{
+				out.close();
+			}
+		}catch (IOException e) {
+			throw new EarlServerException(e);
+		}
+		return buf.toByteArray();
 	}
 
 	@Override

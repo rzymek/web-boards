@@ -1,5 +1,7 @@
 package earl.client.data;
 
+import earl.client.bastogne.op.CounterRef;
+
 
 public abstract class Counter extends Identifiable {
 	protected Hex position = null;
@@ -28,6 +30,10 @@ public abstract class Counter extends Identifiable {
 
 	public boolean isFlipped() {
 		return flipped;
+	}
+
+	public CounterRef ref() {
+		return new CounterRef(getId());
 	}
 
 }

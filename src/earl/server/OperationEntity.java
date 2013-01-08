@@ -12,16 +12,16 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @Cache
 public class OperationEntity implements Comparable<OperationEntity>, Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id	
 	public Long id;
 	@Index
 	public String sessionId;
-	public String data;
+	public byte[] data;
 	public String className;
 	@Index
 	public Date timestamp = new Date();
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String toString() {
 		return Arrays.asList(id,sessionId,data,className).toString();

@@ -1,15 +1,16 @@
 package earl.client.data;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import earl.client.games.BastogneSide;
-import earl.client.op.OpData;
+import earl.client.op.Operation;
 
 public class GameInfo implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public String channelToken;
-	public List<OpData> ops;
+	public Collection<Operation> ops;
 	public Map<String, String> mapInfo;
 	public BastogneSide joinAs;
 	public BastogneSide side;

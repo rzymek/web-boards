@@ -7,6 +7,6 @@ import earl.client.op.Operation;
 
 public interface ServerEngineAsync {
 	void getState(String tableId, AsyncCallback<GameInfo> callback);
-	void process(Operation op, AsyncCallback<String> abstractCallback);
+	void process(Operation op, AsyncCallback<Operation> abstractCallback);
 	void join(String tableId, AsyncCallback<Void> abstractCallback);
 }

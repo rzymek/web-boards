@@ -1,8 +1,7 @@
 package earl.client.data;
 
-import java.io.Serializable;
 
-public abstract class Identifiable implements Serializable {
+public abstract class Identifiable {
 	public abstract String getId();
 
 	@Override

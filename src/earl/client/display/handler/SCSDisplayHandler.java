@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import earl.client.bastogne.op.HexRef;
 import earl.client.bastogne.op.PerformAttack;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -84,8 +85,12 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 		Set<Hex> attacking = getAttacking(area);
 		if(!attacking.isEmpty()) {
 			PerformAttack op = new PerformAttack();
-			op.target=area;
-			op.attacking = attacking.toArray(new Hex[attacking.size()]);
+			op.targetRef=area.ref();
+			op.attackingRef = new HexRef[attacking.size()];
+			int idx = 0;
+			for (Hex hex : attacking) {
+				op.attackingRef[idx++] = hex.ref();
+			}
 			return op;
 		} else {
 			return super.startStackSelection(area);

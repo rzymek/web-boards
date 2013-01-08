@@ -9,6 +9,6 @@ import earl.client.op.Operation;
 @RemoteServiceRelativePath("engine")
 public interface ServerEngine extends RemoteService {
 	GameInfo getState(String tableId);
-	String process(Operation op);
+	Operation process(Operation op);
 	void join(String tableId);
 }

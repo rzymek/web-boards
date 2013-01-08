@@ -38,9 +38,9 @@ public class BasicDisplayHandler {
 
 	protected Operation moveToHex(Hex area) {
 		Move move = new Move();
-		move.counter = selectedPiece;
-		move.from = selectedPiece.getPosition();
-		move.to = area;
+		move.counterRef = selectedPiece.ref();
+		move.fromRef = selectedPiece.getPosition().ref();
+		move.toRef = area.ref();
 		setSelectedPiece(null);
 		return move;
 	}
