@@ -47,7 +47,7 @@ public class PerformAttack extends Operation {
 	}
 
 	@Override
-	public void postServer( Board board, EarlDisplay display) {
+	public void postServer(Board board, EarlDisplay display) {
 		Hex target = board.get(targetRef);
 		display.clearOds(display.getCenter(target));
 		display.showResults(display.getCenter(target), result.toString());

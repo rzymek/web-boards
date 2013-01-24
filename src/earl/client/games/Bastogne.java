@@ -8,7 +8,9 @@ import earl.client.bastogne.op.CombatResult;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
+import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
+import earl.client.op.Operation;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.BastogneUnits.ge_26VG_2_I_77;
@@ -295,6 +297,17 @@ public class Bastogne implements Game {
 			}
 		}
 		throw new EarlException("invalid odds:" + oddsValue);
+	}
+
+	public void load(Map<String, String> mapInfo, Collection<Operation> ops, SVGDisplay display) {
+		setupScenarion52();
+		setMapInfo(mapInfo);
+		for (Operation op : ops) {
+			op.clientExecute(board);
+			if(display != null) {
+				op.draw(board, display);
+			}
+		}		
 	}
 
 }

@@ -11,7 +11,6 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -21,8 +20,6 @@ import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchEndHandler;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -42,7 +39,6 @@ import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
 import earl.client.utils.AbstractCallback;
 import earl.client.utils.Browser;
-import earl.server.OperationEntity;
 
 public class ClientEngine implements EntryPoint {
 	private SVGDisplay display;
@@ -67,9 +63,14 @@ public class ClientEngine implements EntryPoint {
 		}else{
 			connect();
 		}
-		bindButtons();
+		log("isViewportScaling()="+isViewportScaling());
+		if(!isViewportScaling()) {
+			svg.getWidth().getBaseVal().setValueAsString("100%");
+			svg.getHeight().getBaseVal().setValueAsString("100%");
+		}
+//		bindButtons();
 		Window.setTitle("Bastogne!");
-		centerView();
+//		centerView();
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
@@ -83,6 +84,10 @@ public class ClientEngine implements EntryPoint {
 			}
 		}, KeyPressEvent.getType());
 	}
+
+	private native boolean isViewportScaling() /*-{
+		return document.documentElement.scrollWidth <= window.innerWidth;
+	}-*/;
 
 	private void centerView() {
 		if(isTouchDevice()) {
@@ -188,12 +193,11 @@ public class ClientEngine implements EntryPoint {
 	}
 	private void start(final String tableId, GameInfo info) {
 		final Bastogne game = new Bastogne();
-		game.setupScenarion52();
-		game.setMapInfo(info.mapInfo);
+		game.load(info.mapInfo, info.ops, null);
 		BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
 		display = new SVGDisplay(svg, handler);
 		ClientEngine.this.display = display;
-		board = game.getBoard();
+		board = game.getBoard();		
 		display.setBoard(board);
 		if (Window.Location.getParameter("i") != null) {
 			ChannelFactory.createChannel(info.channelToken, new ChannelCreatedCallback() {					
@@ -204,9 +208,8 @@ public class ClientEngine implements EntryPoint {
 			});
 		}
 		for (Operation op : info.ops) {
-			op.clientExecute(board);
 			op.draw(board, display);
-			log(op.toString());
+			op.postServer(board, display);
 		}
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
@@ -231,14 +234,14 @@ public class ClientEngine implements EntryPoint {
 	public static void log(String s) {
 		Browser.console(s);
 		GWT.log(s);
-		try {
-			Element log = DOM.getElementById("log");
-			Node text = Browser.createTextNode(s + "\n");
-			log.insertFirst(text);
-		} catch (Exception e) {
-			GWT.log(s, e);
-			Browser.console(e);
-		}
+//		try {
+//			Element log = DOM.getElementById("log");
+//			Node text = Browser.createTextNode(s + "\n");
+//			log.insertFirst(text);
+//		} catch (Exception e) {
+//			GWT.log(s, e);
+//			Browser.console(e);
+//		}
 	}
 
 	public static native SVGSVGElement getSVG() /*-{

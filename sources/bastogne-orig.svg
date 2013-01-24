@@ -168,17 +168,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1615"
-     inkscape:window-height="1026"
+     inkscape:window-width="1215"
+     inkscape:window-height="1000"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="5.3940696"
-     inkscape:cx="28.338488"
-     inkscape:cy="1981.8608"
+     inkscape:zoom="1.3485174"
+     inkscape:cx="237.38533"
+     inkscape:cy="1817.5048"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="markers"
+     inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -195,7 +195,7 @@
      inkscape:snap-global="false" />
   <g
      inkscape:groupmode="layer"
-     id="layer1"
+     id="board"
      inkscape:label="board"
      style="display:inline">
     <image
@@ -33808,6 +33808,16 @@
      inkscape:groupmode="layer"
      id="units"
      inkscape:label="units"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="markers"
+     inkscape:label="markers"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="tmpl"
+     inkscape:label="tmpl"
      style="display:inline">
     <rect
        inkscape:label="#rect15007"
@@ -33815,41 +33825,36 @@
        id="selection"
        width="40"
        height="40"
-       x="747.95673"
-       y="2089.0596"
+       x="-27.70993"
+       y="-86.663177"
        ry="2.5394881" />
     <image
        width="40"
        height="40"
        id="counter"
-       x="747.95673"
-       y="2089.0596"
+       x="-27.70993"
+       y="-86.663177"
        style="display:inline"
-       xlink:href="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png"
-       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png" />
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png"
+       xlink:href="/home/rzymek/Dropbox/devel/earl/war/img/loading.gif" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
-       d="m 956.6575,2102.6956 155.6741,1.7404"
+       d="M 59.434886,-35.288766 98.177005,-76.021414"
        id="attackArrow"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="markers"
-     inkscape:label="markers"
-     style="display:inline">
     <g
+       style="display:inline"
        id="target">
       <path
          transform="matrix(1.038961,0,0,1.038961,-361.10721,-772.0951)"
-         d="m 366.5,742.13348 c 0,10.63149 -8.61852,19.25 -19.25,19.25 -10.63148,0 -19.25,-8.61851 -19.25,-19.25 0,-10.63148 8.61852,-19.25 19.25,-19.25 10.63148,0 19.25,8.61852 19.25,19.25 z"
+         d="m 366.5,742.13348 a 19.25,19.25 0 1 1 -38.5,0 19.25,19.25 0 1 1 38.5,0 z"
          sodipodi:ry="19.25"
          sodipodi:rx="19.25"
          sodipodi:cy="742.13348"
          sodipodi:cx="347.25"
          id="path4099"
-         style="opacity:0.56790125000000002;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+         style="opacity:0.56790125;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none"
          sodipodi:type="arc" />
       <text
          sodipodi:linespacing="100%"
@@ -33860,13 +33865,13 @@
          xml:space="preserve"><tspan
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Bold"
            y="5.6312742"
-           x="-0.12246816"
+           x="-0.12246727"
            id="odds"
            sodipodi:role="line">1:1</tspan></text>
     </g>
     <g
        id="boom"
-       style="opacity:0.6">
+       style="opacity:0.6;display:inline">
       <g
          transform="matrix(0.05014963,0,0,0.06286045,-68.043011,-155.91614)"
          id="g7041"
@@ -33889,7 +33894,7 @@
            sodipodi:nodetypes="ccccccccccccccc"
            id="path3704"
            d="m 406.18389,240.43283 c 67.9126,125.64147 94.99166,82.42801 80.05929,-19.7069 20.81325,98.13552 45.22573,188.42409 43.10886,-25.86531 7.34232,175.74905 77.26091,151.06905 136.71664,22.17026 -83.99765,108.34241 -8.85049,106.15063 88.68107,50.49894 -84.06531,46.89101 -114.82894,96.25386 4.92673,97.30284 -168.65462,7.26846 -40.47144,34.87336 2.46336,40.64549 -25.44066,39.2365 -188.71681,-33.5632 -131.78992,120.70478 -51.99647,-155.28966 -73.03712,-80.54559 -77.59593,12.31682 -14.21743,-88.06018 -26.05571,-125.5868 -80.0593,-2.46336 6.39245,-158.94748 -27.32168,-77.33411 -70.20584,-2.46337 37.61485,-103.91564 -84.08389,-92.28533 -84.08389,-92.28533 24.70704,-17.23681 56.49734,-85.9045 -11.37143,-91.85105 98.19424,44.52554 101.97454,2.06461 51.11478,-92.99195 62.42968,95.68277 118.6446,135.79928 48.03558,-16.01186 z"
-           style="fill:#faffac;fill-opacity:1;stroke:#ff2626;stroke-width:1.03373742000000002;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;filter:url(#filter3706-1)"
+           style="fill:#faffac;fill-opacity:1;stroke:#ff2626;stroke-width:1.03373742;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;filter:url(#filter3706-1)"
            transform="matrix(1.0688748,0,0,0.87549303,839.73535,2155.9816)" />
       </g>
       <text
@@ -33898,7 +33903,7 @@
          id="text7046"
          y="6.6151958"
          x="2.3213608"
-         style="font-size:15.50794411000000039px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+         style="font-size:15.50794411px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
          xml:space="preserve"><tspan
            y="6.6151958"
            x="2.3213615"

@@ -19,8 +19,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import earl.client.display.svg.edit.EditService;
 
 public class EditServiceImpl extends RemoteServiceServlet implements EditService {
-	private DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+	private static final long serialVersionUID = 1L;
+	private final DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
+	@Override
 	public void initialize() throws IOException {
 		InputStream in = getServletContext().getResourceAsStream("/roads.txt");
 		List<String> lines = IOUtils.readLines(in);

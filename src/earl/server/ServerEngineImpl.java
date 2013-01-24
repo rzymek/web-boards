@@ -1,7 +1,5 @@
 package earl.server;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,6 +10,7 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,19 +34,24 @@ import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
 import earl.client.games.Bastogne;
 import earl.client.games.BastogneSide;
+import earl.client.games.Game;
 import earl.client.op.Operation;
 import earl.client.remote.ServerEngine;
 import earl.manager.Table;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
 
 	private static final long serialVersionUID = 1L;
-	private final Notify notify = new Notify();
+	private transient final Notify notify = new Notify();
 
-	private final Cache cache;
+	private transient final Cache cache;
+
+	private transient static Map<String, Game> games = Collections.synchronizedMap(new HashMap<String, Game>());
 
 	public ServerEngineImpl() throws CacheException {
 		Map<Object, Object> config = new HashMap<Object, Object>();
@@ -67,8 +71,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			throw new EarlServerException("Invalid table id=" + tableId);
 		}
 		String user = getUser();
-		System.out.println("user=" + user);
-		System.out.println("table=" + table);
 		if (user.equals(table.player1)) {
 			info.side = BastogneSide.US;
 		} else if (user.equals(table.player2)) {
@@ -167,12 +169,12 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	@Override
 	public Operation process(Operation op) {
-		Bastogne bastogne = new Bastogne();
-		bastogne.setMapInfo(loadMapInfo());
+		String tableId = getTableId();
+		Bastogne bastogne = getGame(tableId);
 		op.game = bastogne;
 		op.serverExecute();
 		OperationEntity e = new OperationEntity();
-		e.sessionId = getTableId();		
+		e.sessionId = tableId;		
 		e.data = serialize(op);
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
@@ -185,9 +187,20 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String newKey = e.sessionId+e.timestamp;
 		cache.put(newKey, c);
 		cache.put(e.sessionId, newKey);
-		long tableId = Long.parseLong(getTableId());
-		notify.notifyListeners(tableId, op, getUser());
+		long id = Long.parseLong(tableId);
+		notify.notifyListeners(id, op, getUser());
 		return op;
+	}
+
+	private Bastogne getGame(String tableId) {
+		Bastogne game = (Bastogne) games.get(tableId);		
+		if(game == null) {
+			game = new Bastogne();
+			GameInfo info = getState(tableId);
+			game.load(info.mapInfo, info.ops, null);
+			games.put(tableId, game);
+		}
+		return game;
 	}
 
 	private byte[] serialize(Serializable op) {

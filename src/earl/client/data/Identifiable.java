@@ -1,6 +1,7 @@
 package earl.client.data;
 
 
+
 public abstract class Identifiable {
 	public abstract String getId();
 

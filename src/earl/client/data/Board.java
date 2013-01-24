@@ -56,29 +56,6 @@ public class Board implements Serializable {
 	}
 
 	public Hex getHex(String hexId) {
-		// if(hexes == null) {
-		// hexes = new HashMap<String, Hex>();
-		// for (Counter counter : counters.values()) {
-		// Hex hex = counter.getPosition();
-		// Hex existing = hexes.get(hex.getId());
-		// if(existing == null){
-		// hexes.put(hex.getId(), hex);
-		// }else{
-		// counter.position = existing;
-		// }
-		// }
-		// }if(hexes == null) {
-		// hexes = new HashMap<String, Hex>();
-		// for (Counter counter : counters.values()) {
-		// Hex hex = counter.getPosition();
-		// Hex existing = hexes.get(hex.getId());
-		// if(existing == null){
-		// hexes.put(hex.getId(), hex);
-		// }else{
-		// counter.position = existing;
-		// }
-		// }
-		// }
 		Hex hex = hexes.get(hexId);
 		if (hex == null) {
 			hexes.put(hexId, hex = new Hex(hexId));

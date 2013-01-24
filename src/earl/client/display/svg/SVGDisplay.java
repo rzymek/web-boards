@@ -45,9 +45,10 @@ public class SVGDisplay extends BasicDisplay {
 		this.svg = svg;
 		this.handler = handler;
 		handler.setDisplay(this);
-		svg.getElementById("target").getStyle().setVisibility(Visibility.HIDDEN);
-//		selectionRect = (SVGRectElement) svg.getElementById("selectionRect");
-//		selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
+		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
+		rect.getStyle().setDisplay(Display.NONE);
+		svg.getElementById("units").appendChild(rect);
+
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
@@ -246,6 +247,7 @@ public class SVGDisplay extends BasicDisplay {
 		svg.getElementById("markers").appendChild(arrow);
 	}
 
+	@Override
 	public void clearArrow(Hex from) {
 		String id = getArrowId(from);
 		Browser.console(id);
@@ -276,10 +278,9 @@ public class SVGDisplay extends BasicDisplay {
 		SVGElement target = (SVGElement) svg.getElementById(id);
 		if(target == null) {
 			target = (SVGElement) svg.getElementById(templateId);
-			Element parent = target.getParentElement();
 			target = (SVGElement) target.cloneNode(true);
 			target.setId(id);		
-			parent.appendChild(target);
+			svg.getElementById("markers").appendChild(target);
 		}
 		target.getStyle().setProperty("pointerEvents", "none");
 		target.getStyle().setVisibility(Visibility.VISIBLE);
@@ -294,7 +295,9 @@ public class SVGDisplay extends BasicDisplay {
 	public void clearOds(Position center) {
 		final String id = "tg@"+center.x+"_"+center.y;
 		SVGElement target = (SVGElement) svg.getElementById(id);
-		target.removeFromParent();
+		if(target != null) {
+			target.removeFromParent();
+		}
 	}
 
 	/**
