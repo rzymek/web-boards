@@ -141,15 +141,11 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 			updateZoom();
 			break;
 		case '\\': case '1':
-			scale = minScale;
+			scale = 1;
 			updateZoom();
 			OMSVGRect viewBox = svg.getViewBox().getBaseVal();
 			viewBox.setX(0);
 			viewBox.setY(0);
-			break;
-		case '0':
-			scale = 1;
-			updateZoom();
 			break;
 		}
 	}

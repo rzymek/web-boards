@@ -24,6 +24,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
 import earl.client.bastogne.op.ChatMessage;
 import earl.client.bastogne.op.DiceRoll;
@@ -69,6 +70,7 @@ public class ClientEngine implements EntryPoint {
 			svg.getHeight().getBaseVal().setValueAsString("100%");
 		}
 //		bindButtons();
+		new EarlMenu(RootPanel.get("menu"));
 		Window.setTitle("Bastogne!");
 //		centerView();
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			

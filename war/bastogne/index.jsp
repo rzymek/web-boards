@@ -27,13 +27,7 @@
 <%
 IOUtils.copy(config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg"),out);
 %>
-<div id="menu">	
-	<button type="button">Menu</button>
-	<button type="button">2d6</button>
-	<button type="button" enabled="false" disabled="disabled">Flip</button>
-	<button type="button">Show board</button>
-	<button type="button">Toggle counters</button>
-</div>
+<div id="menu"/>	
 <div id="viewport.x" style="position:fixed; right:0;top:0;width:1px; height:1px;"></div>
 <div id="viewport.width" style="position:fixed; right:0;top:0;width:100%; height:1px;"></div>
 </body>
