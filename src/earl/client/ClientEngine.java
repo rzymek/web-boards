@@ -70,7 +70,6 @@ public class ClientEngine implements EntryPoint {
 			svg.getHeight().getBaseVal().setValueAsString("100%");
 		}
 //		bindButtons();
-		new EarlMenu(RootPanel.get("menu"));
 		Window.setTitle("Bastogne!");
 //		centerView();
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			
@@ -219,6 +218,7 @@ public class ClientEngine implements EntryPoint {
 				service.join(tableId, new AbstractCallback<Void>());
 			}
 		}
+		new EarlMenu(RootPanel.get("menu"), svg, game);
 	}
 
 	public static native int getViewportWidth()/*-{
