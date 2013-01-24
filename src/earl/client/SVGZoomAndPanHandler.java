@@ -22,11 +22,12 @@ import com.google.gwt.user.client.Window;
 import earl.client.op.Position;
 
 public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler {
-
 	private static final float KEY_ZOOM_STEP = 1.3f;
+	private static final boolean LOW_RES_PANNING = false;
 	private float minScale = 0.25f;
 	private final Position size;
 	private final Position mouse = new Position(0, 0);
+	private final Position offset = new Position(0, 0);	
 	private final SVGSVGElement svg;
 	private float scale = 1.0f;
 	private boolean lowRes = false;
@@ -79,24 +80,17 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	@Override
 	public void onMouseMove(MouseMoveEvent e) {
 		if (panning) {
-			int prevX = mouse.x;
-			int prevY = mouse.y;
-			updateMousePosition(e);
+			float x = mouse.x;
+			float y = mouse.y;
+			OMSVGPoint start = toUsertSpace(x, y);
+			OMSVGPoint pos = toUsertSpace(e.getClientX(), e.getClientY());
 			if (!lowRes) {
 				lowRes = true;
 				updateImageResolution();
 			}
 			OMSVGRect viewBox = svg.getViewBox().getBaseVal();
-			viewBox.setX(viewBox.getX() + (prevX - mouse.x) / scale);
-			viewBox.setY(viewBox.getY() + (prevY - mouse.y) / scale);
-			// Document.get().getElementById("menu").setInnerHTML(x+","+y+"<br>"+
-			// e.getClientX()+","+e.getClientY()+"<br>"+
-			// e.getScreenX()+","+e.getScreenY()+"<br>"+
-			// e.getRelativeX(svg)+","+e.getRelativeY(svg)+"<br>"+
-			// p.getX()+","+p.getY()+"<br>"+
-			// scale+"<br>"+
-			// viewBox.getX()+","+viewBox.getY()
-			// );
+			viewBox.setX(offset.x + (start.getX() - pos.getX()));
+			viewBox.setY(offset.y + (start.getY() - pos.getY()));
 			e.preventDefault();
 		} else {
 			updateMousePosition(e);
@@ -104,13 +98,18 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	}
 
 	private void updateImageResolution() {
-//		SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
-//		boardImg.getHref().setBaseVal(lowRes ? "board-low.jpg" : "board.jpg");
+		if(LOW_RES_PANNING) {
+			SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
+			boardImg.getHref().setBaseVal(lowRes ? "board-low.jpg" : "board.jpg");
+		}
 	}
 
 	private void updateMousePosition(MouseEvent<?> e) {
 		mouse.x = e.getClientX();
 		mouse.y = e.getClientY();
+		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
+		offset.x = (int) viewbox.getX();
+		offset.y = (int) viewbox.getY();
 	}
 
 	@Override
