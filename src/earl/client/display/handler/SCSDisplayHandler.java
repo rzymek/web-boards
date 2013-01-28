@@ -79,11 +79,23 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 		}
 		return attacking;
 	}
-
+	private final Set<Hex> attacksPerformed = new HashSet<Hex>();
 	@Override
 	protected Operation startStackSelection(Hex area) {
 		Set<Hex> attacking = getAttacking(area);
 		if(!attacking.isEmpty()) {
+			SCSCounter target = getAnyCounterAt(area);
+			if(target == null) {
+				//I think this can't happen
+				return super.startStackSelection(area);
+			}
+			if(attacksPerformed.contains(area)) {
+				if(target.getOwner() == player) {
+					display.clearResults(display.getCenter(area));
+					attacksPerformed.remove(area);
+				}
+				return null;
+			}
 			PerformAttack op = new PerformAttack();
 			op.targetRef=area.ref();
 			op.attackingRef = new HexRef[attacking.size()];
@@ -91,10 +103,21 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			for (Hex hex : attacking) {
 				op.attackingRef[idx++] = hex.ref();
 			}
+			attacksPerformed.add(area);
 			return op;
 		} else {
 			return super.startStackSelection(area);
 		}
+	}
+
+	private SCSCounter getAnyCounterAt(Hex area) {
+		List<Counter> stack = area.getStack();
+		for (Counter counter : stack) {
+			if(counter instanceof SCSCounter){
+				return (SCSCounter) counter;
+			}
+		}
+		return null;
 	}
 
 	private boolean isAdjacent(Counter a, Counter b) {

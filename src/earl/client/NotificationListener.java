@@ -32,8 +32,8 @@ public final class NotificationListener implements SocketListener {
 
 	@Override
 	public void onMessage(String message) {
-		int idx = message.indexOf(':');
-		String type = message.substring(0, idx);
+//		int idx = message.indexOf(':');
+//		String type = message.substring(0, idx);
 		try {
 			//TODO:
 //			Operation op = getOperation(type);
@@ -43,24 +43,6 @@ public final class NotificationListener implements SocketListener {
 			ClientEngine.log("[Channel API] " + e.toString());			
 		}
 		ClientEngine.log("[Channel API] " + message);
-	}
-
-	private Operation getOperation(String type) {
-		if (ChatMessage.class.getName().equals(type)) {
-			return new ChatMessage();
-		} else if (PerformAttack.class.getName().equals(type)) {
-			return new PerformAttack();
-		} else if (OpponentConnected.class.getName().equals(type)) {
-			return new OpponentConnected();
-		} else if (DiceRoll.class.getName().equals(type)) {
-			return new DiceRoll();
-		} else if (Move.class.getName().equals(type)) {
-			return new Move();
-		} else if (Flip.class.getName().equals(type)) {
-			return new Flip();
-		} else {
-			throw new EarlException("Unknow operation type:" + type);
-		}
 	}
 
 	@Override

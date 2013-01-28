@@ -80,6 +80,7 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	@Override
 	public void onMouseMove(MouseMoveEvent e) {
 		if (panning) {
+			e.preventDefault();
 			float x = mouse.x;
 			float y = mouse.y;
 			OMSVGPoint start = toUsertSpace(x, y);
@@ -91,7 +92,6 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 			OMSVGRect viewBox = svg.getViewBox().getBaseVal();
 			viewBox.setX(offset.x + (start.getX() - pos.getX()));
 			viewBox.setY(offset.y + (start.getY() - pos.getY()));
-			e.preventDefault();
 		} else {
 			updateMousePosition(e);
 		}

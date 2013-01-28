@@ -8,6 +8,12 @@ import earl.client.op.Operation;
 public class Flip extends Operation  implements Undoable {
 	private static final long serialVersionUID = 1L;
 	private CounterRef counterRef;
+	protected Flip() {
+	}
+	
+	public Flip(CounterRef counterRef) {
+		this.counterRef = counterRef;
+	}
 
 	@Override
 	public void draw(Board board, EarlDisplay g) {

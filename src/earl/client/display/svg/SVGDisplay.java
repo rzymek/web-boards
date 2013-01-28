@@ -250,10 +250,14 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void clearArrow(Hex from) {
 		String id = getArrowId(from);
-		Browser.console(id);
-		Element arrow = svg.getElementById(id);
-		Browser.console(arrow);
-		arrow.removeFromParent();
+		removeElement(id);		
+	}
+
+	private void removeElement(String id) {
+		Element e = svg.getElementById(id);
+		if(e != null) {
+			e.removeFromParent();
+		}
 	}
 
 	private String getArrowId(Hex from) {
@@ -338,5 +342,10 @@ public class SVGDisplay extends BasicDisplay {
 	public void showResults(Position center, String result) {
 		final String id = "boom@"+center.x+"_"+center.y;
 		drawFromTemplate(center, "boom", result, id);
+	}
+	@Override
+	public void clearResults(Position center) {
+		final String id = "boom@"+center.x+"_"+center.y;
+		removeElement(id);
 	}
 }

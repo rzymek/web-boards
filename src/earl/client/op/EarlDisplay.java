@@ -2,7 +2,6 @@ package earl.client.op;
 
 import java.util.Collection;
 
-import earl.client.bastogne.op.CombatResult;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
 
@@ -29,5 +28,7 @@ public interface EarlDisplay {
 	void clearArrow(Hex from);
 
 	void showResults(Position center, String result);
+
+	void clearResults(Position center);
 
 }

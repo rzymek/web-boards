@@ -24,7 +24,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
 import earl.client.bastogne.op.ChatMessage;
 import earl.client.bastogne.op.DiceRoll;
@@ -46,6 +45,7 @@ public class ClientEngine implements EntryPoint {
 	private SVGSVGElement svg;
 	protected Board board;
 	private ServerEngineAsync service;
+	private static EarlMenu menu;
 
 	@Override
 	public void onModuleLoad() {
@@ -218,7 +218,13 @@ public class ClientEngine implements EntryPoint {
 				service.join(tableId, new AbstractCallback<Void>());
 			}
 		}
-		new EarlMenu(RootPanel.get("menu"), svg, game);
+		EarlGUIContext ctx = new EarlGUIContext();
+		ctx.svg = svg;
+		ctx.game = game;
+		ctx.side = info.side;
+		ctx.display = display;
+		ctx.handler = handler;
+		menu = new EarlMenu(ctx);
 	}
 
 	public static native int getViewportWidth()/*-{
@@ -236,6 +242,9 @@ public class ClientEngine implements EntryPoint {
 	public static void log(String s) {
 		Browser.console(s);
 		GWT.log(s);
+		if(menu != null) {
+			menu.log(s);
+		}
 //		try {
 //			Element log = DOM.getElementById("log");
 //			Node text = Browser.createTextNode(s + "\n");

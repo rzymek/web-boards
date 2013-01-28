@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-gae-channel-0.4-alpha.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-4.0b1.jar" sourcepath="/home/rzymek/.m2/repository/com/googlecode/objectify/objectify/4.0b1/objectify-4.0b1-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io-2.4.jar" sourcepath="/home/rzymek/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4-sources.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/gwt-2.5.0.rc2"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/appengine-java-sdk-1.7.4"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
