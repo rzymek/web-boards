@@ -8,13 +8,8 @@ import earl.client.data.Board;
 import earl.client.display.EarlDisplay;
 
 public final class NotificationListener implements SocketListener {
-	private Board board;
-	private final EarlDisplay display;
-
 	public NotificationListener(Board board, EarlDisplay display) {
 		super();
-		this.board = board;
-		this.display = display;
 	}
 
 	@Override
@@ -24,17 +19,7 @@ public final class NotificationListener implements SocketListener {
 
 	@Override
 	public void onMessage(String message) {
-//		int idx = message.indexOf(':');
-//		String type = message.substring(0, idx);
-		try {
-			//TODO:
-//			Operation op = getOperation(type);
-//			op.clientExecute();
-//			op.draw(display);
-		} catch (Exception e) {
-			ClientEngine.log("[Channel API] " + e.toString());			
-		}
-		ClientEngine.log("[Channel API] " + message);
+ 		ClientEngine.log("[Channel API] " + message);
 	}
 
 	@Override

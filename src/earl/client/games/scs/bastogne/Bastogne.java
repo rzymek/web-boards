@@ -1,5 +1,19 @@
 package earl.client.games.scs.bastogne;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import earl.client.data.Board;
+import earl.client.data.Counter;
+import earl.client.data.Game;
+import earl.client.data.Hex;
+import earl.client.display.svg.SVGDisplay;
+import earl.client.ex.EarlException;
+import earl.client.games.scs.CombatResult;
+import earl.client.games.scs.SCSCounter;
+import earl.client.games.scs.SCSMarker;
+import earl.client.ops.Operation;
 import static earl.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static earl.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static earl.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -55,21 +69,6 @@ import static earl.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static earl.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static earl.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Game;
-import earl.client.data.Hex;
-import earl.client.display.svg.SVGDisplay;
-import earl.client.ex.EarlException;
-import earl.client.games.scs.CombatResult;
-import earl.client.games.scs.SCSCounter;
-import earl.client.games.scs.SCSMarker;
-import earl.client.ops.Operation;
-
 public class Bastogne implements Game {
 	private static final long serialVersionUID = 1L;
 	private Board board = null;
@@ -97,7 +96,7 @@ public class Bastogne implements Game {
 		setup("h3720", us_Comb_C, "Comb Eng Bn (C Co)");
 		setup("h4019", us_Comb_D, "Comb Eng Bn (D Co)");
 
-		String hexId = "h3217";
+		String hexId = "US2";
 		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
 		setup(hexId, us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
 		setup(hexId, us_501_C_1, "1st Bn 501 Abn Inf (C/1)");
@@ -107,8 +106,6 @@ public class Bastogne implements Game {
 		setup(hexId, us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
 		setup(hexId, us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
 		setup(hexId, us_101_327, "377 Abn Arty Bn");
-		// setup(hexId, us_Comb_C, "Comb Eng Bn (C Co)");
-		// setup(hexId, us_Comb_D, "Comb Eng Bn (D Co)");
 
 		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
 		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");
