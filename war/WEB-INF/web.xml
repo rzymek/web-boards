@@ -35,7 +35,7 @@
 
 	<servlet>
 		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>earl.manager.ManagerServlet</servlet-class>
+		<servlet-class>earl.server.servlet.ManagerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

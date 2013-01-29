@@ -14,10 +14,10 @@
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
    preserveAspectRatio="xMinYMin meet"
-   width="3320"
-   height="2010.87"
+   width="3000"
+   height="1990.87"
    sodipodi:docname="bastogne-orig.svg"
-   viewBox="0 0 3320 2010"
+   viewBox="0 0 3000 1990.0086"
    zoomAndPan="magnify">
   <metadata
      id="metadata8">
@@ -172,13 +172,13 @@
      inkscape:window-height="1000"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.3485174"
-     inkscape:cx="237.38533"
-     inkscape:cy="1817.5048"
+     inkscape:zoom="0.23838645"
+     inkscape:cx="1991.058"
+     inkscape:cy="629.62443"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="area"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -186,10 +186,10 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
-     fit-margin-top="10"
-     fit-margin-left="10"
-     fit-margin-right="10"
-     fit-margin-bottom="10"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
      inkscape:object-paths="true"
      inkscape:object-nodes="false"
      inkscape:snap-global="false" />
@@ -197,7 +197,8 @@
      inkscape:groupmode="layer"
      id="board"
      inkscape:label="board"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(-10,-10.464277)">
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/board.jpg"
        xlink:href="/home/rzymek/Dropbox/devel/earl/war/bastogne/board.jpg"
@@ -211,7 +212,8 @@
      inkscape:groupmode="layer"
      id="area"
      inkscape:label="hexes"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(-10,-10.464277)">
     <path
        inkscape:tile-y0="4263.254"
        inkscape:tile-x0="9.0968435"
@@ -33707,118 +33709,85 @@
        inkscape:tile-x0="117.09214"
        inkscape:tile-y0="4326.1135" />
     <rect
-       style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#efefef;fill-opacity:0.22516557;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="us_dg"
-       width="284.20386"
-       height="144.11389"
-       x="3024.5991"
+       width="278.27142"
+       height="191.57343"
+       x="2719.0784"
        y="49.022461" />
     <rect
-       y="778.06079"
-       x="3024.4224"
-       height="141.26999"
-       width="284.19421"
+       y="1463.2578"
+       x="2717.4185"
+       height="188.72955"
+       width="279.745"
        id="ge_dg"
-       style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#efefef;fill-opacity:0.22516557;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
-       style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#efefef;fill-opacity:0.56953646;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="33.16-21"
-       width="274.4447"
-       height="284.59912"
-       x="3028.4326"
-       y="1681.3096" />
+       width="59.457607"
+       height="344.37601"
+       x="1485.6232"
+       y="805.83258" />
     <rect
        style="fill:#000000;fill-opacity:0.05022828;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="1E"
-       width="257.3027"
-       height="288.20767"
-       x="3044.8291"
-       y="366.11108" />
-    <text
-       xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Arial;-inkscape-font-specification:Arial"
-       x="3055.686"
-       y="388.66064"
-       id="text5785"
-       sodipodi:linespacing="100%"><tspan
-         sodipodi:role="line"
-         id="tspan5787"
-         x="3055.686"
-         y="388.66064"
-         style="font-weight:bold;-inkscape-font-specification:Arial Bold">Turn 1 - E</tspan></text>
+       width="60.790623"
+       height="433.55246"
+       x="2650.3218"
+       y="547.05054" />
     <rect
-       y="205.4812"
-       x="3044.8291"
-       height="131.12102"
-       width="253.99718"
+       y="95.731041"
+       x="2650.3218"
+       height="438.12485"
+       width="61.192738"
        id="1D"
        style="fill:#000000;fill-opacity:0.05022828;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
-    <text
-       sodipodi:linespacing="100%"
-       id="text5739"
-       y="228.03076"
-       x="3055.686"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Arial;-inkscape-font-specification:Arial"
-       xml:space="preserve"><tspan
-         style="font-weight:bold;-inkscape-font-specification:Arial Bold"
-         y="228.03076"
-         x="3055.686"
-         id="tspan5741"
-         sodipodi:role="line">Turn 1 - D</tspan></text>
     <rect
-       y="672.23242"
-       x="3045.5115"
-       height="90.633247"
-       width="260.65958"
+       y="986.65179"
+       x="2421.1221"
+       height="72.835915"
+       width="76.012444"
        id="3E"
-       style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
-    <text
-       id="text4696"
-       sodipodi:linespacing="100%"
-       y="688.53223"
-       x="3050.1184"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Arial;-inkscape-font-specification:Arial"
-       xml:space="preserve"><tspan
-         style="font-weight:bold;-inkscape-font-specification:Arial Bold"
-         y="688.53223"
-         x="3050.1184"
-         id="tspan4849"
-         sodipodi:role="line">Turn 3 - E</tspan></text>
+       style="fill:#efefef;fill-opacity:0.05098039;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
-       y="937.50879"
-       x="3024.2241"
-       height="709.55658"
-       width="271.7038"
+       y="1784.3647"
+       x="2778.0278"
+       height="180.08629"
+       width="221.27774"
        id="Dead pool"
        style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <text
        sodipodi:linespacing="100%"
        id="text4105"
-       y="953.80835"
-       x="3030.3936"
+       y="1805.1136"
+       x="2784.1973"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Arial;-inkscape-font-specification:Arial"
        xml:space="preserve"><tspan
          id="tspan4109"
          style="font-weight:bold;-inkscape-font-specification:Arial Bold"
-         y="953.80835"
-         x="3030.3936"
+         y="1805.1136"
+         x="2784.1973"
          sodipodi:role="line">Dead pool</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="units"
      inkscape:label="units"
-     style="display:inline" />
+     style="display:inline"
+     transform="translate(-10,-10.464277)" />
   <g
      inkscape:groupmode="layer"
      id="markers"
      inkscape:label="markers"
-     style="display:inline" />
+     style="display:inline"
+     transform="translate(-10,-10.464277)" />
   <g
      inkscape:groupmode="layer"
      id="tmpl"
      inkscape:label="tmpl"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(-10,-10.464277)">
     <rect
        inkscape:label="#rect15007"
        style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
@@ -33848,7 +33817,7 @@
        id="target">
       <path
          transform="matrix(1.038961,0,0,1.038961,-361.10721,-772.0951)"
-         d="m 366.5,742.13348 a 19.25,19.25 0 1 1 -38.5,0 19.25,19.25 0 1 1 38.5,0 z"
+         d="m 366.5,742.13348 c 0,10.63149 -8.61852,19.25 -19.25,19.25 -10.63148,0 -19.25,-8.61851 -19.25,-19.25 0,-10.63148 8.61852,-19.25 19.25,-19.25 10.63148,0 19.25,8.61852 19.25,19.25 z"
          sodipodi:ry="19.25"
          sodipodi:rx="19.25"
          sodipodi:cy="742.13348"
