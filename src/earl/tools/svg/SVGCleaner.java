@@ -27,6 +27,7 @@ import org.junit.Test;
 import earl.tools.svg.cleaners.ApplyTransform;
 import earl.tools.svg.cleaners.FindCommonStyles;
 import earl.tools.svg.cleaners.FixHexIds;
+import earl.tools.svg.cleaners.HideTmpl;
 import earl.tools.svg.cleaners.NamespacesFix;
 import earl.tools.svg.cleaners.RelativeImagePath;
 import earl.tools.svg.cleaners.RemoveHexColor;
@@ -47,6 +48,12 @@ public class SVGCleaner {
 		XMLStreamWriter writer = XMLOutputFactory.newInstance().createXMLStreamWriter(run1Result);
 		
 		Map<String, Integer> count = new HashMap<String, Integer>();
+		//called in reverse order
+		
+		//clean.xslt needs to be replaced with StreamCopy filters for this to work
+		//because otherwise inkscape:label is already removed here 
+//		writer = new LayerNameToId(writer); 
+		writer = new HideTmpl(writer);
 		writer = new FixHexIds(writer);
 		writer = new FindCommonStyles(writer, count);		
 		writer = new NamespacesFix(writer);

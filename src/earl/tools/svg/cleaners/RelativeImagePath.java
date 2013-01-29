@@ -29,14 +29,19 @@ public class RelativeImagePath extends StreamCopy {
 	
 	private String makeRelative(String localName, String value) {
 		if("href".equals(localName)) {
-			final String dir = "/war/bastogne/";
-			int idx = value.indexOf(dir);
-			if(idx == -1){
-				return value;
-			}
-			value = value.substring(idx+dir.length());
+			value = relative(value, "/war/bastogne/","");
+			value = relative(value, "/war/", "../");
 			System.out.println("img:"+value);
 		}
+		return value;
+	}
+
+	public String relative(String value, final String dir, String prefix) {
+		int idx = value.indexOf(dir);
+		if(idx == -1){
+			return value;
+		}
+		value = prefix+value.substring(idx+dir.length());
 		return value;
 	}
 }
