@@ -25,19 +25,25 @@ import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 import net.sf.jsr107cache.CacheManager;
 
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 
+import earl.client.data.Counter;
+import earl.client.data.Game;
 import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
-import earl.client.games.Bastogne;
-import earl.client.games.BastogneSide;
-import earl.client.games.Game;
-import earl.client.op.Operation;
+import earl.client.games.scs.bastogne.Bastogne;
+import earl.client.games.scs.bastogne.BastogneSide;
+import earl.client.ops.Operation;
+import earl.client.ops.ServerContext;
 import earl.client.remote.ServerEngine;
-import earl.manager.Table;
+import earl.server.entity.GameState;
+import earl.server.entity.OperationEntity;
+import earl.server.entity.Table;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
 
@@ -86,6 +92,23 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			}
 		}
 		return info;
+	}
+	
+	public void save(Game game, long tableId, String user, Date timestamp) {
+		Collection<Counter> counters = game.getBoard().getCounters();
+		Key<Table> table = Key.create(Table.class, tableId);		
+		GameState state = new GameState();
+		state.table = table;		
+		state.user = user;
+		state.updated = timestamp;
+		
+		Entity entity = ofy().toEntity(state);
+		for (Counter counter : counters) {
+			String hexPos = counter.getPosition().ref().getId();
+			String counterPos = counter.ref().getId();
+			entity.setProperty(counterPos, hexPos);
+		}
+		ofy().save().entity(state);
 	}
 
 	public Collection<Operation> loadOps(String tableId) {
@@ -170,14 +193,21 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	@Override
 	public Operation process(Operation op) {
 		String tableId = getTableId();
+		long tid = Long.parseLong(tableId);
+		String user = getUser();
+		op.author = getSide(tid, user);
 		Bastogne bastogne = getGame(tableId);
-		op.game = bastogne;
-		op.serverExecute();
+		ServerContext ctx = new ServerContext();
+		ctx.game = bastogne;
+		op.serverExecute(ctx);
+
 		OperationEntity e = new OperationEntity();
 		e.sessionId = tableId;		
 		e.data = serialize(op);
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
+		
+		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
 		String lastKey = (String) cache.get(e.sessionId);
@@ -187,9 +217,19 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String newKey = e.sessionId+e.timestamp;
 		cache.put(newKey, c);
 		cache.put(e.sessionId, newKey);
-		long id = Long.parseLong(tableId);
-		notify.notifyListeners(id, op, getUser());
+		notify.notifyListeners(tid, op, user);
 		return op;
+	}
+
+	private BastogneSide getSide(long tableId, String user) {
+		Table table = ofy().load().type(Table.class).id(tableId).get();
+		if (user.equals(table.player1)) {
+			return BastogneSide.US;
+		} else if (user.equals(table.player2)) {
+			return BastogneSide.GE;
+		}else{
+			return null;
+		}
 	}
 
 	private Bastogne getGame(String tableId) {

@@ -6,9 +6,9 @@ import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 
-import earl.client.bastogne.op.OpponentConnected;
-import earl.client.op.Operation;
-import earl.manager.Table;
+import earl.client.ops.Operation;
+import earl.client.ops.generic.OpponentConnected;
+import earl.server.entity.Table;
 
 public class Notify {
 

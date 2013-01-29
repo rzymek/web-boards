@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import earl.client.bastogne.op.HexRef;
+import earl.client.data.ref.HexId;
+import earl.client.data.ref.HexRef;
+
 
 public class Hex extends Identifiable {
 	protected List<Counter> pieces = new ArrayList<Counter>();

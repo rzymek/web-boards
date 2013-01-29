@@ -10,11 +10,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import earl.client.bastogne.op.CounterRef;
-import earl.client.bastogne.op.HexRef;
+import earl.client.data.ref.CounterRef;
+import earl.client.data.ref.HexRef;
 import earl.client.utils.Browser;
 
 public class Board implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Map<String, Counter> counters = null;
 	private final Map<String, Hex> hexes = new HashMap<String, Hex>();;
 

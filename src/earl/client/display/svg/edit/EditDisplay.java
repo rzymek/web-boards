@@ -28,9 +28,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
 import earl.client.data.Hex;
-import earl.client.display.handler.BasicDisplayHandler;
+import earl.client.display.BasicDisplayHandler;
+import earl.client.display.Position;
 import earl.client.display.svg.SVGDisplay;
-import earl.client.op.Position;
 import earl.client.utils.AbstractCallback;
 
 public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPressHandler, MouseDownHandler {

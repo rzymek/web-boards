@@ -4,16 +4,8 @@ import com.google.gwt.appengine.channel.client.SocketError;
 import com.google.gwt.appengine.channel.client.SocketListener;
 import com.google.gwt.user.client.Window;
 
-import earl.client.bastogne.op.ChatMessage;
-import earl.client.bastogne.op.DiceRoll;
-import earl.client.bastogne.op.Flip;
-import earl.client.bastogne.op.Move;
-import earl.client.bastogne.op.OpponentConnected;
-import earl.client.bastogne.op.PerformAttack;
 import earl.client.data.Board;
-import earl.client.ex.EarlException;
-import earl.client.op.EarlDisplay;
-import earl.client.op.Operation;
+import earl.client.display.EarlDisplay;
 
 public final class NotificationListener implements SocketListener {
 	private Board board;

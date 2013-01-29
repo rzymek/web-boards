@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import earl.client.data.GameInfo;
-import earl.client.op.Operation;
+import earl.client.ops.Operation;
 
 @RemoteServiceRelativePath("engine")
 public interface ServerEngine extends RemoteService {

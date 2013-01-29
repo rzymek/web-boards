@@ -50,7 +50,7 @@ public class TouchScrollPanel extends ScrollPanel {
  
  
 	private void setInitialTouch(int x, int y) {
-		initialVerticalOffset = getScrollPosition();
+		initialVerticalOffset = getVerticalScrollPosition();
 		initialHorizontalOffset = getHorizontalScrollPosition();
  
 		initialTouchX = x;
@@ -64,7 +64,7 @@ public class TouchScrollPanel extends ScrollPanel {
 			moved = true;
 			int vDelta = initialTouchY - y;
 			int hDelta = initialTouchX - x;
-			setScrollPosition(vDelta + initialVerticalOffset);
+			setVerticalScrollPosition(vDelta + initialVerticalOffset);
 			setHorizontalScrollPosition(hDelta + initialHorizontalOffset);
 		}
 	}

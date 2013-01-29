@@ -27,14 +27,13 @@ import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
-import earl.client.display.Dimention;
-import earl.client.display.handler.BasicDisplayHandler;
+import earl.client.display.BasicDisplay;
+import earl.client.display.BasicDisplayHandler;
+import earl.client.display.Position;
 import earl.client.ex.EarlException;
-import earl.client.games.SCSCounter;
-import earl.client.op.Operation;
-import earl.client.op.Position;
+import earl.client.games.scs.SCSCounter;
+import earl.client.ops.Operation;
 import earl.client.utils.Browser;
-import earl.client.utils.SVGUtils;
 
 public class SVGDisplay extends BasicDisplay {
 	protected final SVGSVGElement svg;

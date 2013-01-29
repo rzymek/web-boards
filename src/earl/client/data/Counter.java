@@ -1,6 +1,7 @@
 package earl.client.data;
 
-import earl.client.bastogne.op.CounterRef;
+import earl.client.data.ref.CounterRef;
+
 
 
 public abstract class Counter extends Identifiable {
