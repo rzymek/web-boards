@@ -3,7 +3,7 @@ package earl.tools;
 import java.io.File;
 import java.net.URL;
 
-import earl.client.bastogne.op.Move;
+import earl.client.games.scs.ops.Move;
 
 public class GenOp {
 	public static void main(String[] args) {
