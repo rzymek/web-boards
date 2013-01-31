@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>engine</servlet-name>
+		<servlet-class>earl.server.ServerEngineImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>engine</servlet-name>
+		<url-pattern>/earl.ClientEngine/engine</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>edit</servlet-name>
+		<servlet-class>earl.server.edit.EditServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>edit</servlet-name>
+		<url-pattern>/earl.ClientEngine/edit</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>ManagerServlet</servlet-name>
+		<servlet-class>earl.server.servlet.ManagerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerServlet</servlet-name>
+		<url-pattern>/_ah/channel/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ManagerServlet</servlet-name>
+		<url-pattern>/earl/start</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>earl</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+</web-app>
