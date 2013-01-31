@@ -6,4 +6,6 @@ bin/
 target
 gae
 .settings
+.project
+.classpath
 /war
