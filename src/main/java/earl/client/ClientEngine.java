@@ -1,5 +1,8 @@
 package earl.client;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
@@ -14,13 +17,16 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
+import earl.client.data.Counter;
 import earl.client.data.GameInfo;
+import earl.client.data.Hex;
 import earl.client.display.BasicDisplayHandler;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.SVGZoomAndPanHandler;
 import earl.client.display.svg.edit.EditDisplay;
 import earl.client.games.scs.SCSDisplayHandler;
 import earl.client.games.scs.bastogne.Bastogne;
+import earl.client.games.scs.ops.Move;
 import earl.client.menu.EarlClienContext;
 import earl.client.menu.EarlMenu;
 import earl.client.ops.Operation;
@@ -63,14 +69,28 @@ public class ClientEngine implements EntryPoint {
 		BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
 		display = new SVGDisplay(svg, handler);
 		ClientEngine.this.display = display;
-		board = game.getBoard();		
+		board = game.getBoard();
 		display.setBoard(board);
+		setupMenu(info, game, handler);
 		if (Window.Location.getParameter("i") != null) {
 			NotificationListener.join(info.channelToken);
 		}
+		Set<Entry<String, String>> set = info.state.entrySet();
+		for (Entry<String, String> state : set) {
+			String counterId = state.getKey();
+			String posId = state.getValue();
+			Hex to = board.getHex(posId);
+			Counter counter = board.getCounter(counterId);
+			counter.setPosition(to);
+			Move move = new Move(counter, to);
+			move.draw(board, display);
+		}
 		for (Operation op : info.ops) {
+			op.clientExecute(board);
+			op.drawDetails(display);
 			op.draw(board, display);
 			op.postServer(board, display);
+			log(op.toString());
 		}
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
@@ -78,6 +98,10 @@ public class ClientEngine implements EntryPoint {
 				service.join(tableId, new AbstractCallback<Void>());
 			}
 		}
+	}
+
+
+	public void setupMenu(GameInfo info, final Bastogne game, BasicDisplayHandler handler) {
 		EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
 		ctx.game = game;
@@ -103,7 +127,7 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	private native boolean isViewportScaling() /*-{
-		return document.documentElement.scrollWidth <= window.innerWidth;
+		return $doc.documentElement.scrollWidth <= $wnd.innerWidth;
 	}-*/;
 
 	private native boolean isTouchDevice() /*-{

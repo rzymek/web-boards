@@ -15,6 +15,18 @@ public class Move extends Operation implements Undoable {
 	public HexRef fromRef;
 	public HexRef toRef;
 
+	protected Move() {		
+	}
+	
+	public Move(Counter counter, Hex to) {
+		counterRef = counter.ref();
+		Hex from = counter.getPosition();
+		if(from != null) {
+			fromRef = from.ref();
+		}
+		toRef = to.ref();
+	}
+
 	@Override
 	public void clientExecute(Board board) {
 		Counter counter = board.get(counterRef);
@@ -28,6 +40,11 @@ public class Move extends Operation implements Undoable {
 		Hex to = board.get(toRef);
 		g.alignStack(from);
 		g.alignStack(to);
+	}
+	
+	@Override
+	public void drawDetails(EarlDisplay g) {
+		g.drawArrow(fromRef, toRef, toRef.getId());
 	}
 	
 	@Override

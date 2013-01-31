@@ -14,4 +14,5 @@ public class GameInfo implements Serializable {
 	public Map<String, String> mapInfo;
 	public BastogneSide joinAs;
 	public BastogneSide side;
+	public Map<String, String> state;
 }

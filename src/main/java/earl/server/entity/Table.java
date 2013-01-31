@@ -18,7 +18,7 @@ public class Table {
 	public String player1;
 	@Index
 	public String player2;
-	
+
 	@Override
 	public String toString() {
 		String start = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(started);

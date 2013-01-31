@@ -56,4 +56,9 @@ public class PerformAttack extends Operation {
 		display.clearOds(display.getCenter(target));
 		display.showResults(display.getCenter(target), result.toString());
 	}
+	
+	@Override
+	public String toString() {
+		return "Attack againts "+targetRef+": "+result+" ("+rollResult+")";
+	}
 }

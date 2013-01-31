@@ -23,4 +23,6 @@ public abstract class Operation implements Serializable {
 
 	public void postServer(Board board, EarlDisplay basicDisplay) {
 	}
+	@Override
+	public abstract String toString();
 }

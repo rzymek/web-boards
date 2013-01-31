@@ -6,3 +6,4 @@ bin/
 target
 gae
 .settings
+/war

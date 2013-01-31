@@ -23,6 +23,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
+import earl.client.ClientEngine;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -194,6 +195,7 @@ public class SVGDisplay extends BasicDisplay {
 			SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
 			rect.getStyle().setVisibility(Visibility.HIDDEN);
 		} else {
+			ClientEngine.log(i.getId());
 			select(i.getId());
 		}
 	}
@@ -227,10 +229,14 @@ public class SVGDisplay extends BasicDisplay {
 	private static final String ARROW_ID_PREFIX = "attackArrow";
 	
 	@Override
-	public void drawArrow(Position start, Position end, Hex hex) {		
-		SVGPathElement arrow;
-		String id = getArrowId(hex);
-		arrow = (SVGPathElement) svg.getElementById(id);
+	public void drawArrow(Identifiable from, Identifiable to, String id) {
+		drawArrow(getCenter(from), getCenter(to), id);
+	}
+	
+	@Override
+	public void drawArrow(Position start, Position end, String id) {
+		id = ARROW_ID_PREFIX+"_"+id;
+		SVGPathElement arrow = (SVGPathElement) svg.getElementById(id);
 		if(arrow == null) {
 			arrow = (SVGPathElement) svg.getElementById(ARROW_ID_PREFIX);
 			arrow.getStyle().setProperty("pointerEvents", "none");
@@ -259,7 +265,7 @@ public class SVGDisplay extends BasicDisplay {
 		}
 	}
 
-	private String getArrowId(Hex from) {
+	private String getArrowId(Identifiable from) {
 		return ARROW_ID_PREFIX + "_" + from.getId();
 	}
 	

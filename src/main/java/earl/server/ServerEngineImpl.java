@@ -23,13 +23,12 @@ import java.util.logging.Logger;
 
 import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
-import net.sf.jsr107cache.CacheManager;
 
-import com.google.appengine.api.datastore.Entity;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
+import com.googlecode.objectify.cmd.Query;
 
 import earl.client.data.Counter;
 import earl.client.data.Game;
@@ -54,14 +53,14 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private static final long serialVersionUID = 1L;
 	private transient final Notify notify = new Notify();
 
-	private transient final Cache cache;
+	private transient final Cache cache = null;
 
 	private transient static Map<String, Game> games = Collections.synchronizedMap(new HashMap<String, Game>());
 
 	public ServerEngineImpl() throws CacheException {
-		Map<Object, Object> config = new HashMap<Object, Object>();
+//		Map<Object, Object> config = new HashMap<Object, Object>();
 //		config.put(GCacheFactory.EXPIRATION_DELTA, 3 * 60/*sec*/);
-		cache = CacheManager.getInstance().getCacheFactory().createCache(config);
+//		cache = CacheManager.getInstance().getCacheFactory().createCache(config);
 	}
 
 	@Override
@@ -70,7 +69,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		long tid = Long.parseLong(tableId);
 		info.channelToken = notify.openChannel(tid, getUser());
 		info.mapInfo = loadMapInfo();
-		info.ops = loadOps(tableId);
 		Table table = ofy().load().type(Table.class).id(tid).get();
 		if (table == null) {
 			throw new EarlServerException("Invalid table id=" + tableId);
@@ -90,7 +88,18 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				throw new EarlServerException("This is not your game");
 			}
 		}
+
+		GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
+		info.state = loadState(info, state);
+		info.ops = loadOps(tableId, state);
 		return info;
+	}
+
+	public Map<String, String> loadState(GameInfo info, GameState state) {
+		if(state == null) {
+			return new HashMap<String, String>();
+		}
+		return state.state;
 	}
 	
 	public void save(Game game, long tableId, String user, Date timestamp) {
@@ -100,20 +109,24 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		state.table = table;		
 		state.user = user;
 		state.updated = timestamp;
+		state.state = new HashMap<String, String>();
 		
-		Entity entity = ofy().toEntity(state);
 		for (Counter counter : counters) {
 			String hexPos = counter.getPosition().ref().getId();
 			String counterPos = counter.ref().getId();
-			entity.setProperty(counterPos, hexPos);
+			state.state.put(counterPos, hexPos);
 		}
 		ofy().save().entity(state);
 	}
 
-	public Collection<Operation> loadOps(String tableId) {
+	public Collection<Operation> loadOps(String tableId, GameState state) {
 		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		Collection<OperationEntity> res = load.filter("sessionId", tableId).order("timestamp").list();		
-		res = updateWithPending(tableId, res);
+		Query<OperationEntity> query = load.filter("sessionId", tableId);
+		if(state != null) {
+			query = query.filter("timestamp >", state.updated);
+		}
+		Collection<OperationEntity> res = query.order("timestamp").list();		
+//		res = updateWithPending(tableId, res);
 		List<Operation> results = new ArrayList<Operation>();
 		for (OperationEntity operationEntity : res) {
 			results.add(deserialize(operationEntity.data));
@@ -199,6 +212,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		Bastogne bastogne = getGame(tableId);
 		ServerContext ctx = new ServerContext();
 		ctx.game = bastogne;
+		op.clientExecute(bastogne.getBoard());
 		op.serverExecute(ctx);
 
 		OperationEntity e = new OperationEntity();
@@ -210,14 +224,15 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
-		String lastKey = (String) cache.get(e.sessionId);
-		CacheEntry c = new CacheEntry();
-		c.nextKey = lastKey;
-		c.value = e;
-		String newKey = e.sessionId+e.timestamp;
-		cache.put(newKey, c);
-		cache.put(e.sessionId, newKey);
+//		String lastKey = (String) cache.get(e.sessionId);
+//		CacheEntry c = new CacheEntry();
+//		c.nextKey = lastKey;
+//		c.value = e;
+//		String newKey = e.sessionId+e.timestamp;
+//		cache.put(newKey, c);
+//		cache.put(e.sessionId, newKey);
 		notify.notifyListeners(tid, op, user);
+		log.info("Executed "+op);
 		return op;
 	}
 

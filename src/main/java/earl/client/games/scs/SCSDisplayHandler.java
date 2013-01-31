@@ -11,7 +11,6 @@ import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.ref.HexRef;
 import earl.client.display.BasicDisplayHandler;
-import earl.client.display.Position;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.bastogne.BastogneSide;
 import earl.client.games.scs.ops.PerformAttack;
@@ -41,19 +40,15 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 					return super.moveToHex(area);
 				} else {					
 					if(selected.isRanged()) {
-						Hex from = selected.getPosition();
-						Position start = display.getCenter(from);
-						Position end = display.getCenter(target.getPosition());
-						display.drawArrow(start, end, from);
+						Hex start = selected.getPosition();
+						display.drawArrow(start, target.getPosition(), start.getId());
 						setSelectedPiece(null);
 						return null;
 					}else if (isAdjacent(target, selectedPiece)) {
 						Hex targetHex = target.getPosition();
 						Hex attacking = selectedPiece.getPosition();
 						attacks.put(attacking, targetHex);
-						Position start = display.getCenter(attacking);
-						Position end = display.getCenter(targetHex);
-						display.drawArrow(start, end, attacking);
+						display.drawArrow(attacking, targetHex, attacking.getId());
 						int[] odds = game.calculateOdds(targetHex, getAttacking(targetHex));
 						display.drawOds(display.getCenter(targetHex), odds);
 						setSelectedPiece(null);

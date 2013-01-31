@@ -9,7 +9,7 @@ public interface EarlDisplay {
 
 	Position getCenter(Identifiable to);
 
-	void drawArrow(Position start, Position end, Hex from);
+	void drawArrow(Position start, Position end, String id);
 
 	void update(Identifiable counter, String state);
 
@@ -30,5 +30,7 @@ public interface EarlDisplay {
 	void showResults(Position center, String result);
 
 	void clearResults(Position center);
+
+	void drawArrow(Identifiable from, Identifiable to, String id);
 
 }

@@ -61,10 +61,7 @@ public class EarlMenu implements ClickHandler {
 			if (piece == null) {
 				Window.alert("Select a counter first");
 			} else {
-				Move move = new Move();
-				move.counterRef = piece.ref();
-				move.fromRef = piece.getPosition().ref();
-				move.toRef = ctx.game.getBoard().getHex("Dead pool").ref();
+				Move move = new Move(piece, ctx.game.getBoard().getHex("Dead pool"));
 				ctx.handler.setSelectedPiece(null);
 				ctx.display.process(move);
 			}

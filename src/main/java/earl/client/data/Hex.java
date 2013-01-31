@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import earl.client.data.ref.HexId;
 import earl.client.data.ref.HexRef;
 
 
@@ -54,6 +53,6 @@ public class Hex extends Identifiable {
 	}
 
 	public HexRef ref() {
-		return new HexId(hexId);
+		return new HexRef(hexId);
 	}
 }

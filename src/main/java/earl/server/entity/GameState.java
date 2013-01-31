@@ -1,6 +1,7 @@
 package earl.server.entity;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
@@ -16,4 +17,5 @@ public class GameState {
 	@Id
 	public String user;
 	public Date updated;
+	public Map<String,String> state;
 }

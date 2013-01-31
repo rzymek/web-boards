@@ -34,4 +34,8 @@ public class Flip extends Operation  implements Undoable {
 		Counter counter = board.get(counterRef);
 		counter.flip();
 	}
+	@Override
+	public String toString() {
+		return counterRef+" flipped.";
+	}
 }

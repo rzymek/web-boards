@@ -2,8 +2,19 @@ package earl.client.data.ref;
 
 import java.io.Serializable;
 
-public interface HexRef extends Serializable {
+import earl.client.data.Identifiable;
 
-	String getId();
+public class HexRef extends Identifiable implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String id;
+	public HexRef() {		
+	}
+	public HexRef(String id) {
+		this.id = id;		
+	}
+	@Override
+	public String getId() {
+		return id;
+	}
 
 }

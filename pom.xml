@@ -102,7 +102,8 @@
 					<appEngineHome>gae</appEngineHome>
 					<compileReport>false</compileReport>
 					<draftCompile>true</draftCompile><!-- speedup -->
-					<debugSuspend>false</debugSuspend>					
+					<debugSuspend>false</debugSuspend>
+					<bindAddress>0.0.0.0</bindAddress>					
 				</configuration>
 			</plugin>
 
