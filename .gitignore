@@ -3,5 +3,6 @@ bin/
 .metadata/
 .netrc
 .gwt
-/target
+target
 gae
+.settings
