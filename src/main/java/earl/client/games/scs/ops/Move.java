@@ -44,7 +44,7 @@ public class Move extends Operation implements Undoable {
 	
 	@Override
 	public void drawDetails(EarlDisplay g) {
-		g.drawArrow(fromRef, toRef, toRef.getId());
+		g.drawLine(fromRef, toRef);
 	}
 	
 	@Override

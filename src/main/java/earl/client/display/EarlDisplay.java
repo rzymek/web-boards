@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
+import earl.client.data.ref.HexRef;
 
 public interface EarlDisplay {
 
@@ -32,5 +33,7 @@ public interface EarlDisplay {
 	void clearResults(Position center);
 
 	void drawArrow(Identifiable from, Identifiable to, String id);
+
+	void drawLine(Identifiable fromRef, Identifiable toRef);
 
 }

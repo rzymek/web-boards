@@ -34,6 +34,19 @@
   <defs
      id="defs6">
     <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Send"
+       style="overflow:visible;">
+      <path
+         id="path5687"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
+    </marker>
+    <marker
        style="overflow:visible"
        id="TriangleOutSJ"
        refX="0"
@@ -168,17 +181,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1215"
-     inkscape:window-height="1000"
+     inkscape:window-width="1615"
+     inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="0.23838645"
-     inkscape:cx="1991.058"
-     inkscape:cy="629.62443"
+     inkscape:zoom="1.3485174"
+     inkscape:cx="-13.698463"
+     inkscape:cy="1849.0361"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="area"
+     inkscape:current-layer="tmpl"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -200,8 +213,8 @@
      style="display:inline"
      transform="translate(-10,-10.464277)">
     <image
-       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/board.jpg"
-       xlink:href="/home/rzymek/Dropbox/devel/earl/war/bastogne/board.jpg"
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/bastogne/board.jpg"
+       xlink:href="../webapp/bastogne/board.jpg"
        y="37.070801"
        x="10"
        id="img"
@@ -33798,14 +33811,14 @@
        y="-86.663177"
        ry="2.5394881" />
     <image
+       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/img/loading.gif"
+       xlink:href="../webapp/img/loading.gif"
        width="40"
        height="40"
        id="counter"
        x="-27.70993"
        y="-86.663177"
-       style="display:inline"
-       sodipodi:absref="/home/rzymek/Dropbox/devel/earl/war/bastogne/units/front/us/3-3-16+Cherry_D-90_f.png"
-       xlink:href="/home/rzymek/Dropbox/devel/earl/war/img/loading.gif" />
+       style="display:inline" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="M 59.434886,-35.288766 98.177005,-76.021414"
@@ -33879,5 +33892,11 @@
            id="result-text"
            sodipodi:role="line">D1r3</tspan></text>
     </g>
+    <path
+       style="fill:none;stroke:#1506ff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.51141555;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#Arrow2Send)"
+       d="m 148.67082,-89.109646 165.40405,45.97641"
+       id="trace"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
