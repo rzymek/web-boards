@@ -101,7 +101,8 @@
 					<appEngineVersion>${gae.version}</appEngineVersion>
 					<appEngineHome>gae</appEngineHome>
 					<compileReport>false</compileReport>
-					<draftCompile>true</draftCompile><!-- speedup -->					
+					<draftCompile>true</draftCompile><!-- speedup -->
+					<debugSuspend>false</debugSuspend>					
 				</configuration>
 			</plugin>
 

@@ -6,4 +6,6 @@
 	<source path="client"/>
 	<entry-point class="earl.client.ClientEngine"/>	
 	<set-property name="user.agent" value="safari,gecko1_8" /> <!-- remove on PROD -->
+	<add-linker name="xsiframe"/>  <!-- for super dev mode -->
+	<set-configuration-property name="devModeRedirectEnabled" value="true"/> 
 </module>
