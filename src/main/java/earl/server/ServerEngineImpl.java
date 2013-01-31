@@ -175,6 +175,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if (principal == null) {
 			throw new SecurityException("Not logged in.");
 		}
+		log.fine("user: "+principal.getName());
 		return principal.getName();
 	}
 

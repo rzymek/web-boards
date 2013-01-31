@@ -1,0 +1,12 @@
+# Deploy to gea (using appId & version from /earl/src/main/webapp/WEB-INF/appengine-web.xml) 
+mvn gwt:compile appengine:upload
+
+#Clean
+mvn gwt:clean clean 
+
+#Local run
+mvn gwt:clean gwt:compile compile war:inplace gwt:run
+ 
+
+#DevMode
+mvn gwt:run	

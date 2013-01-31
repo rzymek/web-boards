@@ -100,11 +100,12 @@
 					<server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
 					<appEngineVersion>${gae.version}</appEngineVersion>
 					<appEngineHome>gae</appEngineHome>
-					<compileReport>true</compileReport>
+					<compileReport>false</compileReport>
+					<draftCompile>true</draftCompile><!-- speedup -->					
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>${gae.version}</version>
