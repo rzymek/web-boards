@@ -39,8 +39,8 @@ public class SVGCleaner {
 		long start = System.currentTimeMillis();
 		TransformerFactory factory = TransformerFactory.newInstance();		
 		Transformer transformer = factory.newTransformer(new StreamSource("clean.xslt"));
-		File out = new File("../earl/war/bastogne/bastogne.svg");
-		File in = new File("../earl/sources/bastogne-orig.svg");
+		File out = new File("../earl/src/main/webapp/bastogne/bastogne.svg");
+		File in  = new File("../earl/src/main/svg/bastogne-orig.svg");
 
 		ByteArrayOutputStream buf = new ByteArrayOutputStream();
 		Result run1Result = new StreamResult(buf);

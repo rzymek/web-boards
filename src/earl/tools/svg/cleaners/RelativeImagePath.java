@@ -29,8 +29,8 @@ public class RelativeImagePath extends StreamCopy {
 	
 	private String makeRelative(String localName, String value) {
 		if("href".equals(localName)) {
-			value = relative(value, "/war/bastogne/","");
-			value = relative(value, "/war/", "../");
+			value = relative(value, "../webapp/bastogne/","");
+			value = relative(value, "../webapp/", "../");
 			System.out.println("img:"+value);
 		}
 		return value;
