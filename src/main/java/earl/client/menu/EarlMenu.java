@@ -1,6 +1,7 @@
 package earl.client.menu;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.dom.client.Document;
@@ -9,6 +10,7 @@ import com.google.gwt.dom.client.Style.FontStyle;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -91,6 +93,7 @@ public class EarlMenu implements ClickHandler {
 	}
 
 	public void log(String msg) {
+		msg = DateTimeFormat.getFormat("[HH:mm:ss] ").format(new Date()) + msg;
 		logMessages.add(msg);
 		if (log != null) {
 			writeLog(msg);
