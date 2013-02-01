@@ -13,6 +13,7 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 	</properties>
 
 	<dependencies>
@@ -77,7 +78,7 @@
 	</dependencies>
 
 	<build>
-		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<outputDirectory>${outputDirectory}</outputDirectory>
 		<plugins>     
       		<!-- GWT Maven Plugin-->
 			<plugin>
@@ -103,17 +104,12 @@
 					<compileReport>false</compileReport>
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
-					<bindAddress>0.0.0.0</bindAddress>					
+					<bindAddress>0.0.0.0</bindAddress>
 				</configuration>
-			</plugin>
-
-			<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
-				<groupId>com.google.appengine</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${gae.version}</version>
 			</plugin>
 		</plugins>
 	</build>
+
 	<repositories>
 		<repository>
 			<id>google-releases</id>
@@ -121,4 +117,41 @@
 			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
 		</repository>
 	</repositories>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<properties>
+				<outputDirectory>target/classes</outputDirectory>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>gwt-maven-plugin</artifactId>
+						<version>${gwt.version}</version>
+						<configuration>
+							<inplace>false</inplace>
+							<compileReport>true</compileReport>
+							<draftCompile>false</draftCompile>
+						</configuration>
+					</plugin>
+					<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
+						<groupId>com.google.appengine</groupId>
+						<artifactId>appengine-maven-plugin</artifactId>
+						<version>${gae.version}</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>update</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
