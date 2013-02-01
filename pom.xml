@@ -14,6 +14,12 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<dev.module.config><![CDATA[
+			<set-property name="user.agent" value="safari"/>		
+			<!-- for super dev mode -->
+			<add-linker name="xsiframe"/>  
+			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
+		]]></dev.module.config>
 	</properties>
 
 	<dependencies>
@@ -105,9 +111,18 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
+					<optimizationLevel>0</optimizationLevel>
+					<style>PRETTY</style>
+					<logLevel>INFO</logLevel>
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<repositories>
@@ -120,9 +135,10 @@
 
 	<profiles>
 		<profile>
-			<id>release</id>
+			<id>prod</id>
 			<properties>
 				<outputDirectory>target/classes</outputDirectory>
+				<dev.module.config/>
 			</properties>
 			<build>
 				<plugins>
@@ -134,6 +150,8 @@
 							<inplace>false</inplace>
 							<compileReport>true</compileReport>
 							<draftCompile>false</draftCompile>
+							<optimizationLevel>9</optimizationLevel>
+							<style>OBFUSCATED</style>
 						</configuration>
 					</plugin>
 					<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
