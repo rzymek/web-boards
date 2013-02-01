@@ -24,6 +24,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import earl.tools.svg.cleaners.AddLayers;
 import earl.tools.svg.cleaners.ApplyTransform;
 import earl.tools.svg.cleaners.FindCommonStyles;
 import earl.tools.svg.cleaners.FixHexIds;
@@ -32,6 +33,7 @@ import earl.tools.svg.cleaners.NamespacesFix;
 import earl.tools.svg.cleaners.RelativeImagePath;
 import earl.tools.svg.cleaners.RemoveHexColor;
 import earl.tools.svg.cleaners.RemoveIds;
+import earl.tools.svg.cleaners.SetSVGDimentions;
 
 public class SVGCleaner {
 
@@ -52,7 +54,7 @@ public class SVGCleaner {
 		
 		//clean.xslt needs to be replaced with StreamCopy filters for this to work
 		//because otherwise inkscape:label is already removed here 
-//		writer = new LayerNameToId(writer); 
+//		writer = new LayerNameToId(writer);
 		writer = new HideTmpl(writer);
 		writer = new FixHexIds(writer);
 		writer = new FindCommonStyles(writer, count);		
@@ -61,6 +63,8 @@ public class SVGCleaner {
 		writer = new RemoveHexColor(writer);
 		writer = new RelativeImagePath(writer);
 		writer = new ApplyTransform(writer);
+		writer = new AddLayers(writer);
+		writer = new SetSVGDimentions(writer);
 		
 		Source source = new StreamSource(in);
 		Result result = new StAXResult(writer);
@@ -72,7 +76,8 @@ public class SVGCleaner {
 		
 		dump(count);
 		System.out.println("Saved: "+(100 - (100 * out.length() / in.length())) + "% in " + (System.currentTimeMillis() - start) + "ms");		
-		System.out.println(IOUtils.toString(new FileReader(out)).substring(0, 3000));		
+		String string = IOUtils.toString(new FileReader(out));
+		System.out.println(string.substring(0, Math.min(string.length(), 3000)));
 	}
 
 	private static void dump(Map<String, Integer> count) {
