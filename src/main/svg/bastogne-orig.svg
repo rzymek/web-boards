@@ -186,12 +186,12 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="0.23838645"
-     inkscape:cx="1837.7357"
-     inkscape:cy="326.10638"
+     inkscape:cx="1228.6763"
+     inkscape:cy="1564.5366"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="area"
+     inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -210,8 +210,7 @@
      inkscape:groupmode="layer"
      id="board"
      inkscape:label="board"
-     style="display:inline"
-     transform="translate(-10,-10.464277)">
+     style="display:inline">
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/bastogne/board.jpg"
        xlink:href="../webapp/bastogne/board.jpg"
@@ -225,8 +224,7 @@
      inkscape:groupmode="layer"
      id="area"
      inkscape:label="hexes"
-     style="display:inline"
-     transform="translate(-10,-10.464277)">
+     style="display:inline">
     <path
        inkscape:tile-y0="4263.254"
        inkscape:tile-x0="9.0968435"
@@ -33722,7 +33720,7 @@
        inkscape:tile-x0="117.09214"
        inkscape:tile-y0="4326.1135" />
     <rect
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="us_dg"
        width="278.27142"
        height="191.57343"
@@ -33734,7 +33732,7 @@
        height="188.72955"
        width="279.745"
        id="ge_dg"
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        style="fill:#efefef;fill-opacity:0.56953646;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="US2"
@@ -33743,7 +33741,7 @@
        x="1485.6232"
        y="805.83258" />
     <rect
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="1E"
        width="60.790623"
        height="433.55246"
@@ -33755,21 +33753,21 @@
        height="438.12485"
        width="61.192738"
        id="1D"
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        y="986.65179"
        x="2421.1221"
        height="72.835915"
        width="76.012444"
        id="3E"
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        y="1784.3647"
        x="2778.0278"
        height="180.08629"
        width="221.27774"
        id="Dead pool"
-       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701987;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <text
        sodipodi:linespacing="100%"
        id="text4105"
@@ -33785,22 +33783,8 @@
   </g>
   <g
      inkscape:groupmode="layer"
-     id="units"
-     inkscape:label="units"
-     style="display:inline"
-     transform="translate(-10,-10.464277)" />
-  <g
-     inkscape:groupmode="layer"
-     id="markers"
-     inkscape:label="markers"
-     style="display:inline"
-     transform="translate(-10,-10.464277)" />
-  <g
-     inkscape:groupmode="layer"
      id="tmpl"
-     inkscape:label="tmpl"
-     style="display:inline"
-     transform="translate(-10,-10.464277)">
+     inkscape:label="tmpl">
     <rect
        inkscape:label="#rect15007"
        style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
@@ -33830,7 +33814,7 @@
        id="target">
       <path
          transform="matrix(1.038961,0,0,1.038961,-361.10721,-772.0951)"
-         d="m 366.5,742.13348 c 0,10.63149 -8.61852,19.25 -19.25,19.25 -10.63148,0 -19.25,-8.61851 -19.25,-19.25 0,-10.63148 8.61852,-19.25 19.25,-19.25 10.63148,0 19.25,8.61852 19.25,19.25 z"
+         d="m 366.5,742.13348 a 19.25,19.25 0 1 1 -38.5,0 19.25,19.25 0 1 1 38.5,0 z"
          sodipodi:ry="19.25"
          sodipodi:rx="19.25"
          sodipodi:cy="742.13348"

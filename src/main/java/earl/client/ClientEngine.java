@@ -53,9 +53,9 @@ public class ClientEngine implements EntryPoint {
 		}else{
 			connect();
 		}
-		if(!isViewportScaling()) {
-			svg.getWidth().getBaseVal().setValueAsString("100%");
-			svg.getHeight().getBaseVal().setValueAsString("100%");
+		if(isViewportScaling()) {
+			svg.getWidth().getBaseVal().setValue(svg.getViewBox().getBaseVal().getWidth());
+			svg.getHeight().getBaseVal().setValue(svg.getViewBox().getBaseVal().getHeight());
 		}
 		Window.setTitle("Bastogne!");
 //		centerView();
