@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.FontStyle;
@@ -16,10 +17,15 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import earl.client.ClientEngine;
 import earl.client.data.Counter;
+import earl.client.data.GameInfo;
 import earl.client.games.scs.ops.Flip;
 import earl.client.games.scs.ops.Move;
 import earl.client.ops.generic.DiceRoll;
+import earl.client.remote.ServerEngine;
+import earl.client.remote.ServerEngineAsync;
+import earl.client.utils.AbstractCallback;
 
 public class EarlMenu implements ClickHandler {
 	private final EarlClienContext ctx;
@@ -33,6 +39,7 @@ public class EarlMenu implements ClickHandler {
 		root = RootPanel.get("menu");
 		Button menu = add("Show menu");
 		menu.setVisible(true);
+		add("Undo");
 		add("Flip");
 		add("Remove unit");
 		logBtn = add("Show log");
@@ -81,6 +88,14 @@ public class EarlMenu implements ClickHandler {
 				Flip op = new Flip(piece.ref());
 				ctx.display.process(op);
 			}
+		} else if ("Undo".equals(text)) {
+			ServerEngineAsync server = GWT.create(ServerEngine.class);
+			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<GameInfo>(){
+				@Override
+				public void onSuccess(GameInfo result) {
+					Window.alert("refresh");
+				}
+			});
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
 			ctx.display.process(roll);

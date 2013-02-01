@@ -5,8 +5,7 @@ mvn gwt:compile appengine:upload
 mvn gwt:clean clean 
 
 #First local run
-mvn gwt:clean gwt:compile compile war:inplace gwt:debug
-
+mvn compile gwt:clean gwt:compile war:inplace gwt:debug
  
 #DevMode
 mvn gwt:run

@@ -91,7 +91,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 		GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
 		info.state = loadState(info, state);
-		info.ops = loadOps(tableId, state);
+		info.ops = loadOps(tid, state);
 		return info;
 	}
 
@@ -119,9 +119,22 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		ofy().save().entity(state);
 	}
 
-	public Collection<Operation> loadOps(String tableId, GameState state) {
+	@Override
+	public GameInfo undo(long tid) {
+		String user = getUser();
+		Table table = ofy().load().type(Table.class).id(tid).get();
+		GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
+		List<Operation> loadOps = loadOps(tid, state);
+		if(!loadOps.isEmpty()) {
+			Operation last = loadOps.get(loadOps.size()-1);
+			ofy().delete().entity(last).now();
+		}
+		return getState(String.valueOf(tid));
+	}
+	
+	public List<Operation> loadOps(long tableId, GameState state) {
 		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		Query<OperationEntity> query = load.filter("sessionId", tableId);
+		Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tableId));
 		if(state != null) {
 			query = query.filter("timestamp >", state.updated);
 		}
@@ -224,13 +237,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
-//		String lastKey = (String) cache.get(e.sessionId);
-//		CacheEntry c = new CacheEntry();
-//		c.nextKey = lastKey;
-//		c.value = e;
-//		String newKey = e.sessionId+e.timestamp;
-//		cache.put(newKey, c);
-//		cache.put(e.sessionId, newKey);
 		notify.notifyListeners(tid, op, user);
 		log.info("Executed "+op);
 		return op;

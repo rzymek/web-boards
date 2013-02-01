@@ -9,4 +9,5 @@ public interface ServerEngineAsync {
 	void getState(String tableId, AsyncCallback<GameInfo> callback);
 	void process(Operation op, AsyncCallback<Operation> abstractCallback);
 	void join(String tableId, AsyncCallback<Void> abstractCallback);
+	void undo(long table, AsyncCallback<GameInfo> callback);
 }

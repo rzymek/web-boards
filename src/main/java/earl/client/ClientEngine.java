@@ -158,7 +158,7 @@ public class ClientEngine implements EntryPoint {
 	
 	protected void connect() {
 		service = GWT.create(ServerEngine.class);
-		final String tableId = Window.Location.getParameter("table");
+		final String tableId = getTableId();
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {					
@@ -167,6 +167,9 @@ public class ClientEngine implements EntryPoint {
 		});
 	}
 
+	public static String getTableId() {
+		return Window.Location.getParameter("table");
+	}
 
 	public static native int getViewportWidth()/*-{
 		var w =+$doc.getElementById('viewport.width');
