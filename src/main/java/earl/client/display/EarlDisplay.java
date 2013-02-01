@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
-import earl.client.data.ref.HexRef;
 
 public interface EarlDisplay {
 

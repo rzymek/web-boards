@@ -28,7 +28,7 @@ public class Move extends Operation implements Undoable {
 	}
 
 	@Override
-	public void clientExecute(Board board) {
+	public void updateBoard(Board board) {
 		Counter counter = board.get(counterRef);
 		Hex to = board.get(toRef);
 		counter.setPosition(to);

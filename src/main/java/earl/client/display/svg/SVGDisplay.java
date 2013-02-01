@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.vectomatic.dom.svg.OMDocument;
-import org.vectomatic.dom.svg.OMSVGDocument;
-import org.vectomatic.dom.svg.OMSVGLineElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
@@ -59,6 +56,7 @@ public class SVGDisplay extends BasicDisplay {
 		Hex hex = board.getHex(id);
 		Operation op = handler.areaClicked(hex);
 		process(op);
+		handler.setSelectedPiece(handler.getSelectedPiece());
 	}
 
 	protected void counterClicked(final Board board, ClickEvent event) {
@@ -232,10 +230,6 @@ public class SVGDisplay extends BasicDisplay {
 	private static final String ARROW_ID_PREFIX = "attackArrow";
 	
 	@Override
-	public void drawArrow(Identifiable from, Identifiable to, String id) {
-		drawArrow(getCenter(from), getCenter(to), id);
-	}
-
 	public void drawLine(Identifiable from, Identifiable to) {
 		drawLine(getCenter(from), getCenter(to));
 	}
@@ -249,6 +243,11 @@ public class SVGDisplay extends BasicDisplay {
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
 		shortenArrow(arrow, seg);		
 		svg.getElementById("markers").appendChild(arrow);
+	}
+	
+	@Override
+	public void drawArrow(Identifiable from, Identifiable to, String id) {
+		drawArrow(getCenter(from), getCenter(to), id);
 	}
 	
 	@Override

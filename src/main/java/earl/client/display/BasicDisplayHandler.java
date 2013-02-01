@@ -36,8 +36,7 @@ public class BasicDisplayHandler {
 	}
 
 	protected Operation moveToHex(Hex area) {
-		Move move = new Move(selectedPiece, area);
-		setSelectedPiece(null);
+		Move move = new Move(selectedPiece, area);		
 		return move;
 	}
 

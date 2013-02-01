@@ -12,7 +12,7 @@ public abstract class Operation implements Serializable {
 	public void draw(Board board, EarlDisplay g) {		
 	}
 
-	public void clientExecute(Board board){
+	public void updateBoard(Board board){
 	}
 
 	public void drawDetails(EarlDisplay g) {

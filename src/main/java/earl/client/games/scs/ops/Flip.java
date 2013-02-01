@@ -24,7 +24,7 @@ public class Flip extends Operation  implements Undoable {
 	}
 
 	@Override
-	public void clientExecute(Board board) {
+	public void updateBoard(Board board) {
 		Counter counter = board.get(counterRef);
 		counter.flip();
 	}

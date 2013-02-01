@@ -24,7 +24,7 @@ public class PerformAttack extends Operation {
 	public void draw(Board board, EarlDisplay g) {
 	}
 	@Override
-	public void clientExecute(Board board) {
+	public void updateBoard(Board board) {
 	}
 
 	@Override

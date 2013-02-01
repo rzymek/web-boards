@@ -305,7 +305,7 @@ public class Bastogne implements Game {
 		setupScenarion52();
 		setMapInfo(mapInfo);
 		for (Operation op : ops) {
-			op.clientExecute(board);
+			op.updateBoard(board);
 			if(display != null) {
 				op.draw(board, display);
 			}

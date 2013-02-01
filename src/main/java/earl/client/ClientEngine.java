@@ -71,10 +71,19 @@ public class ClientEngine implements EntryPoint {
 		ClientEngine.this.display = display;
 		board = game.getBoard();
 		display.setBoard(board);
-		setupMenu(info, game, handler);
-		if (Window.Location.getParameter("i") != null) {
-			NotificationListener.join(info.channelToken);
-		}
+		
+		EarlClienContext ctx = new EarlClienContext();
+		ctx.svg = svg;
+		ctx.game = game;
+		ctx.side = info.side;
+		ctx.display = display;
+		ctx.handler = handler;
+		
+		menu = new EarlMenu(ctx);
+
+		NotificationListener listener = new NotificationListener(ctx);
+		listener.join(info.channelToken);
+		
 		Set<Entry<String, String>> set = info.state.entrySet();
 		for (Entry<String, String> state : set) {
 			String counterId = state.getKey();
@@ -86,7 +95,7 @@ public class ClientEngine implements EntryPoint {
 			move.draw(board, display);
 		}
 		for (Operation op : info.ops) {
-			op.clientExecute(board);
+			op.updateBoard(board);
 			op.drawDetails(display);
 			op.draw(board, display);
 			op.postServer(board, display);
@@ -101,16 +110,6 @@ public class ClientEngine implements EntryPoint {
 	}
 
 
-	public void setupMenu(GameInfo info, final Bastogne game, BasicDisplayHandler handler) {
-		EarlClienContext ctx = new EarlClienContext();
-		ctx.svg = svg;
-		ctx.game = game;
-		ctx.side = info.side;
-		ctx.display = display;
-		ctx.handler = handler;
-		menu = new EarlMenu(ctx);
-	}
-	
 	public void setupKeys() {
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			
 			@Override

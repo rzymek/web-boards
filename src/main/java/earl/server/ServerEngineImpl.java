@@ -212,7 +212,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		Bastogne bastogne = getGame(tableId);
 		ServerContext ctx = new ServerContext();
 		ctx.game = bastogne;
-		op.clientExecute(bastogne.getBoard());
+		op.updateBoard(bastogne.getBoard());
 		op.serverExecute(ctx);
 
 		OperationEntity e = new OperationEntity();
