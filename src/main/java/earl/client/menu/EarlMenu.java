@@ -1,11 +1,11 @@
 package earl.client.menu;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.FontStyle;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,12 +17,14 @@ import com.google.gwt.user.client.ui.Widget;
 import earl.client.data.Counter;
 import earl.client.games.scs.ops.Flip;
 import earl.client.games.scs.ops.Move;
+import earl.client.ops.generic.DiceRoll;
 
 public class EarlMenu implements ClickHandler {
 	private final EarlClienContext ctx;
 	private final RootPanel root;
 	private Document log = null;
 	private final List<String> logMessages = new ArrayList<String>();
+	private final Button logBtn;
 
 	public EarlMenu(EarlClienContext ctx) {
 		this.ctx = ctx;
@@ -31,8 +33,8 @@ public class EarlMenu implements ClickHandler {
 		menu.setVisible(true);
 		add("Flip");
 		add("Remove unit");
-		add("Show log");
-		add("Test log");
+		logBtn = add("Show log");
+		add("2d6");
 		add("Toggle units");
 
 		log("Playing as " + ctx.side);
@@ -55,6 +57,7 @@ public class EarlMenu implements ClickHandler {
 			source.setHTML("Hide menu");
 		} else if ("Show log".equals(text)) {
 			log = openLogWindow();
+			logBtn.getElement().getStyle().setFontStyle(FontStyle.NORMAL);
 			showPendingLog();
 		} else if ("Remove unit".equals(text)) {
 			Counter piece = ctx.handler.getSelectedPiece();
@@ -76,15 +79,14 @@ public class EarlMenu implements ClickHandler {
 				Flip op = new Flip(piece.ref());
 				ctx.display.process(op);
 			}
-		} else if ("Test log".equals(text)) {
-			for (int i = 1; i < 15; ++i) {
-				log(i + ": " + new Date());
-			}
+		} else if ("2d6".equals(text)) {
+			DiceRoll roll = new DiceRoll();
+			ctx.display.process(roll);
 		} else if ("Toggle units".equals(text)) {
 			toggleVisible(ctx.svg.getElementById("units").getStyle());
 			toggleVisible(ctx.svg.getElementById("markers").getStyle());
 		} else {
-			Window.alert("TODO: " + text);
+			Window.alert("Not implemented yet: " + text);
 		}
 	}
 
@@ -93,14 +95,15 @@ public class EarlMenu implements ClickHandler {
 		if (log != null) {
 			writeLog(msg);
 		}
+		logBtn.getElement().getStyle().setFontStyle(FontStyle.ITALIC);
 	}
 
-	public void writeLog(String msg) {
+	private void writeLog(String msg) {
 		log.getBody().insertFirst(log.createBRElement());
 		log.getBody().insertFirst(log.createTextNode(msg));
 	}
 
-	public void showPendingLog() {
+	private void showPendingLog() {
 		if (log.getBody().getChildCount() == 0) {
 			for (String line : logMessages) {
 				writeLog(line);

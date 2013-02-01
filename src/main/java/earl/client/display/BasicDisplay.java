@@ -43,9 +43,10 @@ public abstract class BasicDisplay implements EarlDisplay {
 	public void process(final Operation op) {
 		if (op == null) {
 			return;
-		}
+		}		
 		op.updateBoard(board);
-		op.draw(board, this);		
+		op.draw(board, this);
+		op.drawDetails(this);
 		service.process(op, new AbstractCallback<Operation>(){
 			@Override
 			public void onSuccess(Operation result) {

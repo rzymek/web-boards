@@ -181,17 +181,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1615"
-     inkscape:window-height="1026"
+     inkscape:window-width="1215"
+     inkscape:window-height="1000"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.3485174"
-     inkscape:cx="-13.698463"
-     inkscape:cy="1849.0361"
+     inkscape:zoom="0.23838645"
+     inkscape:cx="1837.7357"
+     inkscape:cy="326.10638"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="tmpl"
+     inkscape:current-layer="area"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -215,11 +215,11 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/bastogne/board.jpg"
        xlink:href="../webapp/bastogne/board.jpg"
-       y="37.070801"
-       x="10"
-       id="img"
+       width="3000"
        height="1941.1765"
-       width="3000" />
+       id="img"
+       x="10"
+       y="37.070801" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -33722,7 +33722,7 @@
        inkscape:tile-x0="117.09214"
        inkscape:tile-y0="4326.1135" />
     <rect
-       style="fill:#efefef;fill-opacity:0.22516557;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="us_dg"
        width="278.27142"
        height="191.57343"
@@ -33734,7 +33734,7 @@
        height="188.72955"
        width="279.745"
        id="ge_dg"
-       style="fill:#efefef;fill-opacity:0.22516557;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        style="fill:#efefef;fill-opacity:0.56953646;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="US2"
@@ -33743,7 +33743,7 @@
        x="1485.6232"
        y="805.83258" />
     <rect
-       style="fill:#000000;fill-opacity:0.05022828;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="1E"
        width="60.790623"
        height="433.55246"
@@ -33755,21 +33755,21 @@
        height="438.12485"
        width="61.192738"
        id="1D"
-       style="fill:#000000;fill-opacity:0.05022828;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        y="986.65179"
        x="2421.1221"
        height="72.835915"
        width="76.012444"
        id="3E"
-       style="fill:#efefef;fill-opacity:0.05098039;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <rect
        y="1784.3647"
        x="2778.0278"
        height="180.08629"
        width="221.27774"
        id="Dead pool"
-       style="fill:#efefef;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
+       style="fill:#d9d9d9;fill-opacity:0.94701988;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
     <text
        sodipodi:linespacing="100%"
        id="text4105"
@@ -33813,12 +33813,12 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/img/loading.gif"
        xlink:href="../webapp/img/loading.gif"
-       width="40"
-       height="40"
-       id="counter"
-       x="-27.70993"
+       style="display:inline"
        y="-86.663177"
-       style="display:inline" />
+       x="-27.70993"
+       id="counter"
+       height="40"
+       width="40" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="M 59.434886,-35.288766 98.177005,-76.021414"
