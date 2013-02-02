@@ -171,7 +171,6 @@ public class SVGDisplay extends BasicDisplay {
 			throw new RuntimeException(msg);
 		}
 		c.setId(id);
-		c.getStyle().setProperty("pointerEvents", "none");//TODO: move to svg
 		c.getHref().setBaseVal(counter.getState());
 		ClickHandler clickHandler = new ClickHandler() {
 			@Override

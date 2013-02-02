@@ -53,9 +53,12 @@ public class ClientEngine implements EntryPoint {
 		}else{
 			connect();
 		}
-		if(isViewportScaling()) {
-			svg.getWidth().getBaseVal().setValue(svg.getViewBox().getBaseVal().getWidth());
-			svg.getHeight().getBaseVal().setValue(svg.getViewBox().getBaseVal().getHeight());
+		if(isTouchDevice()) {
+			int width = (int) svg.getViewBox().getBaseVal().getWidth();
+			int height = (int) svg.getViewBox().getBaseVal().getHeight();
+			log("setting width:height to "+width+":"+height);
+			svg.getWidth().getBaseVal().setValueAsString(width+"");
+			svg.getHeight().getBaseVal().setValueAsString(height+"");
 		}
 		Window.setTitle("Bastogne!");
 //		centerView();
@@ -126,6 +129,8 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	private native boolean isViewportScaling() /*-{
+		console.log($doc.documentElement.scrollWidth);
+		console.log($wnd.innerWidth);
 		return $doc.documentElement.scrollWidth <= $wnd.innerWidth;
 	}-*/;
 

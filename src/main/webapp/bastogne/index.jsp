@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Bastogne</title>
-<script src="/_ah/channel/jsapi"></script>
 <script src="../earl.ClientEngine/earl.ClientEngine.nocache.js"></script>
+<script src="/_ah/channel/jsapi"></script>
 <style>
 #menu { 
 	position:fixed; 
@@ -20,6 +20,12 @@
 	height: 45px;
 	text-align: center;
 	padding:0px; 
+}
+.c {
+	pointer-events: none;
+}
+.s {
+	pointer-events: auto;
 }
 </style>
 </head>

@@ -19,6 +19,7 @@
 			<!-- for super dev mode -->
 			<add-linker name="xsiframe"/>  
 			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
+			<set-property name="compiler.useSourceMaps" value="true"/>
 		]]></dev.module.config>
 	</properties>
 
@@ -111,8 +112,10 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
+					<!-- 
 					<optimizationLevel>0</optimizationLevel>
 					<style>PRETTY</style>
+					 -->
 					<logLevel>INFO</logLevel>
 				</configuration>
 			</plugin>

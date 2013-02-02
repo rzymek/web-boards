@@ -181,17 +181,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1215"
-     inkscape:window-height="1000"
+     inkscape:window-width="1615"
+     inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="0.23838645"
-     inkscape:cx="1228.6763"
-     inkscape:cy="1564.5366"
+     inkscape:zoom="1.3485174"
+     inkscape:cx="207.06498"
+     inkscape:cy="2010.5042"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="tmpl"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -214,11 +214,11 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/bastogne/board.jpg"
        xlink:href="../webapp/bastogne/board.jpg"
-       width="3000"
-       height="1941.1765"
-       id="img"
+       y="37.070801"
        x="10"
-       y="37.070801" />
+       id="img"
+       height="1941.1765"
+       width="3000" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -33797,12 +33797,13 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/img/loading.gif"
        xlink:href="../webapp/img/loading.gif"
-       style="display:inline"
-       y="-86.663177"
-       x="-27.70993"
-       id="counter"
+       class="c"
+       width="40"
        height="40"
-       width="40" />
+       id="counter"
+       x="-27.70993"
+       y="-86.663177"
+       style="display:inline" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="M 59.434886,-35.288766 98.177005,-76.021414"
