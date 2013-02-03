@@ -22,6 +22,7 @@ import earl.client.data.Counter;
 import earl.client.data.GameInfo;
 import earl.client.games.scs.ops.Flip;
 import earl.client.games.scs.ops.Move;
+import earl.client.ops.generic.ChatOp;
 import earl.client.ops.generic.DiceRoll;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
@@ -41,6 +42,8 @@ public class EarlMenu implements ClickHandler {
 		menu.setVisible(true);
 		add("Undo");
 		add("Flip");
+		add("Clear traces");
+		add("Send msg");
 		add("Remove unit");
 		logBtn = add("Show log");
 		add("2d6");
@@ -77,6 +80,13 @@ public class EarlMenu implements ClickHandler {
 				ctx.handler.setSelectedPiece(null);
 				ctx.display.process(move);
 			}
+		} else if ("Send msg".equals(text)) {
+			String msg = Window.prompt("Enter message:", "");
+			if(msg != null) {
+				ctx.display.process(new ChatOp(msg));
+			}
+		} else if ("Clear traces".equals(text)) {
+			ctx.display.clearTraces();
 		} else if ("Hide menu".equals(text)) {
 			toggleMenu();
 			source.setHTML("Show menu");

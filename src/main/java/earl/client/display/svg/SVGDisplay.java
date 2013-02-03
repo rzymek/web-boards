@@ -241,7 +241,7 @@ public class SVGDisplay extends BasicDisplay {
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
 		shortenArrow(arrow, seg);		
-		svg.getElementById("markers").appendChild(arrow);
+		svg.getElementById("traces").appendChild(arrow);
 	}
 	
 	@Override
@@ -285,8 +285,8 @@ public class SVGDisplay extends BasicDisplay {
 		return ARROW_ID_PREFIX + "_" + from.getId();
 	}
 	
-	public void clearMarkers() {
-		Element markers = svg.getElementById("markers");
+	protected void clearMarkers(String layerId) {
+		Element markers = svg.getElementById(layerId);
 		while(markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());
 		}
@@ -368,5 +368,9 @@ public class SVGDisplay extends BasicDisplay {
 	public void clearResults(Position center) {
 		final String id = "boom@"+center.x+"_"+center.y;
 		removeElement(id);
+	}
+
+	public void clearTraces() {
+		clearMarkers("traces");		
 	}
 }

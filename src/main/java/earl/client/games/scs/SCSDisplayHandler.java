@@ -120,7 +120,7 @@ public class SCSDisplayHandler extends BasicDisplayHandler {
 			if(counter != null && counter.getOwner() != player) {
 				return; //not your counter
 			}else{
-				showMoves(counter);
+//				showMoves(counter);
 			}
 		}
 		selectedPiece = piece;

@@ -124,7 +124,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		} else if (c == 'l') {
 			loadAll();
 		} else if (c == 'c') {
-			clearMarkers();
+			clearMarkers("markers");
 		} else if (c == 'd') {
 			status("Dump...");
 			EditServiceAsync service = GWT.create(EditService.class);
@@ -158,7 +158,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 
 	private void loadAll() {
 		status("Load all...");
-		clearMarkers();
+		clearMarkers("markers");
 		EditServiceAsync service = GWT.create(EditService.class);
 		service.load(new AbstractCallback<List<Map<String, String>>>() {
 			@Override
@@ -227,8 +227,8 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 	}
 
 	@Override
-	public void clearMarkers() {
-		super.clearMarkers();
+	public void clearMarkers(String layer) {
+		super.clearMarkers(layer);
 		reset();
 	}
 	public static native void show(String s) /*-{
