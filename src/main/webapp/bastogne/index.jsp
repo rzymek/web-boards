@@ -24,8 +24,8 @@
 .c {
 	pointer-events: none;
 }
-.s {
-	pointer-events: auto;
+.s { 
+	pointer-events: none; /* auto */
 }
 </style>
 </head>

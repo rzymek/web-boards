@@ -63,6 +63,7 @@ public class SVGDisplay extends BasicDisplay {
 		String id = event.getRelativeElement().getId();
 		SCSCounter counter = (SCSCounter) board.getCounter(id);
 		handler.pieceClicked(counter);
+		ClientEngine.log("counter clicked:"+id);
 	}
 
 	@Override
@@ -102,10 +103,20 @@ public class SVGDisplay extends BasicDisplay {
 		float x = 0;
 		float y = 0;
 		int stackOffset = 0;
-		for (SVGElement counter : counters) {
+		int layer = 0;
+		for (int i = 0; i < counters.size(); i++) {
+			SVGElement counter = counters.get(i);
 			float cx = startx + x + stackOffset;
 			float cy = starty + y + stackOffset;
 			SVGUtils.setXY(counter, cx, cy);
+			if(layer > 0) {
+				String stacksWith = counters.get(i - i/layer).getId();
+				counter.setAttribute("class","s");
+				counter.setAttribute("earl-stacks", stacksWith);
+			}else{				
+				counter.setAttribute("class","c");
+				counter.removeAttribute("earl-stacks");
+			}
 			bringToTop(counter);
 			x += counterDim.width + spacing;
 			if (x + counterDim.width + spacing > areaWidth) {
@@ -116,6 +127,7 @@ public class SVGDisplay extends BasicDisplay {
 				x = 0;
 				y = 0;
 				stackOffset += 5;
+				layer++;
 			}
 		}
 	}
@@ -372,5 +384,9 @@ public class SVGDisplay extends BasicDisplay {
 
 	public void clearTraces() {
 		clearMarkers("traces");		
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(4 / 1);
 	}
 }

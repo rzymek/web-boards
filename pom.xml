@@ -19,7 +19,9 @@
 			<!-- for super dev mode -->
 			<add-linker name="xsiframe"/>  
 			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
+			<!--
 			<set-property name="compiler.useSourceMaps" value="true"/>
+			-->
 		]]></dev.module.config>
 	</properties>
 
@@ -141,7 +143,9 @@
 			<id>prod</id>
 			<properties>
 				<outputDirectory>target/classes</outputDirectory>
+				<!-- 
 				<dev.module.config/>
+				 -->
 			</properties>
 			<build>
 				<plugins>
