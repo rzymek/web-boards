@@ -1,12 +1,9 @@
 package earl.server;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,10 +15,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -44,6 +39,7 @@ import earl.server.entity.OperationEntity;
 import earl.server.entity.Table;
 import earl.server.notify.Notify;
 import earl.server.utils.HttpUtils;
+import earl.server.utils.ServerUtils;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -53,14 +49,9 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private static final long serialVersionUID = 1L;
 	private transient final Notify notify = new Notify();
 
-	private transient final Cache cache = null;
-
 	private transient static Map<String, Game> games = Collections.synchronizedMap(new HashMap<String, Game>());
 
 	public ServerEngineImpl() throws CacheException {
-//		Map<Object, Object> config = new HashMap<Object, Object>();
-//		config.put(GCacheFactory.EXPIRATION_DELTA, 3 * 60/*sec*/);
-//		cache = CacheManager.getInstance().getCacheFactory().createCache(config);
 	}
 
 	@Override
@@ -102,7 +93,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return state.state;
 	}
 	
-	public void save(Game game, long tableId, String user, Date timestamp) {
+	public GameState save(Game game, long tableId, String user, Date timestamp) {
 		Collection<Counter> counters = game.getBoard().getCounters();
 		Key<Table> table = Key.create(Table.class, tableId);		
 		GameState state = new GameState();
@@ -117,34 +108,52 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			state.state.put(counterPos, hexPos);
 		}
 		ofy().save().entity(state);
+		return state;
 	}
 
 	@Override
 	public GameInfo undo(long tid) {
 		String user = getUser();
-		Table table = ofy().load().type(Table.class).id(tid).get();
-		GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
-		List<Operation> loadOps = loadOps(tid, state);
-		if(!loadOps.isEmpty()) {
-			Operation last = loadOps.get(loadOps.size()-1);
+		List<OperationEntity> opEnts = loadOpEntities(tid, null);
+		if(!opEnts.isEmpty()) {
+			OperationEntity last = opEnts.get(opEnts.size()-1);
 			ofy().delete().entity(last).now();
+			opEnts.remove(opEnts.size()-1);
 		}
-		return getState(String.valueOf(tid));
+		Bastogne game = new Bastogne();
+		Map<String, String> mapInfo = loadMapInfo();
+		List<Operation> ops = unwrap(opEnts);
+		game.load(mapInfo, ops, null);
+		Date lastTimestamp = null;
+		if(!opEnts.isEmpty()) {
+			OperationEntity last = opEnts.get(opEnts.size()-1);
+			lastTimestamp = last.timestamp;
+		}				
+		GameInfo info = new GameInfo();
+		info.state = save(game, tid, user, lastTimestamp).state;
+		info.ops = ops;
+		return info;
 	}
 	
 	public List<Operation> loadOps(long tableId, GameState state) {
-		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tableId));
-		if(state != null) {
-			query = query.filter("timestamp >", state.updated);
-		}
-		Collection<OperationEntity> res = query.order("timestamp").list();		
-//		res = updateWithPending(tableId, res);
+		return unwrap(loadOpEntities(tableId, state));
+	}
+
+	public List<Operation> unwrap(Collection<OperationEntity> res) {
 		List<Operation> results = new ArrayList<Operation>();
 		for (OperationEntity operationEntity : res) {
 			results.add(deserialize(operationEntity.data));
 		}
 		return results;
+	}
+
+	public List<OperationEntity> loadOpEntities(long tableId, GameState state) {
+		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
+		Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tableId));
+		if(state != null) {
+			query = query.filter("timestamp >", state.updated);
+		}
+		return query.order("timestamp").list();
 	}
 
 	private Operation deserialize(byte[] data) {
@@ -158,22 +167,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}catch (Exception e) {
 			throw new EarlServerException(e);
 		}
-	}
-
-	public Set<OperationEntity> updateWithPending(String tableId, Collection<OperationEntity> res) {
-		Set<OperationEntity> results = new TreeSet<OperationEntity>(res);
-		String key = (String) cache.get(tableId);
-		if(key != null) {
-			for(;;){
-				CacheEntry c = (CacheEntry) cache.get(key);
-				if(c == null) {
-					break;
-				}
-				results.add(c.value);
-				key = c.nextKey;
-			}
-		}
-		return results;
 	}
 
 	private Map<String, String> loadMapInfo() {
@@ -230,10 +223,11 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 		OperationEntity e = new OperationEntity();
 		e.sessionId = tableId;		
-		e.data = serialize(op);
+		e.data = ServerUtils.serialize(op);
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
-		
+		e.adebug = ServerUtils.describe(op);
+				
 		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
@@ -262,21 +256,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			games.put(tableId, game);
 		}
 		return game;
-	}
-
-	private byte[] serialize(Serializable op) {
-		ByteArrayOutputStream buf = new ByteArrayOutputStream();
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(buf);
-			try {
-				out.writeObject(op);
-			}finally{
-				out.close();
-			}
-		}catch (IOException e) {
-			throw new EarlServerException(e);
-		}
-		return buf.toByteArray();
 	}
 
 	@Override

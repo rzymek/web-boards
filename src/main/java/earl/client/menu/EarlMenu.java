@@ -103,7 +103,7 @@ public class EarlMenu implements ClickHandler {
 			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<GameInfo>(){
 				@Override
 				public void onSuccess(GameInfo result) {
-					Window.alert("refresh");
+					ctx.engine.update(result);
 				}
 			});
 		} else if ("2d6".equals(text)) {

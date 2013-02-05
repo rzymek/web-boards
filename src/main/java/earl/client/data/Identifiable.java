@@ -24,6 +24,6 @@ public abstract class Identifiable {
 	}
 	@Override
 	public String toString() {
-		return getClass().getName()+"@"+getId();
+		return getId();
 	}
 }

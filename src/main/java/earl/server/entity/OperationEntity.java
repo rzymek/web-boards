@@ -21,6 +21,7 @@ public class OperationEntity implements Comparable<OperationEntity>, Serializabl
 	public String className;
 	@Index
 	public Date timestamp = new Date();
+	public String adebug;
 	
 	@Override
 	public String toString() {

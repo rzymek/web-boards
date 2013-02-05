@@ -2,6 +2,7 @@ package earl.client.menu;
 
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
+import earl.client.ClientEngine;
 import earl.client.display.BasicDisplayHandler;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.games.scs.bastogne.Bastogne;
@@ -13,4 +14,5 @@ public class EarlClienContext {
 	public BastogneSide side;
 	public SVGDisplay display;
 	public BasicDisplayHandler handler;
+	public ClientEngine engine;
 }

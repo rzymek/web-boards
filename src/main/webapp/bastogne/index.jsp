@@ -22,7 +22,7 @@
 	padding:0px; 
 }
 .c {
-	pointer-events: none;
+	pointer-events: auto;
 }
 .s { 
 	pointer-events: auto;

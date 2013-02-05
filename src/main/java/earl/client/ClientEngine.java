@@ -80,7 +80,7 @@ public class ClientEngine implements EntryPoint {
 	}
 
 
-	private void start(final String tableId, GameInfo info) {
+	public void start(final String tableId, GameInfo info) {
 		final Bastogne game = new Bastogne();
 		game.load(info.mapInfo, info.ops, null);
 		BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
@@ -95,12 +95,24 @@ public class ClientEngine implements EntryPoint {
 		ctx.side = info.side;
 		ctx.display = display;
 		ctx.handler = handler;
+		ctx.engine = this;
 		
 		menu = new EarlMenu(ctx);
 
 		NotificationListener listener = new NotificationListener(ctx);
 		listener.join(info.channelToken);
 		
+		update(info);
+		if(info.joinAs != null) {
+			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
+			if (yes) {
+				service.join(tableId, new AbstractCallback<Void>());
+			}
+		}
+	}
+
+
+	public void update(GameInfo info) {
 		Set<Entry<String, String>> set = info.state.entrySet();
 		for (Entry<String, String> state : set) {
 			String counterId = state.getKey();
@@ -117,12 +129,6 @@ public class ClientEngine implements EntryPoint {
 			op.draw(board, display);
 			op.postServer(board, display);
 			log(op.toString());
-		}
-		if(info.joinAs != null) {
-			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
-			if (yes) {
-				service.join(tableId, new AbstractCallback<Void>());
-			}
 		}
 	}
 
