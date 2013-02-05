@@ -8,6 +8,7 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -44,6 +45,7 @@ public class ClientEngine implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {		
+		exceptionHandler();
 		svg = getSVG();
 		setupZoomAndPan();
 		if (Window.Location.getParameter("editor") != null) {
@@ -63,6 +65,18 @@ public class ClientEngine implements EntryPoint {
 		Window.setTitle("Bastogne!");
 //		centerView();
 		setupKeys();
+	}
+
+
+	public void exceptionHandler() {
+		com.google.gwt.core.client.GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {			
+			@Override
+			public void onUncaughtException(Throwable e) {
+				log(e.toString());
+				Window.alert(e.toString());			
+				e.printStackTrace();
+			}
+		});
 	}
 
 
@@ -93,8 +107,8 @@ public class ClientEngine implements EntryPoint {
 			String posId = state.getValue();
 			Hex to = board.getHex(posId);
 			Counter counter = board.getCounter(counterId);
-			counter.setPosition(to);
 			Move move = new Move(counter, to);
+			move.updateBoard(board);
 			move.draw(board, display);
 		}
 		for (Operation op : info.ops) {
