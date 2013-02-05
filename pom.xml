@@ -13,7 +13,7 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<outputDirectory>target/classes</outputDirectory>
 		<dev.module.config><![CDATA[
 			<set-property name="user.agent" value="safari"/>		
 			<!-- for super dev mode -->
@@ -60,13 +60,8 @@
 			<artifactId>gwt-channel-api</artifactId>
 			<version>0.1</version>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>net.sf.jsr107cache</groupId>
-			<artifactId>jsr107cache</artifactId>
-			<version>1.1</version>
-		</dependency>
-		 -->
+		<!-- <dependency> <groupId>net.sf.jsr107cache</groupId> <artifactId>jsr107cache</artifactId> 
+			<version>1.1</version> </dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -78,7 +73,7 @@
 			<artifactId>appengine-jsr107cache</artifactId>
 			<version>1.3.1</version>
 		</dependency>
-		<!--  google app engine -->
+		<!-- google app engine -->
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
@@ -88,8 +83,8 @@
 
 	<build>
 		<outputDirectory>${outputDirectory}</outputDirectory>
-		<plugins>     
-      		<!-- GWT Maven Plugin-->
+		<plugins>
+			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -105,8 +100,6 @@
 				<configuration>
 					<runTarget>index.jsp</runTarget>
 					<module>earl.ClientEngine</module>
-					<hostedWebapp>src/main/webapp</hostedWebapp>
-					<inplace>true</inplace>
 					<server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
 					<appEngineVersion>${gae.version}</appEngineVersion>
 					<appEngineHome>gae</appEngineHome>
@@ -114,12 +107,23 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
-					<!-- 
 					<optimizationLevel>0</optimizationLevel>
 					<style>PRETTY</style>
-					 -->
 					<logLevel>INFO</logLevel>
 				</configuration>
+			</plugin>
+			<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>${gae.version}</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<resources>
@@ -140,12 +144,15 @@
 
 	<profiles>
 		<profile>
+			<id>dev</id>
+			<properties>
+				<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+			</properties>
+		</profile>
+		<profile>
 			<id>prod</id>
 			<properties>
-				<outputDirectory>target/classes</outputDirectory>
-				<!-- 
 				<dev.module.config/>
-				 -->
 			</properties>
 			<build>
 				<plugins>
@@ -165,6 +172,9 @@
 						<groupId>com.google.appengine</groupId>
 						<artifactId>appengine-maven-plugin</artifactId>
 						<version>${gae.version}</version>
+						<configuration>
+							<address>0.0.0.0</address>
+						</configuration>
 						<executions>
 							<execution>
 								<phase>install</phase>
@@ -178,5 +188,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
