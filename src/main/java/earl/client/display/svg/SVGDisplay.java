@@ -39,7 +39,8 @@ import earl.client.utils.Browser;
 public class SVGDisplay extends BasicDisplay {
 	protected final SVGSVGElement svg;
 	private final BasicDisplayHandler handler;
-//	private final SVGRectElement selectionRect;
+	private final SVGRectElement stackSelector;
+	private Hex showingStackSelector = null;
 
 	public SVGDisplay(SVGSVGElement svg, BasicDisplayHandler handler) {
 		this.svg = svg;
@@ -49,27 +50,71 @@ public class SVGDisplay extends BasicDisplay {
 		rect.getStyle().setDisplay(Display.NONE);
 		svg.getElementById("units").appendChild(rect);
 
+		stackSelector = (SVGRectElement) svg.getElementById("stack-selector");
+		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
+		svg.getElementById("units").appendChild(stackSelector);
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
 		String id = event.getRelativeElement().getId();
 		Hex hex = board.getHex(id);
+		hexClicked(hex);
+	}
+
+	private void hexClicked(Hex hex) {
+		hideStackSelection();
 		Operation op = handler.areaClicked(hex);
 		process(op);
 		handler.setSelectedPiece(handler.getSelectedPiece());
 	}
 
-	protected void counterClicked(final Board board, ClickEvent event) {
+	protected void counterClicked(final Board board, ClickEvent event) {		
 		String id = event.getRelativeElement().getId();
 		SCSCounter counter = (SCSCounter) board.getCounter(id);
-		handler.pieceClicked(counter);
-		ClientEngine.log("counter clicked:"+id);
+		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
+		String attribute = img.getAttribute("earl-stacks");
+		if(attribute == null || attribute.isEmpty()) {
+			handler.setSelectedPiece(counter);
+			return;
+		}
+		Hex position = counter.getPosition();
+		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
+		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
+		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
+		List<SVGElement> gstack = getGraphicalStack(counter);		
+		double size = Math.sqrt(gstack.size());
+		double width = Math.ceil(size);
+		double height = Math.floor(size+0.5);
+		width = 10 + (int)width * img.getWidth().getBaseVal().getValue() + 10;
+		height= 10 + (int)height * img.getHeight().getBaseVal().getValue() + 10;
+		stackSelector.getWidth().getBaseVal().setValue((float) width);
+		stackSelector.getHeight().getBaseVal().setValue((float) height);		
+		bringToTop(stackSelector);
+		alignStack(stackSelector, gstack);
+		showingStackSelector = position;
+		
+		for (SVGElement e : gstack) {
+			e.setAttribute("class","s");
+		}
+	}
+	
+	private List<SVGElement> getGraphicalStack(SCSCounter counter) {
+		List<SVGElement> stack = new ArrayList<SVGElement>();
+		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
+		for(;;) {
+			stack.add(img);
+			String next = img.getAttribute("earl-stacks");
+			if(next == null || next.isEmpty())  {
+				break;				
+			}
+			img = (SVGImageElement) svg.getElementById(next);
+		}
+		return stack;
 	}
 
 	@Override
 	public void alignStack(Hex hex) {
 		hideStackSelection();
-
 		SVGElement h = getSVGElement(hex);
 		Collection<Counter> stack = hex.getStack();
 		List<SVGElement> svgStack = getSVGElements(stack);
@@ -86,7 +131,12 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	private void hideStackSelection() {
-		//selectionRect.getStyle().setVisibility(Visibility.HIDDEN);
+		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
+		Hex hex = showingStackSelector;
+		showingStackSelector = null;
+		if(hex != null) {
+			alignStack(hex);
+		}
 	}
 
 	public void alignStack(SVGElement area, List<SVGElement> counters) {

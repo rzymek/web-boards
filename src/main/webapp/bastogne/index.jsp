@@ -25,7 +25,7 @@
 	pointer-events: none;
 }
 .s { 
-	pointer-events: none; /* auto */
+	pointer-events: auto;
 }
 </style>
 </head>

@@ -185,9 +185,9 @@
      inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.3485174"
-     inkscape:cx="207.06498"
-     inkscape:cy="2010.5042"
+     inkscape:zoom="2.6970348"
+     inkscape:cx="198.05646"
+     inkscape:cy="1975.9017"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -214,11 +214,11 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/bastogne/board.jpg"
        xlink:href="../webapp/bastogne/board.jpg"
-       y="37.070801"
-       x="10"
-       id="img"
+       width="3000"
        height="1941.1765"
-       width="3000" />
+       id="img"
+       x="10"
+       y="37.070801" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -33797,13 +33797,13 @@
     <image
        sodipodi:absref="/home/rzymek/Dropbox/devel/earl/src/main/svg/../webapp/img/loading.gif"
        xlink:href="../webapp/img/loading.gif"
-       class="c"
-       width="40"
-       height="40"
-       id="counter"
-       x="-27.70993"
+       style="display:inline"
        y="-86.663177"
-       style="display:inline" />
+       x="-27.70993"
+       id="counter"
+       height="40"
+       width="40"
+       class="c" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="M 59.434886,-35.288766 98.177005,-76.021414"
@@ -33883,5 +33883,13 @@
        id="trace"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none"
+       id="stack-selector"
+       width="57.219021"
+       height="52.768597"
+       x="131.99683"
+       y="-60.271507"
+       ry="7.0260873" />
   </g>
 </svg>

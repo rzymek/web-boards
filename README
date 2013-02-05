@@ -1,21 +1,35 @@
-# Deploy to gea (using appId & version from /earl/src/main/webapp/WEB-INF/appengine-web.xml) 
-mvn clean gwt:clean && mvn clean appengine:update -Pprod
+Development cycle:
 
-#Clean
-mvn gwt:clean clean 
-
-#First local run
-mvn compile gwt:clean gwt:compile war:inplace gwt:debug
+1) Using local appengine
+	a) Start:
+	mvn appengine:run
+	go to http://localhost:8080
+	b) To update JS: 
+	mvn gwt:compile
+	c) To update resources (jsp):
+	mvn resources:copy
+	d) To update server code restart
+	mvn appengine:run
  
-#DevMode
-mvn gwt:run
+2) Using GWT DevMode:
+	a) Start
+	mvn gwt:debug
+	Go to http://localhost:8888
+	Create bookmarklet and call it on the svg game page:
+	javascript:window.location=window.location+'&gwt.codesvr=127.0.0.1:9997'
 
-#Super Dev Mode:
-mvn gwt:run-codeserver
-# On first run add bookmarklets from http://localhost:9876/
-mvn gwt:clean gwt:compile compile war:inplace gwt:debug
-google-chrome http://127.0.0.1:8888
-# On source change press "Dev Mode On" bookmarklet while on http://127.0.0.1:8888/bastogne/?table=... page
+3) Using SuperDevMode
+	a) Start:
+	mvn appengine:run
+	mvn gwt:run-codeserver
+	go to http://localhost:8080
+	b) To update JS call the codeserver bookmarklet 
+	c) To update resources (jsp):
+	mvn resources:copy
+	d) To update server code restart
+	mvn appengine:run
+	
 
 
-#After changes to Serializable classes that are sent to client you need to restart gwt:run
+# Deploy to gea (using appId & version from /earl/src/main/webapp/WEB-INF/appengine-web.xml) 
+mvn clean appengine:update -Pprod

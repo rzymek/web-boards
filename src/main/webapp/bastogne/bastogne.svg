@@ -33,7 +33,7 @@
   </defs>
   
   <g id="board" style="display:inline">
-    <image xlink:href="board.jpg" y="37.070801" x="10" height="1941.1765" width="3000" id="img"/>
+    <image xlink:href="board.jpg" width="3000" height="1941.1765" x="10" y="37.070801" id="img"/>
   </g>
   <g id="area" style="display:inline">
     <path d="m 61.852783,1973.443359 -31.892456,0.000000 -15.946167,-27.671631 15.946167,-27.671753 31.892456,0.000000 15.946167,27.671753 z" class="h" id="h0101"/>
@@ -1892,7 +1892,7 @@
   </g>
   <g id="tmpl" style="display:none">
     <rect width="40" height="40" x="-27.70993" y="-86.663177" ry="2.5394881" id="selection" style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"/>
-    <image xlink:href="../img/loading.gif" class="c" width="40" height="40" x="-27.70993" y="-86.663177" id="counter" style="display:inline"/>
+    <image xlink:href="../img/loading.gif" y="-86.663177" x="-27.70993" height="40" width="40" class="c" id="counter" style="display:inline"/>
     <path d="M 59.434886,-35.288766 98.177005,-76.021414" id="attackArrow" style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"/>
     <g id="target" style="display:inline">
       <path d="m 366.5,742.13348 a 19.25,19.25 0 1 1 -38.5,0 19.25,19.25 0 1 1 38.5,0 z" transform="matrix(1.038961,0,0,1.038961,-361.10721,-772.0951)" style="opacity:0.56790125;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
@@ -1907,5 +1907,6 @@
       <text transform="scale(0.67037019,1.4917131)" y="6.6151958" x="2.3213608" style="font-size:15.50794411px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan y="6.6151958" x="2.3213615" id="result-text">D1r3</tspan></text>
     </g>
     <path d="m 148.67082,-89.109646 165.40405,45.97641" id="trace" style="fill:none;stroke:#1506ff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.51141555;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#Arrow2Send)"/>
+    <rect width="57.219021" height="52.768597" x="131.99683" y="-60.271507" ry="7.0260873" id="stack-selector" style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none"/>
   </g>
 <g id="traces"/><g id="units"/><g id="markers"/></svg>
