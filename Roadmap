@@ -3,6 +3,7 @@
 * Hex Connections For MA & DR (roads & rivers)
 * new hex in memory representation
 * pełny scenariusz bastogne
+* game logic by overriding Counter & Hex
 
 1.Sprawdzanie zasad (zasięg ruchu, siła ataku) to oczywiście full wypas. 
 	W przypadku ataku fajnie by było oznaczyć atak + przycisk, który by rzucał kością i podawał wynik w postaci AxDx.
