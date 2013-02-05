@@ -24,7 +24,9 @@ public class BasicDisplayHandler {
 			if (selectedPiece.getPosition().equals(area)) {
 				return toggleStackSelection(area);
 			}else{
-				return moveToHex(area);
+				Operation op = moveToHex(area);
+				setSelectedPiece(null);
+				return op;
 			}
 		}
 	}
