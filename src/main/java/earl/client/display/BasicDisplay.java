@@ -8,7 +8,7 @@ import com.google.gwt.core.shared.GWT;
 import earl.client.ClientEngine;
 import earl.client.data.Board;
 import earl.client.data.Counter;
-import earl.client.data.Hex;
+import earl.client.games.Ref;
 import earl.client.ops.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
@@ -30,13 +30,13 @@ public abstract class BasicDisplay implements EarlDisplay {
 	}
 
 	protected void initCounters(final Board board) {
-		Collection<Hex> stacks = board.getStacks();
-		for (Hex hex : stacks) {
-			List<Counter> counters = hex.getStack();
+		Collection<Ref> stacks = board.getStacks();
+		for (Ref pos : stacks) {
+			List<Counter> counters = board.get(pos).getStack();
 			for (Counter counter : counters) {
 				createCounter(counter, board);
 			}
-			alignStack(hex);
+			alignStack(pos);
 		}
 	}
 

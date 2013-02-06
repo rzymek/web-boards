@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import earl.client.data.ref.HexRef;
+import earl.client.ops.Operation;
 
 
-public class Hex extends Identifiable {
+public abstract class Hex extends Identifiable {
+	private static final long serialVersionUID = 1L;
 	protected List<Counter> pieces = new ArrayList<Counter>();
 	private String hexId = null;
 
@@ -52,7 +53,5 @@ public class Hex extends Identifiable {
 		}
 	}
 
-	public HexRef ref() {
-		return new HexRef(hexId);
-	}
+	public abstract Operation onClicked();
 }

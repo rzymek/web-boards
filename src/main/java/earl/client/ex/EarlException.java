@@ -1,7 +1,9 @@
 package earl.client.ex;
 
+import java.io.Serializable;
 
-public class EarlException extends RuntimeException {
+
+public class EarlException extends RuntimeException implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

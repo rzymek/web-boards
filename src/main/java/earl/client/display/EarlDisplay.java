@@ -2,20 +2,20 @@ package earl.client.display;
 
 import java.util.Collection;
 
+import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
+import earl.client.games.Ref;
 
 public interface EarlDisplay {
 
-	Position getCenter(Identifiable to);
+	Position getCenter(Ref to);
 
 	void drawArrow(Position start, Position end, String id);
 
 	void update(Identifiable counter, String state);
 
-	void alignStack(Hex hex);
-
-	void select(Identifiable i);
+	void alignStack(Ref ref);
 
 	void drawOds(Position center, int[] odds);
 
@@ -31,8 +31,10 @@ public interface EarlDisplay {
 
 	void clearResults(Position center);
 
-	void drawArrow(Identifiable from, Identifiable to, String id);
+	void drawArrow(Ref from, Ref to, String id);
 
-	void drawLine(Identifiable fromRef, Identifiable toRef);
+	void drawLine(Ref fromRef, Ref toRef);
+
+	void select(Counter i);
 
 }

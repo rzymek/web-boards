@@ -5,9 +5,8 @@ import earl.client.data.Counter;
 import earl.client.data.ref.CounterRef;
 import earl.client.display.EarlDisplay;
 import earl.client.ops.Operation;
-import earl.client.ops.Undoable;
 
-public class Flip extends Operation  implements Undoable {
+public class Flip extends Operation {
 	private static final long serialVersionUID = 1L;
 	private CounterRef counterRef;
 	protected Flip() {
@@ -29,11 +28,6 @@ public class Flip extends Operation  implements Undoable {
 		counter.flip();
 	}
 
-	@Override
-	public void undo(Board board) {
-		Counter counter = board.get(counterRef);
-		counter.flip();
-	}
 	@Override
 	public String toString() {
 		return counterRef+" flipped.";

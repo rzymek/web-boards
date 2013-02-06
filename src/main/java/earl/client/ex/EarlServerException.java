@@ -1,6 +1,8 @@
 package earl.client.ex;
 
-public class EarlServerException extends RuntimeException {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class EarlServerException extends RuntimeException implements IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

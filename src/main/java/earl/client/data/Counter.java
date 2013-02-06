@@ -1,26 +1,19 @@
 package earl.client.data;
 
 import earl.client.data.ref.CounterRef;
-
-
+import earl.client.games.Ref;
 
 public abstract class Counter extends Identifiable {
-	protected Hex position = null;
+	private static final long serialVersionUID = 1L;
+	protected Ref position = null;
 	protected boolean flipped = false;
 
-	public Hex getPosition() {
+	public Ref getPosition() {
 		return position;
 	}
 
-	public void setPosition(Hex to) {
-		Hex from = position;
-		if (from != null) {
-			from.pieces.remove(this);
-		}
-		position = to;
-		if (!to.pieces.contains(this)) {
-			to.pieces.add(this);
-		}
+	public void setPosition(Ref pos) {
+		this.position = pos;
 	}
 
 	public abstract String getState();

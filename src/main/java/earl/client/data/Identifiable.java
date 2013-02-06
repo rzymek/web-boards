@@ -1,8 +1,11 @@
 package earl.client.data;
 
+import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public abstract class Identifiable {
+public abstract class Identifiable implements Serializable, IsSerializable {
+	private static final long serialVersionUID = 1L;
 	public abstract String getId();
 
 	@Override

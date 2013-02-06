@@ -5,8 +5,8 @@ import java.util.List;
 
 import earl.client.data.Board;
 import earl.client.data.Hex;
-import earl.client.data.ref.HexRef;
 import earl.client.display.EarlDisplay;
+import earl.client.games.HexXY;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.ops.Operation;
@@ -15,8 +15,8 @@ import earl.client.ops.generic.DiceRoll;
 
 public class PerformAttack extends Operation {
 	private static final long serialVersionUID = 1L;
-	public HexRef targetRef;
-	public HexRef[] attackingRef;
+	public HexXY targetRef;
+	public HexXY[] attackingRef;
 	public CombatResult result;
 	public String rollResult;	
  
@@ -44,7 +44,7 @@ public class PerformAttack extends Operation {
 	}
 	private List<Hex> getAttacking(Board board) {
 		List<Hex> attacking = new ArrayList<Hex>(attackingRef.length);
-		for (HexRef ref : attackingRef) {
+		for (HexXY ref : attackingRef) {
 			attacking.add(board.get(ref));
 		}
 		return attacking;
@@ -52,9 +52,8 @@ public class PerformAttack extends Operation {
 
 	@Override
 	public void postServer(Board board, EarlDisplay display) {
-		Hex target = board.get(targetRef);
-		display.clearOds(display.getCenter(target));
-		display.showResults(display.getCenter(target), result.toString());
+		display.clearOds(display.getCenter(targetRef));
+		display.showResults(display.getCenter(targetRef), result.toString());
 	}
 	
 	@Override

@@ -9,6 +9,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
 
+import earl.client.games.Ref;
+
 @Entity
 @Cache
 public class GameState {
@@ -17,5 +19,5 @@ public class GameState {
 	@Id
 	public String user;
 	public Date updated;
-	public Map<String,String> state;
+	public Map<String, Ref> state;
 }
