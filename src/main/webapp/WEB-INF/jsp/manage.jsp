@@ -6,6 +6,7 @@
 <title>Earl</title>
 </head>
 <body>
+<small>Version: $Id$
 	<form type="get">
 		Start new game as: <select name="side">
 			<option>US</option>
