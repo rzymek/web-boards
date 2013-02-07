@@ -3,7 +3,6 @@ package earl.client;
 import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
 import no.eirikb.gwtchannelapi.client.Message;
-import earl.client.data.Board;
 import earl.client.data.GameCtx;
 import earl.client.ops.Operation;
 

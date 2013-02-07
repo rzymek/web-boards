@@ -44,7 +44,7 @@ public abstract class CounterInfo implements Serializable {
 		return ref()+":"+getPosition().getSVGId();
 	}
 
-	public Operation onPointTo(GameCtx ctx, CounterInfo counter) {
+	public Operation onPointTo(GameCtx ctx, CounterInfo counter) {		
 		Position pos = counter.getPosition();
 		if(pos instanceof Hex) {
 			Hex hex = (Hex) pos;
