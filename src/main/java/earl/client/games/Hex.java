@@ -1,5 +1,7 @@
 package earl.client.games;
 
+import earl.client.utils.Utils;
+
 public class Hex implements Position {
 	private static final long serialVersionUID = 1L;
 	public int x;
@@ -47,6 +49,6 @@ public class Hex implements Position {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		return Area.equals(this, obj);
+		return Utils.equals(this, obj);
 	}
 }

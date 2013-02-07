@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import earl.client.data.ref.Counter;
+import earl.client.data.ref.CounterId;
 import earl.client.ex.EarlException;
 import earl.client.games.Hex;
 import earl.client.games.Position;
@@ -42,9 +42,10 @@ public abstract class Board implements Serializable {
 	}
 
 	public void place(Position to, CounterInfo counter) {
-		CounterInfo prev = counters.put(counter.getId(), counter);
+		String id = counter.ref().toString();
+		CounterInfo prev = counters.put(id, counter);
 		if (prev != null) {
-			throw new EarlException(counter.getId() + " aleader placed");
+			throw new EarlException(id + " aleader placed");
 		}
 		move(to, counter);
 	}
@@ -76,8 +77,8 @@ public abstract class Board implements Serializable {
 
 	public abstract HexInfo getInfo(Position area);
 
-	public CounterInfo getInfo(Counter ref) {
-		return getCounter(ref.getId());
+	public CounterInfo getInfo(CounterId ref) {
+		return getCounter(ref.toString());
 	}
 
 }

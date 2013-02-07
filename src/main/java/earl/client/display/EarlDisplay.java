@@ -3,7 +3,7 @@ package earl.client.display;
 import java.util.Collection;
 
 import earl.client.data.CounterInfo;
-import earl.client.data.Identifiable;
+import earl.client.data.ref.CounterId;
 import earl.client.games.Position;
 
 public interface EarlDisplay {
@@ -12,7 +12,7 @@ public interface EarlDisplay {
 
 	void drawArrow(VisualCoords start, VisualCoords end, String id);
 
-	void update(Identifiable counter, String state);
+	void update(CounterId counter, String state);
 
 	void alignStack(Position ref);
 

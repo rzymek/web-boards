@@ -117,8 +117,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		
 		for (CounterInfo counter : counters) {
 			Position hexPos = counter.getPosition();
-			String counterPos = counter.ref().getId();
-			state.state.put(counterPos, hexPos.getSVGId());
+			String counterId = counter.ref().toString();
+			state.state.put(counterId, hexPos.getSVGId());
 		}
 		ofy().save().entity(state);
 		return state;

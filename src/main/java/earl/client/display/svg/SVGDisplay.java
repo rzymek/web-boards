@@ -26,7 +26,7 @@ import com.google.gwt.user.client.DOM;
 import earl.client.data.Board;
 import earl.client.data.CounterInfo;
 import earl.client.data.HexInfo;
-import earl.client.data.Identifiable;
+import earl.client.data.ref.CounterId;
 import earl.client.display.BasicDisplay;
 import earl.client.display.VisualCoords;
 import earl.client.ex.EarlException;
@@ -69,7 +69,7 @@ public class SVGDisplay extends BasicDisplay {
 			return;
 		}
 		Position position = counter.getPosition();
-		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
+		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.ref().toString());
 		String attribute = img.getAttribute("earl-stacks");
 		if(attribute == null || attribute.isEmpty()) {
 			select(counter);
@@ -97,7 +97,7 @@ public class SVGDisplay extends BasicDisplay {
 	
 	private List<SVGElement> getGraphicalStack(SCSCounter counter) {
 		List<SVGElement> stack = new ArrayList<SVGElement>();
-		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
+		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.ref().toString());
 		for(;;) {
 			stack.add(img);
 			String next = img.getAttribute("earl-stacks");
@@ -123,7 +123,7 @@ public class SVGDisplay extends BasicDisplay {
 	private List<SVGElement> getSVGElements(Collection<CounterInfo> stack) {
 		List<SVGElement> result = new ArrayList<SVGElement>(stack.size());
 		for (CounterInfo counter : stack) {
-			SVGElement svgCounter = getSVGElement(counter.getId());
+			SVGElement svgCounter = getSVGElement(counter.ref().toString());
 			result.add(svgCounter);
 		}
 		return result;
@@ -223,7 +223,7 @@ public class SVGDisplay extends BasicDisplay {
 	protected void createCounter(CounterInfo counter, final Board board) {
 		Element tmpl = svg.getElementById("counter");
 		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
-		String id = counter.getId();
+		String id = counter.ref().toString();
 		com.google.gwt.user.client.Element existing = DOM.getElementById(id);
 		if (existing != null) {
 			String msg = "Element with id=" + id + " aleady exists:" + existing;
@@ -257,7 +257,7 @@ public class SVGDisplay extends BasicDisplay {
 		if (counter == null) {
 			rect.getStyle().setVisibility(Visibility.HIDDEN);
 		} else {
-			SVGImageElement c = (SVGImageElement) svg.getElementById(counter.getId());
+			SVGImageElement c = (SVGImageElement) svg.getElementById(counter.ref().toString());
 			rect.getStyle().setVisibility(Visibility.VISIBLE);
 			rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
 			rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
@@ -396,8 +396,8 @@ public class SVGDisplay extends BasicDisplay {
 	}
 	
 	@Override
-	public void update(Identifiable counter, String state) {
-		SVGImageElement img = (SVGImageElement) getSVGElement(counter.getId());
+	public void update(CounterId counter, String state) {
+		SVGImageElement img = (SVGImageElement) getSVGElement(counter.toString());
 		img.getHref().setBaseVal(state);
 	}
 

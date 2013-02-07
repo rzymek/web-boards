@@ -3,14 +3,14 @@ package earl.client.games.scs.ops;
 import earl.client.data.Board;
 import earl.client.data.CounterInfo;
 import earl.client.data.GameCtx;
-import earl.client.data.ref.Counter;
+import earl.client.data.ref.CounterId;
 import earl.client.display.EarlDisplay;
 import earl.client.games.Position;
 import earl.client.ops.Operation;
 
 public class Move extends Operation {
 	private static final long serialVersionUID = 1L;
-	public Counter counterRef;
+	public CounterId counterRef;
 	public Position from;
 	public Position to;
 

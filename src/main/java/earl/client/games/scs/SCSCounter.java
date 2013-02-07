@@ -5,6 +5,7 @@ import java.util.List;
 
 import earl.client.data.Board;
 import earl.client.data.CounterInfo;
+import earl.client.data.ref.CounterId;
 import earl.client.games.Hex;
 import earl.client.games.Position;
 import earl.client.games.scs.bastogne.BastogneSide;
@@ -15,7 +16,6 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String description;
 	private String frontPath = null;
-	private String id;
 	private String back;
 	private BastogneSide owner;
 	private int attack;
@@ -24,10 +24,11 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	private int movement;
 
 	protected SCSCounter() {
+		super(null);
 	}
 
 	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, Integer range, int defence, int movement) {
-		this.id = id;
+		super(new CounterId(id));
 		this.frontPath = frontPath;
 		this.back = back;
 		this.owner = owner;
@@ -43,11 +44,6 @@ public class SCSCounter extends CounterInfo implements Serializable {
 
 	public String getDescription() {
 		return description;
-	}
-
-	@Override
-	public String getId() {
-		return id;
 	}
 
 	@Override
@@ -90,7 +86,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		String def = range != null ?
 				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
 				"["+attack+"-"+defence+"-"+movement+"]";
-		return getId() + def;
+		return ref() + def;
 	}
 	
 	public Operation onPointTo(Board board, Position ref) {

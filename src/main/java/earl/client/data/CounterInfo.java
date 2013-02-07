@@ -1,18 +1,29 @@
 package earl.client.data;
 
-import earl.client.data.ref.Counter;
+import java.io.Serializable;
+
+import earl.client.data.ref.CounterId;
 import earl.client.games.Position;
 
-public abstract class CounterInfo extends Identifiable {
+public abstract class CounterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Position position = null;
 	protected boolean flipped = false;
-
+	protected CounterId ref = null;
+	
+	protected CounterInfo(CounterId ref) {
+		this.ref = ref;
+	}
+	
+	public CounterId ref() {
+		return ref;
+	}
+	
 	public Position getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position pos) {
+	protected void setPosition(Position pos) {
 		this.position = pos;
 	}
 
@@ -26,13 +37,9 @@ public abstract class CounterInfo extends Identifiable {
 		return flipped;
 	}
 
-	public Counter ref() {
-		return new Counter(getId());
-	}
-	
 	@Override
 	public String toString() {
-		return getId()+":"+getPosition().getSVGId();
+		return ref()+":"+getPosition().getSVGId();
 	}
 
 }
