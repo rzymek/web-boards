@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMSVGAnimatedLength;
-import org.vectomatic.dom.svg.OMSVGMatrix;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGElement;
@@ -12,7 +11,6 @@ import org.vectomatic.dom.svg.impl.SVGGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.impl.SVGRectElement;
-import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
@@ -52,18 +50,6 @@ public class SVGUtils {
 			return ((SVGRectElement) e).getBBox();
 		} else {
 			throw new RuntimeException("SVGUtils.getBBox: unsupported " + e.getClass().getName() + " " + tag);
-		}
-	}
-
-	public static OMSVGMatrix getTransformToElement(SVGElement e, SVGElement to) {
-		if (e instanceof SVGGElement) {
-			return ((SVGGElement) e).getTransformToElement(to);
-		} else if (e instanceof SVGPathElement) {
-			return ((SVGPathElement) e).getTransformToElement(to);
-		} else if (e instanceof SVGImageElement) {
-			return ((SVGImageElement) e).getTransformToElement(to);
-		} else {
-			throw new RuntimeException("SVGUtils.getBBox: unsupported " + e.getClass().getName());
 		}
 	}
 
@@ -113,21 +99,6 @@ public class SVGUtils {
 		OMElement node = OMElement.convert(e);
 		HasClickHandlers hch = (HasClickHandlers) node;
 		hch.addClickHandler(clickHandler);
-	}
-
-	public static OMSVGPoint createPoint(SVGSVGElement svg, float x, float y) {
-		OMSVGPoint point = svg.createSVGPoint();
-		point.setX(x);
-		point.setY(y);
-		return point;
-	}
-
-	public static OMSVGPoint getTopLeft(SVGElement e) {
-		OMSVGPoint point = e.getOwnerSVGElement().createSVGPoint();
-		point.setX(getX(e).getBaseVal().getValue());
-		point.setY(getY(e).getBaseVal().getValue());
-		return point;
-
 	}
 
 	public static native Element createElementNS(final String ns, final String name)/*-{
