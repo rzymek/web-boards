@@ -68,14 +68,13 @@ public class SVGDisplay extends BasicDisplay {
 			select(null);
 			return;
 		}
+		Ref position = counter.getPosition();
 		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
 		String attribute = img.getAttribute("earl-stacks");
 		if(attribute == null || attribute.isEmpty()) {
-			hideStackSelection();
 			select(counter);
 			return;
 		}
-		Ref position = counter.getPosition();
 		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
 		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
 		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
