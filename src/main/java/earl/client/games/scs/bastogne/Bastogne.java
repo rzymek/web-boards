@@ -7,14 +7,14 @@ import java.util.Set;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.Game;
 import earl.client.data.GameCtx;
-import earl.client.data.Hex;
+import earl.client.data.HexInfo;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
-import earl.client.games.AreaRef;
-import earl.client.games.Ref;
+import earl.client.games.Area;
+import earl.client.games.Position;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.SCSBoard;
 import earl.client.games.scs.SCSCounter;
@@ -158,8 +158,8 @@ public class Bastogne implements Game, IsSerializable {
 
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
 
-		AreaRef usDG = new AreaRef("us_dg");
-		AreaRef geDG = new AreaRef("ge_dg");
+		Area usDG = new Area("us_dg");
+		Area geDG = new Area("ge_dg");
 		SCSMarker counter;
 		for (int i = 0; i < 18; i++) {
 			counter = new SCSMarker("us_dg" + i, "admin/misc_us-dg.png", BastogneSide.US);
@@ -177,7 +177,7 @@ public class Bastogne implements Game, IsSerializable {
 		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
 				unit.range, unit.defence, unit.movement);
 		counter.setDescription(desc);
-		board.place(new AreaRef(hexId), counter);
+		board.place(new Area(hexId), counter);
 	}
 
 	private void setup(int turn, String area, BastogneUnits unit, String desc) {
@@ -216,7 +216,7 @@ public class Bastogne implements Game, IsSerializable {
 		return new String[] { playerUS, playerGE };
 	}
 
-	public int getMovementCost(Hex target) {
+	public int getMovementCost(HexInfo target) {
 		String info = null;//TODO: getHexInfo(target);
 		int cost = 1;
 		if(info != null) {
@@ -230,8 +230,8 @@ public class Bastogne implements Game, IsSerializable {
 		return cost;
 	}
 
-	public int[] calculateOdds(Hex target, Collection<Hex> attacking) {
-		List<Counter> defending = target.getStack();
+	public int[] calculateOdds(HexInfo target, Collection<HexInfo> attacking) {
+		List<CounterInfo> defending = target.getStack();
 		String hexInfo = null;//TODO:getHexInfo(target);
 		float defence = getDefenceRawSum(defending);
 		if (hexInfo != null) {
@@ -252,18 +252,18 @@ public class Bastogne implements Game, IsSerializable {
 		return odds;
 	}
 
-	private float getDefenceRawSum(Collection<Counter> defending) {
+	private float getDefenceRawSum(Collection<CounterInfo> defending) {
 		float defence = 0;
-		for (Counter counter : defending) {
+		for (CounterInfo counter : defending) {
 			defence += ((SCSCounter) counter).getDefence();
 		}
 		return defence;
 	}
 
-	private float getAttackRawSum(Collection<Hex> list) {
+	private float getAttackRawSum(Collection<HexInfo> list) {
 		float attack = 0;
-		for (Hex hex : list) {
-			for (Counter c : hex.getStack()) {
+		for (HexInfo hex : list) {
+			for (CounterInfo c : hex.getStack()) {
 				attack += ((SCSCounter) c).getAttack();
 			}
 		}
@@ -310,9 +310,9 @@ public class Bastogne implements Game, IsSerializable {
 	public void load(Collection<Operation> ops, SVGDisplay display) {
 		setupScenarion52();
 		System.out.println(board.getCounters());
-		Set<Ref> stacks = board.getStacks();
-		for (Ref pos : stacks) {
-			List<Counter> counters = board.get(pos).getStack();
+		Set<Position> stacks = board.getStacks();
+		for (Position pos : stacks) {
+			List<CounterInfo> counters = board.getInfo(pos).getStack();
 			System.out.println(pos+": "+counters);
 		}
 		GameCtx ctx = new GameCtx();

@@ -24,14 +24,14 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
+import earl.client.data.CounterInfo;
+import earl.client.data.HexInfo;
 import earl.client.data.Identifiable;
 import earl.client.display.BasicDisplay;
 import earl.client.display.VisualCoords;
 import earl.client.ex.EarlException;
-import earl.client.games.HexXY;
-import earl.client.games.Ref;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 import earl.client.games.scs.SCSCounter;
 import earl.client.ops.Operation;
 import earl.client.utils.Browser;
@@ -39,7 +39,7 @@ import earl.client.utils.Browser;
 public class SVGDisplay extends BasicDisplay {
 	protected final SVGSVGElement svg;
 	private final SVGRectElement stackSelector;
-	private Ref showingStackSelector = null;
+	private Position showingStackSelector = null;
 	
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
@@ -55,8 +55,8 @@ public class SVGDisplay extends BasicDisplay {
 	protected void hexClicked(final Board board, ClickEvent event) {
 		hideStackSelection();
 		String id = event.getRelativeElement().getId();
-		HexXY position = HexXY.fromSVGId(id);
-		Hex hex = board.get(position);
+		Hex position = Hex.fromSVGId(id);
+		HexInfo hex = board.getInfo(position);
 		Operation op = hex.onClicked(ctx, position);
 		process(op);
 	}
@@ -68,7 +68,7 @@ public class SVGDisplay extends BasicDisplay {
 			select(null);
 			return;
 		}
-		Ref position = counter.getPosition();
+		Position position = counter.getPosition();
 		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
 		String attribute = img.getAttribute("earl-stacks");
 		if(attribute == null || attribute.isEmpty()) {
@@ -110,19 +110,19 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void alignStack(Ref ref) {
+	public void alignStack(Position ref) {
 		hideStackSelection();
 		SVGElement h = getSVGElement(ref.getSVGId());
-		Hex hex = ctx.board.get(ref);
-		Collection<Counter> stack = hex.getStack();
+		HexInfo hex = ctx.board.getInfo(ref);
+		Collection<CounterInfo> stack = hex.getStack();
 		List<SVGElement> svgStack = getSVGElements(stack);
 		alignStack(h, svgStack);
 		select(ctx.selected); //update position of selection rect
 	}
 
-	private List<SVGElement> getSVGElements(Collection<Counter> stack) {
+	private List<SVGElement> getSVGElements(Collection<CounterInfo> stack) {
 		List<SVGElement> result = new ArrayList<SVGElement>(stack.size());
-		for (Counter counter : stack) {
+		for (CounterInfo counter : stack) {
 			SVGElement svgCounter = getSVGElement(counter.getId());
 			result.add(svgCounter);
 		}
@@ -131,7 +131,7 @@ public class SVGDisplay extends BasicDisplay {
 
 	private void hideStackSelection() {
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
-		Ref hex = showingStackSelector;
+		Position hex = showingStackSelector;
 		showingStackSelector = null;
 		if(hex != null) {
 			alignStack(hex);
@@ -220,7 +220,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	protected void createCounter(Counter counter, final Board board) {
+	protected void createCounter(CounterInfo counter, final Board board) {
 		Element tmpl = svg.getElementById("counter");
 		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
 		String id = counter.getId();
@@ -251,7 +251,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void select(Counter counter) {
+	public void select(CounterInfo counter) {
 		ctx.selected = counter;
 		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
 		if (counter == null) {
@@ -276,7 +276,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public VisualCoords getCenter(Ref to) {
+	public VisualCoords getCenter(Position to) {
 		return getCenter(to.getSVGId());
 	}
 
@@ -289,7 +289,7 @@ public class SVGDisplay extends BasicDisplay {
 	private static final String ARROW_ID_PREFIX = "attackArrow";
 	
 	@Override
-	public void drawLine(Ref from, Ref to) {
+	public void drawLine(Position from, Position to) {
 		drawLine(getCenter(from), getCenter(to));
 	}
 
@@ -305,7 +305,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 	
 	@Override
-	public void drawArrow(Ref from, Ref to, String id) {
+	public void drawArrow(Position from, Position to, String id) {
 		drawArrow(getCenter(from.getSVGId()), getCenter(to.getSVGId()), id);
 	}
 	
@@ -329,7 +329,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void clearArrow(Ref from) {
+	public void clearArrow(Position from) {
 		String id = getArrowId(from);
 		removeElement(id);		
 	}
@@ -341,7 +341,7 @@ public class SVGDisplay extends BasicDisplay {
 		}
 	}
 
-	private String getArrowId(Ref from) {
+	private String getArrowId(Position from) {
 		return ARROW_ID_PREFIX + "_" + from.getSVGId();
 	}
 	
@@ -402,9 +402,9 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void mark(Collection<? extends Ref> hexes) {
+	public void mark(Collection<? extends Position> hexes) {
 		StringBuilder buf = new StringBuilder();
-		for (Ref hex : hexes) {
+		for (Position hex : hexes) {
 			if (buf.length() != 0) {
 				buf.append(",");
 			}

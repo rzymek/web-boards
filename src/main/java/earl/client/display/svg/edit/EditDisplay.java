@@ -29,8 +29,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import earl.client.data.Board;
 import earl.client.display.VisualCoords;
 import earl.client.display.svg.SVGDisplay;
-import earl.client.games.HexXY;
-import earl.client.games.Ref;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 import earl.client.utils.AbstractCallback;
 
 public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPressHandler, MouseDownHandler {
@@ -64,8 +64,8 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		if (event.isControlKeyDown()) {
 			Element newSource = event.getRelativeElement();
 			if (source != newSource && source != null) {
-				HexXY from = HexXY.fromSVGId(source.getId());
-				HexXY to = HexXY.fromSVGId(newSource.getId());
+				Hex from = Hex.fromSVGId(source.getId());
+				Hex to = Hex.fromSVGId(newSource.getId());
 				drawLine(from, to);
 				if (path.isEmpty()) {
 					path.add(source);
@@ -81,7 +81,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		if (event.isControlKeyDown()) {
 			if(path.isEmpty()) {
 				String id = event.getRelativeElement().getId();
-				mark(Arrays.asList(HexXY.fromSVGId(id)));
+				mark(Arrays.asList(Hex.fromSVGId(id)));
 			}else{
 				nextSegment();
 			}
@@ -89,7 +89,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 	}
 
 	@Override
-	public void drawLine(Ref from, Ref to) {
+	public void drawLine(Position from, Position to) {
 		drawLine(getCenter(from), getCenter(to), to.getSVGId());
 	}
 
@@ -104,7 +104,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 
 	public void setCurrent(Element newSource) {
 		source = newSource;
-		mark(Arrays.asList(HexXY.fromSVGId(source.getId())));
+		mark(Arrays.asList(Hex.fromSVGId(source.getId())));
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		reset();
 		id++;
 		status("Saved. New id=" + id);
-		mark(new ArrayList<Ref>());
+		mark(new ArrayList<Position>());
 	}
 
 	private void reset() {
@@ -194,9 +194,9 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 	private void draw(String result) {
 		reset();
 		String[] ids = result.split(" ");
-		HexXY prev = null;
+		Hex prev = null;
 		for (String id : ids) {
-			HexXY hex = HexXY.fromSVGId(id);
+			Hex hex = Hex.fromSVGId(id);
 			if (prev != null) {
 				drawLine(prev, hex);
 			}

@@ -1,30 +1,30 @@
 package earl.client.games.scs.ops;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.GameCtx;
-import earl.client.data.ref.CounterRef;
+import earl.client.data.ref.Counter;
 import earl.client.ops.Operation;
 
 public class Flip extends Operation {
 	private static final long serialVersionUID = 1L;
-	private CounterRef counterRef;
+	private Counter counterRef;
 	protected Flip() {
 	}
 	
-	public Flip(CounterRef counterRef) {
+	public Flip(Counter counterRef) {
 		this.counterRef = counterRef;
 	}
 
 	@Override
 	public void draw(GameCtx ctx) {
-		Counter counter = ctx.board.get(counterRef);
+		CounterInfo counter = ctx.board.getInfo(counterRef);
 		ctx.display.update(counter, counter.getState());
 	}
 
 	@Override
 	public void updateBoard(Board board) {
-		Counter counter = board.get(counterRef);
+		CounterInfo counter = board.getInfo(counterRef);
 		counter.flip();
 	}
 

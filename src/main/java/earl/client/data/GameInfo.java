@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-import earl.client.games.Ref;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.BastogneSide;
 import earl.client.ops.Operation;
 
@@ -17,5 +17,5 @@ public class GameInfo implements Serializable, IsSerializable {
 	public Collection<Operation> ops;
 	public BastogneSide joinAs;
 	public BastogneSide side;
-	public Map<String, Ref> state;
+	public Map<String, Position> state;
 }

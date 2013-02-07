@@ -18,12 +18,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.GameInfo;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.SVGZoomAndPanHandler;
 import earl.client.display.svg.edit.EditDisplay;
-import earl.client.games.Ref;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.ops.Move;
 import earl.client.menu.EarlClienContext;
@@ -105,11 +105,11 @@ public class ClientEngine implements EntryPoint {
 
 
 	public void update(GameInfo info) {
-		Set<Entry<String, Ref>> set = info.state.entrySet();
-		for (Entry<String, Ref> state : set) {
+		Set<Entry<String, Position>> set = info.state.entrySet();
+		for (Entry<String, Position> state : set) {
 			String counterId = state.getKey();
-			Ref pos = state.getValue();
-			Counter counter = board.getCounter(counterId);
+			Position pos = state.getValue();
+			CounterInfo counter = board.getCounter(counterId);
 			Move move = new Move(counter, pos);
 			move.updateBoard(board);
 			move.draw(display.getCtx());

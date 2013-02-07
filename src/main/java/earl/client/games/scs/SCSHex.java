@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import earl.client.data.Hex;
+import earl.client.data.HexInfo;
 import earl.client.games.scs.bastogne.HexTraits;
 
-public class SCSHex extends Hex {
+public class SCSHex extends HexInfo {
 	private static final long serialVersionUID = 1L;
 	private Set<HexTraits> traits = null;
 

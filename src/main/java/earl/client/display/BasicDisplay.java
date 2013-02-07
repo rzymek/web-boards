@@ -7,9 +7,9 @@ import com.google.gwt.core.shared.GWT;
 
 import earl.client.ClientEngine;
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.GameCtx;
-import earl.client.games.Ref;
+import earl.client.games.Position;
 import earl.client.ops.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
@@ -35,13 +35,13 @@ public abstract class BasicDisplay implements EarlDisplay {
 	}
 
 	protected void initCounters(final Board board) {
-		Collection<Ref> stacks = board.getStacks();
+		Collection<Position> stacks = board.getStacks();
 		ClientEngine.log("counters: " + board.getCounters().toString());
 		ClientEngine.log("stacks: " + stacks.toString());
-		for (Ref pos : stacks) {
-			List<Counter> counters = board.get(pos).getStack();
+		for (Position pos : stacks) {
+			List<CounterInfo> counters = board.getInfo(pos).getStack();
 			ClientEngine.log(pos + ": " + counters);
-			for (Counter counter : counters) {
+			for (CounterInfo counter : counters) {
 				createCounter(counter, board);
 			}
 			alignStack(pos);
@@ -64,7 +64,7 @@ public abstract class BasicDisplay implements EarlDisplay {
 		});
 	}
 
-	protected abstract void createCounter(Counter counter, Board board);
+	protected abstract void createCounter(CounterInfo counter, Board board);
 
 	protected abstract void initAreas(Board board);
 

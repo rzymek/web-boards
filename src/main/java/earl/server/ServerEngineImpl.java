@@ -21,12 +21,12 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.Game;
 import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
-import earl.client.games.AreaRef;
-import earl.client.games.Ref;
+import earl.client.games.Area;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.bastogne.BastogneSide;
 import earl.client.ops.Operation;
@@ -95,19 +95,19 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}
 	}
 
-	private Map<String, Ref> getCounterPositions(GameState state) {
-		HashMap<String, Ref> result = new HashMap<String, Ref>();
+	private Map<String, Position> getCounterPositions(GameState state) {
+		HashMap<String, Position> result = new HashMap<String, Position>();
 		if(state == null) {
 			return result;
 		}
 		for (Entry<String, String> e : state.state.entrySet()) {
-			result.put(e.getKey(), new AreaRef(e.getValue()));
+			result.put(e.getKey(), new Area(e.getValue()));
 		}
 		return result;
 	}
 	
 	public GameState save(Game game, long tableId, String user, Date timestamp) {
-		Collection<Counter> counters = game.getBoard().getCounters();
+		Collection<CounterInfo> counters = game.getBoard().getCounters();
 		Key<Table> table = Key.create(Table.class, tableId);		
 		GameState state = new GameState();
 		state.table = table;		
@@ -115,8 +115,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		state.updated = timestamp;
 		state.state = new HashMap<String, String>();
 		
-		for (Counter counter : counters) {
-			Ref hexPos = counter.getPosition();
+		for (CounterInfo counter : counters) {
+			Position hexPos = counter.getPosition();
 			String counterPos = counter.ref().getId();
 			state.state.put(counterPos, hexPos.getSVGId());
 		}

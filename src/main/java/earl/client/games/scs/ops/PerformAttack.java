@@ -5,8 +5,8 @@ import java.util.List;
 
 import earl.client.data.Board;
 import earl.client.data.GameCtx;
-import earl.client.data.Hex;
-import earl.client.games.HexXY;
+import earl.client.data.HexInfo;
+import earl.client.games.Hex;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.ops.Operation;
@@ -15,8 +15,8 @@ import earl.client.ops.generic.DiceRoll;
 
 public class PerformAttack extends Operation {
 	private static final long serialVersionUID = 1L;
-	public HexXY targetRef;
-	public HexXY[] attackingRef;
+	public Hex targetRef;
+	public Hex[] attackingRef;
 	public CombatResult result;
 	public String rollResult;	
  
@@ -28,8 +28,8 @@ public class PerformAttack extends Operation {
 	public void serverExecute(ServerContext ctx) {
 		Bastogne game = (Bastogne) ctx.game;
 		Board board = game.getBoard();
-		Hex target = board.get(targetRef);
-		List<Hex> attacking = getAttacking(board);
+		HexInfo target = board.getInfo(targetRef);
+		List<HexInfo> attacking = getAttacking(board);
 		int[] odds = game.calculateOdds(target, attacking);
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
@@ -39,10 +39,10 @@ public class PerformAttack extends Operation {
 		rollResult = String.valueOf(sum);
 		result = game.getCombatResult(odds, sum);
 	}
-	private List<Hex> getAttacking(Board board) {
-		List<Hex> attacking = new ArrayList<Hex>(attackingRef.length);
-		for (HexXY ref : attackingRef) {
-			attacking.add(board.get(ref));
+	private List<HexInfo> getAttacking(Board board) {
+		List<HexInfo> attacking = new ArrayList<HexInfo>(attackingRef.length);
+		for (Hex ref : attackingRef) {
+			attacking.add(board.getInfo(ref));
 		}
 		return attacking;
 	}

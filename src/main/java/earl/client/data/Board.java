@@ -11,57 +11,55 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import earl.client.data.ref.CounterRef;
+import earl.client.data.ref.Counter;
 import earl.client.ex.EarlException;
-import earl.client.games.HexXY;
-import earl.client.games.Ref;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 
 public abstract class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Counter> counters = null;
+	private Map<String, CounterInfo> counters = null;
 
 	public Board() {
-		counters = new HashMap<String, Counter>();
+		counters = new HashMap<String, CounterInfo>();
 	}
 
-	public Set<Ref> getStacks() {
-		Set<Ref> stacks = new HashSet<Ref>();
-		Set<Entry<String, Counter>> entrySet = counters.entrySet();		
-		for (Entry<String, Counter> entry : entrySet) {
+	public Set<Position> getStacks() {
+		Set<Position> stacks = new HashSet<Position>();
+		Set<Entry<String, CounterInfo>> entrySet = counters.entrySet();		
+		for (Entry<String, CounterInfo> entry : entrySet) {
 			stacks.add(entry.getValue().getPosition());
 		}
 		return stacks;
 	}
 
-	public Collection<Counter> getCounters() {
+	public Collection<CounterInfo> getCounters() {
 		return Collections.unmodifiableCollection(counters.values());
 	}
 
-	public abstract Hex get(Ref area);
-
-	public Counter getCounter(String id) {
+	public CounterInfo getCounter(String id) {
 		return counters.get(id);
 	}
 
-	public void place(Ref to, Counter counter) {
-		Counter prev = counters.put(counter.getId(), counter);
+	public void place(Position to, CounterInfo counter) {
+		CounterInfo prev = counters.put(counter.getId(), counter);
 		if (prev != null) {
 			throw new EarlException(counter.getId() + " aleader placed");
 		}
 		move(to, counter);
 	}
 
-	public void move(Ref to, Counter counter) {
-		Ref from = counter.getPosition();
+	public void move(Position to, CounterInfo counter) {
+		Position from = counter.getPosition();
 		if(from != null) {
-			get(from).pieces.remove(counter);
+			getInfo(from).pieces.remove(counter);
 		}
 		counter.setPosition(to);
-		get(to).pieces.add(counter);
+		getInfo(to).pieces.add(counter);
 	}
 
-	public List<Hex> getAdjacent(HexXY p) {
-		List<Hex> adj = new ArrayList<Hex>(6);
+	public List<HexInfo> getAdjacent(Hex p) {
+		List<HexInfo> adj = new ArrayList<HexInfo>(6);
 		int o = (p.x % 2 == 0) ? 0 : -1;
 		//@formatter:off
 								adj.add(toId(p.x,p.y+1));
@@ -72,11 +70,13 @@ public abstract class Board implements Serializable {
 		return adj;
 	}
 	
-	private Hex toId(int x, int y) {
-		return get(new HexXY(x, y));
+	private HexInfo toId(int x, int y) {
+		return getInfo(new Hex(x, y));
 	}
 
-	public Counter get(CounterRef ref) {
+	public abstract HexInfo getInfo(Position area);
+
+	public CounterInfo getInfo(Counter ref) {
 		return getCounter(ref.getId());
 	}
 

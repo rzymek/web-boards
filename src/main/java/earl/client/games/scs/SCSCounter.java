@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.games.HexXY;
-import earl.client.games.Ref;
+import earl.client.data.CounterInfo;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.BastogneSide;
 import earl.client.games.scs.ops.Move;
 import earl.client.ops.Operation;
 
-public class SCSCounter extends Counter implements Serializable {
+public class SCSCounter extends CounterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String description;
 	private String frontPath = null;
@@ -93,11 +93,11 @@ public class SCSCounter extends Counter implements Serializable {
 		return getId() + def;
 	}
 	
-	public Operation onPointTo(Board board, Ref ref) {
-		if(ref instanceof HexXY) {
-			HexXY hex = (HexXY) ref;
+	public Operation onPointTo(Board board, Position ref) {
+		if(ref instanceof Hex) {
+			Hex hex = (Hex) ref;
 			if(isEnemyOccupied(board, hex)) {
-				return onAttack((SCSHex) board.get(hex));
+				return onAttack((SCSHex) board.getInfo(hex));
 			}else{
 				return onMoveTo(hex);
 			}
@@ -125,9 +125,9 @@ public class SCSCounter extends Counter implements Serializable {
 		return null;
 	}
 
-	private boolean isEnemyOccupied(Board board, HexXY hex) {
-		List<Counter> stack = board.get(hex).getStack();
-		for (Counter counter : stack) {
+	private boolean isEnemyOccupied(Board board, Hex hex) {
+		List<CounterInfo> stack = board.getInfo(hex).getStack();
+		for (CounterInfo counter : stack) {
 			if(counter instanceof SCSCounter) {
 				SCSCounter c = (SCSCounter) counter;
 				//No need to check other counters on the stack
@@ -138,7 +138,7 @@ public class SCSCounter extends Counter implements Serializable {
 		return false;
 	}
 
-	protected Operation onMoveTo(Ref hex) {
+	protected Operation onMoveTo(Position hex) {
 		return new Move(this, hex);
 	}
 

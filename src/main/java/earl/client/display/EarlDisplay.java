@@ -2,38 +2,38 @@ package earl.client.display;
 
 import java.util.Collection;
 
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.Identifiable;
-import earl.client.games.Ref;
+import earl.client.games.Position;
 
 public interface EarlDisplay {
 
-	VisualCoords getCenter(Ref to);
+	VisualCoords getCenter(Position to);
 
 	void drawArrow(VisualCoords start, VisualCoords end, String id);
 
 	void update(Identifiable counter, String state);
 
-	void alignStack(Ref ref);
+	void alignStack(Position ref);
 
 	void drawOds(VisualCoords center, int[] odds);
 
-	void mark(Collection<? extends Ref> hexes);
+	void mark(Collection<? extends Position> hexes);
 
 	void clearMarks();
 
 	void clearOds(VisualCoords center);
 
-	void clearArrow(Ref from);
+	void clearArrow(Position from);
 
 	void showResults(VisualCoords center, String result);
 
 	void clearResults(VisualCoords center);
 
-	void drawArrow(Ref from, Ref to, String id);
+	void drawArrow(Position from, Position to, String id);
 
-	void drawLine(Ref fromRef, Ref toRef);
+	void drawLine(Position fromRef, Position toRef);
 
-	void select(Counter i);
+	void select(CounterInfo i);
 
 }
