@@ -1,10 +1,11 @@
 package earl.client.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import earl.client.data.ref.CounterId;
-import earl.client.games.Hex;
 import earl.client.games.Position;
+import earl.client.games.scs.ops.Move;
 import earl.client.ops.Operation;
 
 public abstract class CounterInfo implements Serializable {
@@ -44,14 +45,33 @@ public abstract class CounterInfo implements Serializable {
 		return ref()+":"+getPosition().getSVGId();
 	}
 
-	public Operation onPointTo(GameCtx ctx, CounterInfo counter) {		
-		Position pos = counter.getPosition();
-		if(pos instanceof Hex) {
-			Hex hex = (Hex) pos;
-			HexInfo info = ctx.board.getInfo(hex);
-			return info.onClicked(ctx, hex);
-		}else{
+	public Operation onPointTo(GameCtx ctx, CounterInfo counter) {
+		if(counter == this) {
+			ctx.display.select(null);
 			return null;
+		}else{
+			ctx.display.select(null);
+			return new Move(this, counter.getPosition());
+		}
+	}
+
+	public Operation onPointToEmpty(GameCtx ctx, Position pos) {
+		ctx.display.select(null);
+		return new Move(this, pos);
+	}
+
+	public Operation onSingleClicked(GameCtx ctx) {		
+		ctx.display.select(this);
+		return null;
+	}
+
+	public Operation onPointToStack(GameCtx ctx, List<CounterInfo> stack, Position pos) {
+		if(pos.equals(getPosition())) {
+			ctx.display.showStackSelector(stack, pos);
+			return null;
+		}else{
+			ctx.display.select(null);
+			return new Move(this, pos);
 		}
 	}
 

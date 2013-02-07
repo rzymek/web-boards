@@ -1,5 +1,7 @@
 package earl.client.utils;
 
+import java.util.List;
+
 import earl.client.games.Position;
 
 public class Utils {
@@ -27,6 +29,21 @@ public class Utils {
 			return false;
 		}
 		return true;
+	}
+
+	public static String toString(List<String> list, String sep) {
+		StringBuilder buf = new StringBuilder();
+		for (String string : list) {
+			if(buf.length() > 0) {
+				buf.append(sep);
+			}
+			buf.append(string);
+		}
+		return buf.toString();
+	}
+
+	public static boolean isEmpty(String s) {
+		return s == null ? true : s.isEmpty();
 	}
 
 }

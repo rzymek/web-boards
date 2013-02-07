@@ -122,7 +122,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	}
 
 	private boolean isEnemyOccupied(Board board, Hex hex) {
-		List<CounterInfo> stack = board.getInfo(hex).getStack();
+		List<CounterInfo> stack = board.getInfo(hex).getPieces();
 		for (CounterInfo counter : stack) {
 			if(counter instanceof SCSCounter) {
 				SCSCounter c = (SCSCounter) counter;

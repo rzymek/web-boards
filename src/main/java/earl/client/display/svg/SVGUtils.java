@@ -1,5 +1,7 @@
 package earl.client.display.svg;
 
+import java.util.List;
+
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMSVGAnimatedLength;
 import org.vectomatic.dom.svg.OMSVGMatrix;
@@ -131,4 +133,13 @@ public class SVGUtils {
 	public static native Element createElementNS(final String ns, final String name)/*-{
 	    return document.createElementNS(ns, name);  
 	}-*/;
+
+	public static SVGElement findById(List<SVGElement> stack, String id) {
+		for (SVGElement e : stack) {
+			if(id.equals(e.getId())){
+				return e;
+			}
+		}
+		return null;
+	}
 }

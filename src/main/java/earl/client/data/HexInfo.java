@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import earl.client.games.Hex;
-import earl.client.games.scs.ops.Move;
+import earl.client.games.Position;
 import earl.client.ops.Operation;
 
 public class HexInfo implements Serializable {
@@ -17,7 +16,7 @@ public class HexInfo implements Serializable {
 
 	protected List<CounterInfo> pieces = new ArrayList<CounterInfo>();
 
-	public List<CounterInfo> getStack() {
+	public List<CounterInfo> getPieces() {
 		return Collections.unmodifiableList(pieces);
 	}
 
@@ -26,16 +25,12 @@ public class HexInfo implements Serializable {
 		return String.valueOf(pieces);
 	}
 
-	public Operation onClicked(GameCtx ctx, Hex position) {
-		CounterInfo selected = ctx.selected;
-		if (selected == null) {
-			return null;
-		}
-		ctx.display.select(null);
-		if (this.equals(selected.getPosition())) {
-			return null;
-		} else {
-			return new Move(selected, position);
-		}
+	public Operation onEmptyClicked(GameCtx ctx, Position position) {
+		return null;
+	}
+
+	public Operation onStackClicked(GameCtx ctx, List<CounterInfo> stack, Position pos) {
+		ctx.display.showStackSelector(stack, pos);
+		return null;
 	}
 }

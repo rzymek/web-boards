@@ -1,6 +1,7 @@
 package earl.client.display;
 
 import java.util.Collection;
+import java.util.List;
 
 import earl.client.data.CounterInfo;
 import earl.client.data.ref.CounterId;
@@ -37,5 +38,7 @@ public interface EarlDisplay {
 	void select(CounterInfo i);
 
 	void clearTraces();
+
+	void showStackSelector(List<CounterInfo> stack, Position pos);
 
 }

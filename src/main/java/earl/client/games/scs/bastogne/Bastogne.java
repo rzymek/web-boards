@@ -231,7 +231,7 @@ public class Bastogne implements Game, IsSerializable {
 	}
 
 	public int[] calculateOdds(HexInfo target, Collection<HexInfo> attacking) {
-		List<CounterInfo> defending = target.getStack();
+		List<CounterInfo> defending = target.getPieces();
 		String hexInfo = null;//TODO:getHexInfo(target);
 		float defence = getDefenceRawSum(defending);
 		if (hexInfo != null) {
@@ -263,7 +263,7 @@ public class Bastogne implements Game, IsSerializable {
 	private float getAttackRawSum(Collection<HexInfo> list) {
 		float attack = 0;
 		for (HexInfo hex : list) {
-			for (CounterInfo c : hex.getStack()) {
+			for (CounterInfo c : hex.getPieces()) {
 				attack += ((SCSCounter) c).getAttack();
 			}
 		}
@@ -312,7 +312,7 @@ public class Bastogne implements Game, IsSerializable {
 		System.out.println(board.getCounters());
 		Set<Position> stacks = board.getStacks();
 		for (Position pos : stacks) {
-			List<CounterInfo> counters = board.getInfo(pos).getStack();
+			List<CounterInfo> counters = board.getInfo(pos).getPieces();
 			System.out.println(pos+": "+counters);
 		}
 		GameCtx ctx = new GameCtx();
