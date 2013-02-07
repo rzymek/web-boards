@@ -10,10 +10,8 @@ import earl.client.data.Board;
 import earl.client.data.CounterInfo;
 import earl.client.data.GameCtx;
 import earl.client.games.Position;
-import earl.client.ops.Operation;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
-import earl.client.utils.AbstractCallback;
 
 public abstract class BasicDisplay implements EarlDisplay {
 	protected final ServerEngineAsync service;
@@ -48,21 +46,6 @@ public abstract class BasicDisplay implements EarlDisplay {
 		}
 	}
 
-	public void process(final Operation op) {
-		if (op == null) {
-			return;
-		}
-		op.updateBoard(ctx.board);
-		op.draw(ctx);
-		op.drawDetails(this);
-		service.process(op, new AbstractCallback<Operation>() {
-			@Override
-			public void onSuccess(Operation result) {
-				result.postServer(ctx);
-				ClientEngine.log("executed: " + result);
-			}
-		});
-	}
 
 	protected abstract void createCounter(CounterInfo counter, Board board);
 

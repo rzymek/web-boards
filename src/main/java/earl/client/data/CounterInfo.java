@@ -3,7 +3,9 @@ package earl.client.data;
 import java.io.Serializable;
 
 import earl.client.data.ref.CounterId;
+import earl.client.games.Hex;
 import earl.client.games.Position;
+import earl.client.ops.Operation;
 
 public abstract class CounterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,6 +42,17 @@ public abstract class CounterInfo implements Serializable {
 	@Override
 	public String toString() {
 		return ref()+":"+getPosition().getSVGId();
+	}
+
+	public Operation onPointTo(GameCtx ctx, CounterInfo counter) {
+		Position pos = counter.getPosition();
+		if(pos instanceof Hex) {
+			Hex hex = (Hex) pos;
+			HexInfo info = ctx.board.getInfo(hex);
+			return info.onClicked(ctx, hex);
+		}else{
+			return null;
+		}
 	}
 
 }

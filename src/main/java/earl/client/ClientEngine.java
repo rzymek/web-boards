@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
 import earl.client.data.CounterInfo;
+import earl.client.data.GameCtx;
 import earl.client.data.GameInfo;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.SVGZoomAndPanHandler;
@@ -86,12 +87,14 @@ public class ClientEngine implements EntryPoint {
 		ctx.svg = svg;
 		ctx.game = (Bastogne) info.game;
 		ctx.side = info.side;
-		ctx.display = display;
+		ctx.ctx = new GameCtx();
+		ctx.ctx.display = display;
+		ctx.ctx.board = ctx.game.getBoard();
 		ctx.engine = this;
 		
 		menu = new EarlMenu(ctx);
 
-		NotificationListener listener = new NotificationListener(ctx);
+		NotificationListener listener = new NotificationListener(ctx.ctx);
 		listener.join(info.channelToken);
 		
 		update(info);

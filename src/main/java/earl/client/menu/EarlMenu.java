@@ -80,10 +80,10 @@ public class EarlMenu implements ClickHandler {
 		} else if ("Send msg".equals(text)) {
 			String msg = Window.prompt("Enter message:", "");
 			if(msg != null) {
-				ctx.display.process(new ChatOp(msg));
+				ctx.ctx.process(new ChatOp(msg));
 			}
 		} else if ("Clear traces".equals(text)) {
-			ctx.display.clearTraces();
+			ctx.ctx.display.clearTraces();
 		} else if ("Hide menu".equals(text)) {
 			toggleMenu();
 			source.setHTML("Show menu");
@@ -105,7 +105,7 @@ public class EarlMenu implements ClickHandler {
 			});
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
-			ctx.display.process(roll);
+			ctx.ctx.process(roll);
 		} else if ("Toggle units".equals(text)) {
 			toggleVisible(ctx.svg.getElementById("units").getStyle());
 			toggleVisible(ctx.svg.getElementById("markers").getStyle());

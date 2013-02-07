@@ -4,13 +4,13 @@ import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
 import no.eirikb.gwtchannelapi.client.Message;
 import earl.client.data.Board;
-import earl.client.menu.EarlClienContext;
+import earl.client.data.GameCtx;
 import earl.client.ops.Operation;
 
 public final class NotificationListener implements ChannelListener {
-	private final EarlClienContext ctx;
+	private final GameCtx ctx;
 
-	public NotificationListener(EarlClienContext ctx) {
+	public NotificationListener(GameCtx ctx) {
 		this.ctx = ctx;
 	}
 
@@ -24,12 +24,11 @@ public final class NotificationListener implements ChannelListener {
 	public void onReceive(Message message) {
 		ClientEngine.log("Notif recv: "+message);
 		OperationMessage msg = (OperationMessage) message;
-		Board board = ctx.game.getBoard();
 		Operation op = msg.op;
-		op.updateBoard(board);
+		op.updateBoard(ctx.board);
 		op.drawDetails(ctx.display);
-		op.draw(ctx.display.getCtx());
-		op.postServer(ctx.display.getCtx());
+		op.draw(ctx);
+		op.postServer(ctx);
 	}
 	
 

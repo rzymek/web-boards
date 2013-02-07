@@ -36,4 +36,6 @@ public interface EarlDisplay {
 
 	void select(CounterInfo i);
 
+	void clearTraces();
+
 }

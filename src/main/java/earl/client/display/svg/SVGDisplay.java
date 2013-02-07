@@ -58,7 +58,7 @@ public class SVGDisplay extends BasicDisplay {
 		Hex position = Hex.fromSVGId(id);
 		HexInfo hex = board.getInfo(position);
 		Operation op = hex.onClicked(ctx, position);
-		process(op);
+		ctx.process(op);
 	}
 
 	protected void counterClicked(final Board board, ClickEvent event) {		
@@ -72,7 +72,12 @@ public class SVGDisplay extends BasicDisplay {
 		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.ref().toString());
 		String attribute = img.getAttribute("earl-stacks");
 		if(attribute == null || attribute.isEmpty()) {
-			select(counter);
+			if(ctx.selected != null) {
+				Operation op = ctx.selected.onPointTo(ctx, counter);
+				ctx.process(op);
+			}else{
+				select(counter);
+			}
 			return;
 		}
 		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
