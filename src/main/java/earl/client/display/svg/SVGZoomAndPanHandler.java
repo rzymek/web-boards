@@ -20,15 +20,15 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.user.client.Window;
 
 import earl.client.ClientEngine;
-import earl.client.display.Position;
+import earl.client.display.VisualCoords;
 
 public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler {
 	private static final float KEY_ZOOM_STEP = 1.3f;
 	private static final boolean LOW_RES_PANNING = false;
 	private float minScale = 0.25f;
-	private final Position size;
-	private final Position mouse = new Position(0, 0);
-	private final Position offset = new Position(0, 0);	
+	private final VisualCoords size;
+	private final VisualCoords mouse = new VisualCoords(0, 0);
+	private final VisualCoords offset = new VisualCoords(0, 0);	
 	private final SVGSVGElement svg;
 	private float scale = 1.0f;
 	private boolean lowRes = false;
@@ -37,7 +37,7 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	public SVGZoomAndPanHandler(SVGSVGElement svg) {
 		this.svg = svg;
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
-		size = new Position((int) viewbox.getWidth(), (int) viewbox.getHeight());
+		size = new VisualCoords((int) viewbox.getWidth(), (int) viewbox.getHeight());
 		minScale = Math.min(Window.getClientWidth()  / viewbox.getWidth(), Window.getClientHeight() / viewbox.getHeight());
 		ClientEngine.log("minScale="+minScale);
 	}

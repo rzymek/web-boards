@@ -27,7 +27,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
-import earl.client.display.Position;
+import earl.client.display.VisualCoords;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.games.HexXY;
 import earl.client.games.Ref;
@@ -93,7 +93,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		drawLine(getCenter(from), getCenter(to), to.getSVGId());
 	}
 
-	public void drawLine(Position start, Position end, String id) {
+	public void drawLine(VisualCoords start, VisualCoords end, String id) {
 		OMSVGLineElement line = doc.createSVGLineElement(start.x, start.y, end.x, end.y);
 		line.setId("editline-" + id);
 		line.getStyle().setSVGProperty("stroke-width", "5");

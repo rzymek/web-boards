@@ -8,27 +8,27 @@ import earl.client.games.Ref;
 
 public interface EarlDisplay {
 
-	Position getCenter(Ref to);
+	VisualCoords getCenter(Ref to);
 
-	void drawArrow(Position start, Position end, String id);
+	void drawArrow(VisualCoords start, VisualCoords end, String id);
 
 	void update(Identifiable counter, String state);
 
 	void alignStack(Ref ref);
 
-	void drawOds(Position center, int[] odds);
+	void drawOds(VisualCoords center, int[] odds);
 
 	void mark(Collection<? extends Ref> hexes);
 
 	void clearMarks();
 
-	void clearOds(Position center);
+	void clearOds(VisualCoords center);
 
 	void clearArrow(Ref from);
 
-	void showResults(Position center, String result);
+	void showResults(VisualCoords center, String result);
 
-	void clearResults(Position center);
+	void clearResults(VisualCoords center);
 
 	void drawArrow(Ref from, Ref to, String id);
 

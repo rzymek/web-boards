@@ -28,7 +28,7 @@ import earl.client.data.Counter;
 import earl.client.data.Hex;
 import earl.client.data.Identifiable;
 import earl.client.display.BasicDisplay;
-import earl.client.display.Position;
+import earl.client.display.VisualCoords;
 import earl.client.ex.EarlException;
 import earl.client.games.HexXY;
 import earl.client.games.Ref;
@@ -276,14 +276,14 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public Position getCenter(Ref to) {
+	public VisualCoords getCenter(Ref to) {
 		return getCenter(to.getSVGId());
 	}
 
-	private Position getCenter(String id) {
+	private VisualCoords getCenter(String id) {
 		SVGElement element = getSVGElement(id);
 		OMSVGPoint center = SVGUtils.getCenter(element);
-		return new Position((int) center.getX(), (int) center.getY());
+		return new VisualCoords((int) center.getX(), (int) center.getY());
 	}
 
 	private static final String ARROW_ID_PREFIX = "attackArrow";
@@ -293,7 +293,7 @@ public class SVGDisplay extends BasicDisplay {
 		drawLine(getCenter(from), getCenter(to));
 	}
 
-	public void drawLine(Position start, Position end) {
+	public void drawLine(VisualCoords start, VisualCoords end) {
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById("trace");
 		arrow.getStyle().setProperty("pointerEvents", "none");
 		arrow = (SVGPathElement) arrow.cloneNode(true);
@@ -310,7 +310,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 	
 	@Override
-	public void drawArrow(Position start, Position end, String id) {
+	public void drawArrow(VisualCoords start, VisualCoords end, String id) {
 		id = ARROW_ID_PREFIX+"_"+id;
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById(id);
 		if(arrow == null) {
@@ -353,13 +353,13 @@ public class SVGDisplay extends BasicDisplay {
 	}
 	
 	@Override
-	public void drawOds(Position center, int[] odds) {
+	public void drawOds(VisualCoords center, int[] odds) {
 		String text = odds[0]+":"+odds[1];
 		final String id = "tg@"+center.x+"_"+center.y;
 		drawFromTemplate(center, "target", text, id);
 	}
 
-	private void drawFromTemplate(Position center, String templateId, String text, final String id) {
+	private void drawFromTemplate(VisualCoords center, String templateId, String text, final String id) {
 		SVGElement target = (SVGElement) svg.getElementById(id);
 		if(target == null) {
 			target = (SVGElement) svg.getElementById(templateId);
@@ -377,7 +377,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void clearOds(Position center) {
+	public void clearOds(VisualCoords center) {
 		final String id = "tg@"+center.x+"_"+center.y;
 		SVGElement target = (SVGElement) svg.getElementById(id);
 		if(target != null) {
@@ -420,12 +420,12 @@ public class SVGDisplay extends BasicDisplay {
 	}
 	
 	@Override
-	public void showResults(Position center, String result) {
+	public void showResults(VisualCoords center, String result) {
 		final String id = "boom@"+center.x+"_"+center.y;
 		drawFromTemplate(center, "boom", result, id);
 	}
 	@Override
-	public void clearResults(Position center) {
+	public void clearResults(VisualCoords center) {
 		final String id = "boom@"+center.x+"_"+center.y;
 		removeElement(id);
 	}
