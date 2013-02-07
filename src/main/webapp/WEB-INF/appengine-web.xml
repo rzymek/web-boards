@@ -14,7 +14,7 @@
 	<inbound-services>
 		<service>channel_presence</service>
 	</inbound-services>
-
+<!-- 
 	<resource-files>
 		<include path="/resources/**"/>
 		<include path="**.gwt.rpc"/>
@@ -26,4 +26,5 @@
 		<include path="**.cache.*" expiration="365d"/>
 		<exclude path="**.gwt.rpc"/>
 	</static-files>
+ -->
 </appengine-web-app>
