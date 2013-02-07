@@ -23,7 +23,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
-import earl.client.ClientEngine;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Hex;
@@ -41,7 +40,7 @@ public class SVGDisplay extends BasicDisplay {
 	protected final SVGSVGElement svg;
 	private final SVGRectElement stackSelector;
 	private Ref showingStackSelector = null;
-
+	
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
 		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
@@ -52,12 +51,13 @@ public class SVGDisplay extends BasicDisplay {
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
 		svg.getElementById("units").appendChild(stackSelector);
 	}
-
+	
 	protected void hexClicked(final Board board, ClickEvent event) {
 		hideStackSelection();
 		String id = event.getRelativeElement().getId();
-		Hex hex = board.get(HexXY.fromSVGId(id));
-		Operation op = hex.onClicked();
+		HexXY position = HexXY.fromSVGId(id);
+		Hex hex = board.get(position);
+		Operation op = hex.onClicked(ctx, position);
 		process(op);
 	}
 
@@ -109,10 +109,11 @@ public class SVGDisplay extends BasicDisplay {
 	public void alignStack(Ref ref) {
 		hideStackSelection();
 		SVGElement h = getSVGElement(ref.getSVGId());
-		Hex hex = board.get(ref);
+		Hex hex = ctx.board.get(ref);
 		Collection<Counter> stack = hex.getStack();
 		List<SVGElement> svgStack = getSVGElements(stack);
 		alignStack(h, svgStack);
+		select(ctx.selected); //update position of selection rect
 	}
 
 	private List<SVGElement> getSVGElements(Collection<Counter> stack) {
@@ -246,25 +247,20 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void select(Counter i) {
-		if (i == null) {
-			SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
+	public void select(Counter counter) {
+		ctx.selected = counter;
+		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
+		if (counter == null) {
 			rect.getStyle().setVisibility(Visibility.HIDDEN);
 		} else {
-			ClientEngine.log(i.getId());
-			select(i.getId());
+			SVGImageElement c = (SVGImageElement) svg.getElementById(counter.getId());
+			rect.getStyle().setVisibility(Visibility.VISIBLE);
+			rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
+			rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
+			rect.getStyle().setDisplay(Display.BLOCK);
+			bringToTop(c);
+			c.getParentElement().insertBefore(rect, c);
 		}
-	}
-
-	private void select(String id) {
-		SVGImageElement c = (SVGImageElement) svg.getElementById(id);
-		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
-		rect.getStyle().setVisibility(Visibility.VISIBLE);
-		rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
-		rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
-		rect.getStyle().setDisplay(Display.BLOCK);
-		bringToTop(rect);
-		bringToTop(c);
 	}
 
 	private SVGElement getSVGElement(String id) {
@@ -329,7 +325,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void clearArrow(Hex from) {
+	public void clearArrow(Ref from) {
 		String id = getArrowId(from);
 		removeElement(id);		
 	}
@@ -341,8 +337,8 @@ public class SVGDisplay extends BasicDisplay {
 		}
 	}
 
-	private String getArrowId(Identifiable from) {
-		return ARROW_ID_PREFIX + "_" + from.getId();
+	private String getArrowId(Ref from) {
+		return ARROW_ID_PREFIX + "_" + from.getSVGId();
 	}
 	
 	protected void clearMarkers(String layerId) {
@@ -402,13 +398,13 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void mark(Collection<Hex> hexes) {
+	public void mark(Collection<? extends Ref> hexes) {
 		StringBuilder buf = new StringBuilder();
-		for (Hex hex : hexes) {
+		for (Ref hex : hexes) {
 			if (buf.length() != 0) {
 				buf.append(",");
 			}
-			buf.append("#").append(hex.getId());
+			buf.append("#").append(hex.getSVGId());
 		}
 		buf.append("{fill:#0000ff;fill-opacity:0.1}");
 		svg.getElementById("dyncss").setInnerText(buf.toString());

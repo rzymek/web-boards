@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import earl.client.data.Board;
+import earl.client.data.GameCtx;
 import earl.client.data.Hex;
-import earl.client.display.EarlDisplay;
 import earl.client.games.HexXY;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.bastogne.Bastogne;
@@ -20,9 +20,6 @@ public class PerformAttack extends Operation {
 	public CombatResult result;
 	public String rollResult;	
  
-	@Override
-	public void draw(Board board, EarlDisplay g) {
-	}
 	@Override
 	public void updateBoard(Board board) {
 	}
@@ -51,9 +48,9 @@ public class PerformAttack extends Operation {
 	}
 
 	@Override
-	public void postServer(Board board, EarlDisplay display) {
-		display.clearOds(display.getCenter(targetRef));
-		display.showResults(display.getCenter(targetRef), result.toString());
+	public void postServer(GameCtx ctx) {
+		ctx.display.clearOds(ctx.display.getCenter(targetRef));
+		ctx.display.showResults(ctx.display.getCenter(targetRef), result.toString());
 	}
 	
 	@Override

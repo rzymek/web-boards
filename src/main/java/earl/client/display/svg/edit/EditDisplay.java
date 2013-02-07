@@ -27,7 +27,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
-import earl.client.data.Hex;
 import earl.client.display.Position;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.games.HexXY;
@@ -82,7 +81,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		if (event.isControlKeyDown()) {
 			if(path.isEmpty()) {
 				String id = event.getRelativeElement().getId();
-				mark(Arrays.asList(board.get(HexXY.fromSVGId(id))));
+				mark(Arrays.asList(HexXY.fromSVGId(id)));
 			}else{
 				nextSegment();
 			}
@@ -105,7 +104,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 
 	public void setCurrent(Element newSource) {
 		source = newSource;
-		mark(Arrays.asList(board.get(HexXY.fromSVGId(source.getId()))));
+		mark(Arrays.asList(HexXY.fromSVGId(source.getId())));
 	}
 
 	@Override
@@ -184,7 +183,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		reset();
 		id++;
 		status("Saved. New id=" + id);
-		mark(new ArrayList<Hex>());
+		mark(new ArrayList<Ref>());
 	}
 
 	private void reset() {

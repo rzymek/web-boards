@@ -3,7 +3,6 @@ package earl.client.display;
 import java.util.Collection;
 
 import earl.client.data.Counter;
-import earl.client.data.Hex;
 import earl.client.data.Identifiable;
 import earl.client.games.Ref;
 
@@ -19,13 +18,13 @@ public interface EarlDisplay {
 
 	void drawOds(Position center, int[] odds);
 
-	void mark(Collection<Hex> hexes);
+	void mark(Collection<? extends Ref> hexes);
 
 	void clearMarks();
 
 	void clearOds(Position center);
 
-	void clearArrow(Hex from);
+	void clearArrow(Ref from);
 
 	void showResults(Position center, String result);
 

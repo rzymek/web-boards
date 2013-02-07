@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import earl.client.data.Board;
 import earl.client.data.Counter;
 import earl.client.data.Game;
+import earl.client.data.GameCtx;
 import earl.client.data.Hex;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
@@ -314,10 +315,13 @@ public class Bastogne implements Game, IsSerializable {
 			List<Counter> counters = board.get(pos).getStack();
 			System.out.println(pos+": "+counters);
 		}
+		GameCtx ctx = new GameCtx();
+		ctx.board = board;
+		ctx.display = display;
 		for (Operation op : ops) {
 			op.updateBoard(board);
 			if(display != null) {
-				op.draw(board, display);
+				op.draw(ctx);
 			}
 		}		
 	}

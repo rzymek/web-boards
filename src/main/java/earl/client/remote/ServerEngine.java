@@ -8,8 +8,8 @@ import earl.client.ops.Operation;
 
 @RemoteServiceRelativePath("engine")
 public interface ServerEngine extends RemoteService {
-	GameInfo getState(String tableId) throws Exception;
-	Operation process(Operation op) throws Exception;
-	void join(String tableId) throws Exception;
-	GameInfo undo(long table) throws Exception;
+	GameInfo getState(String tableId);
+	Operation process(Operation op);
+	void join(String tableId);
+	GameInfo undo(long table);
 }

@@ -12,6 +12,7 @@ import earl.client.games.Ref;
 public class SCSBoard extends Board implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private SCSHex[][] hexes;
+	protected SCSHex[] workaround;
 	protected Map<String, Hex> areas = new HashMap<String, Hex>();
 
 	protected SCSBoard() {

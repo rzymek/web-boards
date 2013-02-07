@@ -91,6 +91,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>${gwt.version}</version>
+				<!-- 
 				<executions>
 					<execution>
 						<phase>prepare-package</phase>
@@ -99,6 +100,7 @@
 						</goals>
 					</execution>
 				</executions>
+				 -->
 				<configuration>
 					<runTarget>index.jsp</runTarget>
 					<module>earl.ClientEngine</module>

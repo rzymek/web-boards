@@ -2,8 +2,8 @@ package earl.client.games.scs.ops;
 
 import earl.client.data.Board;
 import earl.client.data.Counter;
+import earl.client.data.GameCtx;
 import earl.client.data.ref.CounterRef;
-import earl.client.display.EarlDisplay;
 import earl.client.ops.Operation;
 
 public class Flip extends Operation {
@@ -17,9 +17,9 @@ public class Flip extends Operation {
 	}
 
 	@Override
-	public void draw(Board board, EarlDisplay g) {
-		Counter counter = board.get(counterRef);
-		g.update(counter, counter.getState());
+	public void draw(GameCtx ctx) {
+		Counter counter = ctx.board.get(counterRef);
+		ctx.display.update(counter, counter.getState());
 	}
 
 	@Override

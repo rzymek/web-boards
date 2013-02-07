@@ -2,6 +2,7 @@ package earl.client.games.scs.ops;
 
 import earl.client.data.Board;
 import earl.client.data.Counter;
+import earl.client.data.GameCtx;
 import earl.client.data.ref.CounterRef;
 import earl.client.display.EarlDisplay;
 import earl.client.games.Ref;
@@ -28,13 +29,13 @@ public class Move extends Operation {
 	@Override
 	public void updateBoard(Board board) {
 		Counter counter = board.get(counterRef);
-		board.place(toRef, counter);
+		board.move(toRef, counter);
 	}
 
 	@Override
-	public void draw(Board board, EarlDisplay g) {
-		g.alignStack(fromRef);
-		g.alignStack(toRef);
+	public void draw(GameCtx ctx) {
+		ctx.display.alignStack(fromRef);
+		ctx.display.alignStack(toRef);
 	}
 	
 	@Override

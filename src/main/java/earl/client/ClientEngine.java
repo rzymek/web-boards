@@ -112,13 +112,13 @@ public class ClientEngine implements EntryPoint {
 			Counter counter = board.getCounter(counterId);
 			Move move = new Move(counter, pos);
 			move.updateBoard(board);
-			move.draw(board, display);
+			move.draw(display.getCtx());
 		}
 		for (Operation op : info.ops) {
 			op.updateBoard(board);
 			op.drawDetails(display);
-			op.draw(board, display);
-			op.postServer(board, display);
+			op.draw(display.getCtx());
+			op.postServer(display.getCtx());
 			log(op.toString());
 		}
 	}

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import net.sf.jsr107cache.CacheException;
@@ -24,6 +25,7 @@ import earl.client.data.Counter;
 import earl.client.data.Game;
 import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
+import earl.client.games.AreaRef;
 import earl.client.games.Ref;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.bastogne.BastogneSide;
@@ -60,10 +62,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	public GameInfo getState(String tableId) {
 		try {
 			long tid = Long.parseLong(tableId);
-			Table table = ofy().load().type(Table.class).id(tid).get();
-			if (table == null) {
-				throw new EarlServerException("Invalid table id=" + tableId);
-			}
+			Table table = getTable(tid);
 			GameInfo info = new GameInfo();
 			info.channelToken = notify.openChannel(table, getUser());
 			String user = getUser();
@@ -83,7 +82,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			}
 	
 			GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
-			info.state = loadState(info, state);
+			info.state = getCounterPositions(state);
 			info.ops = loadOps(tid, state);
 	
 			Bastogne game = new Bastogne();
@@ -96,11 +95,15 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}
 	}
 
-	public Map<String, Ref> loadState(GameInfo info, GameState state) {
+	private Map<String, Ref> getCounterPositions(GameState state) {
+		HashMap<String, Ref> result = new HashMap<String, Ref>();
 		if(state == null) {
-			return new HashMap<String, Ref>();
+			return result;
 		}
-		return state.state;
+		for (Entry<String, String> e : state.state.entrySet()) {
+			result.put(e.getKey(), new AreaRef(e.getValue()));
+		}
+		return result;
 	}
 	
 	public GameState save(Game game, long tableId, String user, Date timestamp) {
@@ -110,12 +113,12 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		state.table = table;		
 		state.user = user;
 		state.updated = timestamp;
-		state.state = new HashMap<String, Ref>();
+		state.state = new HashMap<String, String>();
 		
 		for (Counter counter : counters) {
 			Ref hexPos = counter.getPosition();
 			String counterPos = counter.ref().getId();
-			state.state.put(counterPos, hexPos);
+			state.state.put(counterPos, hexPos.getSVGId());
 		}
 		ofy().save().entity(state);
 		return state;
@@ -140,7 +143,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}				
 		GameInfo info = new GameInfo();
 		info.ops = ops;
-		info.state = save(game, tid, user, lastTimestamp).state;
+		info.state = getCounterPositions(save(game, tid, user, lastTimestamp));
 		return info;
 	}
 	
@@ -220,10 +223,18 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
-		Table table = ofy().load().type(Table.class).id(tableId).get();
+		Table table = getTable(tid);
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
+	}
+
+	private Table getTable(long tableId) {
+		Table table = ofy().load().type(Table.class).id(tableId).get();
+		if(table == null){
+			throw new EarlServerException("Invalid table id="+tableId);
+		}
+		return table;
 	}
 
 	private BastogneSide getSide(long tableId, String user) {
@@ -241,7 +252,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		Bastogne game = (Bastogne) games.get(tableId);		
 		if(game == null) {
 			GameInfo info = getState(tableId);
-			games.put(tableId, info.game);
+			games.put(tableId, game = (Bastogne) info.game);
 		}
 		return game;
 	}

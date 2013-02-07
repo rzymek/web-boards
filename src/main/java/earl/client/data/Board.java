@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import earl.client.data.ref.CounterRef;
+import earl.client.ex.EarlException;
 import earl.client.games.HexXY;
 import earl.client.games.Ref;
 
@@ -43,17 +44,20 @@ public abstract class Board implements Serializable {
 	}
 
 	public void place(Ref to, Counter counter) {
+		Counter prev = counters.put(counter.getId(), counter);
+		if (prev != null) {
+			throw new EarlException(counter.getId() + " aleader placed");
+		}
+		move(to, counter);
+	}
+
+	public void move(Ref to, Counter counter) {
 		Ref from = counter.getPosition();
 		if(from != null) {
 			get(from).pieces.remove(counter);
 		}
 		counter.setPosition(to);
 		get(to).pieces.add(counter);
-		
-		Counter prev = counters.put(counter.getId(), counter);
-		if (prev != null) {
-			throw new RuntimeException(counter.getId() + " aleader placed");
-		}
 	}
 
 	public List<Hex> getAdjacent(HexXY p) {
