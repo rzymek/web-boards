@@ -64,9 +64,14 @@ public class SVGDisplay extends BasicDisplay {
 	protected void counterClicked(final Board board, ClickEvent event) {		
 		String id = event.getRelativeElement().getId();
 		SCSCounter counter = (SCSCounter) board.getCounter(id);
+		if(ctx.selected == counter) {
+			select(null);
+			return;
+		}
 		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
 		String attribute = img.getAttribute("earl-stacks");
 		if(attribute == null || attribute.isEmpty()) {
+			hideStackSelection();
 			select(counter);
 			return;
 		}

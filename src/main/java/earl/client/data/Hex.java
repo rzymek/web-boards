@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import earl.client.ClientEngine;
 import earl.client.games.HexXY;
 import earl.client.games.scs.ops.Move;
 import earl.client.ops.Operation;
@@ -28,15 +27,15 @@ public class Hex implements Serializable {
 	}
 
 	public Operation onClicked(GameCtx ctx, HexXY position) {
-		ClientEngine.log("onClicked: "+position+", "+ctx.selected);
-		if(ctx.selected == null) {
+		Counter selected = ctx.selected;
+		if(selected == null) {
 			return null;
 		}
-		if(this.equals(ctx.selected.getPosition())) {
-			ctx.display.select(null);
+		ctx.display.select(null);
+		if(this.equals(selected.getPosition())) {
 			return null;
 		}else{
-			return new Move(ctx.selected, position);
+			return new Move(selected, position);
 		}
 	}
 }
