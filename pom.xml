@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.earl</groupId>
@@ -13,15 +14,16 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<outputDirectory>target/classes</outputDirectory>
+		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 		<dev.module.config><![CDATA[
-			<set-property name="user.agent" value="safari"/>		
 			<!-- for super dev mode -->
 			<add-linker name="xsiframe"/>  
 			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
-			<!--
+			<set-property name="user.agent" value="safari"/>		
 			<set-property name="compiler.useSourceMaps" value="true"/>
-			-->
+			<set-property name="compiler.stackMode" value="emulated"/>			
+			<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true"/>
+			<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true"/>
 		]]></dev.module.config>
 	</properties>
 
@@ -89,6 +91,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>${gwt.version}</version>
+				<!-- 
 				<executions>
 					<execution>
 						<phase>prepare-package</phase>
@@ -97,6 +100,7 @@
 						</goals>
 					</execution>
 				</executions>
+				 -->
 				<configuration>
 					<runTarget>index.jsp</runTarget>
 					<module>earl.ClientEngine</module>
@@ -107,23 +111,22 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
-					<optimizationLevel>0</optimizationLevel>
+					<!-- <optimizationLevel>0</optimizationLevel> -->
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
 				</configuration>
 			</plugin>
-			<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
+			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${gae.version}</version>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>update</goal>
-						</goals>
-					</execution>
-				</executions>
+				<version>1.7.5-SNAPSHOT</version>
+				<configuration>
+					<address>0.0.0.0</address>
+					<port>8888</port>
+					<jvmFlags>
+						<value>-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n</value>
+					</jvmFlags>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
@@ -134,25 +137,11 @@
 		</resources>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>google-releases</id>
-			<name>Google Releases</name>
-			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
-		</repository>
-	</repositories>
-
 	<profiles>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
-			</properties>
-		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dev.module.config/>
+				<dev.module.config />
 			</properties>
 			<build>
 				<plugins>
@@ -168,25 +157,17 @@
 							<style>OBFUSCATED</style>
 						</configuration>
 					</plugin>
-					<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
-						<groupId>com.google.appengine</groupId>
-						<artifactId>appengine-maven-plugin</artifactId>
-						<version>${gae.version}</version>
-						<configuration>
-							<address>0.0.0.0</address>
-							<port>9999</port>
-						</configuration>
-						<executions>
-							<execution>
-								<phase>install</phase>
-								<goals>
-									<goal>update</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
+
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>google-releases</id>
+			<name>Google Releases</name>
+			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

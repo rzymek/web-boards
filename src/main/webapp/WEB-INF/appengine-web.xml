@@ -4,15 +4,26 @@
 	<version>5</version>
 
 	<!-- Allows App Engine to send multiple requests to one instance in parallel: -->
-	<threadsafe>true</threadsafe>
+	<threadsafe>false</threadsafe>
 
 	<!-- Configure java.util.logging -->
 	<system-properties>
-		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
+		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
 	</system-properties>
 
 	<inbound-services>
 		<service>channel_presence</service>
 	</inbound-services>
 
+	<resource-files>
+		<include path="/resources/**"/>
+		<include path="**.gwt.rpc"/>
+	</resource-files>
+
+	<static-files>
+		<include path="**"/>
+		<include path="**.nocache.*" expiration="0s"/>
+		<include path="**.cache.*" expiration="365d"/>
+		<exclude path="**.gwt.rpc"/>
+	</static-files>
 </appengine-web-app>

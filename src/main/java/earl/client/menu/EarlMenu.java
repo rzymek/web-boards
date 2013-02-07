@@ -18,10 +18,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import earl.client.ClientEngine;
-import earl.client.data.Counter;
 import earl.client.data.GameInfo;
-import earl.client.games.scs.ops.Flip;
-import earl.client.games.scs.ops.Move;
 import earl.client.ops.generic.ChatOp;
 import earl.client.ops.generic.DiceRoll;
 import earl.client.remote.ServerEngine;
@@ -72,32 +69,32 @@ public class EarlMenu implements ClickHandler {
 			logBtn.getElement().getStyle().setFontStyle(FontStyle.NORMAL);
 			showPendingLog();
 		} else if ("Remove unit".equals(text)) {
-			Counter piece = ctx.handler.getSelectedPiece();
-			if (piece == null) {
-				Window.alert("Select a counter first");
-			} else {
-				Move move = new Move(piece, ctx.game.getBoard().getHex("Dead pool"));
-				ctx.handler.setSelectedPiece(null);
-				ctx.display.process(move);
-			}
+//			Counter piece = ctx.handler.getSelectedPiece();
+//			if (piece == null) {
+//				Window.alert("Select a counter first");
+//			} else {
+//				Move move = new Move(piece, new AreaRef("Dead pool"));
+//				ctx.handler.setSelectedPiece(null);
+//				ctx.display.process(move);
+//			}
 		} else if ("Send msg".equals(text)) {
 			String msg = Window.prompt("Enter message:", "");
 			if(msg != null) {
-				ctx.display.process(new ChatOp(msg));
+				ctx.ctx.process(new ChatOp(msg));
 			}
 		} else if ("Clear traces".equals(text)) {
-			ctx.display.clearTraces();
+			ctx.ctx.display.clearTraces();
 		} else if ("Hide menu".equals(text)) {
 			toggleMenu();
 			source.setHTML("Show menu");
 		} else if ("Flip".equals(text)) {
-			Counter piece = ctx.handler.getSelectedPiece();
-			if (piece == null) {
-				Window.alert("Select a counter first");
-			} else {
-				Flip op = new Flip(piece.ref());
-				ctx.display.process(op);
-			}
+//			Counter piece = ctx.handler.getSelectedPiece();
+//			if (piece == null) {
+//				Window.alert("Select a counter first");
+//			} else {
+//				Flip op = new Flip(piece.ref());
+//				ctx.display.process(op);
+//			}
 		} else if ("Undo".equals(text)) {
 			ServerEngineAsync server = GWT.create(ServerEngine.class);
 			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<GameInfo>(){
@@ -108,7 +105,7 @@ public class EarlMenu implements ClickHandler {
 			});
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
-			ctx.display.process(roll);
+			ctx.ctx.process(roll);
 		} else if ("Toggle units".equals(text)) {
 			toggleVisible(ctx.svg.getElementById("units").getStyle());
 			toggleVisible(ctx.svg.getElementById("markers").getStyle());

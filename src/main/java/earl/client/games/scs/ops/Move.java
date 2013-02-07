@@ -1,62 +1,50 @@
 package earl.client.games.scs.ops;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
-import earl.client.data.ref.CounterRef;
-import earl.client.data.ref.HexRef;
+import earl.client.data.CounterInfo;
+import earl.client.data.GameCtx;
+import earl.client.data.ref.CounterId;
 import earl.client.display.EarlDisplay;
+import earl.client.games.Position;
 import earl.client.ops.Operation;
-import earl.client.ops.Undoable;
 
-public class Move extends Operation implements Undoable {
+public class Move extends Operation {
 	private static final long serialVersionUID = 1L;
-	public CounterRef counterRef;
-	public HexRef fromRef;
-	public HexRef toRef;
+	public CounterId counterRef;
+	public Position from;
+	public Position to;
 
 	protected Move() {		
 	}
 	
-	public Move(Counter counter, Hex to) {
+	public Move(CounterInfo counter, Position to) {
 		counterRef = counter.ref();
-		Hex from = counter.getPosition();
+		Position from = counter.getPosition();
 		if(from != null) {
-			fromRef = from.ref();
+			this.from = from;
 		}
-		toRef = to.ref();
+		this.to = to;
 	}
 
 	@Override
 	public void updateBoard(Board board) {
-		Counter counter = board.get(counterRef);
-		Hex to = board.get(toRef);
-		counter.setPosition(to);
+		CounterInfo counter = board.getInfo(counterRef);
+		board.move(to, counter);
 	}
 
 	@Override
-	public void draw(Board board, EarlDisplay g) {
-		Hex from = board.get(fromRef);
-		Hex to = board.get(toRef);
-		g.alignStack(from);
-		g.alignStack(to);
+	public void draw(GameCtx ctx) {
+		ctx.display.alignStack(from);
+		ctx.display.alignStack(to);
 	}
 	
 	@Override
 	public void drawDetails(EarlDisplay g) {
-		g.drawLine(fromRef, toRef);
+		g.drawLine(from, to);
 	}
 	
 	@Override
 	public String toString() {
-		return counterRef+" moves from "+fromRef.getId()+" to "+toRef.getId();
+		return counterRef+" moves from "+from+" to "+to;
 	}
-
-	@Override
-	public void undo(Board board) {
-		Counter counter = board.get(counterRef);
-		Hex from = board.get(fromRef);
-		counter.setPosition(from);
-	}
-
 }

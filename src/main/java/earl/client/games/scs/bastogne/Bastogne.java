@@ -2,16 +2,23 @@ package earl.client.games.scs.bastogne;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.Game;
-import earl.client.data.Hex;
+import earl.client.data.GameCtx;
+import earl.client.data.HexInfo;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
+import earl.client.games.Area;
+import earl.client.games.Position;
 import earl.client.games.scs.CombatResult;
+import earl.client.games.scs.SCSBoard;
 import earl.client.games.scs.SCSCounter;
+import earl.client.games.scs.SCSHex;
 import earl.client.games.scs.SCSMarker;
 import earl.client.ops.Operation;
 import static earl.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
@@ -69,15 +76,23 @@ import static earl.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static earl.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static earl.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
 
-public class Bastogne implements Game {
+public class Bastogne implements Game, IsSerializable {
 	private static final long serialVersionUID = 1L;
 	private Board board = null;
 	private String playerUS;
 	private String playerGE;
-	private Map<String, String> mapInfo;
 
 	public Bastogne() {
-		board = new Board();
+		SCSHex[][] hexes = new SCSHex[56][36];
+		MapTraits.setupTraits(hexes);
+		for (int x = 0; x < hexes.length; x++) {
+			for (int y = 0; y < hexes[x].length; y++) {
+				if (hexes[x][y] == null) {
+					hexes[x][y] = new SCSHex();
+				}
+			}
+		}
+		board = new SCSBoard(hexes);
 	}
 
 	public void setupScenarion52() {
@@ -143,14 +158,16 @@ public class Bastogne implements Game {
 
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
 
+		Area usDG = new Area("us_dg");
+		Area geDG = new Area("ge_dg");
 		SCSMarker counter;
 		for (int i = 0; i < 18; i++) {
 			counter = new SCSMarker("us_dg" + i, "admin/misc_us-dg.png", BastogneSide.US);
 			counter.setDescription("US Disorganized Units");
-			board.place("us_dg", counter);
+			board.place(usDG, counter);
 			counter = new SCSMarker("ge_dg" + i, "admin/misc_ge-dg.png", BastogneSide.GE);
 			counter.setDescription("GE Disorganized Units");
-			board.place("ge_dg", counter);
+			board.place(geDG, counter);
 		}
 	}
 
@@ -160,7 +177,7 @@ public class Bastogne implements Game {
 		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
 				unit.range, unit.defence, unit.movement);
 		counter.setDescription(desc);
-		board.place(hexId, counter);
+		board.place(new Area(hexId), counter);
 	}
 
 	private void setup(int turn, String area, BastogneUnits unit, String desc) {
@@ -199,12 +216,8 @@ public class Bastogne implements Game {
 		return new String[] { playerUS, playerGE };
 	}
 
-	public void setMapInfo(Map<String, String> mapInfo) {
-		this.mapInfo = mapInfo;
-	}
-	
-	public int getMovementCost(Hex target) {
-		String info = getHexInfo(target);
+	public int getMovementCost(HexInfo target) {
+		String info = null;//TODO: getHexInfo(target);
 		int cost = 1;
 		if(info != null) {
 			if(info.contains("F")) {
@@ -217,9 +230,9 @@ public class Bastogne implements Game {
 		return cost;
 	}
 
-	public int[] calculateOdds(Hex target, Collection<Hex> attacking) {
-		List<Counter> defending = target.getStack();
-		String hexInfo = getHexInfo(target);
+	public int[] calculateOdds(HexInfo target, Collection<HexInfo> attacking) {
+		List<CounterInfo> defending = target.getPieces();
+		String hexInfo = null;//TODO:getHexInfo(target);
 		float defence = getDefenceRawSum(defending);
 		if (hexInfo != null) {
 			boolean forrest = hexInfo.contains("F");
@@ -239,25 +252,18 @@ public class Bastogne implements Game {
 		return odds;
 	}
 
-	public String getHexInfo(Hex target) {
-		String id = target.getId();
-		int x = Integer.parseInt(id.substring(1, 3));
-		int y = Integer.parseInt(id.substring(3, 5));
-		return mapInfo.get(x+"."+y);
-	}
-
-	private float getDefenceRawSum(Collection<Counter> defending) {
+	private float getDefenceRawSum(Collection<CounterInfo> defending) {
 		float defence = 0;
-		for (Counter counter : defending) {
+		for (CounterInfo counter : defending) {
 			defence += ((SCSCounter) counter).getDefence();
 		}
 		return defence;
 	}
 
-	private float getAttackRawSum(Collection<Hex> list) {
+	private float getAttackRawSum(Collection<HexInfo> list) {
 		float attack = 0;
-		for (Hex hex : list) {
-			for (Counter c : hex.getStack()) {
+		for (HexInfo hex : list) {
+			for (CounterInfo c : hex.getPieces()) {
 				attack += ((SCSCounter) c).getAttack();
 			}
 		}
@@ -301,13 +307,21 @@ public class Bastogne implements Game {
 		throw new EarlException("invalid odds:" + oddsValue);
 	}
 
-	public void load(Map<String, String> mapInfo, Collection<Operation> ops, SVGDisplay display) {
+	public void load(Collection<Operation> ops, SVGDisplay display) {
 		setupScenarion52();
-		setMapInfo(mapInfo);
+		System.out.println(board.getCounters());
+		Set<Position> stacks = board.getStacks();
+		for (Position pos : stacks) {
+			List<CounterInfo> counters = board.getInfo(pos).getPieces();
+			System.out.println(pos+": "+counters);
+		}
+		GameCtx ctx = new GameCtx();
+		ctx.board = board;
+		ctx.display = display;
 		for (Operation op : ops) {
 			op.updateBoard(board);
 			if(display != null) {
-				op.draw(board, display);
+				op.draw(ctx);
 			}
 		}		
 	}

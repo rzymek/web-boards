@@ -1,8 +1,6 @@
 package earl.server;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -13,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import net.sf.jsr107cache.CacheException;
@@ -25,10 +21,12 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
 import earl.client.data.Game;
 import earl.client.data.GameInfo;
 import earl.client.ex.EarlServerException;
+import earl.client.games.Area;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.bastogne.BastogneSide;
 import earl.client.ops.Operation;
@@ -51,50 +49,65 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	private transient static Map<String, Game> games = Collections.synchronizedMap(new HashMap<String, Game>());
 
-	public ServerEngineImpl() throws CacheException {
+	public ServerEngineImpl() throws CacheException {		
+	}
+
+	@Override
+	protected void doUnexpectedFailure(Throwable e) {
+		e.printStackTrace();
+		super.doUnexpectedFailure(e);
 	}
 
 	@Override
 	public GameInfo getState(String tableId) {
-		GameInfo info = new GameInfo();
-		long tid = Long.parseLong(tableId);
-		info.channelToken = notify.openChannel(tid, getUser());
-		info.mapInfo = loadMapInfo();
-		Table table = ofy().load().type(Table.class).id(tid).get();
-		if (table == null) {
-			throw new EarlServerException("Invalid table id=" + tableId);
-		}
-		String user = getUser();
-		if (user.equals(table.player1)) {
-			info.side = BastogneSide.US;
-		} else if (user.equals(table.player2)) {
-			info.side = BastogneSide.GE;
-		} else {
-			// not your game
-			if (table.player1 == null) {
-				info.joinAs = BastogneSide.US;
-			} else if (table.player2 == null) {
-				info.joinAs = BastogneSide.GE;
+		try {
+			long tid = Long.parseLong(tableId);
+			Table table = getTable(tid);
+			GameInfo info = new GameInfo();
+			info.channelToken = notify.openChannel(table, getUser());
+			String user = getUser();
+			if (user.equals(table.player1)) {
+				info.side = BastogneSide.US;
+			} else if (user.equals(table.player2)) {
+				info.side = BastogneSide.GE;
 			} else {
-				throw new EarlServerException("This is not your game");
+				// not your game
+				if (table.player1 == null) {
+					info.joinAs = BastogneSide.US;
+				} else if (table.player2 == null) {
+					info.joinAs = BastogneSide.GE;
+				} else {
+					throw new EarlServerException("This is not your game");
+				}
 			}
+	
+			GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
+			info.state = getCounterPositions(state);
+			info.ops = loadOps(tid, state);
+	
+			Bastogne game = new Bastogne();
+			game.load(info.ops, null);
+			info.game = game;
+			return info;
+		}catch(RuntimeException ex){
+			ex.printStackTrace();
+			throw ex;
 		}
-
-		GameState state = ofy().load().type(GameState.class).parent(table).id(user).get();
-		info.state = loadState(info, state);
-		info.ops = loadOps(tid, state);
-		return info;
 	}
 
-	public Map<String, String> loadState(GameInfo info, GameState state) {
+	private Map<String, Position> getCounterPositions(GameState state) {
+		HashMap<String, Position> result = new HashMap<String, Position>();
 		if(state == null) {
-			return new HashMap<String, String>();
+			return result;
 		}
-		return state.state;
+		for (Entry<String, String> e : state.state.entrySet()) {
+			result.put(e.getKey(), new Area(e.getValue()));
+		}
+		return result;
 	}
 	
 	public GameState save(Game game, long tableId, String user, Date timestamp) {
-		Collection<Counter> counters = game.getBoard().getCounters();
+		Collection<CounterInfo> counters = game.getBoard().getCounters();
 		Key<Table> table = Key.create(Table.class, tableId);		
 		GameState state = new GameState();
 		state.table = table;		
@@ -102,10 +115,10 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		state.updated = timestamp;
 		state.state = new HashMap<String, String>();
 		
-		for (Counter counter : counters) {
-			String hexPos = counter.getPosition().ref().getId();
-			String counterPos = counter.ref().getId();
-			state.state.put(counterPos, hexPos);
+		for (CounterInfo counter : counters) {
+			Position hexPos = counter.getPosition();
+			String counterId = counter.ref().toString();
+			state.state.put(counterId, hexPos.getSVGId());
 		}
 		ofy().save().entity(state);
 		return state;
@@ -121,17 +134,16 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			opEnts.remove(opEnts.size()-1);
 		}
 		Bastogne game = new Bastogne();
-		Map<String, String> mapInfo = loadMapInfo();
 		List<Operation> ops = unwrap(opEnts);
-		game.load(mapInfo, ops, null);
+		game.load(ops, null);
 		Date lastTimestamp = null;
 		if(!opEnts.isEmpty()) {
 			OperationEntity last = opEnts.get(opEnts.size()-1);
 			lastTimestamp = last.timestamp;
 		}				
 		GameInfo info = new GameInfo();
-		info.state = save(game, tid, user, lastTimestamp).state;
 		info.ops = ops;
+		info.state = getCounterPositions(save(game, tid, user, lastTimestamp));
 		return info;
 	}
 	
@@ -165,26 +177,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				in.close();
 			}
 		}catch (Exception e) {
-			throw new EarlServerException(e);
-		}
-	}
-
-	private Map<String, String> loadMapInfo() {
-		try {
-			Properties p = new Properties();
-			InputStream in = Bastogne.class.getResourceAsStream("/bastogne-map.properties");
-			try {
-				p.load(in);
-			} finally {
-				in.close();
-			}
-			Set<Entry<Object, Object>> entrySet = p.entrySet();
-			Map<String, String> info = new HashMap<String, String>();
-			for (Entry<Object, Object> entry : entrySet) {
-				info.put((String) entry.getKey(), (String) entry.getValue());
-			}
-			return info;
-		} catch (IOException e) {
 			throw new EarlServerException(e);
 		}
 	}
@@ -231,9 +223,18 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		save(bastogne, tid, user, e.timestamp);
 		ofy().save().entity(e);
 		
-		notify.notifyListeners(tid, op, user);
+		Table table = getTable(tid);
+		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
+	}
+
+	private Table getTable(long tableId) {
+		Table table = ofy().load().type(Table.class).id(tableId).get();
+		if(table == null){
+			throw new EarlServerException("Invalid table id="+tableId);
+		}
+		return table;
 	}
 
 	private BastogneSide getSide(long tableId, String user) {
@@ -250,10 +251,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private Bastogne getGame(String tableId) {
 		Bastogne game = (Bastogne) games.get(tableId);		
 		if(game == null) {
-			game = new Bastogne();
 			GameInfo info = getState(tableId);
-			game.load(info.mapInfo, info.ops, null);
-			games.put(tableId, game);
+			games.put(tableId, game = (Bastogne) info.game);
 		}
 		return game;
 	}

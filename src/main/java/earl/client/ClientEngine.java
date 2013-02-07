@@ -18,14 +18,13 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
+import earl.client.data.CounterInfo;
+import earl.client.data.GameCtx;
 import earl.client.data.GameInfo;
-import earl.client.data.Hex;
-import earl.client.display.BasicDisplayHandler;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.display.svg.SVGZoomAndPanHandler;
 import earl.client.display.svg.edit.EditDisplay;
-import earl.client.games.scs.SCSDisplayHandler;
+import earl.client.games.Position;
 import earl.client.games.scs.bastogne.Bastogne;
 import earl.client.games.scs.ops.Move;
 import earl.client.menu.EarlClienContext;
@@ -72,34 +71,30 @@ public class ClientEngine implements EntryPoint {
 		com.google.gwt.core.client.GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {			
 			@Override
 			public void onUncaughtException(Throwable e) {
-				log(e.toString());
-				Window.alert(e.toString());			
-				e.printStackTrace();
+				AbstractCallback.handle(e);
 			}
 		});
 	}
 
 
 	public void start(final String tableId, GameInfo info) {
-		final Bastogne game = new Bastogne();
-		game.load(info.mapInfo, info.ops, null);
-		BasicDisplayHandler handler = new SCSDisplayHandler(game, info.side);
-		display = new SVGDisplay(svg, handler);
+		display = new SVGDisplay(svg);
 		ClientEngine.this.display = display;
-		board = game.getBoard();
+		board =info. game.getBoard();
 		display.setBoard(board);
 		
 		EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
-		ctx.game = game;
+		ctx.game = (Bastogne) info.game;
 		ctx.side = info.side;
-		ctx.display = display;
-		ctx.handler = handler;
+		ctx.ctx = new GameCtx();
+		ctx.ctx.display = display;
+		ctx.ctx.board = ctx.game.getBoard();
 		ctx.engine = this;
 		
 		menu = new EarlMenu(ctx);
 
-		NotificationListener listener = new NotificationListener(ctx);
+		NotificationListener listener = new NotificationListener(ctx.ctx);
 		listener.join(info.channelToken);
 		
 		update(info);
@@ -113,21 +108,20 @@ public class ClientEngine implements EntryPoint {
 
 
 	public void update(GameInfo info) {
-		Set<Entry<String, String>> set = info.state.entrySet();
-		for (Entry<String, String> state : set) {
+		Set<Entry<String, Position>> set = info.state.entrySet();
+		for (Entry<String, Position> state : set) {
 			String counterId = state.getKey();
-			String posId = state.getValue();
-			Hex to = board.getHex(posId);
-			Counter counter = board.getCounter(counterId);
-			Move move = new Move(counter, to);
+			Position pos = state.getValue();
+			CounterInfo counter = board.getCounter(counterId);
+			Move move = new Move(counter, pos);
 			move.updateBoard(board);
-			move.draw(board, display);
+			move.draw(display.getCtx());
 		}
 		for (Operation op : info.ops) {
 			op.updateBoard(board);
 			op.drawDetails(display);
-			op.draw(board, display);
-			op.postServer(board, display);
+			op.draw(display.getCtx());
+			op.postServer(display.getCtx());
 			log(op.toString());
 		}
 	}

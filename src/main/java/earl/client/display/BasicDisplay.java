@@ -7,56 +7,46 @@ import com.google.gwt.core.shared.GWT;
 
 import earl.client.ClientEngine;
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
-import earl.client.ops.Operation;
+import earl.client.data.CounterInfo;
+import earl.client.data.GameCtx;
+import earl.client.games.Position;
 import earl.client.remote.ServerEngine;
 import earl.client.remote.ServerEngineAsync;
-import earl.client.utils.AbstractCallback;
 
 public abstract class BasicDisplay implements EarlDisplay {
-
 	protected final ServerEngineAsync service;
-	protected Board board;
+	protected final GameCtx ctx = new GameCtx();
 
-	protected BasicDisplay() {
-		service = GWT.create(ServerEngine.class);
+	public GameCtx getCtx() {
+		return ctx;
 	}
 	
+	protected BasicDisplay() {
+		service = GWT.create(ServerEngine.class);
+		ctx.display = this;
+	}
+
 	public void setBoard(final Board board) {
-		this.board = board;
+		ctx.board = board;
 		initAreas(board);
 		initCounters(board);
 	}
 
 	protected void initCounters(final Board board) {
-		Collection<Hex> stacks = board.getStacks();
-		for (Hex hex : stacks) {
-			List<Counter> counters = hex.getStack();
-			for (Counter counter : counters) {
+		Collection<Position> stacks = board.getStacks();
+		ClientEngine.log("counters: " + board.getCounters().toString());
+		ClientEngine.log("stacks: " + stacks.toString());
+		for (Position pos : stacks) {
+			List<CounterInfo> counters = board.getInfo(pos).getPieces();
+			ClientEngine.log(pos + ": " + counters);
+			for (CounterInfo counter : counters) {
 				createCounter(counter, board);
 			}
-			alignStack(hex);
+			alignStack(pos);
 		}
 	}
-
-	public void process(final Operation op) {
-		if (op == null) {
-			return;
-		}		
-		op.updateBoard(board);
-		op.draw(board, this);
-		op.drawDetails(this);
-		service.process(op, new AbstractCallback<Operation>(){
-			@Override
-			public void onSuccess(Operation result) {
-				result.postServer(board, BasicDisplay.this);
-				ClientEngine.log("executed: "+result);
-			}
-		});		
-	}
-
-	protected abstract void createCounter(Counter counter, Board board);
+	
+	protected abstract void createCounter(CounterInfo counter, Board board);
 
 	protected abstract void initAreas(Board board);
 

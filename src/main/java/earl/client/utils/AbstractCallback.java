@@ -8,9 +8,25 @@ import earl.client.ClientEngine;
 public class AbstractCallback<T> implements AsyncCallback<T> {
 	@Override
 	public void onFailure(Throwable caught) {
-		ClientEngine.log(caught.toString());
-		caught.printStackTrace();
-		Window.alert(caught.toString());
+		handle(caught);
+	}
+
+	public static void handle(Throwable caught) {
+		StringBuilder buf = new StringBuilder();
+		for(;;) {
+			buf.append(caught.toString()).append("\n");
+			if(caught.getCause() == caught || caught.getCause() == null) {
+				break;
+			}
+			caught = caught.getCause();
+		}
+		buf.append("Stack:\n");
+		StackTraceElement[] stackTrace = caught.getStackTrace();
+		for (StackTraceElement e : stackTrace) {
+			buf.append(e).append("\n");
+		}
+		Window.alert(buf.toString());
+		ClientEngine.log(buf.toString());
 	}
 
 	@Override

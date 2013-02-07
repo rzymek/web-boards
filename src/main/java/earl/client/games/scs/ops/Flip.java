@@ -1,39 +1,33 @@
 package earl.client.games.scs.ops;
 
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.ref.CounterRef;
-import earl.client.display.EarlDisplay;
+import earl.client.data.CounterInfo;
+import earl.client.data.GameCtx;
+import earl.client.data.ref.CounterId;
 import earl.client.ops.Operation;
-import earl.client.ops.Undoable;
 
-public class Flip extends Operation  implements Undoable {
+public class Flip extends Operation {
 	private static final long serialVersionUID = 1L;
-	private CounterRef counterRef;
+	private CounterId counterRef;
 	protected Flip() {
 	}
 	
-	public Flip(CounterRef counterRef) {
+	public Flip(CounterId counterRef) {
 		this.counterRef = counterRef;
 	}
 
 	@Override
-	public void draw(Board board, EarlDisplay g) {
-		Counter counter = board.get(counterRef);
-		g.update(counter, counter.getState());
+	public void draw(GameCtx ctx) {
+		CounterInfo counter = ctx.board.getInfo(counterRef);
+		ctx.display.update(counter.ref(), counter.getState());
 	}
 
 	@Override
 	public void updateBoard(Board board) {
-		Counter counter = board.get(counterRef);
+		CounterInfo counter = board.getInfo(counterRef);
 		counter.flip();
 	}
 
-	@Override
-	public void undo(Board board) {
-		Counter counter = board.get(counterRef);
-		counter.flip();
-	}
 	@Override
 	public String toString() {
 		return counterRef+" flipped.";

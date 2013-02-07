@@ -17,5 +17,5 @@ public class GameState {
 	@Id
 	public String user;
 	public Date updated;
-	public Map<String,String> state;
+	public Map<String, String> state;
 }

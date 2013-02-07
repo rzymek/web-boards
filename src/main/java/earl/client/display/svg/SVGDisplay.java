@@ -2,8 +2,11 @@ package earl.client.display.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import org.vectomatic.dom.svg.OMElement;
+import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
@@ -23,29 +26,28 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
-import earl.client.ClientEngine;
 import earl.client.data.Board;
-import earl.client.data.Counter;
-import earl.client.data.Hex;
-import earl.client.data.Identifiable;
+import earl.client.data.CounterInfo;
+import earl.client.data.HexInfo;
+import earl.client.data.ref.CounterId;
 import earl.client.display.BasicDisplay;
-import earl.client.display.BasicDisplayHandler;
-import earl.client.display.Position;
+import earl.client.display.SelectionHandler;
+import earl.client.display.VisualCoords;
 import earl.client.ex.EarlException;
-import earl.client.games.scs.SCSCounter;
-import earl.client.ops.Operation;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 import earl.client.utils.Browser;
+import earl.client.utils.Utils;
 
 public class SVGDisplay extends BasicDisplay {
+	private static final String STACKS = "earl-stacks";
 	protected final SVGSVGElement svg;
-	private final BasicDisplayHandler handler;
 	private final SVGRectElement stackSelector;
-	private Hex showingStackSelector = null;
+	private Position showingStackSelector = null;
+	private final SelectionHandler handler;
 
-	public SVGDisplay(SVGSVGElement svg, BasicDisplayHandler handler) {
+	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
-		this.handler = handler;
-		handler.setDisplay(this);
 		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
 		rect.getStyle().setDisplay(Display.NONE);
 		svg.getElementById("units").appendChild(rect);
@@ -53,78 +55,112 @@ public class SVGDisplay extends BasicDisplay {
 		stackSelector = (SVGRectElement) svg.getElementById("stack-selector");
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
 		svg.getElementById("units").appendChild(stackSelector);
+		handler = new SelectionHandler(ctx);
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
-		String id = event.getRelativeElement().getId();
-		Hex hex = board.getHex(id);
-		hexClicked(hex);
-	}
-
-	private void hexClicked(Hex hex) {
 		hideStackSelection();
-		Operation op = handler.areaClicked(hex);
-		process(op);
-		handler.setSelectedPiece(handler.getSelectedPiece());
+		String id = event.getRelativeElement().getId();
+		Hex position = Hex.fromSVGId(id);
+		handler.onClicked(position);
 	}
 
-	protected void counterClicked(final Board board, ClickEvent event) {		
-		String id = event.getRelativeElement().getId();
-		SCSCounter counter = (SCSCounter) board.getCounter(id);
-		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
-		String attribute = img.getAttribute("earl-stacks");
-		if(attribute == null || attribute.isEmpty()) {
-			handler.setSelectedPiece(counter);
-			return;
+	protected void counterClicked(final Board board, ClickEvent event) {
+		SVGImageElement clicked = (SVGImageElement) event.getRelativeElement();
+		String id = clicked.getId();
+		CounterInfo counter = board.getCounter(id);
+		List<SVGElement> stack = getStacksWith(counter);
+		if(stack == null) {
+			handler.onClicked(counter);
+		}else{
+			handler.onClicked(getCounterInfo(stack), counter.getPosition());
 		}
-		Hex position = counter.getPosition();
-		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
-		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
-		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
-		List<SVGElement> gstack = getGraphicalStack(counter);		
-		double size = Math.sqrt(gstack.size());
-		double width = Math.ceil(size);
-		double height = Math.floor(size+0.5);
-		width = 10 + (int)width * img.getWidth().getBaseVal().getValue() + 10;
-		height= 10 + (int)height * img.getHeight().getBaseVal().getValue() + 10;
-		stackSelector.getWidth().getBaseVal().setValue((float) width);
-		stackSelector.getHeight().getBaseVal().setValue((float) height);		
-		bringToTop(stackSelector);
-		alignStack(stackSelector, gstack);
-		showingStackSelector = position;
-		
-		for (SVGElement e : gstack) {
-			e.setAttribute("class","s");
-		}
-	}
-	
-	private List<SVGElement> getGraphicalStack(SCSCounter counter) {
-		List<SVGElement> stack = new ArrayList<SVGElement>();
-		SVGImageElement img = (SVGImageElement) svg.getElementById(counter.getId());
-		for(;;) {
-			stack.add(img);
-			String next = img.getAttribute("earl-stacks");
-			if(next == null || next.isEmpty())  {
-				break;				
-			}
-			img = (SVGImageElement) svg.getElementById(next);
-		}
-		return stack;
 	}
 
 	@Override
-	public void alignStack(Hex hex) {
-		hideStackSelection();
-		SVGElement h = getSVGElement(hex);
-		Collection<Counter> stack = hex.getStack();
-		List<SVGElement> svgStack = getSVGElements(stack);
-		alignStack(h, svgStack);
+	public void showStackSelector(List<CounterInfo> stack, Position position) {
+		CounterInfo first = stack.iterator().next();
+		SVGImageElement img = (SVGImageElement) svg.getElementById(first.ref().toString());
+		//Show stack selection box:
+		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
+		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
+		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
+		List<SVGElement> gstack = getSVGElements(stack);
+		double size = Math.sqrt(gstack.size());
+		double width = Math.ceil(size);
+		double height = Math.floor(size + 0.5);
+		Dimention maxCounterSize = getMaxCounterSize(gstack);
+		width = 10 + (int) width * maxCounterSize.width + 10;
+		height = 10 + (int) height * maxCounterSize.height + 10;
+		stackSelector.getWidth().getBaseVal().setValue((float) width);
+		stackSelector.getHeight().getBaseVal().setValue((float) height);
+		bringToTop(stackSelector);
+		alignStack(stackSelector, gstack);
+		showingStackSelector = position;
+		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
+		updateSelectionRect();
 	}
 
-	private List<SVGElement> getSVGElements(Collection<Counter> stack) {
+	private List<SVGElement> getStacksWith(CounterInfo counter) {
+		List<List<SVGElement>> stacks = getAllStacks(counter.getPosition());
+		String id = counter.ref().toString();
+		for (List<SVGElement> stack : stacks) {
+			if(SVGUtils.findById(stack, id) != null) {
+				return stack;
+			}
+		}
+		return null;
+	}
+
+	private List<List<SVGElement>> getAllStacks(Position position) {
+		SVGElement area = getSVGElement(position.getSVGId());
+		String stackRoots = area.getAttribute(STACKS);
+		if (Utils.isEmpty(stackRoots)) {
+			return Collections.emptyList();
+		}
+		List<CounterInfo> pieces = ctx.board.getInfo(position).getPieces();
+		List<SVGElement> all = getSVGElements(pieces);
+		String[] roots = stackRoots.split(" ");
+		List<List<SVGElement>> result = new ArrayList<List<SVGElement>>();
+		for (String next : roots) {
+			List<SVGElement> stack = new ArrayList<SVGElement>();
+			for(;;) {
+				SVGElement e = SVGUtils.findById(all, next);
+				stack.add(e);
+				next = e.getAttribute(STACKS);
+				if(Utils.isEmpty(next)) {
+					break;
+				}
+			}
+			result.add(stack);
+		}
+		return result;
+	}
+
+	@Override
+	public void alignStack(Position ref) {
+		hideStackSelection();
+		SVGElement h = getSVGElement(ref.getSVGId());
+		HexInfo hex = ctx.board.getInfo(ref);
+		Collection<CounterInfo> stack = hex.getPieces();
+		List<SVGElement> svgStack = getSVGElements(stack);
+		alignStack(h, svgStack);
+		updateSelectionRect();
+	}
+
+	private List<CounterInfo> getCounterInfo(Collection<SVGElement> stack) {
+		List<CounterInfo> result = new ArrayList<CounterInfo>(stack.size());
+		for (SVGElement e : stack) {
+			CounterInfo info = ctx.board.getInfo(new CounterId(e.getId()));
+			result.add(info);
+		}
+		return result;
+	}
+
+	private List<SVGElement> getSVGElements(Collection<CounterInfo> stack) {
 		List<SVGElement> result = new ArrayList<SVGElement>(stack.size());
-		for (Counter counter : stack) {
-			SVGElement svgCounter = getSVGElement(counter);
+		for (CounterInfo counter : stack) {
+			SVGElement svgCounter = getSVGElement(counter.ref().toString());
 			result.add(svgCounter);
 		}
 		return result;
@@ -132,9 +168,9 @@ public class SVGDisplay extends BasicDisplay {
 
 	private void hideStackSelection() {
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
-		Hex hex = showingStackSelector;
+		Position hex = showingStackSelector;
 		showingStackSelector = null;
-		if(hex != null) {
+		if (hex != null) {
 			alignStack(hex);
 		}
 	}
@@ -154,18 +190,19 @@ public class SVGDisplay extends BasicDisplay {
 		float y = 0;
 		int stackOffset = 0;
 		int layer = 0;
+		List<String> stacks = new ArrayList<String>();
 		for (int i = 0; i < counters.size(); i++) {
 			SVGElement counter = counters.get(i);
 			float cx = startx + x + stackOffset;
 			float cy = starty + y + stackOffset;
 			SVGUtils.setXY(counter, cx, cy);
-			if(layer > 0) {
-				String stacksWith = counters.get(i - i/layer).getId();
-				counter.setAttribute("class","s");
-				counter.setAttribute("earl-stacks", stacksWith);
-			}else{				
-				counter.setAttribute("class","c");
-				counter.removeAttribute("earl-stacks");
+			if (layer > 0) {
+				String stacksWith = counters.get(i - i / layer).getId();
+				stacks.remove(stacksWith);
+				stacks.add(counter.getId());
+				counter.setAttribute(STACKS, stacksWith);
+			} else {
+				counter.removeAttribute(STACKS);
 			}
 			bringToTop(counter);
 			x += counterDim.width + spacing;
@@ -180,6 +217,7 @@ public class SVGDisplay extends BasicDisplay {
 				layer++;
 			}
 		}
+		area.setAttribute(STACKS, Utils.toString(stacks, " "));
 	}
 
 	public void bringToTop(Element c) {
@@ -221,10 +259,10 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	protected void createCounter(Counter counter, final Board board) {
+	protected void createCounter(CounterInfo counter, final Board board) {
 		Element tmpl = svg.getElementById("counter");
 		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
-		String id = counter.getId();
+		String id = counter.ref().toString();
 		com.google.gwt.user.client.Element existing = DOM.getElementById(id);
 		if (existing != null) {
 			String msg = "Element with id=" + id + " aleady exists:" + existing;
@@ -240,7 +278,8 @@ public class SVGDisplay extends BasicDisplay {
 				counterClicked(board, event);
 			}
 		};
-		SVGUtils.addClickHandler(c, clickHandler);
+		OMSVGImageElement img = OMElement.convert(c);
+		img.addClickHandler(clickHandler);
 		svg.getElementById("units").appendChild(c);
 	}
 
@@ -252,70 +291,80 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void select(Identifiable i) {
-		if (i == null) {
-			SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
-			rect.getStyle().setVisibility(Visibility.HIDDEN);
-		} else {
-			ClientEngine.log(i.getId());
-			select(i.getId());
+	public void select(CounterInfo counter) {
+		hideStackSelection();
+		CounterInfo last = ctx.selected;
+		ctx.selected = counter;
+		if(last != null && counter == null) {
+			//deselect
+			alignStack(last.getPosition()); //will call updateSelectionRect
+		}else{
+			updateSelectionRect();
 		}
 	}
 
-	private void select(String id) {
-		SVGImageElement c = (SVGImageElement) svg.getElementById(id);
+	private void updateSelectionRect() {
 		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
-		rect.getStyle().setVisibility(Visibility.VISIBLE);
-		rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
-		rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
-		rect.getStyle().setDisplay(Display.BLOCK);
-		bringToTop(rect);
-		bringToTop(c);
+		if (ctx.selected == null) {
+			rect.getStyle().setVisibility(Visibility.HIDDEN);
+		} else {
+			SVGImageElement c = (SVGImageElement) svg.getElementById(ctx.selected.ref().toString());
+			rect.getStyle().setVisibility(Visibility.VISIBLE);
+			rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
+			rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
+			rect.getStyle().setDisplay(Display.BLOCK);
+			bringToTop(c);
+			c.getParentElement().insertBefore(rect, c);
+		}
 	}
 
-	private SVGElement getSVGElement(Identifiable c) {
-		SVGElement e = (SVGElement) svg.getElementById(c.getId());
+	private SVGElement getSVGElement(String id) {
+		SVGElement e = (SVGElement) svg.getElementById(id);
 		if (e == null) {
-			throw new EarlException("svg element ["+c.getId() + "] not found");
+			throw new EarlException("svg element [" + id + "] not found");
 		}
 		return e;
 	}
 
 	@Override
-	public Position getCenter(Identifiable to) {
-		SVGElement element = getSVGElement(to);
+	public VisualCoords getCenter(Position to) {
+		return getCenter(to.getSVGId());
+	}
+
+	private VisualCoords getCenter(String id) {
+		SVGElement element = getSVGElement(id);
 		OMSVGPoint center = SVGUtils.getCenter(element);
-		return new Position((int) center.getX(), (int) center.getY());
+		return new VisualCoords((int) center.getX(), (int) center.getY());
 	}
 
 	private static final String ARROW_ID_PREFIX = "attackArrow";
-	
+
 	@Override
-	public void drawLine(Identifiable from, Identifiable to) {
+	public void drawLine(Position from, Position to) {
 		drawLine(getCenter(from), getCenter(to));
 	}
 
-	public void drawLine(Position start, Position end) {
+	public void drawLine(VisualCoords start, VisualCoords end) {
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById("trace");
 		arrow.getStyle().setProperty("pointerEvents", "none");
 		arrow = (SVGPathElement) arrow.cloneNode(true);
 		OMSVGPathSegList seg = arrow.getPathSegList();
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
-		shortenArrow(arrow, seg);		
+		shortenArrow(arrow, seg);
 		svg.getElementById("traces").appendChild(arrow);
 	}
-	
+
 	@Override
-	public void drawArrow(Identifiable from, Identifiable to, String id) {
-		drawArrow(getCenter(from), getCenter(to), id);
+	public void drawArrow(Position from, Position to, String id) {
+		drawArrow(getCenter(from.getSVGId()), getCenter(to.getSVGId()), id);
 	}
-	
+
 	@Override
-	public void drawArrow(Position start, Position end, String id) {
-		id = ARROW_ID_PREFIX+"_"+id;
+	public void drawArrow(VisualCoords start, VisualCoords end, String id) {
+		id = ARROW_ID_PREFIX + "_" + id;
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById(id);
-		if(arrow == null) {
+		if (arrow == null) {
 			arrow = (SVGPathElement) svg.getElementById(ARROW_ID_PREFIX);
 			arrow.getStyle().setProperty("pointerEvents", "none");
 			arrow = (SVGPathElement) arrow.cloneNode(true);
@@ -324,49 +373,49 @@ public class SVGDisplay extends BasicDisplay {
 		OMSVGPathSegList seg = arrow.getPathSegList();
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
-		shortenArrow(arrow, seg);		
+		shortenArrow(arrow, seg);
 		Browser.console(arrow);
 		Browser.console(arrow.getAttribute("d"));
 		svg.getElementById("markers").appendChild(arrow);
 	}
 
 	@Override
-	public void clearArrow(Hex from) {
+	public void clearArrow(Position from) {
 		String id = getArrowId(from);
-		removeElement(id);		
+		removeElement(id);
 	}
 
 	private void removeElement(String id) {
 		Element e = svg.getElementById(id);
-		if(e != null) {
+		if (e != null) {
 			e.removeFromParent();
 		}
 	}
 
-	private String getArrowId(Identifiable from) {
-		return ARROW_ID_PREFIX + "_" + from.getId();
+	private String getArrowId(Position from) {
+		return ARROW_ID_PREFIX + "_" + from.getSVGId();
 	}
-	
+
 	protected void clearMarkers(String layerId) {
 		Element markers = svg.getElementById(layerId);
-		while(markers.hasChildNodes()) {
+		while (markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());
 		}
 	}
-	
+
 	@Override
-	public void drawOds(Position center, int[] odds) {
-		String text = odds[0]+":"+odds[1];
-		final String id = "tg@"+center.x+"_"+center.y;
+	public void drawOds(VisualCoords center, int[] odds) {
+		String text = odds[0] + ":" + odds[1];
+		final String id = "tg@" + center.x + "_" + center.y;
 		drawFromTemplate(center, "target", text, id);
 	}
 
-	private void drawFromTemplate(Position center, String templateId, String text, final String id) {
+	private void drawFromTemplate(VisualCoords center, String templateId, String text, final String id) {
 		SVGElement target = (SVGElement) svg.getElementById(id);
-		if(target == null) {
+		if (target == null) {
 			target = (SVGElement) svg.getElementById(templateId);
 			target = (SVGElement) target.cloneNode(true);
-			target.setId(id);		
+			target.setId(id);
 			svg.getElementById("markers").appendChild(target);
 		}
 		target.getStyle().setProperty("pointerEvents", "none");
@@ -374,15 +423,15 @@ public class SVGDisplay extends BasicDisplay {
 		SVGTSpanElement tspan = (SVGTSpanElement) target.getElementsByTagName("tspan").getItem(0);
 		Text item = (Text) tspan.getChildNodes().getItem(0);
 		item.setNodeValue(text);
-		target.setAttribute("transform", "translate("+center.x+", "+center.y+")");
+		target.setAttribute("transform", "translate(" + center.x + ", " + center.y + ")");
 		bringToTop(target);
 	}
 
 	@Override
-	public void clearOds(Position center) {
-		final String id = "tg@"+center.x+"_"+center.y;
+	public void clearOds(VisualCoords center) {
+		final String id = "tg@" + center.x + "_" + center.y;
 		SVGElement target = (SVGElement) svg.getElementById(id);
-		if(target != null) {
+		if (target != null) {
 			target.removeFromParent();
 		}
 	}
@@ -396,21 +445,21 @@ public class SVGDisplay extends BasicDisplay {
 		OMSVGPoint p = arrow.getPointAtLength(totalLength - w);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(p.getX(), p.getY()), 1);
 	}
-	
+
 	@Override
-	public void update(Identifiable counter, String state) {
-		SVGImageElement img = (SVGImageElement) getSVGElement(counter);
+	public void update(CounterId counter, String state) {
+		SVGImageElement img = (SVGImageElement) getSVGElement(counter.toString());
 		img.getHref().setBaseVal(state);
 	}
 
 	@Override
-	public void mark(Collection<Hex> hexes) {
+	public void mark(Collection<? extends Position> hexes) {
 		StringBuilder buf = new StringBuilder();
-		for (Hex hex : hexes) {
+		for (Position hex : hexes) {
 			if (buf.length() != 0) {
 				buf.append(",");
 			}
-			buf.append("#").append(hex.getId());
+			buf.append("#").append(hex.getSVGId());
 		}
 		buf.append("{fill:#0000ff;fill-opacity:0.1}");
 		svg.getElementById("dyncss").setInnerText(buf.toString());
@@ -420,22 +469,24 @@ public class SVGDisplay extends BasicDisplay {
 	public void clearMarks() {
 		svg.getElementById("dyncss").setInnerText("");
 	}
-	
+
 	@Override
-	public void showResults(Position center, String result) {
-		final String id = "boom@"+center.x+"_"+center.y;
+	public void showResults(VisualCoords center, String result) {
+		final String id = "boom@" + center.x + "_" + center.y;
 		drawFromTemplate(center, "boom", result, id);
 	}
+
 	@Override
-	public void clearResults(Position center) {
-		final String id = "boom@"+center.x+"_"+center.y;
+	public void clearResults(VisualCoords center) {
+		final String id = "boom@" + center.x + "_" + center.y;
 		removeElement(id);
 	}
 
+	@Override
 	public void clearTraces() {
-		clearMarkers("traces");		
+		clearMarkers("traces");
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(4 / 1);
 	}

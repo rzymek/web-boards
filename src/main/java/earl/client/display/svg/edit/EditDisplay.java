@@ -27,10 +27,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import earl.client.data.Board;
-import earl.client.data.Hex;
-import earl.client.display.BasicDisplayHandler;
-import earl.client.display.Position;
+import earl.client.display.VisualCoords;
 import earl.client.display.svg.SVGDisplay;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 import earl.client.utils.AbstractCallback;
 
 public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPressHandler, MouseDownHandler {
@@ -41,7 +41,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 	private final OMSVGDocument doc;
 
 	public EditDisplay(SVGSVGElement svg) {
-		super(svg, new BasicDisplayHandler());
+		super(svg);
 		doc = OMElement.convert(svg.getOwnerDocument());
 		RootPanel.get().addDomHandler(this, KeyPressEvent.getType());
 		loadAll();
@@ -64,8 +64,8 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		if (event.isControlKeyDown()) {
 			Element newSource = event.getRelativeElement();
 			if (source != newSource && source != null) {
-				Hex from = board.getHex(source.getId());
-				Hex to = board.getHex(newSource.getId());
+				Hex from = Hex.fromSVGId(source.getId());
+				Hex to = Hex.fromSVGId(newSource.getId());
 				drawLine(from, to);
 				if (path.isEmpty()) {
 					path.add(source);
@@ -81,18 +81,19 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		if (event.isControlKeyDown()) {
 			if(path.isEmpty()) {
 				String id = event.getRelativeElement().getId();
-				mark(Arrays.asList(board.getHex(id)));
+				mark(Arrays.asList(Hex.fromSVGId(id)));
 			}else{
 				nextSegment();
 			}
 		}
 	}
 
-	public void drawLine(Hex from, Hex to) {
-		drawLine(getCenter(from), getCenter(to), to.getId());
+	@Override
+	public void drawLine(Position from, Position to) {
+		drawLine(getCenter(from), getCenter(to), to.getSVGId());
 	}
 
-	public void drawLine(Position start, Position end, String id) {
+	public void drawLine(VisualCoords start, VisualCoords end, String id) {
 		OMSVGLineElement line = doc.createSVGLineElement(start.x, start.y, end.x, end.y);
 		line.setId("editline-" + id);
 		line.getStyle().setSVGProperty("stroke-width", "5");
@@ -103,7 +104,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 
 	public void setCurrent(Element newSource) {
 		source = newSource;
-		mark(Arrays.asList(board.getHex(source.getId())));
+		mark(Arrays.asList(Hex.fromSVGId(source.getId())));
 	}
 
 	@Override
@@ -182,7 +183,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		reset();
 		id++;
 		status("Saved. New id=" + id);
-		mark(new ArrayList<Hex>());
+		mark(new ArrayList<Position>());
 	}
 
 	private void reset() {
@@ -195,7 +196,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 		String[] ids = result.split(" ");
 		Hex prev = null;
 		for (String id : ids) {
-			Hex hex = board.getHex(id);
+			Hex hex = Hex.fromSVGId(id);
 			if (prev != null) {
 				drawLine(prev, hex);
 			}

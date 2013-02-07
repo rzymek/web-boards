@@ -1,38 +1,44 @@
 package earl.client.display;
 
 import java.util.Collection;
+import java.util.List;
 
-import earl.client.data.Hex;
-import earl.client.data.Identifiable;
+import earl.client.data.CounterInfo;
+import earl.client.data.ref.CounterId;
+import earl.client.games.Position;
 
 public interface EarlDisplay {
 
-	Position getCenter(Identifiable to);
+	VisualCoords getCenter(Position to);
 
-	void drawArrow(Position start, Position end, String id);
+	void drawArrow(VisualCoords start, VisualCoords end, String id);
 
-	void update(Identifiable counter, String state);
+	void update(CounterId counter, String state);
 
-	void alignStack(Hex hex);
+	void alignStack(Position ref);
 
-	void select(Identifiable i);
+	void drawOds(VisualCoords center, int[] odds);
 
-	void drawOds(Position center, int[] odds);
-
-	void mark(Collection<Hex> hexes);
+	void mark(Collection<? extends Position> hexes);
 
 	void clearMarks();
 
-	void clearOds(Position center);
+	void clearOds(VisualCoords center);
 
-	void clearArrow(Hex from);
+	void clearArrow(Position from);
 
-	void showResults(Position center, String result);
+	void showResults(VisualCoords center, String result);
 
-	void clearResults(Position center);
+	void clearResults(VisualCoords center);
 
-	void drawArrow(Identifiable from, Identifiable to, String id);
+	void drawArrow(Position from, Position to, String id);
 
-	void drawLine(Identifiable fromRef, Identifiable toRef);
+	void drawLine(Position fromRef, Position toRef);
+
+	void select(CounterInfo i);
+
+	void clearTraces();
+
+	void showStackSelector(List<CounterInfo> stack, Position pos);
 
 }

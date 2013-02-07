@@ -3,6 +3,7 @@ package earl.client.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,106 +11,74 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import earl.client.data.ref.CounterRef;
-import earl.client.data.ref.HexRef;
-import earl.client.utils.Browser;
+import earl.client.data.ref.CounterId;
+import earl.client.ex.EarlException;
+import earl.client.games.Hex;
+import earl.client.games.Position;
 
-public class Board implements Serializable {
+public abstract class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Counter> counters = null;
-	private final Map<String, Hex> hexes = new HashMap<String, Hex>();;
+	private Map<String, CounterInfo> counters = null;
 
 	public Board() {
-		counters = new HashMap<String, Counter>();
+		counters = new HashMap<String, CounterInfo>();
 	}
 
-	public void debug() {
-		cleanupHexes();
-		Counter[] c = counters.values().toArray(new Counter[0]);
-		Hex[] h = hexes.values().toArray(new Hex[0]);
-		Browser.console(c);
-		Browser.console(h);
-	}
-
-	private void cleanupHexes() {
-		List<String> empty = new ArrayList<String>();
-		for (Hex hex : hexes.values()) {
-			if (hex.pieces.isEmpty()) {
-				empty.add(hex.getId());
-			}
-		}
-		for (String string : empty) {
-			hexes.remove(string);
-		}
-	}
-
-	public Collection<Hex> getStacks() {
-		Set<Hex> stacks = new HashSet<Hex>();
-		Set<Entry<String, Counter>> entrySet = counters.entrySet();
-		for (Entry<String, Counter> entry : entrySet) {
+	public Set<Position> getStacks() {
+		Set<Position> stacks = new HashSet<Position>();
+		Set<Entry<String, CounterInfo>> entrySet = counters.entrySet();		
+		for (Entry<String, CounterInfo> entry : entrySet) {
 			stacks.add(entry.getValue().getPosition());
 		}
 		return stacks;
 	}
 
-	public Collection<Counter> getCounters() {
-		return counters.values();
+	public Collection<CounterInfo> getCounters() {
+		return Collections.unmodifiableCollection(counters.values());
 	}
 
-	public Hex getHex(String hexId) {
-		Hex hex = hexes.get(hexId);
-		if (hex == null) {
-			hexes.put(hexId, hex = new Hex(hexId));
-		}
-		return hex;
-	}
-
-	public Counter getCounter(String id) {
+	public CounterInfo getCounter(String id) {
 		return counters.get(id);
 	}
 
-	public void place(String hexId, Counter counter) {
-		Hex hex = getHex(hexId);
-		counter.setPosition(hex);
-		Counter prev = counters.put(counter.getId(), counter);
+	public void place(Position to, CounterInfo counter) {
+		String id = counter.ref().toString();
+		CounterInfo prev = counters.put(id, counter);
 		if (prev != null) {
-			throw new RuntimeException(counter.getId() + " aleader placed");
+			throw new EarlException(id + " aleader placed");
 		}
+		move(to, counter);
 	}
 
-	public List<Hex> getAdjacent(Hex position) {
-		String id = position.getId();
-		return getAdjacent(id);
+	public void move(Position to, CounterInfo counter) {
+		Position from = counter.getPosition();
+		if(from != null) {
+			getInfo(from).pieces.remove(counter);
+		}
+		counter.setPosition(to);
+		getInfo(to).pieces.add(counter);
 	}
 
-	public List<Hex> getAdjacent(String id) {
-		int x = Integer.parseInt(id.substring(1, 3));
-		int y = Integer.parseInt(id.substring(3, 5));
-		List<Hex> adj = new ArrayList<Hex>(6);
-		int o = (x % 2 == 0) ? 0 : -1;
+	public List<HexInfo> getAdjacent(Hex p) {
+		List<HexInfo> adj = new ArrayList<HexInfo>(6);
+		int o = (p.x % 2 == 0) ? 0 : -1;
 		//@formatter:off
-								adj.add(toId(x,y+1));
-		adj.add(toId(x-1,y+1+o));					adj.add(toId(x+1,y+1+o));	
-		adj.add(toId(x-1,y+o));						adj.add(toId(x+1,y+o));
-								adj.add(toId(x,y-1));
+								adj.add(toId(p.x,p.y+1));
+		adj.add(toId(p.x-1,p.y+1+o));					adj.add(toId(p.x+1,p.y+1+o));	
+		adj.add(toId(p.x-1,p.y+o));						adj.add(toId(p.x+1,p.y+o));
+								adj.add(toId(p.x,p.y-1));
 		//@formatter:on
 		return adj;
 	}
-
-	private Hex toId(int x, int y) {		
-		return getHex("h"+dig(x)+""+dig(y));
-	}
 	
-	private static String dig(int x){
-		return x<10 ? "0"+x : ""+x;
+	private HexInfo toId(int x, int y) {
+		return getInfo(new Hex(x, y));
 	}
 
-	public Counter get(CounterRef ref) {
-		return getCounter(ref.getId());
-	}
+	public abstract HexInfo getInfo(Position area);
 
-	public Hex get(HexRef ref) {
-		return getHex(ref.getId());
+	public CounterInfo getInfo(CounterId ref) {
+		return getCounter(ref.toString());
 	}
 
 }

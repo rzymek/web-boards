@@ -10,17 +10,14 @@ import earl.client.ops.Operation;
 import earl.client.ops.generic.OpponentConnected;
 import earl.server.entity.Table;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class Notify {
 
-	public void notifyListeners(long tableId, Operation op, String fromUser) {
-		Table table = ofy().load().type(Table.class).id(tableId).get();
+	public void notifyListeners(Table table, Operation op, String fromUser) {
 		String recipient = getRecipient(fromUser, table);
 		if (recipient == null) {
 			return;
 		}
-		String clientId = getClientId(tableId, recipient);
+		String clientId = getClientId(table.id, recipient);
 		OperationMessage message = new OperationMessage();
 		message.op = op;
 		ChannelServer.send(clientId, message);
@@ -36,17 +33,16 @@ public class Notify {
 		}
 	}
 
-	public String openChannel(long tableId, String user) {
+	public String openChannel(Table table, String user) {
 		ChannelService service = ChannelServiceFactory.getChannelService();
-		String clientId = getClientId(tableId, user);
+		String clientId = getClientId(table.id, user);
 		String token = service.createChannel(clientId);
 		System.out.println("client connected: " + clientId + " token=" + token);
-		notifyListeners(tableId, new OpponentConnected(user), user);
+		notifyListeners(table, new OpponentConnected(user), user);
 		return token;
 	}
 
 	private String getClientId(long tableId, String user) {
-		String clientId = tableId + "-" + user;
-		return clientId;
+		return tableId + "-" + user;
 	}
 }
