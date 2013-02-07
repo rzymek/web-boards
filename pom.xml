@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.earl</groupId>
@@ -107,21 +108,21 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
-					<!-- 
-					<optimizationLevel>0</optimizationLevel>
-					-->
+					<!-- <optimizationLevel>0</optimizationLevel> -->
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
 				</configuration>
 			</plugin>
-			<plugin> <!-- mvn gwt:clean gwt:compile appengine:upload -->
+			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${gae.version}</version>
+				<version>1.7.5-SNAPSHOT</version>
 				<configuration>
 					<address>0.0.0.0</address>
 					<port>8888</port>
-					<jvmFlags><value>-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n</value></jvmFlags>
+					<jvmFlags>
+						<value>-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n</value>
+					</jvmFlags>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -133,19 +134,11 @@
 		</resources>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>google-releases</id>
-			<name>Google Releases</name>
-			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
-		</repository>
-	</repositories>
-
 	<profiles>
 		<profile>
 			<id>prod</id>
 			<properties>
-				<dev.module.config/>
+				<dev.module.config />
 			</properties>
 			<build>
 				<plugins>
@@ -165,4 +158,13 @@
 			</build>
 		</profile>
 	</profiles>
+
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>google-releases</id>
+			<name>Google Releases</name>
+			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
