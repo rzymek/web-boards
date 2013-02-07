@@ -1,6 +1,6 @@
 package earl.client.data;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.shared.GWT;
 
 import earl.client.ClientEngine;
 import earl.client.display.EarlDisplay;
@@ -13,7 +13,6 @@ public class GameCtx {
 	public Board board;
 	public EarlDisplay display;
 	public CounterInfo selected;
-	public final ServerEngineAsync service = GWT.create(ServerEngine.class);
 
 	public void process(final Operation op) {
 		if (op == null) {
@@ -22,6 +21,7 @@ public class GameCtx {
 		op.updateBoard(board);
 		op.draw(this);
 		op.drawDetails(display);
+		ServerEngineAsync service = GWT.create(ServerEngine.class);
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
