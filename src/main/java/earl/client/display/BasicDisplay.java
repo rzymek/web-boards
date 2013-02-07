@@ -31,8 +31,11 @@ public abstract class BasicDisplay implements EarlDisplay {
 
 	protected void initCounters(final Board board) {
 		Collection<Ref> stacks = board.getStacks();
+		ClientEngine.log("counters: "+board.getCounters().toString());
+		ClientEngine.log("stacks: "+stacks.toString());
 		for (Ref pos : stacks) {
 			List<Counter> counters = board.get(pos).getStack();
+			ClientEngine.log(pos+": "+counters);
 			for (Counter counter : counters) {
 				createCounter(counter, board);
 			}

@@ -1,7 +1,9 @@
 package earl.client.games.scs;
 
 import java.io.Serializable;
-import java.util.EnumSet;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,11 +18,11 @@ public class SCSHex extends Hex implements Serializable, IsSerializable {
 	private Set<HexTraits> traits = null;
 
 	public SCSHex() {
-		traits = EnumSet.noneOf(HexTraits.class);
+		traits = Collections.emptySet();
 	}
 
-	public SCSHex(Set<HexTraits> traits) {
-		this.traits = traits;
+	public SCSHex(HexTraits... traits) {
+		this.traits = new HashSet<HexTraits>(Arrays.asList(traits));
 	}
 
 	public Set<HexTraits> getTraits() {

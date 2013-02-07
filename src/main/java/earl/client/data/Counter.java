@@ -29,5 +29,10 @@ public abstract class Counter extends Identifiable {
 	public CounterRef ref() {
 		return new CounterRef(getId());
 	}
+	
+	@Override
+	public String toString() {
+		return getId()+":"+getPosition().getSVGId();
+	}
 
 }

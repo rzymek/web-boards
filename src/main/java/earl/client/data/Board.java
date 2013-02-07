@@ -3,6 +3,7 @@ package earl.client.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ public abstract class Board implements Serializable {
 
 	public Set<Ref> getStacks() {
 		Set<Ref> stacks = new HashSet<Ref>();
-		Set<Entry<String, Counter>> entrySet = counters.entrySet();
+		Set<Entry<String, Counter>> entrySet = counters.entrySet();		
 		for (Entry<String, Counter> entry : entrySet) {
 			stacks.add(entry.getValue().getPosition());
 		}
@@ -32,7 +33,7 @@ public abstract class Board implements Serializable {
 	}
 
 	public Collection<Counter> getCounters() {
-		return counters.values();
+		return Collections.unmodifiableCollection(counters.values());
 	}
 
 	public abstract Hex get(Ref area);

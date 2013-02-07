@@ -2,6 +2,7 @@ package earl.client.games.scs.bastogne;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -12,6 +13,7 @@ import earl.client.data.Hex;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
 import earl.client.games.AreaRef;
+import earl.client.games.Ref;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.SCSBoard;
 import earl.client.games.scs.SCSCounter;
@@ -155,14 +157,16 @@ public class Bastogne implements Game, IsSerializable {
 
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
 
+		AreaRef usDG = new AreaRef("us_dg");
+		AreaRef geDG = new AreaRef("ge_dg");
 		SCSMarker counter;
 		for (int i = 0; i < 18; i++) {
 			counter = new SCSMarker("us_dg" + i, "admin/misc_us-dg.png", BastogneSide.US);
 			counter.setDescription("US Disorganized Units");
-			board.place(new AreaRef("us_dg"), counter);
+			board.place(usDG, counter);
 			counter = new SCSMarker("ge_dg" + i, "admin/misc_ge-dg.png", BastogneSide.GE);
 			counter.setDescription("GE Disorganized Units");
-			board.place(new AreaRef("ge_dg"), counter);
+			board.place(geDG, counter);
 		}
 	}
 
@@ -304,6 +308,12 @@ public class Bastogne implements Game, IsSerializable {
 
 	public void load(Collection<Operation> ops, SVGDisplay display) {
 		setupScenarion52();
+		System.out.println(board.getCounters());
+		Set<Ref> stacks = board.getStacks();
+		for (Ref pos : stacks) {
+			List<Counter> counters = board.get(pos).getStack();
+			System.out.println(pos+": "+counters);
+		}
 		for (Operation op : ops) {
 			op.updateBoard(board);
 			if(display != null) {

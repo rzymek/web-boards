@@ -41,4 +41,12 @@ public class HexXY implements Ref {
 		d02(id, y);
 		return id.toString();
 	}
+	@Override
+	public int hashCode() {
+		return getSVGId().hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return AreaRef.equals(this, obj);
+	}
 }

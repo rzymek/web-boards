@@ -6,12 +6,10 @@ import earl.client.data.Counter;
 import earl.client.games.scs.bastogne.BastogneSide;
 
 public class SCSMarker extends Counter implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	private String desc;
 	private String id;
 	private String path;
-//	private BastogneSide side;
 
 	protected SCSMarker() {
 	}
@@ -19,7 +17,6 @@ public class SCSMarker extends Counter implements Serializable {
 	public SCSMarker(String id, String path, BastogneSide side) {
 		this.id = id;
 		this.path = path;
-//		this.side = side;
 	}
 
 	@Override

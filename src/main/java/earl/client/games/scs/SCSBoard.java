@@ -20,20 +20,19 @@ public class SCSBoard extends Board implements Serializable {
 	public SCSBoard(SCSHex[][] hexes) {
 		this.hexes = hexes;
 	}
-	
-	public SCSHex get(int x, int y){
+
+	public SCSHex get(int x, int y) {
 		return hexes[x][y];
 	}
-	
+
 	@Override
 	public Hex get(Ref ref) {
-		if(ref instanceof HexXY) {
+		if (ref instanceof HexXY) {
 			HexXY xy = (HexXY) ref;
 			return hexes[xy.x][xy.y];
-		}else{
-			//TODO: temp
+		} else {
 			Hex hex = areas.get(ref.getSVGId());
-			if(hex == null) {
+			if (hex == null) {
 				areas.put(ref.getSVGId(), hex = new SCSHex());
 			}
 			return hex;
