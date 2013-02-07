@@ -15,18 +15,15 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.io.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class GetMapInfo {
+public class GetMapInfo { 
 	public static void main(String[] args) throws Exception {
-		float a = 3;
-		float d = 2;
-		float s = Math.min(a,d);
-		System.out.println(Math.round(a/s)+":"+Math.round(d/d)+ " /"+a/s+":"+d/s);
-//		new GetMapInfo().generateMapInfo();
+		new GetMapInfo().generateMapInfo();
 	}
 
 
@@ -35,10 +32,10 @@ public class GetMapInfo {
 		StringBuilder out = new StringBuilder();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(new File("sources/bastogne/full/bastogne.svg"));
+		Document doc = builder.parse(new File("../earl/src/main/svg/bastogne-orig.svg"));
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		XPath xpath = xPathfactory.newXPath();
-		XPathExpression expr = xpath.compile("//g[@id='area1']/path");
+		XPathExpression expr = xpath.compile("//g[@id='area']/path");
 		NodeList result = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
 		Pattern regex = Pattern.compile("fill:#(.{2})(.{2})(.{2})");
 		for (int i = 0; i < result.getLength(); i++) {
@@ -55,15 +52,30 @@ public class GetMapInfo {
 				boolean rune = "ff".equals(b);
 				if(city || forest || rune) {
 					String s="";
-					if(city)s+="C";
-					if(forest)s+="F";
-					if(rune)s+="R";
-					out.append(id+"="+s+"\n");
+					if(city)  s=append(s, "HexTraits.CITY");
+					if(forest)s=append(s, "HexTraits.FOREST");
+					if(rune)  s=append(s, "HexTraits.RUNE");
+					String[] coords = id.split("[.]");
+					int x = Integer.parseInt(coords[0]);
+					int y = Integer.parseInt(coords[1]);
+					out.append("		hexes["+x+"]["+y+"] = new SCSHex("+s+");\n");
 				}
 			}
 		}
-		FileWriter fout = new FileWriter("src/bastogne-map.properties");
-		fout.append(out);
+		System.out.println(out);
+		String tmpl = FileUtils.readFileToString(new File("MapTraits.tmpl"));
+		String src = tmpl.replace("${content}", out);
+		FileWriter fout = new FileWriter("../earl/src/main/java/earl/client/games/scs/bastogne/MapTraits.java");
+		fout.append(src);
 		fout.close();
+	}
+
+
+	private String append(String s, String v) {
+		if(s.isEmpty()){
+			return v;
+		}else{
+			return s+", "+v;
+		}
 	}
 }
