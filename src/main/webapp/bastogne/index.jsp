@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Bastogne</title>
-<script src="../earl.ClientEngine/earl.ClientEngine.nocache.js"></script>
+<script src="../webboards/webboards.nocache.js"></script>
 <script src="/_ah/channel/jsapi"></script>
 <style>
 #menu { 

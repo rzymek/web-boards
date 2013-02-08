@@ -3,26 +3,26 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>engine</servlet-name>
-		<servlet-class>earl.server.ServerEngineImpl</servlet-class>
+		<servlet-class>webboards.server.ServerEngineImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>engine</servlet-name>
-		<url-pattern>/earl.ClientEngine/engine</url-pattern>
+		<url-pattern>/webboards/engine</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>edit</servlet-name>
-		<servlet-class>earl.server.edit.EditServiceImpl</servlet-class>
+		<servlet-class>webboards.server.edit.EditServiceImpl</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>edit</servlet-name>
-		<url-pattern>/earl.ClientEngine/edit</url-pattern>
+		<url-pattern>/webboards/edit</url-pattern>
 	</servlet-mapping>
 
 
 	<servlet>
 		<servlet-name>ManagerServlet</servlet-name>
-		<servlet-class>earl.server.servlet.ManagerServlet</servlet-class>
+		<servlet-class>webboards.server.servlet.ManagerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -31,7 +31,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ManagerServlet</servlet-name>
-		<url-pattern>/earl/start</url-pattern>
+		<url-pattern>/webboards/start</url-pattern>
 	</servlet-mapping>
 	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
@@ -48,7 +48,7 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>earl</web-resource-name>
+			<web-resource-name>webboards</web-resource-name>
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>

@@ -1,3 +1,3 @@
 <%
-    response.sendRedirect("/earl/start");
+    response.sendRedirect("/webboards/start");
 %>

@@ -1,12 +1,11 @@
 <%@page import="java.util.Collection"%>
-<%@page import="earl.server.servlet.ManagerServlet"%>
-<%@page import="earl.server.entity.Table"%>
+<%@page import="webboards.server.servlet.ManagerServlet"%>
+<%@page import="webboards.server.entity.Table"%>
 <html>
 <head>
 <title>Earl</title>
 </head>
 <body>
-<small>Version: $Id$
 	<form type="get">
 		Start new game as: <select name="side">
 			<option>US</option>
@@ -17,7 +16,7 @@
 	<br /> Your games:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("earl.started");
+			list = (Collection<Table>) request.getAttribute("webboards.started");
 			for (Table t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
@@ -28,7 +27,7 @@
 	<br /> Waiting for opponent:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("earl.waiting");
+			list = (Collection<Table>) request.getAttribute("webboards.waiting");
 			for (Table t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
@@ -39,7 +38,7 @@
 	<br /> Join:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("earl.invitations");
+			list = (Collection<Table>) request.getAttribute("webboards.invitations");
 			for (Table t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
