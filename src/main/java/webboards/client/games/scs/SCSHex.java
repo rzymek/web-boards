@@ -3,10 +3,11 @@ package webboards.client.games.scs;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import webboards.client.data.HexInfo;
+import webboards.client.games.Hex;
+import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.HexTraits;
 
 public class SCSHex extends HexInfo {
@@ -25,13 +26,23 @@ public class SCSHex extends HexInfo {
 		return traits;
 	}
 
-	public boolean isAdjacent(SCSHex hex) {
-		// TODO Auto-generated method stub
-		return false;
+	public static boolean isAdjacent(Position pa, Position pb) {
+		if (pa instanceof Hex && pb instanceof Hex) {
+			Hex a = (Hex) pa;
+			Hex b = (Hex) pb;
+			int o = (b.x % 2 == 0) ? 0 : -1;
+			//@formatter:off
+			return 					(equals(a, b.x,b.y+1) || 
+					equals(a, b.x-1,b.y+1+o) || equals(a, b.x+1,b.y+1+o) ||	
+					equals(a, b.x-1,b.y+o)   ||	equals(a, b.x+1,b.y+o) ||
+									equals(a, b.x,b.y-1));
+			//@formatter:on
+		} else {
+			return false;
+		}
 	}
 
-	public List<SCSHex> getAdjacent() {
-		// TODO Auto-generated method stub
-		return null;
+	private static boolean equals(Hex a, int x, int y) {
+		return a.x == x && a.y == y;
 	}
 }

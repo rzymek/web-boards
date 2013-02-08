@@ -11,6 +11,8 @@ import webboards.client.data.HexInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Area;
+import webboards.client.games.Hex;
+import webboards.client.games.Position;
 import webboards.client.games.scs.CombatResult;
 import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.SCSCounter;
@@ -110,16 +112,16 @@ public class Bastogne implements Game, IsSerializable {
 		setup("h3720", us_Comb_C, "Comb Eng Bn (C Co)");
 		setup("h4019", us_Comb_D, "Comb Eng Bn (D Co)");
 
-		String hexId = "US2";
-		setup(hexId, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
-		setup(hexId, us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
-		setup(hexId, us_501_C_1, "1st Bn 501 Abn Inf (C/1)");
-		setup(hexId, us_501_D_2, "2nd Bn 501 Abn Inf (D/2)");
-		setup(hexId, us_501_E_2, "2nd Bn 501 Abn Inf (E/2)");
-		setup(hexId, us_501_F_2, "2nd Bn 501 Abn Inf (F/2)");
-		setup(hexId, us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
-		setup(hexId, us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
-		setup(hexId, us_101_327, "377 Abn Arty Bn");
+		String area = "US";
+		setup(2, area, us_501_A_1, "1st Bn 501 Abn Inf (A/1)");
+		setup(2, area, us_501_B_1, "1st Bn 501 Abn Inf (B/1)");
+		setup(2, area, us_501_C_1, "1st Bn 501 Abn Inf (C/1)");
+		setup(2, area, us_501_D_2, "2nd Bn 501 Abn Inf (D/2)");
+		setup(2, area, us_501_E_2, "2nd Bn 501 Abn Inf (E/2)");
+		setup(2, area, us_501_F_2, "2nd Bn 501 Abn Inf (F/2)");
+		setup(2, area, us_501_G_3, "3rd Bn 501 Abn Inf (G/3)");
+		setup(2, area, us_501_H_3, "3rd Bn 501 Abn Inf (H/3)");
+		setup(2, area, us_101_327, "377 Abn Arty Bn");
 
 		setup(1, "D", ge_26VG_1_I_78, "26 VG I/78 1 Inf Co");
 		setup(1, "D", ge_26VG_2_I_78, "26 VG I/78 2 Inf Co");
@@ -171,17 +173,22 @@ public class Bastogne implements Game, IsSerializable {
 	}
 
 	private void setup(String hexId, BastogneUnits unit, String desc) {
+		Position pos = Hex.fromSVGId(hexId);
+		setup(unit, desc, pos);
+	}
+
+	private void setup(BastogneUnits unit, String desc, Position pos) {
 		String id = unit.getId();
 		String side = unit.name().substring(0, 2).toUpperCase();
 		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
 				unit.range, unit.defence, unit.movement);
 		counter.setDescription(desc);
-		board.place(new Area(hexId), counter);
+		board.place(pos, counter);
 	}
 
-	private void setup(int turn, String area, BastogneUnits unit, String desc) {
-		String hexId = turn + area;
-		setup(hexId, unit, desc);
+	private void setup(int turn, String areaId, BastogneUnits unit, String desc) {
+		Area area = new Area(turn + areaId);
+		setup(unit, desc, area);
 	}
 
 	public void setPlayer(BastogneSide side, String player) {

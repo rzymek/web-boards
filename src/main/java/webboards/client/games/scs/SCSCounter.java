@@ -1,15 +1,16 @@
 package webboards.client.games.scs;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
-import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
+import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
-import webboards.client.games.Hex;
+import webboards.client.ex.EarlException;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.client.games.scs.ops.Move;
+import webboards.client.ops.NotImplemented;
 import webboards.client.ops.Operation;
 
 public class SCSCounter extends CounterInfo implements Serializable {
@@ -88,62 +89,64 @@ public class SCSCounter extends CounterInfo implements Serializable {
 				"["+attack+"-"+defence+"-"+movement+"]";
 		return ref() + def;
 	}
-	
-	public Operation onPointTo(Board board, Position ref) {
-		if(ref instanceof Hex) {
-			Hex hex = (Hex) ref;
-			if(isEnemyOccupied(board, hex)) {
-				return onAttack((SCSHex) board.getInfo(hex));
+
+	@Override
+	public Operation onPointTo(GameCtx ctx, CounterInfo c) {
+		if(c instanceof SCSCounter) {
+			SCSCounter counter = (SCSCounter) c;
+			if(counter.getOwner() == owner) {
+				return super.onPointTo(ctx, c);
 			}else{
-				return onMoveTo(hex);
+				return onPointToStack(ctx, Arrays.asList(c), c.getPosition());
 			}
 		}else{
-			//e.g. move to Dead pool
-			return onMoveTo(ref);			
+			return super.onPointTo(ctx, c);
 		}
 	}
-			
-	private Operation onAttack(SCSHex hex) {
-		if(hex.isAdjacent(hex)) {
-			return onCombat(hex);
-		}else if(isRanged()){
-			return onBarrage(hex);
+	
+	@Override
+	public Operation onPointToStack(GameCtx ctx, List<CounterInfo> stack, Position pos) {
+		BastogneSide side = getSide(stack);
+		if(side == null) {
+			//no counters, only markers
+			return super.onPointToStack(ctx, stack, pos);
+		}
+		if(side != owner) {			
+			//attack
+			if(isRanged()) {
+				return onBarrage(ctx, stack, pos);
+			}else{
+				if(SCSHex.isAdjacent(pos, getPosition())){
+					return onCombat(ctx, stack, pos);
+				}else{
+					ctx.display.select(null);
+					return null;
+				}
+			}
 		}else{
-			return null;
-		}	
+			return super.onPointToStack(ctx, stack, pos);
+		}
 	}
 
-	private Operation onBarrage(SCSHex hex) {
-		return null;
+	private Operation onCombat(GameCtx ctx, List<CounterInfo> stack, Position pos) {
+		return new NotImplemented("combat");
 	}
 
-	private Operation onCombat(SCSHex hex) {
-		return null;
+	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Position pos) {
+		return new NotImplemented("barrage");
 	}
 
-	private boolean isEnemyOccupied(Board board, Hex hex) {
-		List<CounterInfo> stack = board.getInfo(hex).getPieces();
-		for (CounterInfo counter : stack) {
-			if(counter instanceof SCSCounter) {
-				SCSCounter c = (SCSCounter) counter;
-				//No need to check other counters on the stack
-				//Game rules forbid placing counters of different side in one hex. 
-				return (c.getOwner() != owner);
+	private BastogneSide getSide(List<CounterInfo> stack) {
+		BastogneSide side = null;
+		for (CounterInfo c : stack) {
+			if(c instanceof SCSCounter) {
+				SCSCounter counter = (SCSCounter) c;
+				if(side != null && side != counter.getOwner()) {
+					throw new EarlException("Inconsistent board: Mixed side in one stack");
+				}
+				side = counter.getOwner();
 			}
 		}
-		return false;
+		return side;
 	}
-
-	protected Operation onMoveTo(Position hex) {
-		return new Move(this, hex);
-	}
-
-	public void onOpponentClicked() {
-		
-	}
-	
-	public void onOwnerSelected() {
-		
-	}
-	
 }
