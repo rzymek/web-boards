@@ -27,15 +27,15 @@ public class TouchScrollPanel extends ScrollPanel {
 		var ref = this;
 		ele.ontouchstart = function(evt){
 	  		evt.preventDefault();	
-	  		ref.@earl.client.utils.TouchScrollPanel::setInitialTouch(II)(evt.touches[0].screenX, evt.touches[0].screenY);
+	  		ref.@webboardsclient.utils.TouchScrollPanel::setInitialTouch(II)(evt.touches[0].screenX, evt.touches[0].screenY);
 		}	
 		ele.ontouchmove = function(evt){
 	  		evt.preventDefault();	
-	  		ref.@earl.client.utils.TouchScrollPanel::doScroll(II)(evt.touches[0].screenX, evt.touches[0].screenY);
+	  		ref.@webboardsclient.utils.TouchScrollPanel::doScroll(II)(evt.touches[0].screenX, evt.touches[0].screenY);
 		}		
 		ele.ontouchend = function(evt){
 			evt.preventDefault();
-			ref.@earl.client.utils.TouchScrollPanel::setEndTouch(II)(evt.pageX, evt.pageY);
+			ref.@webboardsclient.utils.TouchScrollPanel::setEndTouch(II)(evt.pageX, evt.pageY);
 		}		
 	}-*/;
  

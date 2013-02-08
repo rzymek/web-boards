@@ -40,7 +40,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 
 public class SVGDisplay extends BasicDisplay {
-	private static final String STACKS = "earl-stacks";
+	private static final String STACKS = "wb-stacks";
 	protected final SVGSVGElement svg;
 	private final SVGRectElement stackSelector;
 	private Position showingStackSelector = null;

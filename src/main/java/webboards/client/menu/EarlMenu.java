@@ -137,7 +137,7 @@ public class EarlMenu implements ClickHandler {
 	}
 
 	private static native Document openLogWindow() /*-{
-		var doc = window.open("", "earl.log", "").document;
+		var doc = window.open("", "webboards.log", "").document;
 		doc.title = "Game log";
 		return doc;
 	}-*/;
