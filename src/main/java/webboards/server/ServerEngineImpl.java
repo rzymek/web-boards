@@ -19,6 +19,7 @@ import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.Area;
+import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -100,7 +101,14 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			return result;
 		}
 		for (Entry<String, String> e : state.state.entrySet()) {
-			result.put(e.getKey(), new Area(e.getValue()));
+			String id = e.getValue();
+			Position pos;
+			if(id.matches("h[0-9]{4}")) {
+				pos = Hex.fromSVGId(id);
+			}else{
+				pos = new Area(id);
+			}
+			result.put(e.getKey(), pos);
 		}
 		return result;
 	}

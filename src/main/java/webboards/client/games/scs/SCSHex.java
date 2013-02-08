@@ -41,7 +41,7 @@ public class SCSHex extends HexInfo {
 			return false;
 		}
 	}
-
+	
 	private static boolean equals(Hex a, int x, int y) {
 		return a.x == x && a.y == y;
 	}

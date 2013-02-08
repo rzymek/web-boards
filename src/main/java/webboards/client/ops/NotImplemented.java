@@ -6,7 +6,11 @@ import com.google.gwt.user.client.Window;
 
 public class NotImplemented extends Operation {
 	private static final long serialVersionUID = 1L;
-	private final String msg;
+	private String msg;
+
+	@SuppressWarnings("unused")
+	private NotImplemented() {
+	}
 
 	public NotImplemented(String msg) {
 		this.msg = msg;

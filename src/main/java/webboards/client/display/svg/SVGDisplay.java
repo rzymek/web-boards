@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.vectomatic.dom.svg.OMElement;
+import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
+import org.vectomatic.dom.svg.OMSVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
@@ -45,6 +47,8 @@ public class SVGDisplay extends BasicDisplay {
 	private final SVGRectElement stackSelector;
 	private Position showingStackSelector = null;
 	private final SelectionHandler handler;
+	private List<CounterInfo> stackSelectorContents = Collections.emptyList();
+	private Position stackSelectorPosition = null;
 
 	public SVGDisplay(SVGSVGElement svg) {
 		this.svg = svg;
@@ -54,7 +58,15 @@ public class SVGDisplay extends BasicDisplay {
 
 		stackSelector = (SVGRectElement) svg.getElementById("stack-selector");
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
+		OMSVGRectElement omstackSelector = OMNode.convert(stackSelector);
+		omstackSelector.addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				handler.onClicked(stackSelectorContents, stackSelectorPosition);
+			}
+		});
 		svg.getElementById("units").appendChild(stackSelector);
+		
 		handler = new SelectionHandler(ctx);
 	}
 
@@ -79,6 +91,9 @@ public class SVGDisplay extends BasicDisplay {
 
 	@Override
 	public void showStackSelector(List<CounterInfo> stack, Position position) {
+		if(stackSelectorContents == stack) {
+			return;
+		}
 		CounterInfo first = stack.iterator().next();
 		SVGImageElement img = (SVGImageElement) svg.getElementById(first.ref().toString());
 		//Show stack selection box:
@@ -99,10 +114,18 @@ public class SVGDisplay extends BasicDisplay {
 		showingStackSelector = position;
 		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
 		updateSelectionRect();
+		stackSelectorContents = stack;
+		stackSelectorPosition = position;
 	}
 
 	private List<SVGElement> getStacksWith(CounterInfo counter) {
 		List<List<SVGElement>> stacks = getAllStacks(counter.getPosition());
+		for (List<SVGElement> list : stacks) {
+			Browser.console("Stack: "+list.size());
+			for (SVGElement svgElement : list) {
+				Browser.console(svgElement);	
+			}
+		}
 		String id = counter.ref().toString();
 		for (List<SVGElement> stack : stacks) {
 			if(SVGUtils.findById(stack, id) != null) {
@@ -190,16 +213,18 @@ public class SVGDisplay extends BasicDisplay {
 		float y = 0;
 		int stackOffset = 0;
 		int layer = 0;
-		List<String> stacks = new ArrayList<String>();
+		int countersOnLayer=0;
+		List<String> stackRoots = new ArrayList<String>();
 		for (int i = 0; i < counters.size(); i++) {
 			SVGElement counter = counters.get(i);
 			float cx = startx + x + stackOffset;
 			float cy = starty + y + stackOffset;
 			SVGUtils.setXY(counter, cx, cy);
 			if (layer > 0) {
-				String stacksWith = counters.get(i - i / layer).getId();
-				stacks.remove(stacksWith);
-				stacks.add(counter.getId());
+				String id = counter.getId();
+				String stacksWith = counters.get(i - countersOnLayer).getId();
+				stackRoots.remove(stacksWith);
+				stackRoots.add(id);
 				counter.setAttribute(STACKS, stacksWith);
 			} else {
 				counter.removeAttribute(STACKS);
@@ -215,9 +240,12 @@ public class SVGDisplay extends BasicDisplay {
 				y = 0;
 				stackOffset += 5;
 				layer++;
+				if(layer == 1) {
+					countersOnLayer = i + 1;
+				}
 			}
 		}
-		area.setAttribute(STACKS, Utils.toString(stacks, " "));
+		area.setAttribute(STACKS, Utils.toString(stackRoots, " "));
 	}
 
 	public void bringToTop(Element c) {
