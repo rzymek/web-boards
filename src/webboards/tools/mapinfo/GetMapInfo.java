@@ -1,4 +1,4 @@
-package earl.tools.mapinfo;
+package webboards.tools.mapinfo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -32,7 +32,7 @@ public class GetMapInfo {
 		StringBuilder out = new StringBuilder();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(new File("../earl/src/main/svg/bastogne-orig.svg"));
+		Document doc = builder.parse(new File("../webboards/src/main/svg/bastogne-orig.svg"));
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		XPath xpath = xPathfactory.newXPath();
 		XPathExpression expr = xpath.compile("//g[@id='area']/path");
@@ -65,7 +65,7 @@ public class GetMapInfo {
 		System.out.println(out);
 		String tmpl = FileUtils.readFileToString(new File("MapTraits.tmpl"));
 		String src = tmpl.replace("${content}", out);
-		FileWriter fout = new FileWriter("../earl/src/main/java/earl/client/games/scs/bastogne/MapTraits.java");
+		FileWriter fout = new FileWriter("../webboards/src/main/java/webboards/client/games/scs/bastogne/MapTraits.java");
 		fout.append(src);
 		fout.close();
 	}

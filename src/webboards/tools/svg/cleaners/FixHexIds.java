@@ -1,4 +1,4 @@
-package earl.tools.svg.cleaners;
+package webboards.tools.svg.cleaners;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,8 @@ import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import earl.tools.svg.utils.StreamCopy;
+import webboards.tools.svg.utils.StreamCopy;
+
 
 public class FixHexIds extends StreamCopy {
 	Pattern id = Pattern.compile("([0-9]+)[.]([0-9]+)");

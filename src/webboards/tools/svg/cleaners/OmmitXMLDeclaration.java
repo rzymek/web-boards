@@ -1,9 +1,10 @@
-package earl.tools.svg.cleaners;
+package webboards.tools.svg.cleaners;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import earl.tools.svg.utils.StreamCopy;
+import webboards.tools.svg.utils.StreamCopy;
+
 
 public class OmmitXMLDeclaration extends StreamCopy {
 	public OmmitXMLDeclaration(XMLStreamWriter delegate) {

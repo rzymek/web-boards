@@ -1,4 +1,4 @@
-package earl.tools;
+package webboards.tools;
 
 import java.io.File;
 import java.io.IOException;

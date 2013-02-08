@@ -1,4 +1,4 @@
-package earl.tools.svg.utils;
+package webboards.tools.svg.utils;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;

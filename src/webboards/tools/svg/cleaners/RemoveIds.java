@@ -1,4 +1,4 @@
-package earl.tools.svg.cleaners;
+package webboards.tools.svg.cleaners;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -6,7 +6,8 @@ import java.util.TreeSet;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import earl.tools.svg.utils.StreamCopy;
+import webboards.tools.svg.utils.StreamCopy;
+
 
 public class RemoveIds extends StreamCopy {
 

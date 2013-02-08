@@ -1,4 +1,4 @@
-package earl.tools.svg;
+package webboards.tools.svg;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,16 +24,17 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import earl.tools.svg.cleaners.AddLayers;
-import earl.tools.svg.cleaners.ApplyTransform;
-import earl.tools.svg.cleaners.FindCommonStyles;
-import earl.tools.svg.cleaners.FixHexIds;
-import earl.tools.svg.cleaners.HideTmpl;
-import earl.tools.svg.cleaners.NamespacesFix;
-import earl.tools.svg.cleaners.RelativeImagePath;
-import earl.tools.svg.cleaners.RemoveHexColor;
-import earl.tools.svg.cleaners.RemoveIds;
-import earl.tools.svg.cleaners.SetSVGDimentions;
+import webboards.tools.svg.cleaners.AddLayers;
+import webboards.tools.svg.cleaners.ApplyTransform;
+import webboards.tools.svg.cleaners.FindCommonStyles;
+import webboards.tools.svg.cleaners.FixHexIds;
+import webboards.tools.svg.cleaners.HideTmpl;
+import webboards.tools.svg.cleaners.NamespacesFix;
+import webboards.tools.svg.cleaners.RelativeImagePath;
+import webboards.tools.svg.cleaners.RemoveHexColor;
+import webboards.tools.svg.cleaners.RemoveIds;
+import webboards.tools.svg.cleaners.SetSVGDimentions;
+
 
 public class SVGCleaner {
 
@@ -41,8 +42,8 @@ public class SVGCleaner {
 		long start = System.currentTimeMillis();
 		TransformerFactory factory = TransformerFactory.newInstance();		
 		Transformer transformer = factory.newTransformer(new StreamSource("clean.xslt"));
-		File out = new File("../earl/src/main/webapp/bastogne/bastogne.svg");
-		File in  = new File("../earl/src/main/svg/bastogne-orig.svg");
+		File out = new File("../webboards/src/main/webapp/bastogne/bastogne.svg");
+		File in  = new File("../webboards/src/main/svg/bastogne-orig.svg");
 
 		ByteArrayOutputStream buf = new ByteArrayOutputStream();
 		Result run1Result = new StreamResult(buf);

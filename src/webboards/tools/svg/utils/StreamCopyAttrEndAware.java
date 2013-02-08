@@ -1,4 +1,4 @@
-package earl.tools.svg.utils;
+package webboards.tools.svg.utils;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;

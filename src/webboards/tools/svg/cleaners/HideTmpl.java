@@ -1,9 +1,10 @@
-package earl.tools.svg.cleaners;
+package webboards.tools.svg.cleaners;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import earl.tools.svg.utils.StreamCopyAttrEndAware;
+import webboards.tools.svg.utils.StreamCopyAttrEndAware;
+
 
 public class HideTmpl extends StreamCopyAttrEndAware {
 	private String id = null;

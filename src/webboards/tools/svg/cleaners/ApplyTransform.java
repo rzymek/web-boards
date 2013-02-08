@@ -1,11 +1,12 @@
-package earl.tools.svg.cleaners;
+package webboards.tools.svg.cleaners;
 
 import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import earl.tools.svg.utils.StreamCopyAttrEndAware;
+import webboards.tools.svg.utils.StreamCopyAttrEndAware;
+
 
 public class ApplyTransform extends StreamCopyAttrEndAware {
 	private String tag = null;
