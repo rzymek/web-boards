@@ -1,0 +1,23 @@
+<!-- Indices written at Fri, 8 Feb 2013 21:04:48 CET -->
+
+<datastore-indexes autoGenerate="true">
+
+	<!-- Used 3 times in query history -->
+	<datastore-index kind="Table" ancestor="false" source="auto">
+		<property name="player1" direction="asc" />
+		<property name="player2" direction="asc" />
+	</datastore-index>
+
+	<!-- Used 3 times in query history -->
+	<datastore-index kind="Table" ancestor="false" source="auto">
+		<property name="player2" direction="asc" />
+		<property name="player1" direction="asc" />
+	</datastore-index>
+	
+	<datastore-index kind="OperationEntity" ancestor="false"
+		source="manual">
+		<property name="sessionId" direction="asc" />
+		<property name="timestamp" direction="asc" />
+	</datastore-index>
+
+</datastore-indexes>
