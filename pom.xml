@@ -14,6 +14,8 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+		<dev.server.port>8888</dev.server.port>
+		<dev.debug.port>8000</dev.debug.port>
 		<dev.module.config><![CDATA[
 			<!-- for super dev mode -->
 			<add-linker name="xsiframe"/>  
@@ -107,7 +109,6 @@
 				</executions>
 				<configuration>
 					<runTarget>index.jsp</runTarget>
-					<module>webboards.ClientEngine</module>
 					<server>com.google.appengine.tools.development.gwt.AppEngineLauncher</server>
 					<appEngineVersion>${gae.version}</appEngineVersion>
 					<appEngineHome>gae</appEngineHome>
@@ -115,6 +116,8 @@
 					<draftCompile>true</draftCompile><!-- speedup -->
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
+					<port>${dev.server.port}</port>
+					<debugPort>${dev.debug.port}</debugPort>
 					<!-- <optimizationLevel>0</optimizationLevel> -->
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
@@ -126,9 +129,9 @@
 				<version>1.7.5-SNAPSHOT</version>
 				<configuration>
 					<address>0.0.0.0</address>
-					<port>8888</port>
+					<port>${dev.server.port}</port>
 					<jvmFlags>
-						<value>-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n</value>
+						<value>-Xrunjdwp:transport=dt_socket,address=${dev.debug.port},server=y,suspend=n</value>
 					</jvmFlags>
 				</configuration>
 			</plugin>
