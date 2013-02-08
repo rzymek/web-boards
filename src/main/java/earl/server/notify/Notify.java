@@ -37,7 +37,6 @@ public class Notify {
 		ChannelService service = ChannelServiceFactory.getChannelService();
 		String clientId = getClientId(table.id, user);
 		String token = service.createChannel(clientId);
-		System.out.println("client connected: " + clientId + " token=" + token);
 		notifyListeners(table, new OpponentConnected(user), user);
 		return token;
 	}

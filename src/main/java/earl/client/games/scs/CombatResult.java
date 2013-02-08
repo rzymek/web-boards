@@ -37,11 +37,6 @@ public class CombatResult implements Serializable {
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-		CombatResult combatResult = new CombatResult("D1r2 ");
-		System.out.println(combatResult);
-	}
 
 	@Override
 	public String toString() {

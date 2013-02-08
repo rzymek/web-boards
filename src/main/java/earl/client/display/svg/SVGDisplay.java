@@ -486,8 +486,4 @@ public class SVGDisplay extends BasicDisplay {
 	public void clearTraces() {
 		clearMarkers("traces");
 	}
-
-	public static void main(String[] args) {
-		System.out.println(4 / 1);
-	}
 }

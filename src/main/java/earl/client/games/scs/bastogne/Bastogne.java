@@ -2,7 +2,6 @@ package earl.client.games.scs.bastogne;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -14,7 +13,6 @@ import earl.client.data.HexInfo;
 import earl.client.display.svg.SVGDisplay;
 import earl.client.ex.EarlException;
 import earl.client.games.Area;
-import earl.client.games.Position;
 import earl.client.games.scs.CombatResult;
 import earl.client.games.scs.SCSBoard;
 import earl.client.games.scs.SCSCounter;
@@ -309,12 +307,6 @@ public class Bastogne implements Game, IsSerializable {
 
 	public void load(Collection<Operation> ops, SVGDisplay display) {
 		setupScenarion52();
-		System.out.println(board.getCounters());
-		Set<Position> stacks = board.getStacks();
-		for (Position pos : stacks) {
-			List<CounterInfo> counters = board.getInfo(pos).getPieces();
-			System.out.println(pos+": "+counters);
-		}
 		GameCtx ctx = new GameCtx();
 		ctx.board = board;
 		ctx.display = display;
