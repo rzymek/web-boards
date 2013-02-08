@@ -9,7 +9,6 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
-import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
@@ -87,9 +86,7 @@ public class ClientEngine implements EntryPoint {
 		ctx.svg = svg;
 		ctx.game = (Bastogne) info.game;
 		ctx.side = info.side;
-		ctx.ctx = new GameCtx();
-		ctx.ctx.display = display;
-		ctx.ctx.board = ctx.game.getBoard();
+		ctx.ctx = display.getCtx();
 		ctx.engine = this;
 		
 		menu = new EarlMenu(ctx);

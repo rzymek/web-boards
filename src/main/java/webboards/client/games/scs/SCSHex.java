@@ -45,4 +45,15 @@ public class SCSHex extends HexInfo {
 	private static boolean equals(Hex a, int x, int y) {
 		return a.x == x && a.y == y;
 	}
+
+	public float getDefenceCombatModifier() {
+		int modifier = 1;
+		if(traits.contains(HexTraits.FOREST)) {
+			modifier *= 2;
+		}
+		if(traits.contains(HexTraits.CITY)) {
+			modifier *= 2;
+		}
+		return modifier;
+	}
 }

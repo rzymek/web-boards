@@ -13,7 +13,9 @@ public class GameCtx {
 	public Board board;
 	public EarlDisplay display;
 	public CounterInfo selected;
-
+	public GameCtx() {		
+	}
+	
 	public void process(final Operation op) {
 		if (op == null) {
 			return;

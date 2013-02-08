@@ -2,15 +2,16 @@ package webboards.client.games.scs;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
 import webboards.client.ex.EarlException;
+import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.client.ops.NotImplemented;
 import webboards.client.ops.Operation;
 
 public class SCSCounter extends CounterInfo implements Serializable {
@@ -112,14 +113,15 @@ public class SCSCounter extends CounterInfo implements Serializable {
 			return super.onPointToStack(ctx, stack, pos);
 		}
 		if(side != owner) {			
+			ctx.display.select(null);
 			//attack
 			if(isRanged()) {
 				return onBarrage(ctx, stack, pos);
 			}else{
 				if(SCSHex.isAdjacent(pos, getPosition())){
-					return onCombat(ctx, stack, pos);
+					return onCombat(ctx, stack, (Hex)pos);
 				}else{
-					ctx.display.select(null);
+					//trying to attack non-adjacent enemy
 					return null;
 				}
 			}
@@ -127,13 +129,34 @@ public class SCSCounter extends CounterInfo implements Serializable {
 			return super.onPointToStack(ctx, stack, pos);
 		}
 	}
-
-	private Operation onCombat(GameCtx ctx, List<CounterInfo> stack, Position pos) {
-		return new NotImplemented("combat");
+	
+	public int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
+		List<CounterInfo> defending = target.getPieces();
+		float defence = getDefenceRawSum(defending);
+		float defenceModifier = target.getDefenceCombatModifier();
+		defence *= defenceModifier;			
+		float attack = getAttackRawSum(attacking);
+		float smaller = Math.min(attack, defence);
+		int a = Math.round(attack / smaller);
+		int b = Math.round(defence / smaller);
+		int[] odds = { a, b };
+		return odds;
 	}
 
-	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Position pos) {
-		return new NotImplemented("barrage");
+	private Operation onCombat(GameCtx ctx, List<CounterInfo> stack, Hex target) {
+		SCSBoard board = (SCSBoard) ctx.board;
+		Hex from = (Hex) getPosition();
+		board.declareAttack(from, target);
+		ctx.display.drawArrow(from, target, "combat_"+ref());
+		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
+		int[] odds = calculateOdds(targetHex, board.getAttacking(target), target);
+		ctx.display.drawOds(ctx.display.getCenter(target), odds);
+		return null;
+	}
+
+	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Position target) {
+		ctx.display.drawArrow(getPosition(), target, "barrage_"+ref());
+		return null;
 	}
 
 	private BastogneSide getSide(List<CounterInfo> stack) {
@@ -149,4 +172,24 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		}
 		return side;
 	}
+	
+	private float getDefenceRawSum(Collection<CounterInfo> defending) {
+		float defence = 0;
+		for (CounterInfo counter : defending) {
+			defence += ((SCSCounter) counter).getDefence();
+		}
+		return defence;
+	}
+
+	private float getAttackRawSum(Collection<SCSHex> list) {
+		float attack = 0;
+		for (SCSHex hex : list) {
+			for (CounterInfo c : hex.getPieces()) {
+				//TODO: !instanceof SCSMarker!
+				attack += ((SCSCounter) c).getAttack();
+			}
+		}
+		return attack;
+	}
+	
 }
