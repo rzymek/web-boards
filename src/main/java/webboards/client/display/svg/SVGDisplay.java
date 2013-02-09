@@ -94,13 +94,14 @@ public class SVGDisplay extends BasicDisplay {
 		if(stackSelectorContents == stack) {
 			return;
 		}
-		CounterInfo first = stack.iterator().next();
-		SVGImageElement img = (SVGImageElement) svg.getElementById(first.ref().toString());
+		CounterInfo openAt = stack.get(stack.size() - 1);
+		SVGImageElement img = (SVGImageElement) svg.getElementById(openAt.ref().toString());
 		//Show stack selection box:
 		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
 		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
 		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
 		List<SVGElement> gstack = getSVGElements(stack);
+		Collections.reverse(gstack);
 		double size = Math.sqrt(gstack.size());
 		double width = Math.ceil(size);
 		double height = Math.floor(size + 0.5);

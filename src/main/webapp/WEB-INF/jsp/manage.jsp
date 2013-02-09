@@ -3,7 +3,7 @@
 <%@page import="webboards.server.entity.Table"%>
 <html>
 <head>
-<title>Earl</title>
+<title>WebBoards</title>
 </head>
 <body>
 	<form type="get">
