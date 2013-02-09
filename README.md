@@ -16,8 +16,11 @@ Goals:
   * Integrated [http://en.wikipedia.org/wiki/Play-by-mail_game PBEM]-like log support (for I-go U-go games)
   * Game rules implementation
 
-Implementation is based on [http://en.wikipedia.org/wiki/Scalable_Vector_Graphics SVG], [https://developers.google.com/web-toolkit/ GWT] and runs on [https://developers.google.com/appengine/ Google App Engine]
+Implementation is based on [SVG](http://en.wikipedia.org/wiki/Scalable_Vector_Graphics), 
+[GWT](https://developers.google.com/web-toolkit/) and runs on 
+[Google App Engine][https://developers.google.com/appengine/)
 
-The first game being implemented is [http://www.multimanpublishing.com/Products/tabid/58/ProductID/69/Default.aspx MMP]'s [http://boardgamegeek.com/boardgame/35669/bastogne-screaming-eagles-under-siege Bastogne: Screaming Eagles under Siege].
+The first game being implemented is [MMP](http://www.multimanpublishing.com/Products/tabid/58/ProductID/69/Default.aspx)'s
+[Bastogne: Screaming Eagles under Siege](http://boardgamegeek.com/boardgame/35669/bastogne-screaming-eagles-under-siege).
 
-http://wiki.earl.googlecode.com/git/img/screenshot.png
+![Bastoge](http://wiki.earl.googlecode.com/git/img/screenshot.png)
