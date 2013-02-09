@@ -77,7 +77,7 @@ public class ClientEngine implements EntryPoint {
 
 
 	public void start(final String tableId, GameInfo info) {
-		display = new SVGDisplay(svg);
+		display = new SVGDisplay(svg, info.side);
 		ClientEngine.this.display = display;
 		board =info. game.getBoard();
 		display.setBoard(board);

@@ -9,22 +9,32 @@ import webboards.client.games.Position;
 import webboards.client.ops.Operation;
 
 public class SelectionHandler {
-	private final GameCtx ctx;
+	protected final GameCtx ctx;
 
 	public SelectionHandler(GameCtx ctx) {
 		this.ctx = ctx;
 	}
 
-	public void onClicked(Position position) {
+	public final void onClicked(Position position) {
 		ctx.process(onPositionClicked(position));
 	}
 
-	public void onClicked(List<CounterInfo> stack, Position pos) {
+	public final void onClicked(List<CounterInfo> stack, Position pos) {
 		ctx.process(onStackClicked(stack, pos));
 	}
 
-	public void onClicked(CounterInfo counter) {
+	public final void onClicked(CounterInfo counter) {
 		ctx.process(onSingleCounterClicked(counter));
+	}
+
+	public boolean canSelect(CounterInfo counter) {
+		return true;
+	}
+	public final void onSelect(CounterInfo counter) {
+		ctx.process(onSelected(counter));
+	}
+	protected Operation onSelected(CounterInfo counter) {
+		return null;
 	}
 
 	protected Operation onSingleCounterClicked(CounterInfo counter) {

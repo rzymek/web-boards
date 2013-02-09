@@ -1,6 +1,7 @@
 package webboards.client.games.scs.ops;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import webboards.client.data.Board;
@@ -20,6 +21,14 @@ public class PerformAttack extends Operation {
 	public CombatResult result;
 	public String rollResult;	
  
+	@SuppressWarnings("unused")
+	private PerformAttack() {
+	}
+	public PerformAttack(Hex target, Collection<Hex> attacking) {
+		this.targetRef = target;
+		this.attackingRef = attacking.toArray(new Hex[attacking.size()]);
+	}
+
 	@Override
 	public void updateBoard(Board board) {
 	}

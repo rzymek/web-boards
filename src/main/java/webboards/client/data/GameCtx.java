@@ -2,6 +2,7 @@ package webboards.client.data;
 
 import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
+import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
@@ -13,6 +14,8 @@ public class GameCtx {
 	public Board board;
 	public EarlDisplay display;
 	public CounterInfo selected;
+	public BastogneSide side;
+	
 	public GameCtx() {		
 	}
 	

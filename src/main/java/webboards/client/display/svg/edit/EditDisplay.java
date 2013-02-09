@@ -41,7 +41,7 @@ public class EditDisplay extends SVGDisplay implements MouseMoveHandler, KeyPres
 	private final OMSVGDocument doc;
 
 	public EditDisplay(SVGSVGElement svg) {
-		super(svg);
+		super(svg, null);
 		doc = OMElement.convert(svg.getOwnerDocument());
 		RootPanel.get().addDomHandler(this, KeyPressEvent.getType());
 		loadAll();

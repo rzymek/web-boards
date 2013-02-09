@@ -29,6 +29,8 @@ import webboards.client.display.VisualCoords;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
+import webboards.client.games.scs.SCSSelectionHandler;
+import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.utils.Browser;
 import webboards.client.utils.Utils;
 
@@ -50,7 +52,8 @@ public class SVGDisplay extends BasicDisplay {
 	private List<CounterInfo> stackSelectorContents = Collections.emptyList();
 	private Position stackSelectorPosition = null;
 
-	public SVGDisplay(SVGSVGElement svg) {
+	public SVGDisplay(SVGSVGElement svg, BastogneSide side) {
+		super(side);
 		this.svg = svg;
 		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
 		rect.getStyle().setDisplay(Display.NONE);
@@ -67,7 +70,8 @@ public class SVGDisplay extends BasicDisplay {
 		});
 		svg.getElementById("units").appendChild(stackSelector);
 		
-		handler = new SelectionHandler(ctx);
+		//TODO: move elsewhere:
+		handler = new SCSSelectionHandler(ctx);
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
@@ -322,6 +326,10 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void select(CounterInfo counter) {
 		hideStackSelection();
+		handler.onSelect(counter);
+		if(!handler.canSelect(counter)) {
+			counter = null;
+		}
 		CounterInfo last = ctx.selected;
 		ctx.selected = counter;
 		if(last != null && counter == null) {

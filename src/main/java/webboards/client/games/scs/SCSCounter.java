@@ -12,6 +12,7 @@ import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.client.games.scs.ops.PerformAttack;
 import webboards.client.ops.Operation;
 
 public class SCSCounter extends CounterInfo implements Serializable {
@@ -149,7 +150,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		board.declareAttack(from, target);
 		ctx.display.drawArrow(from, target, "combat_"+ref());
 		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
-		int[] odds = calculateOdds(targetHex, board.getAttacking(target), target);
+		int[] odds = calculateOdds(targetHex, board.getAttackingInfo(target), target);
 		ctx.display.drawOds(ctx.display.getCenter(target), odds);
 		return null;
 	}
