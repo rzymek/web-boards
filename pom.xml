@@ -16,6 +16,7 @@
 		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 		<dev.server.port>8888</dev.server.port>
 		<dev.debug.port>8000</dev.debug.port>
+		<nogwt>false</nogwt>
 		<dev.module.config><![CDATA[
 			<!-- for super dev mode -->
 			<add-linker name="xsiframe"/>  
@@ -121,6 +122,7 @@
 					<!-- <optimizationLevel>0</optimizationLevel> -->
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
+					<skip>${nogwt}</skip>
 				</configuration>
 			</plugin>
 			<plugin>
