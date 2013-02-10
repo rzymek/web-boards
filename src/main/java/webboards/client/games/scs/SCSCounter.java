@@ -148,7 +148,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		SCSBoard board = (SCSBoard) ctx.board;
 		Hex from = (Hex) getPosition();
 		board.declareAttack(from, target);
-		ctx.display.drawArrow(from, target, "combat_"+ref());
+		ctx.display.drawArrow(from, target, "combat_"+from.getSVGId());
 		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
 		int[] odds = calculateOdds(targetHex, board.getAttackingInfo(target), target);
 		ctx.display.drawOds(ctx.display.getCenter(target), odds);
@@ -156,7 +156,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	}
 
 	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Position target) {
-		ctx.display.drawArrow(getPosition(), target, "barrage_"+ref());
+		ctx.display.drawArrow(getPosition(), target, "barrage_"+getPosition().getSVGId());
 		return null;
 	}
 

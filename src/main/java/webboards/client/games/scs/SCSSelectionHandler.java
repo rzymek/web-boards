@@ -6,6 +6,7 @@ import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.display.SelectionHandler;
 import webboards.client.games.Hex;
+import webboards.client.games.Position;
 import webboards.client.games.scs.ops.PerformAttack;
 import webboards.client.ops.Operation;
 
@@ -30,7 +31,11 @@ public class SCSSelectionHandler extends SelectionHandler {
 			return null;
 		}
 		SCSBoard board = (SCSBoard) ctx.board;
-		Hex target = (Hex) counter.getPosition();
+		Position pos = counter.getPosition();
+		if(!(pos instanceof Hex)) {
+			return null;
+		}
+		Hex target = (Hex) pos;
 		Collection<Hex> attacking = board.getAttacking(target);
 		if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown

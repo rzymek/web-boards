@@ -19,14 +19,22 @@ public class PerformAttack extends Operation {
 	public Hex targetRef;
 	public Hex[] attackingRef;
 	public CombatResult result;
-	public String rollResult;	
- 
+	public String rollResult;
+
 	@SuppressWarnings("unused")
 	private PerformAttack() {
 	}
+
 	public PerformAttack(Hex target, Collection<Hex> attacking) {
 		this.targetRef = target;
 		this.attackingRef = attacking.toArray(new Hex[attacking.size()]);
+	}
+
+	@Override
+	public void drawDetails(GameCtx ctx) {
+		for (Hex from : attackingRef) {
+			ctx.display.drawArrow(from, targetRef, "combat_"+from.getSVGId());
+		}
 	}
 
 	@Override
@@ -43,11 +51,12 @@ public class PerformAttack extends Operation {
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
 		roll.sides = 6;
-		roll.serverExecute(ctx);	
+		roll.serverExecute(ctx);
 		int sum = roll.getSum();
 		rollResult = String.valueOf(sum);
 		result = game.getCombatResult(odds, sum);
 	}
+
 	private List<HexInfo> getAttacking(Board board) {
 		List<HexInfo> attacking = new ArrayList<HexInfo>(attackingRef.length);
 		for (Hex ref : attackingRef) {
@@ -61,9 +70,9 @@ public class PerformAttack extends Operation {
 		ctx.display.clearOds(ctx.display.getCenter(targetRef));
 		ctx.display.showResults(ctx.display.getCenter(targetRef), result.toString());
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Attack againts "+targetRef+": "+result+" ("+rollResult+")";
+		return "Attack againts " + targetRef + ": " + result + " (" + rollResult + ")";
 	}
 }

@@ -116,7 +116,7 @@ public class ClientEngine implements EntryPoint {
 		}
 		for (Operation op : info.ops) {
 			op.updateBoard(board);
-			op.drawDetails(display);
+			op.drawDetails(display.getCtx());
 			op.draw(display.getCtx());
 			op.postServer(display.getCtx());
 			log(op.toString());

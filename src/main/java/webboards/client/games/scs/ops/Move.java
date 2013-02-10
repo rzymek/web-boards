@@ -39,8 +39,8 @@ public class Move extends Operation {
 	}
 	
 	@Override
-	public void drawDetails(EarlDisplay g) {
-		g.drawLine(from, to);
+	public void drawDetails(GameCtx ctx) {
+		ctx.display.drawLine(from, to);
 	}
 	
 	@Override

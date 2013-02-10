@@ -25,7 +25,7 @@ public class GameCtx {
 		}
 		op.updateBoard(board);
 		op.draw(this);
-		op.drawDetails(display);
+		op.drawDetails(this);
 		ServerEngineAsync service = GWT.create(ServerEngine.class);
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override

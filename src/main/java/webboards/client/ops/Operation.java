@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
-import webboards.client.display.EarlDisplay;
 import webboards.client.games.scs.bastogne.BastogneSide;
 
 public abstract class Operation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public BastogneSide author;
-	public void updateBoard(Board board){
+
+	public void updateBoard(Board board) {
 	}
 
-	public void drawDetails(EarlDisplay g) {
+	public void drawDetails(GameCtx ctx) {
 	}
 
 	public void serverExecute(ServerContext ctx) {
@@ -21,6 +21,7 @@ public abstract class Operation implements Serializable {
 
 	public void postServer(GameCtx ctx) {
 	}
+
 	@Override
 	public abstract String toString();
 
