@@ -48,7 +48,7 @@ public abstract class BasicDisplay implements EarlDisplay {
 		}
 	}
 	
-	protected abstract void createCounter(CounterInfo counter, Board board);
+//	protected abstract void createCounter(CounterInfo counter, Board board);
 
 	protected abstract void initAreas(Board board);
 

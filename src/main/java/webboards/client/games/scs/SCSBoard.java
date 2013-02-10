@@ -19,7 +19,8 @@ public class SCSBoard extends Board implements Serializable {
 	private SCSHex[][] hexes;
 	protected SCSHex[] workaround;
 	protected Map<String, SCSHex> areas = new HashMap<String, SCSHex>();
-	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();	
+	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();
+	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>(); 
 
 	protected SCSBoard() {
 	}
@@ -86,5 +87,25 @@ public class SCSBoard extends Board implements Serializable {
 			}
 		}
 		Browser.console(attacks.toString());
+	}
+
+	public void declareBarrage(SCSCounter who, Hex target) {
+		barrages.put(who, target);
+	}
+
+	public Collection<SCSCounter> getBarragesOn(Hex target) {
+		Collection<SCSCounter> result = new HashSet<SCSCounter>();
+		for (Entry<SCSCounter, Hex> attack : barrages.entrySet()) {
+			SCSCounter attacking = attack.getKey();
+			Hex defending = attack.getValue();
+			if(defending.equals(target)) {
+				result.add(attacking);
+			}
+		}
+		return result;
+	}
+
+	public void clearBarrageOf(SCSCounter attacing) {
+		barrages.remove(attacing);
 	}
 }

@@ -293,7 +293,7 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	protected void createCounter(CounterInfo counter, final Board board) {
+	public void createCounter(CounterInfo counter, final Board board) {
 		Element tmpl = svg.getElementById("counter");
 		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
 		String id = counter.ref().toString();
@@ -442,10 +442,8 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void drawOds(VisualCoords center, int[] odds) {
-		String text = odds[0] + ":" + odds[1];
-		final String id = "tg@" + center.x + "_" + center.y;
-		drawFromTemplate(center, "target", text, id);
+	public void drawOds(VisualCoords center, String text, String id) {		
+		drawFromTemplate(center, "target", text, "ods"+id);
 	}
 
 	private void drawFromTemplate(VisualCoords center, String templateId, String text, final String id) {
@@ -466,9 +464,8 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void clearOds(VisualCoords center) {
-		final String id = "tg@" + center.x + "_" + center.y;
-		SVGElement target = (SVGElement) svg.getElementById(id);
+	public void clearOds(String id) {
+		SVGElement target = (SVGElement) svg.getElementById("ods"+id);
 		if (target != null) {
 			target.removeFromParent();
 		}

@@ -1,27 +1,5 @@
 package webboards.client.games.scs.bastogne;
 
-import java.util.Collection;
-import java.util.List;
-
-import webboards.client.data.Board;
-import webboards.client.data.CounterInfo;
-import webboards.client.data.Game;
-import webboards.client.data.GameCtx;
-import webboards.client.data.HexInfo;
-import webboards.client.display.svg.SVGDisplay;
-import webboards.client.ex.EarlException;
-import webboards.client.games.Area;
-import webboards.client.games.Hex;
-import webboards.client.games.Position;
-import webboards.client.games.scs.CombatResult;
-import webboards.client.games.scs.SCSBoard;
-import webboards.client.games.scs.SCSCounter;
-import webboards.client.games.scs.SCSHex;
-import webboards.client.games.scs.SCSMarker;
-import webboards.client.ops.Operation;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -76,6 +54,25 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_Cherry_HHC_3;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
+
+import java.util.Collection;
+
+import webboards.client.data.Board;
+import webboards.client.data.Game;
+import webboards.client.data.GameCtx;
+import webboards.client.display.svg.SVGDisplay;
+import webboards.client.ex.EarlException;
+import webboards.client.games.Area;
+import webboards.client.games.Hex;
+import webboards.client.games.Position;
+import webboards.client.games.scs.CombatResult;
+import webboards.client.games.scs.SCSBoard;
+import webboards.client.games.scs.SCSCounter;
+import webboards.client.games.scs.SCSHex;
+import webboards.client.games.scs.SCSMarker;
+import webboards.client.ops.Operation;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Bastogne implements Game, IsSerializable {
 	private static final long serialVersionUID = 1L;
@@ -220,60 +217,6 @@ public class Bastogne implements Game, IsSerializable {
 	@Override
 	public String[] getPlayers() {
 		return new String[] { playerUS, playerGE };
-	}
-
-	public int getMovementCost(HexInfo target) {
-		String info = null;//TODO: getHexInfo(target);
-		int cost = 1;
-		if(info != null) {
-			if(info.contains("F")) {
-				cost = 2;
-			}
-			if(info.contains("R") && !info.contains("C")) {
-				cost +=1;
-			}
-		}
-		return cost;
-	}
-
-	public int[] calculateOdds(HexInfo target, Collection<HexInfo> attacking) {
-		List<CounterInfo> defending = target.getPieces();
-		String hexInfo = null;//TODO:getHexInfo(target);
-		float defence = getDefenceRawSum(defending);
-		if (hexInfo != null) {
-			boolean forrest = hexInfo.contains("F");
-			boolean city = hexInfo.contains("C");
-			if (forrest) {
-				defence *= 2;
-			}
-			if (city) {
-				defence *= 2;
-			}
-		}
-		float attack = getAttackRawSum(attacking);
-		float smaller = Math.min(attack, defence);
-		int a = Math.round(attack / smaller);
-		int b = Math.round(defence / smaller);
-		int[] odds = { a, b };
-		return odds;
-	}
-
-	private float getDefenceRawSum(Collection<CounterInfo> defending) {
-		float defence = 0;
-		for (CounterInfo counter : defending) {
-			defence += ((SCSCounter) counter).getDefence();
-		}
-		return defence;
-	}
-
-	private float getAttackRawSum(Collection<HexInfo> list) {
-		float attack = 0;
-		for (HexInfo hex : list) {
-			for (CounterInfo c : hex.getPieces()) {
-				attack += ((SCSCounter) c).getAttack();
-			}
-		}
-		return attack;
 	}
 
 	private static final String[][] CRT = {//@formatter:off

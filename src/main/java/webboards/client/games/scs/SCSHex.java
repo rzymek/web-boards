@@ -56,4 +56,14 @@ public class SCSHex extends HexInfo {
 		}
 		return modifier;
 	}
+
+	public int getBarrageModifier() {
+		if(traits.contains(HexTraits.FOREST)) {
+			return 1;
+		}
+		if(traits.contains(HexTraits.CITY)) {
+			return -1;
+		}
+		return 0;
+	}
 }

@@ -1,14 +1,14 @@
 package webboards.client.games.scs.ops;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
-import webboards.client.data.HexInfo;
 import webboards.client.games.Hex;
 import webboards.client.games.scs.CombatResult;
+import webboards.client.games.scs.SCSBoard;
+import webboards.client.games.scs.SCSCounter;
+import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.ops.Operation;
 import webboards.client.ops.ServerContext;
@@ -44,10 +44,9 @@ public class PerformAttack extends Operation {
 	@Override
 	public void serverExecute(ServerContext ctx) {
 		Bastogne game = (Bastogne) ctx.game;
-		Board board = game.getBoard();
-		HexInfo target = board.getInfo(targetRef);
-		List<HexInfo> attacking = getAttacking(board);
-		int[] odds = game.calculateOdds(target, attacking);
+		SCSBoard board = (SCSBoard) game.getBoard();
+		SCSHex target = (SCSHex) board.getInfo(targetRef);
+		int[] odds = SCSCounter.calculateOdds(target, board.getAttackingInfo(targetRef), targetRef);
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
 		roll.sides = 6;
@@ -57,17 +56,9 @@ public class PerformAttack extends Operation {
 		result = game.getCombatResult(odds, sum);
 	}
 
-	private List<HexInfo> getAttacking(Board board) {
-		List<HexInfo> attacking = new ArrayList<HexInfo>(attackingRef.length);
-		for (Hex ref : attackingRef) {
-			attacking.add(board.getInfo(ref));
-		}
-		return attacking;
-	}
-
 	@Override
 	public void postServer(GameCtx ctx) {
-		ctx.display.clearOds(ctx.display.getCenter(targetRef));
+		ctx.display.clearOds(targetRef.getSVGId());
 		ctx.display.showResults(ctx.display.getCenter(targetRef), result.toString());
 	}
 

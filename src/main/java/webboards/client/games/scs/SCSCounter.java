@@ -12,12 +12,11 @@ import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.client.games.scs.ops.PerformAttack;
 import webboards.client.ops.Operation;
 
 public class SCSCounter extends CounterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String description;
+	protected String description;
 	private String frontPath = null;
 	private String back;
 	private BastogneSide owner;
@@ -26,7 +25,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	private int defence;
 	private int movement;
 
-	protected SCSCounter() {
+	private SCSCounter() {
 		super(null);
 	}
 
@@ -45,10 +44,6 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		this.description = description;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
 	@Override
 	public String getState() {
 		return flipped ? back : frontPath;
@@ -58,24 +53,8 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		return owner;
 	}
 	
-	public int getAttack() {
-		return attack;
-	}
-
-	public Integer getRange() {
-		return range;
-	}
-	
 	public boolean isRanged() {
 		return range != null;
-	}
-
-	public int getDefence() {
-		return defence;
-	}
-
-	public int getMovement() {
-		return movement;
 	}
 
 	@Override
@@ -83,13 +62,6 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		if(back != null) {
 			flipped = !flipped;
 		}
-	}
-	@Override
-	public String toString() {
-		String def = range != null ?
-				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
-				"["+attack+"-"+defence+"-"+movement+"]";
-		return ref() + def;
 	}
 
 	@Override
@@ -110,19 +82,23 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	public Operation onPointToStack(GameCtx ctx, List<CounterInfo> stack, Position pos) {
 		BastogneSide side = getSide(stack);
 		if(side == null) {
-			//no counters, only markers
+			// no counters, only markers
 			return super.onPointToStack(ctx, stack, pos);
 		}
-		if(side != owner) {			
+		if (!(pos instanceof Hex)) {
+			return null;
+		}
+		if (side != owner) {
 			ctx.display.select(null);
-			//attack
-			if(isRanged()) {
-				return onBarrage(ctx, stack, pos);
-			}else{
-				if(SCSHex.isAdjacent(pos, getPosition())){
-					return onCombat(ctx, stack, (Hex)pos);
-				}else{
-					//trying to attack non-adjacent enemy
+			// attack
+			Hex hex = (Hex) pos;
+			if (isRanged()) {
+				return onBarrage(ctx, stack, hex);
+			} else {
+				if (SCSHex.isAdjacent(pos, getPosition())) {
+					return onCombat(ctx, stack, hex);
+				} else {
+					// trying to attack non-adjacent enemy
 					return null;
 				}
 			}
@@ -131,7 +107,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		}
 	}
 	
-	public int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
+	public static int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
 		List<CounterInfo> defending = target.getPieces();
 		float defence = getDefenceRawSum(defending);
 		float defenceModifier = target.getDefenceCombatModifier();
@@ -148,15 +124,23 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		SCSBoard board = (SCSBoard) ctx.board;
 		Hex from = (Hex) getPosition();
 		board.declareAttack(from, target);
+		
 		ctx.display.drawArrow(from, target, "combat_"+from.getSVGId());
 		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
 		int[] odds = calculateOdds(targetHex, board.getAttackingInfo(target), target);
-		ctx.display.drawOds(ctx.display.getCenter(target), odds);
+		String text = odds[0] + ":" + odds[1];
+		ctx.display.drawOds(ctx.display.getCenter(target), text, target.getSVGId());
 		return null;
 	}
 
-	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Position target) {
+	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Hex target) {
+		SCSBoard board = (SCSBoard) ctx.board;
+		board.declareBarrage(this, target);
+		
 		ctx.display.drawArrow(getPosition(), target, "barrage_"+getPosition().getSVGId());
+		SCSHex hex = (SCSHex) ctx.board.getInfo(target);
+		int value = attack + hex.getBarrageModifier();
+		ctx.display.drawOds(ctx.display.getCenter(target), ""+value, ref().toString());
 		return null;
 	}
 
@@ -174,23 +158,30 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		return side;
 	}
 	
-	private float getDefenceRawSum(Collection<CounterInfo> defending) {
+	private static  float getDefenceRawSum(Collection<CounterInfo> defending) {
 		float defence = 0;
 		for (CounterInfo counter : defending) {
-			defence += ((SCSCounter) counter).getDefence();
+			defence += ((SCSCounter) counter).defence;
 		}
 		return defence;
 	}
 
-	private float getAttackRawSum(Collection<SCSHex> list) {
+	private static float getAttackRawSum(Collection<SCSHex> list) {
 		float attack = 0;
 		for (SCSHex hex : list) {
 			for (CounterInfo c : hex.getPieces()) {
 				//TODO: !instanceof SCSMarker!
-				attack += ((SCSCounter) c).getAttack();
+				attack += ((SCSCounter) c).attack;
 			}
 		}
 		return attack;
 	}
 	
+	@Override
+	public String toString() {
+		String def = range != null ?
+				"["+attack+"("+range+")"+"-"+defence+"-"+movement+"]" : 
+				"["+attack+"-"+defence+"-"+movement+"]";
+		return ref() + def;
+	}
 }

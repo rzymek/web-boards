@@ -3,6 +3,7 @@ package webboards.client.display;
 import java.util.Collection;
 import java.util.List;
 
+import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.ref.CounterId;
 import webboards.client.games.Position;
@@ -17,13 +18,9 @@ public interface EarlDisplay {
 
 	void alignStack(Position ref);
 
-	void drawOds(VisualCoords center, int[] odds);
-
 	void mark(Collection<? extends Position> hexes);
 
 	void clearMarks();
-
-	void clearOds(VisualCoords center);
 
 	void clearArrow(Position from);
 
@@ -40,5 +37,11 @@ public interface EarlDisplay {
 	void clearTraces();
 
 	void showStackSelector(List<CounterInfo> stack, Position pos);
+
+	void drawOds(VisualCoords center, String text, String id);
+
+	void createCounter(CounterInfo counter, Board board);
+
+	void clearOds(String id);
 
 }

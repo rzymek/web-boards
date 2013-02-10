@@ -8,6 +8,7 @@ import webboards.client.display.SelectionHandler;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.ops.PerformAttack;
+import webboards.client.games.scs.ops.PerformBarrage;
 import webboards.client.ops.Operation;
 
 public class SCSSelectionHandler extends SelectionHandler {
@@ -40,9 +41,16 @@ public class SCSSelectionHandler extends SelectionHandler {
 		if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown
 			board.clearAttacksOn(target);
-			return new PerformAttack(target, attacking);
+			return new PerformAttack(target, attacking);		
 		} else {
-			return null;
+			Collection<SCSCounter> arty = board.getBarragesOn(target);
+			if(arty.isEmpty()) {
+				return null;
+			}else{
+				SCSCounter attacing = arty.iterator().next();
+				board.clearBarrageOf(attacing);
+				return new PerformBarrage(attacing, target);
+			}
 		}
 	}
 }
