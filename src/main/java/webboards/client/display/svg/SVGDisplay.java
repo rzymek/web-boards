@@ -98,11 +98,12 @@ public class SVGDisplay extends BasicDisplay {
 		if(stackSelectorContents == stack) {
 			return;
 		}
+		final int margin = 10;
 		CounterInfo openAt = stack.get(stack.size() - 1);
 		SVGImageElement img = (SVGImageElement) svg.getElementById(openAt.ref().toString());
 		//Show stack selection box:
-		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - 10);
-		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - 10);
+		stackSelector.getX().getBaseVal().setValue(img.getX().getBaseVal().getValue() - margin);
+		stackSelector.getY().getBaseVal().setValue(img.getY().getBaseVal().getValue() - margin);
 		stackSelector.getStyle().setVisibility(Visibility.VISIBLE);
 		List<SVGElement> gstack = getSVGElements(stack);
 		Collections.reverse(gstack);
@@ -110,8 +111,8 @@ public class SVGDisplay extends BasicDisplay {
 		double width = Math.ceil(size);
 		double height = Math.floor(size + 0.5);
 		Dimention maxCounterSize = getMaxCounterSize(gstack);
-		width = 10 + (int) width * maxCounterSize.width + 10;
-		height = 10 + (int) height * maxCounterSize.height + 10;
+		width = margin + (int) width * maxCounterSize.width + margin;
+		height = margin + (int) height * maxCounterSize.height + margin;
 		stackSelector.getWidth().getBaseVal().setValue((float) width);
 		stackSelector.getHeight().getBaseVal().setValue((float) height);
 		bringToTop(stackSelector);
