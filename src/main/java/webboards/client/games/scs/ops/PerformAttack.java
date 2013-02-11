@@ -21,6 +21,7 @@ public class PerformAttack extends Operation {
 	public Hex[] attackingRef;
 	public CombatResult result;
 	public String rollResult;
+	private int[] odds;
 
 	@SuppressWarnings("unused")
 	private PerformAttack() {
@@ -56,7 +57,7 @@ public class PerformAttack extends Operation {
 		Bastogne game = (Bastogne) ctx.game;
 		SCSBoard board = (SCSBoard) game.getBoard();
 		SCSHex target = (SCSHex) board.getInfo(targetRef);
-		int[] odds = SCSCounter.calculateOdds(target, board.getAttackingInfo(targetRef), targetRef);
+		odds = SCSCounter.calculateOdds(target, board.getAttackingInfo(targetRef), targetRef);
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
 		roll.sides = 6;
@@ -74,6 +75,7 @@ public class PerformAttack extends Operation {
 
 	@Override
 	public String toString() {
-		return "Attack againts " + targetRef + ": " + result + " (" + rollResult + ")";
+		String odd = (odds != null ? (" for "+odds[0]+":"+odds[1]) : "");
+		return "Attack againts " + targetRef + ": " + result + " (" + rollResult + odd+")";
 	}
 }
