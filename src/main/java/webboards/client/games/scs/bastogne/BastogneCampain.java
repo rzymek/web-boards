@@ -1,6 +1,5 @@
 package webboards.client.games.scs.bastogne;
 
-import webboards.client.games.scs.SCSCounter;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -55,6 +54,7 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_Cherry_HHC_3;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
+import webboards.client.games.scs.SCSCounter;
 
 public class BastogneCampain {
 	public void setup() {

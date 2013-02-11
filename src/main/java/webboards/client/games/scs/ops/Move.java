@@ -4,7 +4,6 @@ import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
-import webboards.client.display.EarlDisplay;
 import webboards.client.games.Position;
 import webboards.client.ops.Operation;
 

@@ -1,5 +1,7 @@
 package webboards.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.security.Principal;
@@ -38,8 +40,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
