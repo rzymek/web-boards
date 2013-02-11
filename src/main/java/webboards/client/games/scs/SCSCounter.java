@@ -184,4 +184,8 @@ public class SCSCounter extends CounterInfo implements Serializable {
 				"["+attack+"-"+defence+"-"+movement+"]";
 		return ref() + def;
 	}
+
+	public int getAttack() {
+		return attack;
+	}
 }
