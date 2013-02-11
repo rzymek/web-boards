@@ -68,9 +68,12 @@ public class SCSBoard extends Board implements Serializable {
 	}
 
 	public Collection<SCSHex> getAttackingInfo(Hex target) {
-		Collection<Hex> attacking = getAttacking(target);
-		Collection<SCSHex> info = new ArrayList<SCSHex>(attacking.size());
-		for (Hex hex : attacking) {
+		return getInfo(getAttacking(target));
+	}
+
+	public Collection<SCSHex> getInfo(Collection<Hex> hexes) {
+		Collection<SCSHex> info = new ArrayList<SCSHex>(hexes.size());
+		for (Hex hex : hexes) {
 			info.add(getInfo(hex));
 		}
 		return info;

@@ -18,10 +18,9 @@ import webboards.client.ops.generic.DiceRoll;
 public class PerformAttack extends Operation {
 	private static final long serialVersionUID = 1L;
 	public Hex targetRef;
-	public Hex[] attackingRef;
+	public Collection<Hex> attackingRef;
 	public CombatResult result;
 	public String rollResult;
-	private int[] odds;
 
 	@SuppressWarnings("unused")
 	private PerformAttack() {
@@ -29,7 +28,7 @@ public class PerformAttack extends Operation {
 
 	public PerformAttack(Hex target, Collection<Hex> attacking) {
 		this.targetRef = target;
-		this.attackingRef = attacking.toArray(new Hex[attacking.size()]);
+		this.attackingRef = attacking;
 	}
 
 	@Override
@@ -39,9 +38,9 @@ public class PerformAttack extends Operation {
 			if (result.A > 0 && result.D > 0) {
 				color = SCSColor.PARTIAL_SUCCESS;
 			} else if (result.A > 0 && result.D <= 0) {
-				color = SCSColor.SUCCESS;
-			} else {
 				color = SCSColor.FAILURE;
+			} else {
+				color = SCSColor.SUCCESS;
 			}
 			String id = "combat_" + from.getSVGId();
 			ctx.display.drawArrow(from, targetRef, id, color.getColor());
@@ -57,13 +56,14 @@ public class PerformAttack extends Operation {
 		Bastogne game = (Bastogne) ctx.game;
 		SCSBoard board = (SCSBoard) game.getBoard();
 		SCSHex target = (SCSHex) board.getInfo(targetRef);
-		odds = SCSCounter.calculateOdds(target, board.getAttackingInfo(targetRef), targetRef);
+		Collection<SCSHex> attacking = board.getInfo(attackingRef);
+		int[] odds = SCSCounter.calculateOdds(target, attacking, targetRef);
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
 		roll.sides = 6;
 		roll.serverExecute(ctx);
 		int sum = roll.getSum();
-		rollResult = String.valueOf(sum);
+		rollResult = String.valueOf(sum) + " - " + odds[0] + ":" + odds[1];
 		result = game.getCombatResult(odds, sum);
 	}
 
@@ -75,7 +75,6 @@ public class PerformAttack extends Operation {
 
 	@Override
 	public String toString() {
-		String odd = (odds != null ? (" for "+odds[0]+":"+odds[1]) : "");
-		return "Attack againts " + targetRef + ": " + result + " (" + rollResult + odd+")";
+		return "Attack againts " + targetRef + ": " + result + " (" + rollResult + ")";
 	}
 }
