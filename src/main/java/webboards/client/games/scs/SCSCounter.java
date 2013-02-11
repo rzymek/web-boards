@@ -116,8 +116,8 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		defence *= defenceModifier;			
 		float attack = getAttackRawSum(attacking);
 		float smaller = Math.min(attack, defence);
-		int a = Math.round(attack / smaller);
-		int b = Math.round(defence / smaller);
+		int a = Math.round(defence / smaller);
+		int b = Math.round(attack / smaller);
 		int[] odds = { a, b };
 		return odds;
 	}
