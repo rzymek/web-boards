@@ -24,6 +24,7 @@ import webboards.client.data.CounterInfo;
 import webboards.client.data.HexInfo;
 import webboards.client.data.ref.CounterId;
 import webboards.client.display.BasicDisplay;
+import webboards.client.display.Color;
 import webboards.client.display.SelectionHandler;
 import webboards.client.display.VisualCoords;
 import webboards.client.ex.EarlException;
@@ -394,12 +395,11 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void drawArrow(Position from, Position to, String id) {
-		drawArrow(getCenter(from.getSVGId()), getCenter(to.getSVGId()), id);
+	public void drawArrow(Position from, Position to, String id, Color color) {
+		drawArrow(getCenter(from.getSVGId()), getCenter(to.getSVGId()), id, color);
 	}
 
-	@Override
-	public void drawArrow(VisualCoords start, VisualCoords end, String id) {
+	public void drawArrow(VisualCoords start, VisualCoords end, String id, Color color) {
 		id = ARROW_ID_PREFIX + "_" + id;
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById(id);
 		if (arrow == null) {
@@ -412,6 +412,9 @@ public class SVGDisplay extends BasicDisplay {
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);
 		shortenArrow(arrow, seg);
+		if(color != null) {
+			arrow.getStyle().setProperty("stroke", color.toString());
+		}
 		Browser.console(arrow);
 		Browser.console(arrow.getAttribute("d"));
 		svg.getElementById("markers").appendChild(arrow);

@@ -8,10 +8,12 @@ import java.util.List;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
+import webboards.client.display.Color;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.client.games.scs.ops.PerformBarrage;
 import webboards.client.ops.Operation;
 
 public class SCSCounter extends CounterInfo implements Serializable {
@@ -125,7 +127,8 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		Hex from = (Hex) getPosition();
 		board.declareAttack(from, target);
 		
-		ctx.display.drawArrow(from, target, "combat_"+from.getSVGId());
+		ctx.display.drawArrow(from, target, "combat_"+from.getSVGId(), SCSColor.DELCARE.getColor());
+		
 		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
 		int[] odds = calculateOdds(targetHex, board.getAttackingInfo(target), target);
 		String text = odds[0] + ":" + odds[1];
@@ -136,11 +139,10 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Hex target) {
 		SCSBoard board = (SCSBoard) ctx.board;
 		board.declareBarrage(this, target);
-		
-		ctx.display.drawArrow(getPosition(), target, "barrage_"+getPosition().getSVGId());
+		new PerformBarrage(this, target).drawDetails(ctx);
 		SCSHex hex = (SCSHex) ctx.board.getInfo(target);
 		int value = attack + hex.getBarrageModifier();
-		ctx.display.drawOds(ctx.display.getCenter(target), ""+value, ref().toString());
+		ctx.display.drawOds(ctx.display.getCenter(target), "" + value, ref().toString());
 		return null;
 	}
 

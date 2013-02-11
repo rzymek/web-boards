@@ -7,6 +7,7 @@ import webboards.client.data.GameCtx;
 import webboards.client.games.Hex;
 import webboards.client.games.scs.CombatResult;
 import webboards.client.games.scs.SCSBoard;
+import webboards.client.games.scs.SCSColor;
 import webboards.client.games.scs.SCSCounter;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.bastogne.Bastogne;
@@ -33,7 +34,16 @@ public class PerformAttack extends Operation {
 	@Override
 	public void drawDetails(GameCtx ctx) {
 		for (Hex from : attackingRef) {
-			ctx.display.drawArrow(from, targetRef, "combat_"+from.getSVGId());
+			SCSColor color;
+			if (result.A > 0 && result.D > 0) {
+				color = SCSColor.PARTIAL_SUCCESS;
+			} else if (result.A > 0 && result.D <= 0) {
+				color = SCSColor.SUCCESS;
+			} else {
+				color = SCSColor.FAILURE;
+			}
+			String id = "combat_" + from.getSVGId();
+			ctx.display.drawArrow(from, targetRef, id, color.getColor());
 		}
 	}
 

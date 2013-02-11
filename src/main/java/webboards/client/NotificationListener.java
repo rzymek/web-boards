@@ -25,9 +25,9 @@ public final class NotificationListener implements ChannelListener {
 		OperationMessage msg = (OperationMessage) message;
 		Operation op = msg.op;
 		op.updateBoard(ctx.board);
-		op.drawDetails(ctx);
-		op.draw(ctx);
 		op.postServer(ctx);
+		op.draw(ctx);
+		op.drawDetails(ctx);
 	}
 	
 

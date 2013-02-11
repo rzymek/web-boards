@@ -19,19 +19,19 @@ public class GameCtx {
 	public GameCtx() {		
 	}
 	
-	public void process(final Operation op) {
+	public void process(Operation op) {
 		if (op == null) {
 			return;
 		}
 		op.updateBoard(board);
 		op.draw(this);
-		op.drawDetails(this);
 		ServerEngineAsync service = GWT.create(ServerEngine.class);
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
 				result.postServer(GameCtx.this);
-				ClientEngine.log("executed: " + result);
+				result.drawDetails(GameCtx.this);
+				ClientEngine.log(""+result);
 			}
 		});
 	}

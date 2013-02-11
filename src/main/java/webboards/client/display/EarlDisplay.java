@@ -12,7 +12,9 @@ public interface EarlDisplay {
 
 	VisualCoords getCenter(Position to);
 
-	void drawArrow(VisualCoords start, VisualCoords end, String id);
+	void drawArrow(Position from, Position to, String id, Color color);
+
+//	void drawArrow(VisualCoords start, VisualCoords end, String id, Color color);
 
 	void update(CounterId counter, String state);
 
@@ -27,8 +29,6 @@ public interface EarlDisplay {
 	void showResults(VisualCoords center, String result);
 
 	void clearResults(VisualCoords center);
-
-	void drawArrow(Position from, Position to, String id);
 
 	void drawLine(Position fromRef, Position toRef);
 
