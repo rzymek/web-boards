@@ -31,8 +31,15 @@ public abstract class BasicDisplay implements EarlDisplay {
 	public void setBoard(final Board board) {
 		ctx.board = board;
 		initAreas(board);
-		initCounters(board);
+		updateBoard(board);
 	}
+	public void updateBoard(final Board board){
+		ctx.board = board;
+		resetCounters();
+		initCounters(board);		
+	}
+
+	protected abstract void resetCounters();
 
 	protected void initCounters(final Board board) {
 		Collection<Position> stacks = board.getStacks();

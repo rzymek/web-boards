@@ -3,10 +3,14 @@ package webboards.server.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import webboards.client.data.Game;
+import webboards.client.games.scs.bastogne.BastogneSide;
+
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Serialize;
 
 @Entity
 @Cache
@@ -18,6 +22,11 @@ public class Table {
 	public String player1;
 	@Index
 	public String player2;
+	
+	public BastogneSide last = null;
+	@Serialize
+	public Game state;
+	public Date stateTimestamp;
 
 	@Override
 	public String toString() {

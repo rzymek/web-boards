@@ -5,6 +5,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -13,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.server.entity.GameState;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Table;
 
@@ -34,7 +35,6 @@ public class ManagerServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ObjectifyService.register(OperationEntity.class);
 		ObjectifyService.register(Table.class);
-		ObjectifyService.register(GameState.class);
 	}
 
 	@Override
@@ -50,6 +50,10 @@ public class ManagerServlet extends HttpServlet {
 			} else if (side == BastogneSide.GE) {
 				table.player2 = user;
 			}
+			Bastogne game = new Bastogne();
+			game.setupScenarion52();
+			table.state = game;
+			table.stateTimestamp = new Date();		
 			Result<Key<Table>> result = ofy().save().entity(table);
 			String tableId = String.valueOf(result.now().getId());
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);

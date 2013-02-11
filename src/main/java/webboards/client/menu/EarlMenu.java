@@ -5,7 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import webboards.client.ClientEngine;
+import webboards.client.data.CounterInfo;
 import webboards.client.data.GameInfo;
+import webboards.client.display.BasicDisplay;
+import webboards.client.games.Area;
+import webboards.client.games.scs.ops.Flip;
+import webboards.client.games.scs.ops.Move;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
@@ -69,14 +74,14 @@ public class EarlMenu implements ClickHandler {
 			logBtn.getElement().getStyle().setFontStyle(FontStyle.NORMAL);
 			showPendingLog();
 		} else if ("Remove unit".equals(text)) {
-//			Counter piece = ctx.handler.getSelectedPiece();
-//			if (piece == null) {
-//				Window.alert("Select a counter first");
-//			} else {
-//				Move move = new Move(piece, new AreaRef("Dead pool"));
-//				ctx.handler.setSelectedPiece(null);
-//				ctx.display.process(move);
-//			}
+			CounterInfo piece = ctx.ctx.selected;
+			if (piece == null) {
+				Window.alert("Select a counter first");
+			} else {
+				Move move = new Move(piece, new Area("Dead pool"));
+				ctx.ctx.display.select(null);
+				ctx.ctx.process(move);
+			}
 		} else if ("Send msg".equals(text)) {
 			String msg = Window.prompt("Enter message:", "");
 			if(msg != null) {
@@ -88,18 +93,21 @@ public class EarlMenu implements ClickHandler {
 			toggleMenu();
 			source.setHTML("Show menu");
 		} else if ("Flip".equals(text)) {
-//			Counter piece = ctx.handler.getSelectedPiece();
-//			if (piece == null) {
-//				Window.alert("Select a counter first");
-//			} else {
-//				Flip op = new Flip(piece.ref());
-//				ctx.display.process(op);
-//			}
+			CounterInfo piece = ctx.ctx.selected;
+			if (piece == null) {
+				Window.alert("Select a counter first");
+			} else {
+				Flip op = new Flip(piece.ref());
+				ctx.ctx.process(op);
+			}
 		} else if ("Undo".equals(text)) {
 			ServerEngineAsync server = GWT.create(ServerEngine.class);
 			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<GameInfo>(){
 				@Override
-				public void onSuccess(GameInfo result) {
+				public void onSuccess(GameInfo result) {					
+					ctx.ctx.board = result.game.getBoard();
+					BasicDisplay display = (BasicDisplay) ctx.ctx.display;
+					display.updateBoard(ctx.ctx.board);
 					ctx.engine.update(result);
 				}
 			});

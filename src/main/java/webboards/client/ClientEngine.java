@@ -1,21 +1,15 @@
 package webboards.client;
 
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.Board;
-import webboards.client.data.CounterInfo;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
-import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.Bastogne;
-import webboards.client.games.scs.ops.Move;
 import webboards.client.menu.EarlClienContext;
 import webboards.client.menu.EarlMenu;
 import webboards.client.ops.Operation;
@@ -79,7 +73,7 @@ public class ClientEngine implements EntryPoint {
 	public void start(final String tableId, GameInfo info) {
 		display = new SVGDisplay(svg, info.side);
 		ClientEngine.this.display = display;
-		board =info. game.getBoard();
+		board =info.game.getBoard();
 		display.setBoard(board);
 		
 		EarlClienContext ctx = new EarlClienContext();
@@ -105,15 +99,6 @@ public class ClientEngine implements EntryPoint {
 
 
 	public void update(GameInfo info) {
-		Set<Entry<String, Position>> set = info.state.entrySet();
-		for (Entry<String, Position> state : set) {
-			String counterId = state.getKey();
-			Position pos = state.getValue();
-			CounterInfo counter = board.getCounter(counterId);
-			Move move = new Move(counter, pos);
-			move.updateBoard(board);
-			move.draw(display.getCtx());
-		}
 		for (Operation op : info.ops) {
 			op.updateBoard(board);
 			op.postServer(display.getCtx());

@@ -56,21 +56,8 @@ public class SVGDisplay extends BasicDisplay {
 	public SVGDisplay(SVGSVGElement svg, BastogneSide side) {
 		super(side);
 		this.svg = svg;
-		SVGRectElement rect = (SVGRectElement) svg.getElementById("selection");
-		rect.getStyle().setDisplay(Display.NONE);
-		svg.getElementById("units").appendChild(rect);
-
 		stackSelector = (SVGRectElement) svg.getElementById("stack-selector");
-		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
-		OMSVGRectElement omstackSelector = OMNode.convert(stackSelector);
-		omstackSelector.addClickHandler(new ClickHandler() {			
-			@Override
-			public void onClick(ClickEvent event) {
-				handler.onClicked(stackSelectorContents, stackSelectorPosition);
-			}
-		});
-		svg.getElementById("units").appendChild(stackSelector);
-		
+		resetCounters();		
 		//TODO: move elsewhere:
 		handler = new SCSSelectionHandler(ctx);
 	}
@@ -523,5 +510,22 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void clearTraces() {
 		clearMarkers("traces");
+	}
+	@Override
+	protected void resetCounters() {
+		SVGRectElement rect = (SVGRectElement) getSVGElement("selection");
+		clearMarkers("units");
+		rect.getStyle().setDisplay(Display.NONE);
+		svg.getElementById("units").appendChild(rect);
+
+		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
+		OMSVGRectElement omstackSelector = OMNode.convert(stackSelector);
+		omstackSelector.addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				handler.onClicked(stackSelectorContents, stackSelectorPosition);
+			}
+		});
+		svg.getElementById("units").appendChild(stackSelector);
 	}
 }
