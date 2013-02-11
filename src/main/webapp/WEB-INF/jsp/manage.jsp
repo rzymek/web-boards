@@ -1,6 +1,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="webboards.server.servlet.ManagerServlet"%>
 <%@page import="webboards.server.entity.Table"%>
+<%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <html>
 <head>
 <title>WebBoards</title>
@@ -46,5 +47,6 @@
 			}
 		%>
 	</ul>
+	<a href="<% UserServiceFactory.getUserService().createLogoutURL(request.getRequestURI()); %>">Logout</a>
 </body>
 </html>
