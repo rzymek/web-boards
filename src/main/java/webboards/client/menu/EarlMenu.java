@@ -102,13 +102,13 @@ public class EarlMenu implements ClickHandler {
 			}
 		} else if ("Undo".equals(text)) {
 			ServerEngineAsync server = GWT.create(ServerEngine.class);
-			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<GameInfo>(){
+			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<Date>(){
 				@Override
-				public void onSuccess(GameInfo result) {					
-					ctx.ctx.board = result.game.getBoard();
-					BasicDisplay display = (BasicDisplay) ctx.ctx.display;
-					display.updateBoard(ctx.ctx.board);
-					ctx.engine.update(result);
+				public void onSuccess(Date timestamp) {					
+//					ctx.ctx.board = result.game.getBoard();
+//					BasicDisplay display = (BasicDisplay) ctx.ctx.display;
+//					display.updateBoard(ctx.ctx.board);
+//					ctx.engine.update(result);
 				}
 			});
 		} else if ("2d6".equals(text)) {

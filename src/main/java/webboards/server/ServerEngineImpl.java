@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 import webboards.client.data.GameInfo;
 import webboards.client.ex.EarlServerException;
-import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
 import webboards.client.ops.ServerContext;
@@ -72,18 +71,17 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 	
 	@Override
-	public GameInfo undo(long tid) {
+	public Date undo(long tid) {
 		Table table = getTable(tid);
 		List<OperationEntity> opEnts = loadOpEntities(tid, table.stateTimestamp);
 		if(!opEnts.isEmpty()) {
+			//delete last op
 			OperationEntity last = opEnts.get(opEnts.size()-1);
 			ofy().delete().entity(last).now();
 			opEnts.remove(opEnts.size()-1);
 		}
+		//get the new last author and timestamp:
 		List<Operation> ops = unwrap(opEnts);
-		Bastogne game = (Bastogne) table.state;
-		game.load(ops, null);
-
 		if(!opEnts.isEmpty()) {
 			OperationEntity lastEnt = opEnts.get(opEnts.size()-1);
 			Operation lastOp = ops.get(ops.size()-1);
@@ -91,10 +89,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			table.last = lastOp.author;
 			ofy().save().entity(table);
 		}
-		GameInfo info = new GameInfo();
-		info.ops = ops;
-		info.game = game;
-		return info;
+		return table.stateTimestamp;
 	}
 	
 	public List<Operation> loadOps(Table table) {

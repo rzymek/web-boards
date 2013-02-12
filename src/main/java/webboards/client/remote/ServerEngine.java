@@ -1,5 +1,7 @@
 package webboards.client.remote;
 
+import java.util.Date;
+
 import webboards.client.data.GameInfo;
 import webboards.client.ops.Operation;
 
@@ -11,5 +13,5 @@ public interface ServerEngine extends RemoteService {
 	GameInfo getState(String tableId);
 	Operation process(Operation op);
 	void join(String tableId);
-	GameInfo undo(long table);
+	Date undo(long table);
 }
