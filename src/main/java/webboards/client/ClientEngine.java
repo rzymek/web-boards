@@ -82,6 +82,7 @@ public class ClientEngine implements EntryPoint {
 		ctx.side = info.side;
 		ctx.ctx = display.getCtx();
 		ctx.engine = this;
+		ctx.ctx.ops = info.ops;
 		
 		menu = new EarlMenu(ctx);
 

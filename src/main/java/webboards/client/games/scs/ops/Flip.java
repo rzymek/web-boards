@@ -33,9 +33,13 @@ public class Flip extends Operation implements Undoable {
 	public String toString() {
 		return counterRef+" flipped.";
 	}
+	
 	@Override
-	public void undo(GameCtx ctx) {
-		updateBoard(ctx.board);
-		draw(ctx);
+	public void undoUpdate(Board board) {
+		updateBoard(board);
+	}
+	@Override
+	public void undoDraw(GameCtx ctx) {
+		draw(ctx);		
 	}
 }

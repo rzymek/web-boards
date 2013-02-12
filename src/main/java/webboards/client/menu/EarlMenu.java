@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
 import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
@@ -13,11 +12,8 @@ import webboards.client.ops.Operation;
 import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
-import webboards.client.remote.ServerEngine;
-import webboards.client.remote.ServerEngineAsync;
-import webboards.client.utils.AbstractCallback;
+import webboards.client.ops.generic.UndoOp;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.FontStyle;
@@ -122,21 +118,30 @@ public class EarlMenu implements ClickHandler {
 	}
 
 	private void undo() {
-		if(ctx.ctx.ops.isEmpty()) {
+		Undoable op = findLastOpToUndo();
+		if(op == null) {
 			Window.alert("Can't undo any more");
-			return;
+			return;			
 		}
-		Operation last = ctx.ctx.ops.peek();
-		if(last instanceof Undoable) {
-			Undoable undo = (Undoable) last;
-			undo.undo(ctx.ctx);
-			ctx.ctx.ops.pop();
-			
-			ServerEngineAsync server = GWT.create(ServerEngine.class);
-			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<Date>());
-		}else{
-			Window.alert("Can't undo: "+last);
+		if (op instanceof Undoable) {
+			UndoOp undo = new UndoOp(op);
+			ctx.ctx.ops.remove(op);
+			ctx.ctx.process(undo);
+		} else {
+			Window.alert("Can't undo: " + op);
+		}		
+	}
+
+	private Undoable findLastOpToUndo() {
+		for (int i = ctx.ctx.ops.size() - 1; i >= 0; i--) {
+			Operation op = ctx.ctx.ops.get(i);			
+			if (op instanceof UndoOp) {
+				continue;
+			}else if(op instanceof Undoable){
+				return (Undoable) op;
+			}
 		}
+		return null;
 	}
 
 	public void log(String msg) {

@@ -157,7 +157,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		e.timestamp = new Date();
 		e.adebug = ServerUtils.describe(op);
 		
-		
 		if(table.last != op.author) {
 			table.last = op.author;
 			table.stateTimestamp = new Date();

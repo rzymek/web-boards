@@ -14,13 +14,13 @@ public class Move extends Operation implements Undoable {
 	public Position from;
 	public Position to;
 
-	protected Move() {		
+	protected Move() {
 	}
-	
+
 	public Move(CounterInfo counter, Position to) {
 		counterRef = counter.ref();
 		Position from = counter.getPosition();
-		if(from != null) {
+		if (from != null) {
 			this.from = from;
 		}
 		this.to = to;
@@ -31,11 +31,15 @@ public class Move extends Operation implements Undoable {
 		CounterInfo counter = board.getInfo(counterRef);
 		board.move(to, counter);
 	}
-	
+
 	@Override
-	public void undo(GameCtx ctx) {
-		CounterInfo counter = ctx.board.getInfo(counterRef);
-		ctx.board.move(from, counter);
+	public void undoUpdate(Board board) {
+		CounterInfo counter = board.getInfo(counterRef);
+		board.move(from, counter);
+	}
+
+	@Override
+	public void undoDraw(GameCtx ctx) {
 		draw(ctx);
 		ctx.display.clearLine(from, to);
 	}
@@ -45,14 +49,14 @@ public class Move extends Operation implements Undoable {
 		ctx.display.alignStack(from);
 		ctx.display.alignStack(to);
 	}
-	
+
 	@Override
 	public void drawDetails(GameCtx ctx) {
 		ctx.display.drawLine(from, to);
 	}
-	
+
 	@Override
 	public String toString() {
-		return counterRef+" moves from "+from+" to "+to;
+		return counterRef + " moves from " + from + " to " + to;
 	}
 }

@@ -1,6 +1,6 @@
 package webboards.client.data;
 
-import java.util.Stack;
+import java.util.List;
 
 import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
@@ -17,7 +17,7 @@ public class GameCtx {
 	public EarlDisplay display;
 	public CounterInfo selected;
 	public BastogneSide side;
-	public Stack<Operation> ops = new Stack<Operation>();
+	public List<Operation> ops;
 	public GameCtx() {		
 	}
 	
@@ -27,11 +27,11 @@ public class GameCtx {
 		}
 		op.updateBoard(board);
 		op.draw(this);
+		ops.add(op);
 		ServerEngineAsync service = GWT.create(ServerEngine.class);
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
-				ops.push(result);
 				result.postServer(GameCtx.this);
 				result.drawDetails(GameCtx.this);
 				ClientEngine.log(""+result);

@@ -1,7 +1,7 @@
 package webboards.client.data;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
@@ -12,7 +12,7 @@ public class GameInfo implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 1L;
 	public Game game;
 	public String channelToken;
-	public Collection<Operation> ops;
+	public List<Operation> ops;
 	public BastogneSide joinAs;
 	public BastogneSide side;
 }
