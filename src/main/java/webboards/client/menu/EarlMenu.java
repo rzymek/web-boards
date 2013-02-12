@@ -6,11 +6,11 @@ import java.util.List;
 
 import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
-import webboards.client.data.GameInfo;
-import webboards.client.display.BasicDisplay;
 import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
+import webboards.client.ops.Operation;
+import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
@@ -74,14 +74,7 @@ public class EarlMenu implements ClickHandler {
 			logBtn.getElement().getStyle().setFontStyle(FontStyle.NORMAL);
 			showPendingLog();
 		} else if ("Remove unit".equals(text)) {
-			CounterInfo piece = ctx.ctx.selected;
-			if (piece == null) {
-				Window.alert("Select a counter first");
-			} else {
-				Move move = new Move(piece, new Area("Dead pool"));
-				ctx.ctx.display.select(null);
-				ctx.ctx.process(move);
-			}
+			removeUnit();
 		} else if ("Send msg".equals(text)) {
 			String msg = Window.prompt("Enter message:", "");
 			if(msg != null) {
@@ -93,24 +86,9 @@ public class EarlMenu implements ClickHandler {
 			toggleMenu();
 			source.setHTML("Show menu");
 		} else if ("Flip".equals(text)) {
-			CounterInfo piece = ctx.ctx.selected;
-			if (piece == null) {
-				Window.alert("Select a counter first");
-			} else {
-				Flip op = new Flip(piece.ref());
-				ctx.ctx.process(op);
-			}
+			flip();
 		} else if ("Undo".equals(text)) {
-			ServerEngineAsync server = GWT.create(ServerEngine.class);
-			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<Date>(){
-				@Override
-				public void onSuccess(Date timestamp) {					
-//					ctx.ctx.board = result.game.getBoard();
-//					BasicDisplay display = (BasicDisplay) ctx.ctx.display;
-//					display.updateBoard(ctx.ctx.board);
-//					ctx.engine.update(result);
-				}
-			});
+			undo();
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
 			ctx.ctx.process(roll);
@@ -119,6 +97,45 @@ public class EarlMenu implements ClickHandler {
 			toggleVisible(ctx.svg.getElementById("markers").getStyle());
 		} else {
 			Window.alert("Not implemented yet: " + text);
+		}
+	}
+
+	private void removeUnit() {
+		CounterInfo piece = ctx.ctx.selected;
+		if (piece == null) {
+			Window.alert("Select a counter first");
+		} else {
+			Move move = new Move(piece, new Area("Dead pool"));
+			ctx.ctx.display.select(null);
+			ctx.ctx.process(move);
+		}
+	}
+
+	private void flip() {
+		CounterInfo piece = ctx.ctx.selected;
+		if (piece == null) {
+			Window.alert("Select a counter first");
+		} else {
+			Flip op = new Flip(piece.ref());
+			ctx.ctx.process(op);
+		}
+	}
+
+	private void undo() {
+		if(ctx.ctx.ops.isEmpty()) {
+			Window.alert("Can't undo any more");
+			return;
+		}
+		Operation last = ctx.ctx.ops.peek();
+		if(last instanceof Undoable) {
+			Undoable undo = (Undoable) last;
+			undo.undo(ctx.ctx);
+			ctx.ctx.ops.pop();
+			
+			ServerEngineAsync server = GWT.create(ServerEngine.class);
+			server.undo(Long.valueOf(ClientEngine.getTableId()), new AbstractCallback<Date>());
+		}else{
+			Window.alert("Can't undo: "+last);
 		}
 	}
 

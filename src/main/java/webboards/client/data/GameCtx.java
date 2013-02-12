@@ -1,5 +1,7 @@
 package webboards.client.data;
 
+import java.util.Stack;
+
 import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -15,7 +17,7 @@ public class GameCtx {
 	public EarlDisplay display;
 	public CounterInfo selected;
 	public BastogneSide side;
-	
+	public Stack<Operation> ops = new Stack<Operation>();
 	public GameCtx() {		
 	}
 	
@@ -29,6 +31,7 @@ public class GameCtx {
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
+				ops.push(result);
 				result.postServer(GameCtx.this);
 				result.drawDetails(GameCtx.this);
 				ClientEngine.log(""+result);

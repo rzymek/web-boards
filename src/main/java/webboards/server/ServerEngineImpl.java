@@ -1,7 +1,5 @@
 package webboards.server;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +9,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import webboards.client.data.GameInfo;
+import webboards.client.ex.EarlException;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
@@ -26,6 +25,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
@@ -77,6 +78,9 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if(!opEnts.isEmpty()) {
 			//delete last op
 			OperationEntity last = opEnts.get(opEnts.size()-1);
+			if(last.timestamp.compareTo(table.stateTimestamp) < 0) {
+				throw new EarlException("Can't undo: "+last.timestamp +" < "+ table.stateTimestamp);
+			}
 			ofy().delete().entity(last).now();
 			opEnts.remove(opEnts.size()-1);
 		}
@@ -109,7 +113,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
 		Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tableId));
 		if(timestamp != null) {
-			query = query.filter("timestamp >", timestamp);
+			query = query.filter("timestamp >=", timestamp);
 		}
 		return query.order("timestamp").list();
 	}

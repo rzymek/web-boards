@@ -1,7 +1,5 @@
 package webboards.server.servlet;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -26,6 +24,8 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.Query;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

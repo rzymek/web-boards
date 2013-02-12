@@ -6,8 +6,9 @@ import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
 import webboards.client.games.Position;
 import webboards.client.ops.Operation;
+import webboards.client.ops.Undoable;
 
-public class Move extends Operation {
+public class Move extends Operation implements Undoable {
 	private static final long serialVersionUID = 1L;
 	public CounterId counterRef;
 	public Position from;
@@ -29,6 +30,14 @@ public class Move extends Operation {
 	public void updateBoard(Board board) {
 		CounterInfo counter = board.getInfo(counterRef);
 		board.move(to, counter);
+	}
+	
+	@Override
+	public void undo(GameCtx ctx) {
+		CounterInfo counter = ctx.board.getInfo(counterRef);
+		ctx.board.move(from, counter);
+		draw(ctx);
+//		ctx.display.clearLine(from, to);
 	}
 
 	@Override

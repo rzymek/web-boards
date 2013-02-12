@@ -7,6 +7,7 @@
 <title>WebBoards</title>
 </head>
 <body>
+	Hello <%= request.getUserPrincipal().getName() %><br/>
 	<form type="get">
 		Start new game as: <select name="side">
 			<option>US</option>
