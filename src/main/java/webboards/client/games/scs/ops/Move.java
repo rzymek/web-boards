@@ -37,7 +37,7 @@ public class Move extends Operation implements Undoable {
 		CounterInfo counter = ctx.board.getInfo(counterRef);
 		ctx.board.move(from, counter);
 		draw(ctx);
-//		ctx.display.clearLine(from, to);
+		ctx.display.clearLine(from, to);
 	}
 
 	@Override

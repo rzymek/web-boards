@@ -367,13 +367,18 @@ public class SVGDisplay extends BasicDisplay {
 
 	@Override
 	public void drawLine(Position from, Position to) {
-		drawLine(getCenter(from), getCenter(to));
+		drawLine(getCenter(from), getCenter(to), "arrow"+from.getSVGId()+"-"+to.getSVGId());
+	}
+	@Override
+	public void clearLine(Position from, Position to) {
+		removeElement("arrow"+from.getSVGId()+"-"+to.getSVGId());
 	}
 
-	public void drawLine(VisualCoords start, VisualCoords end) {
+	public void drawLine(VisualCoords start, VisualCoords end, String id) {
 		SVGPathElement arrow = (SVGPathElement) svg.getElementById("trace");
 		arrow.getStyle().setProperty("pointerEvents", "none");
 		arrow = (SVGPathElement) arrow.cloneNode(true);
+		arrow.setId(id);
 		OMSVGPathSegList seg = arrow.getPathSegList();
 		seg.replaceItem(arrow.createSVGPathSegMovetoAbs(start.x, start.y), 0);
 		seg.replaceItem(arrow.createSVGPathSegLinetoAbs(end.x, end.y), 1);

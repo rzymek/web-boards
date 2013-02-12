@@ -30,8 +30,6 @@ public interface EarlDisplay {
 
 	void clearResults(VisualCoords center);
 
-	void drawLine(Position fromRef, Position toRef);
-
 	void select(CounterInfo i);
 
 	void clearTraces();
@@ -43,5 +41,9 @@ public interface EarlDisplay {
 	void createCounter(CounterInfo counter, Board board);
 
 	void clearOds(String id);
+
+	void drawLine(Position fromRef, Position toRef);
+
+	void clearLine(Position from, Position to);
 
 }
