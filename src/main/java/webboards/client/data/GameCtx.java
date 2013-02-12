@@ -18,6 +18,7 @@ public class GameCtx {
 	public CounterInfo selected;
 	public BastogneSide side;
 	public List<Operation> ops;
+
 	public GameCtx() {		
 	}
 	

@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
+import webboards.client.data.Game;
+import webboards.client.display.BasicDisplay;
 import webboards.client.games.Area;
+import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.ops.Operation;
@@ -13,7 +17,11 @@ import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.ops.generic.UndoOp;
+import webboards.client.remote.ServerEngine;
+import webboards.client.remote.ServerEngineAsync;
+import webboards.client.utils.AbstractCallback;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.FontStyle;
@@ -38,7 +46,8 @@ public class EarlMenu implements ClickHandler {
 		root = RootPanel.get("menu");
 		Button menu = add("Show menu");
 		menu.setVisible(true);
-		add("Undo");
+		add("Undo Op");
+		add("Undo State");
 		add("Flip");
 		add("Clear traces");
 		add("Send msg");
@@ -83,8 +92,10 @@ public class EarlMenu implements ClickHandler {
 			source.setHTML("Show menu");
 		} else if ("Flip".equals(text)) {
 			flip();
-		} else if ("Undo".equals(text)) {
-			undo();
+		} else if ("Undo Op".equals(text)) {
+			undoOp();
+		} else if ("Undo State".equals(text)) {
+			undoState();
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
 			ctx.ctx.process(roll);
@@ -117,7 +128,28 @@ public class EarlMenu implements ClickHandler {
 		}
 	}
 
-	private void undo() {
+	private void undoState() {
+		ServerEngineAsync server = GWT.create(ServerEngine.class);
+		long tid = Long.parseLong(ClientEngine.getTableId());
+		server.undo(tid, new AbstractCallback<Game>(){
+			@Override
+			public void onSuccess(Game result) {
+				ctx.ctx.ops.remove(ctx.ctx.ops.size() - 1);
+				Bastogne bastogne = (Bastogne) result;
+				ctx.game = bastogne;
+				BasicDisplay display = (BasicDisplay) ctx.ctx.display;
+				ctx.ctx.board = result.getBoard();
+				display.clearTraces();
+				display.updateBoard(ctx.ctx.board);
+				for (Operation op: ctx.ctx.ops) {
+					op.updateBoard(ctx.ctx.board);
+					op.draw(ctx.ctx);
+					op.drawDetails(ctx.ctx);
+				}
+			}
+		});
+	}
+	private void undoOp() {
 		Undoable op = findLastOpToUndo();
 		if(op == null) {
 			Window.alert("Can't undo any more");

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.ex.EarlException;
 import webboards.client.ex.EarlServerException;
@@ -72,7 +73,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 	
 	@Override
-	public Date undo(long tid) {
+	public Game undo(long tid) {
 		Table table = getTable(tid);
 		List<OperationEntity> opEnts = loadOpEntities(tid, table.stateTimestamp);
 		if(!opEnts.isEmpty()) {
@@ -93,7 +94,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			table.last = lastOp.author;
 			ofy().save().entity(table);
 		}
-		return table.stateTimestamp;
+		return table.state;
 	}
 	
 	public List<Operation> loadOps(Table table) {

@@ -60,6 +60,7 @@ import java.util.Collection;
 import webboards.client.data.Board;
 import webboards.client.data.Game;
 import webboards.client.data.GameCtx;
+import webboards.client.display.EarlDisplay;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Area;
@@ -256,7 +257,7 @@ public class Bastogne implements Game, IsSerializable {
 		throw new EarlException("invalid odds:" + oddsValue);
 	}
 
-	public void load(Collection<Operation> ops, SVGDisplay display) {
+	public void load(Collection<Operation> ops, EarlDisplay display) {
 		setupScenarion52();
 		GameCtx ctx = new GameCtx();
 		ctx.board = board;
