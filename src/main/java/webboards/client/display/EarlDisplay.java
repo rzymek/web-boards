@@ -24,7 +24,7 @@ public interface EarlDisplay {
 
 	void clearMarks();
 
-	void clearArrow(Position from);
+	void clearArrow(String id);
 
 	void showResults(VisualCoords center, String result);
 

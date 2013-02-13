@@ -50,6 +50,10 @@ public class SCSBoard extends Board implements Serializable {
 	public void declareAttack(Hex attacking, Hex defending) {
 		attacks.put(attacking, defending);
 	}
+	
+	public void undeclareAttack(Hex attacking) {
+		attacks.remove(attacking);
+	}
 
 	public Collection<Hex> getAttacking(Hex target) {
 		Collection<Hex> result = new HashSet<Hex>();

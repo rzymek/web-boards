@@ -413,9 +413,8 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	@Override
-	public void clearArrow(Position from) {
-		String id = getArrowId(from);
-		removeElement(id);
+	public void clearArrow(String id) {
+		removeElement(ARROW_ID_PREFIX + "_" + id);
 	}
 
 	private void removeElement(String id) {
@@ -423,10 +422,6 @@ public class SVGDisplay extends BasicDisplay {
 		if (e != null) {
 			e.removeFromParent();
 		}
-	}
-
-	private String getArrowId(Position from) {
-		return ARROW_ID_PREFIX + "_" + from.getSVGId();
 	}
 
 	protected void clearMarkers(String layerId) {
