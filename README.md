@@ -21,4 +21,4 @@ Implementation is based on [SVG](http://en.wikipedia.org/wiki/Scalable_Vector_Gr
 The first game being implemented is [MMP](http://www.multimanpublishing.com/Products/tabid/58/ProductID/69/Default.aspx)'s
 [Bastogne: Screaming Eagles under Siege](http://boardgamegeek.com/boardgame/35669/bastogne-screaming-eagles-under-siege).
 
-![Bastoge](http://wiki.earl.googlecode.com/git/img/screenshot.png)
+![](https://raw.github.com/wiki/rzymek/webboards/img/screenshot.png)
