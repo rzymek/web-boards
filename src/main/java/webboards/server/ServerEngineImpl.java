@@ -22,6 +22,8 @@ import webboards.server.notify.Notify;
 import webboards.server.utils.HttpUtils;
 import webboards.server.utils.ServerUtils;
 
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
@@ -165,13 +167,20 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}else{
 			ofy().save().entity(e);
 		}
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		memcache.put(tid, table);
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
 	}
 
 	private Table getTable(long tableId) {
-		Table table = ofy().load().type(Table.class).id(tableId).get();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		Table table = (Table) memcache.get(tableId);
+		if(table != null) {
+			return table;
+		}
+		table = ofy().load().type(Table.class).id(tableId).get();
 		if(table == null){
 			throw new EarlServerException("Invalid table id="+tableId);
 		}

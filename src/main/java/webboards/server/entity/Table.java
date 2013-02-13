@@ -1,5 +1,6 @@
 package webboards.server.entity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +15,8 @@ import com.googlecode.objectify.annotation.Serialize;
 
 @Entity
 @Cache
-public class Table {
+public class Table implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id	
 	public Long id;
 	public Date started = new Date();
