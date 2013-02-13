@@ -70,13 +70,13 @@ public class ClientEngine implements EntryPoint {
 	}
 
 
-	public void start(final String tableId, GameInfo info) {
+	public void start(final String tableId, final GameInfo info) {
 		display = new SVGDisplay(svg, info.side);
 		ClientEngine.this.display = display;
 		board =info.game.getBoard();
 		display.setBoard(board);
 		
-		EarlClienContext ctx = new EarlClienContext();
+		final EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
 		ctx.game = (Bastogne) info.game;
 		ctx.side = info.side;
@@ -94,7 +94,13 @@ public class ClientEngine implements EntryPoint {
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
 			if (yes) {
-				service.join(tableId, new AbstractCallback<Void>());
+				service.join(tableId, new AbstractCallback<Void>(){
+					@Override
+					public void onSuccess(Void result) {
+						ctx.side = info.joinAs;
+						ctx.ctx.side = info.joinAs;
+					}
+				});
 			}
 		}
 	}

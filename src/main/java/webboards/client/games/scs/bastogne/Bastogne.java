@@ -1,5 +1,24 @@
 package webboards.client.games.scs.bastogne;
 
+import java.util.Collection;
+
+import webboards.client.data.Board;
+import webboards.client.data.Game;
+import webboards.client.data.GameCtx;
+import webboards.client.display.EarlDisplay;
+import webboards.client.ex.EarlException;
+import webboards.client.games.Area;
+import webboards.client.games.Hex;
+import webboards.client.games.Position;
+import webboards.client.games.scs.CombatResult;
+import webboards.client.games.scs.SCSBoard;
+import webboards.client.games.scs.SCSCounter;
+import webboards.client.games.scs.SCSHex;
+import webboards.client.games.scs.SCSMarker;
+import webboards.client.ops.Operation;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -54,26 +73,6 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_Cherry_HHC_3;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
-
-import java.util.Collection;
-
-import webboards.client.data.Board;
-import webboards.client.data.Game;
-import webboards.client.data.GameCtx;
-import webboards.client.display.EarlDisplay;
-import webboards.client.display.svg.SVGDisplay;
-import webboards.client.ex.EarlException;
-import webboards.client.games.Area;
-import webboards.client.games.Hex;
-import webboards.client.games.Position;
-import webboards.client.games.scs.CombatResult;
-import webboards.client.games.scs.SCSBoard;
-import webboards.client.games.scs.SCSCounter;
-import webboards.client.games.scs.SCSHex;
-import webboards.client.games.scs.SCSMarker;
-import webboards.client.ops.Operation;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Bastogne implements Game, IsSerializable {
 	private static final long serialVersionUID = 1L;

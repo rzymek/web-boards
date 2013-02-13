@@ -2,7 +2,6 @@ package webboards.client.games.scs;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import webboards.client.data.CounterInfo;
@@ -12,6 +11,7 @@ import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.client.games.scs.ops.DeclareAttack;
 import webboards.client.games.scs.ops.PerformBarrage;
 import webboards.client.ops.Operation;
 
@@ -108,46 +108,10 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		}
 	}
 	
-	public static int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
-		List<CounterInfo> defending = target.getPieces();
-		float defence = getDefenceRawSum(defending);
-		float defenceModifier = target.getDefenceCombatModifier();
-		defence *= defenceModifier;			
-		float attack = getAttackRawSum(attacking);
-		float smaller = Math.min(attack, defence);
-		if(smaller == 0) {
-			throw new EarlException("Error calculating odds: " + defence + ":" + attack);
-		}
-		int a = Math.round(defence / smaller);
-		int b = Math.round(attack / smaller);
-		int[] odds = { a, b };
-		return odds;
-	}
-
 	private Operation onCombat(GameCtx ctx, List<CounterInfo> stack, Hex target) {
-		SCSBoard board = (SCSBoard) ctx.board;
 		Hex from = (Hex) getPosition();
-		if(board.isDeclaredAttackOn(target)) {
-			board.undeclareAttack(from);
-			ctx.display.clearArrow("combat_"+from.getSVGId());
-			if(board.isDeclaredAttackOn(target)) { //other declarations?
-				showOds(ctx, target, board);			
-			}else{
-				ctx.display.clearOds(target.getSVGId());
-			}
-		}else{
-			board.declareAttack(from, target);			
-			ctx.display.drawArrow(from, target, "combat_"+from.getSVGId(), SCSColor.DELCARE.getColor());			
-			showOds(ctx, target, board);
-		}
-		return null;
-	}
-
-	private void showOds(GameCtx ctx, Hex target, SCSBoard board) {
-		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
-		int[] odds = calculateOdds(targetHex, board.getAttackingInfo(target), target);
-		String text = odds[0] + ":" + odds[1];
-		ctx.display.drawOds(ctx.display.getCenter(target), text, target.getSVGId());
+		DeclareAttack declare = new DeclareAttack(from, target);
+		return declare;
 	}
 
 	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Hex target) {
@@ -174,23 +138,8 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		return side;
 	}
 	
-	private static  float getDefenceRawSum(Collection<CounterInfo> defending) {
-		float defence = 0;
-		for (CounterInfo counter : defending) {
-			defence += ((SCSCounter) counter).defence;
-		}
+	public int getDefence() {
 		return defence;
-	}
-
-	private static float getAttackRawSum(Collection<SCSHex> list) {
-		float attack = 0;
-		for (SCSHex hex : list) {
-			for (CounterInfo c : hex.getPieces()) {
-				//TODO: !instanceof SCSMarker!
-				attack += ((SCSCounter) c).attack;
-			}
-		}
-		return attack;
 	}
 	
 	@Override
