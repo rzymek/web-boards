@@ -7,9 +7,9 @@ import webboards.client.games.Hex;
 import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.SCSColor;
 import webboards.client.games.scs.SCSHex;
-import webboards.client.ops.Operation;
+import webboards.client.ops.AbstractOperation;
 
-public class DeclareAttack extends Operation {
+public class DeclareAttack extends AbstractOperation {
 	private static final long serialVersionUID = 1L;
 	private Hex from;
 	private Hex target;
