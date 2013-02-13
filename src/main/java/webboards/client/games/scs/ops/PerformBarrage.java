@@ -3,12 +3,14 @@ package webboards.client.games.scs.ops;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
 import webboards.client.display.VisualCoords;
+import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.SCSColor;
 import webboards.client.games.scs.SCSCounter;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.SCSMarker;
+import webboards.client.games.scs.bastogne.ArtyType;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.AbstractOperation;
@@ -37,6 +39,7 @@ public class PerformBarrage extends AbstractOperation {
 		this.target = target;
 	}
 
+	@Override
 	public void drawDetails(GameCtx ctx) {
 		SCSCounter a = (SCSCounter) ctx.board.getInfo(arty);
 		SCSColor color;
@@ -76,7 +79,8 @@ public class PerformBarrage extends AbstractOperation {
 		if (resultDG) {
 			roll.serverExecute(ctx);
 			killRoll = roll.getSum();
-			if (killRoll >= 4)
+			int value = getKillRollValue(attacker);
+			if (killRoll >= value)
 				killSteps = 1;
 			else
 				killSteps = 0;
@@ -85,6 +89,20 @@ public class PerformBarrage extends AbstractOperation {
 			killSteps = 0;
 		}
 
+	}
+
+	private int getKillRollValue(SCSCounter attacker) {
+		ArtyType artyType = attacker.getArtyType();
+		if(artyType == null) {
+			throw new EarlException(attacker.ref()+" is missing artyType");
+		}
+		switch (artyType) {
+		case YELLOW:  return 4;
+		case GUNS_88: return 5;
+		case OTHER:   return 6;		
+		default:
+			throw new EarlException("Unsupported ArtyType:"+artyType);
+		}
 	}
 
 	@Override

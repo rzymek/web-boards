@@ -1,5 +1,6 @@
 package webboards.client.games.scs.bastogne;
 
+import webboards.client.games.scs.SCSCounter;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -54,7 +55,6 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_Cherry_HHC_3;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
-import webboards.client.games.scs.SCSCounter;
 
 public class BastogneCampain {
 	public void setup() {
@@ -125,8 +125,8 @@ public class BastogneCampain {
 	private void setup(String hexId, BastogneUnits unit, String desc) {
 		String id = unit.getId();
 		String side = unit.name().substring(0, 2).toUpperCase();
-		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
-				unit.range, unit.defence, unit.movement);
+		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), 
+				unit.attack, unit.range, unit.artyType, unit.defence, unit.movement);
 		counter.setDescription(desc);
 //		board.place(hexId, counter);
 	}

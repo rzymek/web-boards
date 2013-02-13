@@ -177,8 +177,8 @@ public class Bastogne implements Game, IsSerializable {
 	private void setup(BastogneUnits unit, String desc, Position pos) {
 		String id = unit.getId();
 		String side = unit.name().substring(0, 2).toUpperCase();
-		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
-				unit.range, unit.defence, unit.movement);
+		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), 
+				unit.attack, unit.range, unit.artyType, unit.defence, unit.movement);
 		counter.setDescription(desc);
 		board.place(pos, counter);
 	}

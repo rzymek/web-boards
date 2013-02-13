@@ -11,6 +11,7 @@ import webboards.client.data.ref.CounterId;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
+import webboards.client.games.scs.bastogne.ArtyType;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.games.scs.ops.PerformBarrage;
 import webboards.client.ops.Operation;
@@ -25,18 +26,20 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	private Integer range;
 	private int defence;
 	private int movement;
+	private ArtyType artyType;
 
 	private SCSCounter() {
 		super(null);
 	}
 
-	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, Integer range, int defence, int movement) {
+	public SCSCounter(String id, String frontPath, String back, BastogneSide owner,int attack, Integer range, ArtyType artyType, int defence, int movement) {
 		super(new CounterId(id));
 		this.frontPath = frontPath;
 		this.back = back;
 		this.owner = owner;
 		this.attack = attack;
 		this.range = range;
+		this.artyType = artyType;
 		this.defence = defence;
 		this.movement = movement;
 	}
@@ -203,5 +206,9 @@ public class SCSCounter extends CounterInfo implements Serializable {
 
 	public int getAttack() {
 		return attack;
+	}
+
+	public ArtyType getArtyType() {
+		return artyType;
 	}
 }
