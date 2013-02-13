@@ -6,10 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import webboards.client.data.Board;
+import webboards.client.data.CounterInfo;
+import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.utils.Browser;
@@ -20,7 +23,7 @@ public class SCSBoard extends Board implements Serializable {
 	protected SCSHex[] workaround;
 	protected Map<String, SCSHex> areas = new HashMap<String, SCSHex>();
 	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();
-	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>(); 
+	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>();
 
 	protected SCSBoard() {
 	}
@@ -50,7 +53,7 @@ public class SCSBoard extends Board implements Serializable {
 	public void declareAttack(Hex attacking, Hex defending) {
 		attacks.put(attacking, defending);
 	}
-	
+
 	public void undeclareAttack(Hex attacking) {
 		attacks.remove(attacking);
 	}
@@ -60,7 +63,7 @@ public class SCSBoard extends Board implements Serializable {
 		for (Entry<Hex, Hex> attack : attacks.entrySet()) {
 			Hex attacking = attack.getKey();
 			Hex defending = attack.getValue();
-			if(defending.equals(target)) {
+			if (defending.equals(target)) {
 				result.add(attacking);
 			}
 		}
@@ -69,6 +72,10 @@ public class SCSBoard extends Board implements Serializable {
 
 	public boolean isDeclaredAttackOn(Position pos) {
 		return attacks.values().contains(pos);
+	}
+
+	public Hex getAttacks(Hex from) {
+		return attacks.get(from);
 	}
 
 	public Collection<SCSHex> getAttackingInfo(Hex target) {
@@ -89,7 +96,7 @@ public class SCSBoard extends Board implements Serializable {
 		while (iterator.hasNext()) {
 			Entry<Hex, Hex> e = iterator.next();
 			Hex defending = e.getValue();
-			if(defending.equals(target)) {
+			if (defending.equals(target)) {
 				iterator.remove();
 			}
 		}
@@ -105,7 +112,7 @@ public class SCSBoard extends Board implements Serializable {
 		for (Entry<SCSCounter, Hex> attack : barrages.entrySet()) {
 			SCSCounter attacking = attack.getKey();
 			Hex defending = attack.getValue();
-			if(defending.equals(target)) {
+			if (defending.equals(target)) {
 				result.add(attacking);
 			}
 		}
@@ -115,4 +122,40 @@ public class SCSBoard extends Board implements Serializable {
 	public void clearBarrageOf(SCSCounter attacing) {
 		barrages.remove(attacing);
 	}
+
+	private static float getDefenceRawSum(Collection<CounterInfo> defending) {
+		float defence = 0;
+		for (CounterInfo counter : defending) {
+			defence += ((SCSCounter) counter).getDefence();
+		}
+		return defence;
+	}
+
+	private static float getAttackRawSum(Collection<SCSHex> list) {
+		float attack = 0;
+		for (SCSHex hex : list) {
+			for (CounterInfo c : hex.getPieces()) {
+				//TODO: !instanceof SCSMarker!
+				attack += ((SCSCounter) c).getAttack();
+			}
+		}
+		return attack;
+	}
+
+	public static int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
+		List<CounterInfo> defending = target.getPieces();
+		float defence = getDefenceRawSum(defending);
+		float defenceModifier = target.getDefenceCombatModifier();
+		defence *= defenceModifier;
+		float attack = getAttackRawSum(attacking);
+		float smaller = Math.min(attack, defence);
+		if (smaller == 0) {
+			throw new EarlException("Error calculating odds: " + defence + ":" + attack);
+		}
+		int a = Math.round(attack / smaller);
+		int b = Math.round(defence / smaller);
+		int[] odds = { a, b };
+		return odds;
+	}
+
 }

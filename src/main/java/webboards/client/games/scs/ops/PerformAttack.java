@@ -8,7 +8,6 @@ import webboards.client.games.Hex;
 import webboards.client.games.scs.CombatResult;
 import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.SCSColor;
-import webboards.client.games.scs.SCSCounter;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.ops.AbstractOperation;
@@ -57,7 +56,7 @@ public class PerformAttack extends AbstractOperation {
 		SCSBoard board = (SCSBoard) game.getBoard();
 		SCSHex target = board.getInfo(targetRef);
 		Collection<SCSHex> attacking = board.getInfo(attackingRef);
-		int[] odds = SCSCounter.calculateOdds(target, attacking, targetRef);
+		int[] odds = SCSBoard.calculateOdds(target, attacking, targetRef);
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 2;
 		roll.sides = 6;
