@@ -152,8 +152,8 @@ public class SCSBoard extends Board implements Serializable {
 		if (smaller == 0) {
 			throw new EarlException("Error calculating odds: " + defence + ":" + attack);
 		}
-		int a = Math.round(defence / smaller);
-		int b = Math.round(attack / smaller);
+		int a = Math.round(attack / smaller);
+		int b = Math.round(defence / smaller);
 		int[] odds = { a, b };
 		return odds;
 	}
