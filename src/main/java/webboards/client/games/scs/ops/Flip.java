@@ -4,10 +4,10 @@ import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
-import webboards.client.ops.Operation;
+import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.Undoable;
 
-public class Flip extends Operation implements Undoable {
+public class Flip extends AbstractOperation implements Undoable {
 	private static final long serialVersionUID = 1L;
 	private CounterId counterRef;
 	protected Flip() {

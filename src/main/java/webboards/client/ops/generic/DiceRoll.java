@@ -2,10 +2,10 @@ package webboards.client.ops.generic;
 
 import java.util.Random;
 
-import webboards.client.ops.Operation;
+import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.ServerContext;
 
-public class DiceRoll extends Operation {
+public class DiceRoll extends AbstractOperation {
 	private static final long serialVersionUID = 1L;
 	public int dice = 2;
 	public int sides = 6;

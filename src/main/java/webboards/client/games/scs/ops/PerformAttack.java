@@ -11,11 +11,11 @@ import webboards.client.games.scs.SCSColor;
 import webboards.client.games.scs.SCSCounter;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.bastogne.Bastogne;
-import webboards.client.ops.Operation;
+import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.ServerContext;
 import webboards.client.ops.generic.DiceRoll;
 
-public class PerformAttack extends Operation {
+public class PerformAttack extends AbstractOperation {
 	private static final long serialVersionUID = 1L;
 	public Hex targetRef;
 	public Collection<Hex> attackingRef;
@@ -55,7 +55,7 @@ public class PerformAttack extends Operation {
 	public void serverExecute(ServerContext ctx) {
 		Bastogne game = (Bastogne) ctx.game;
 		SCSBoard board = (SCSBoard) game.getBoard();
-		SCSHex target = (SCSHex) board.getInfo(targetRef);
+		SCSHex target = board.getInfo(targetRef);
 		Collection<SCSHex> attacking = board.getInfo(attackingRef);
 		int[] odds = SCSCounter.calculateOdds(target, attacking, targetRef);
 		DiceRoll roll = new DiceRoll();

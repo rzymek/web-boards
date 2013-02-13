@@ -2,10 +2,10 @@ package webboards.client.ops.generic;
 
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
-import webboards.client.ops.Operation;
+import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.Undoable;
 
-public class UndoOp extends Operation {
+public class UndoOp extends AbstractOperation implements Undoable {
 	private static final long serialVersionUID = 1L;
 	private Undoable op;
 

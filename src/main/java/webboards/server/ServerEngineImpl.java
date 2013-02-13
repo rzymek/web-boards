@@ -86,12 +86,10 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			opEnts.remove(opEnts.size()-1);
 		}
 		//get the new last author and timestamp:
-		List<Operation> ops = unwrap(opEnts);
 		if(!opEnts.isEmpty()) {
 			OperationEntity lastEnt = opEnts.get(opEnts.size()-1);
-			Operation lastOp = ops.get(ops.size()-1);
 			table.stateTimestamp= lastEnt.timestamp;
-			table.last = lastOp.author;
+			table.last = lastEnt.author;
 			ofy().save().entity(table);
 		}
 		return table.state;
@@ -144,7 +142,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String tableId = getTableId();
 		long tid = Long.parseLong(tableId);
 		String user = getUser();
-		op.author = getSide(tid, user);
 		Table table = getTable(tid);
 		ServerContext ctx = new ServerContext();
 		ctx.game = table.state;
@@ -157,9 +154,10 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
 		e.adebug = ServerUtils.describe(op);
+		e.author = getSide(tid, user);
 		
-		if(table.last != op.author) {
-			table.last = op.author;
+		if(table.last != e.author) {
+			table.last = e.author;
 			table.stateTimestamp = new Date();
 			ofy().save().entities(e, table);
 		}else{

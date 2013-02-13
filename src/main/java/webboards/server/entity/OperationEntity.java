@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
+import webboards.client.games.scs.bastogne.BastogneSide;
+
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -22,6 +24,7 @@ public class OperationEntity implements Comparable<OperationEntity>, Serializabl
 	@Index
 	public Date timestamp = new Date();
 	public String adebug;
+	public BastogneSide author;
 	
 	@Override
 	public String toString() {

@@ -54,7 +54,7 @@ public class EarlMenu implements ClickHandler {
 		add("Remove unit");
 		logBtn = add("Show log");
 		add("2d6");
-		add("Toggle units");
+		add("Toggle units"); 
 
 		log("Playing as " + ctx.side);
 	}
@@ -170,7 +170,7 @@ public class EarlMenu implements ClickHandler {
 			if (op instanceof UndoOp) {
 				continue;
 			}else if(op instanceof Undoable){
-				return (Undoable) op;
+				return (Undoable)  op;
 			}
 		}
 		return null;
