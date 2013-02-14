@@ -12,6 +12,7 @@ import webboards.client.games.Area;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
+import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.ops.Operation;
 import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
@@ -48,13 +49,14 @@ public class EarlMenu implements ClickHandler {
 		menu.setVisible(true);
 		add("Undo Op");
 		add("Undo State");
+		add("Next phase");
 		add("Flip");
 		add("Clear traces");
 		add("Send msg");
-		add("Remove unit");
 		logBtn = add("Show log");
 		add("2d6");
 		add("Toggle units"); 
+		add("Remove unit");
 
 		log("Playing as " + ctx.side);
 	}
@@ -102,9 +104,16 @@ public class EarlMenu implements ClickHandler {
 		} else if ("Toggle units".equals(text)) {
 			toggleVisible(ctx.svg.getElementById("units").getStyle());
 			toggleVisible(ctx.svg.getElementById("markers").getStyle());
+		} else if ("Next phase".equals(text)) {
+			nextPhase();
 		} else {
 			Window.alert("Not implemented yet: " + text);
 		}
+	}
+
+	private void nextPhase() {
+		NextPhase op = new NextPhase();
+		ctx.ctx.process(op);
 	}
 
 	private void removeUnit() {

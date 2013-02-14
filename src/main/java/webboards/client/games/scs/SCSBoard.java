@@ -18,12 +18,14 @@ import webboards.client.games.Position;
 import webboards.client.utils.Browser;
 
 public class SCSBoard extends Board implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private SCSHex[][] hexes;
 	protected SCSHex[] workaround;
 	protected Map<String, SCSHex> areas = new HashMap<String, SCSHex>();
 	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();
 	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>();
+	public int phase = 0;
+	public int turn = 0;
 
 	protected SCSBoard() {
 	}

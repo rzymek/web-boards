@@ -10,6 +10,7 @@ import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
 import webboards.client.games.scs.bastogne.Bastogne;
+import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.menu.EarlClienContext;
 import webboards.client.menu.EarlMenu;
 import webboards.client.ops.Operation;
@@ -75,6 +76,7 @@ public class ClientEngine implements EntryPoint {
 		ClientEngine.this.display = display;
 		board =info.game.getBoard();
 		display.setBoard(board);
+		new NextPhase().draw(display.getCtx());
 		
 		final EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;

@@ -4,7 +4,7 @@ import webboards.client.games.TurnPhase;
 import webboards.client.games.scs.SCSPhase;
 
 public class TurnSequence {
-	public final TurnPhase[] phases = {
+	public final static TurnPhase[] PHASES = {
 		new TurnPhase(BastogneSide.US, SCSPhase.Reinforcements),
 		new TurnPhase(BastogneSide.US, BastognePhase.Road_March),
 		new TurnPhase(BastogneSide.US, BastognePhase.Air_Barrage),

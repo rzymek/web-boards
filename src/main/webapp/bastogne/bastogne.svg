@@ -34,6 +34,10 @@
   
   <g id="board" style="display:inline">
     <image xlink:href="board.jpg" width="3000" height="1941.1765" x="10" y="37.070801" id="img"/>
+    <rect width="296.62204" height="120.13194" x="2672.5647" y="1212.2371" style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"/>
+    <text x="2681.0647" y="1298.7723" style="font-size:19.09885216px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"><tspan x="2681.0647" y="1298.7723" id="phaseText">Loading...</tspan></text>
+    <text y="1249.3149" x="2681.5947" style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"><tspan y="1249.3149" x="2681.5947" id="turnText">Turn:</tspan></text>
+    <text y="1274.1661" x="2681.0647" style="font-size:19.09885215999999986px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"><tspan y="1274.1661" x="2681.0647">Phase: </tspan></text>
   </g>
   <g id="area" style="display:inline">
     <path d="m 61.852783,1973.443359 -31.892456,0.000000 -15.946167,-27.671631 15.946167,-27.671753 31.892456,0.000000 15.946167,27.671753 z" class="h" id="h0101"/>
