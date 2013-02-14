@@ -21,12 +21,6 @@
 	text-align: center;
 	padding:0px; 
 }
-.c {
-	pointer-events: auto;
-}
-.s { 
-	pointer-events: auto;
-}
 </style>
 </head>
 <body id="body">
