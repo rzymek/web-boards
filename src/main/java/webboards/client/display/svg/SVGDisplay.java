@@ -19,7 +19,6 @@ import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
-import webboards.client.ClientEngine;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.HexInfo;
