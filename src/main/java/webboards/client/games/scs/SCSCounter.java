@@ -113,8 +113,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	
 	private Operation onCombat(GameCtx ctx, List<CounterInfo> stack, Hex target) {
 		Hex from = (Hex) getPosition();
-		DeclareAttack declare = new DeclareAttack(from, target);
-		return declare;
+		return new DeclareAttack(from, target);
 	}
 
 	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Hex target) {

@@ -528,4 +528,9 @@ public class SVGDisplay extends BasicDisplay {
 		});
 		svg.getElementById("units").appendChild(stackSelector);
 	}
+	
+	@Override
+	public void setText(String id, String value) {
+		getSVGElement(id).setInnerText(value);
+	}
 }

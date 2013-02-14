@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import webboards.client.data.CounterInfo;
 import webboards.client.data.HexInfo;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
@@ -54,7 +55,20 @@ public class SCSHex extends HexInfo {
 		if(traits.contains(HexTraits.CITY)) {
 			modifier *= 2;
 		}
+		if(hasDG()) {
+			modifier /= 2;
+		}
 		return modifier;
+	}
+
+	private boolean hasDG() {
+		for (CounterInfo piece : pieces) {
+			if(piece instanceof SCSMarker) {
+				//TODO: check if marker is realy DG
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int getBarrageModifier() {

@@ -46,4 +46,6 @@ public interface EarlDisplay {
 
 	void clearLine(Position from, Position to);
 
+	void setText(String id, String value);
+
 }
