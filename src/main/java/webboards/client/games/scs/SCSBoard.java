@@ -6,12 +6,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import webboards.client.data.Board;
-import webboards.client.data.CounterInfo;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
@@ -125,27 +123,31 @@ public class SCSBoard extends Board implements Serializable {
 		barrages.remove(attacing);
 	}
 
-	private static float getDefenceRawSum(Collection<CounterInfo> defending) {
+	private static float getDefenceRawSum(Collection<SCSCounter> defending) {
 		float defence = 0;
-		for (CounterInfo counter : defending) {
-			defence += ((SCSCounter) counter).getDefence();
+		for (SCSCounter counter : defending) {
+			defence += counter.getDefence();
 		}
 		return defence;
 	}
 
 	private static float getAttackRawSum(Collection<SCSHex> list) {
-		float attack = 0;
+		float total = 0;
 		for (SCSHex hex : list) {
-			for (CounterInfo c : hex.getPieces()) {
-				//TODO: !instanceof SCSMarker!
-				attack += ((SCSCounter) c).getAttack();
+			int attack = 0;
+			for (SCSCounter c : hex.getUnits()) {
+				attack += c.getAttack();
 			}
+			if(hex.hasDG()) {
+				attack /= 2;
+			}
+			total += attack;
 		}
-		return attack;
+		return total;
 	}
 
 	public static int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
-		List<CounterInfo> defending = target.getPieces();
+		Collection<SCSCounter> defending = target.getUnits();
 		float defence = getDefenceRawSum(defending);
 		float defenceModifier = target.getDefenceCombatModifier();
 		defence *= defenceModifier;

@@ -1,8 +1,11 @@
 package webboards.client.games.scs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import webboards.client.data.CounterInfo;
@@ -21,6 +24,25 @@ public class SCSHex extends HexInfo {
 
 	public SCSHex(HexTraits... traits) {
 		this.traits = new HashSet<HexTraits>(Arrays.asList(traits));
+	}
+	
+	public Collection<SCSCounter> getUnits() {
+		List<SCSCounter> units = new ArrayList<SCSCounter>();
+		for (CounterInfo piece : pieces) {
+			if(piece instanceof SCSCounter) {
+				units.add((SCSCounter) piece);
+			}
+		}
+		return Collections.unmodifiableCollection(units);
+	}
+	public Collection<SCSMarker> getMarkers() {
+		List<SCSMarker> result = new ArrayList<SCSMarker>();
+		for (CounterInfo piece : pieces) {
+			if(piece instanceof SCSMarker) {
+				result.add((SCSMarker) piece);
+			}
+		}
+		return Collections.unmodifiableCollection(result);
 	}
 
 	public Set<HexTraits> getTraits() {
@@ -61,7 +83,7 @@ public class SCSHex extends HexInfo {
 		return modifier;
 	}
 
-	private boolean hasDG() {
+	public boolean hasDG() {
 		for (CounterInfo piece : pieces) {
 			if(piece instanceof SCSMarker) {
 				//TODO: check if marker is realy DG
@@ -71,13 +93,16 @@ public class SCSHex extends HexInfo {
 		return false;
 	}
 
-	public int getBarrageModifier() {
+	public float applyBarrageModifiers(float attack) {
+		if(hasDG()) {
+			attack /= 2;
+		}
 		if(traits.contains(HexTraits.FOREST)) {
-			return 1;
+			attack += 1;
 		}
 		if(traits.contains(HexTraits.CITY)) {
-			return -1;
+			attack -= 1;
 		}
-		return 0;
+		return attack;
 	}
 }

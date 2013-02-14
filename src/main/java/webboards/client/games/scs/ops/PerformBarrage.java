@@ -65,9 +65,8 @@ public class PerformBarrage extends AbstractOperation {
 		Bastogne game = (Bastogne) ctx.game;
 		SCSBoard board = (SCSBoard) game.getBoard();
 		SCSHex hex = board.getInfo(target);
-		int mod = hex.getBarrageModifier();
 		SCSCounter attacker = (SCSCounter) board.getInfo(arty);
-		int attack = attacker.getAttack() + mod;
+		float attack = hex.applyBarrageModifiers(attacker.getAttack());
 
 		DiceRoll roll = new DiceRoll();
 		roll.dice = 1;

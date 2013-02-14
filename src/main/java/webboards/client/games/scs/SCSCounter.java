@@ -121,7 +121,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 		board.declareBarrage(this, target);
 		new PerformBarrage(this, target).drawDetails(ctx);
 		SCSHex hex = (SCSHex) ctx.board.getInfo(target);
-		int value = attack + hex.getBarrageModifier();
+		int value = (int) hex.applyBarrageModifiers(attack);
 		ctx.display.drawOds(ctx.display.getCenter(target), "" + value, ref().toString());
 		return null;
 	}
