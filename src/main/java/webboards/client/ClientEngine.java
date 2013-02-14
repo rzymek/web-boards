@@ -48,15 +48,16 @@ public class ClientEngine implements EntryPoint {
 		}else{
 			connect();
 		}
-		if(isTouchDevice()) {
-			int width = (int) svg.getViewBox().getBaseVal().getWidth();
-			int height = (int) svg.getViewBox().getBaseVal().getHeight();
-			log("setting width:height to "+width+":"+height);
+		if(!isTouchDevice()) {
+//			int width = (int) svg.getViewBox().getBaseVal().getWidth();
+//			int height = (int) svg.getViewBox().getBaseVal().getHeight();
+//			log("setting width:height to "+width+":"+height);
+			String width = "100%";
+			String height = "100%";
 			svg.getWidth().getBaseVal().setValueAsString(width+"");
 			svg.getHeight().getBaseVal().setValueAsString(height+"");
 		}
 		Window.setTitle("Bastogne!");
-//		centerView();
 		setupKeys();
 	}
 
@@ -75,19 +76,20 @@ public class ClientEngine implements EntryPoint {
 		display = new SVGDisplay(svg, info.side);
 		ClientEngine.this.display = display;
 		board =info.game.getBoard();
-		display.setBoard(board);
-		new NextPhase().draw(display.getCtx());
 		
 		final EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
 		ctx.game = (Bastogne) info.game;
 		ctx.side = info.side;
 		ctx.ctx = display.getCtx();
+		ctx.ctx.board = board;
 		ctx.engine = this;
 		ctx.ctx.ops = info.ops;
 		ctx.initial = info.game;
 		
 		menu = new EarlMenu(ctx);
+		display.setBoard(board);
+		new NextPhase().draw(display.getCtx());
 
 		NotificationListener listener = new NotificationListener(ctx.ctx);
 		listener.join(info.channelToken);
@@ -107,7 +109,6 @@ public class ClientEngine implements EntryPoint {
 		}
 	}
 
-
 	public void update(GameInfo info) {
 		for (Operation op : info.ops) {
 			op.updateBoard(board);
@@ -117,7 +118,6 @@ public class ClientEngine implements EntryPoint {
 			log(op.toString());
 		}
 	}
-
 
 	public void setupKeys() {
 		RootPanel.get().addDomHandler(new KeyPressHandler() {			
