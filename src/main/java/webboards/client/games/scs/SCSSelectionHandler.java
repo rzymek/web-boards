@@ -38,19 +38,16 @@ public class SCSSelectionHandler extends SelectionHandler {
 		}
 		Hex target = (Hex) pos;
 		Collection<Hex> attacking = board.getAttacking(target);
-		if (board.isDeclaredAttackOn(target)) {
+		Collection<SCSCounter> arty = board.getBarragesOn(target);
+		if(!arty.isEmpty()) {
+			SCSCounter attacing = arty.iterator().next();
+			board.clearBarrageOf(attacing);
+			return new PerformBarrage(attacing, target);
+		} else if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown
 			board.clearAttacksOn(target);
-			return new PerformAttack(target, attacking);		
-		} else {
-			Collection<SCSCounter> arty = board.getBarragesOn(target);
-			if(arty.isEmpty()) {
-				return null;
-			}else{
-				SCSCounter attacing = arty.iterator().next();
-				board.clearBarrageOf(attacing);
-				return new PerformBarrage(attacing, target);
-			}
+			return new PerformAttack(target, attacking);			
 		}
+		return null; 
 	}
 }
