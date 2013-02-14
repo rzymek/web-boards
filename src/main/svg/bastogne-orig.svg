@@ -62,7 +62,7 @@
     </marker>
     <style
        type="text/css"
-       id="style2990"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1}
+       id="style2990"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1;pointer-events:all}
 	</style>
     <style
        type="text/css"
