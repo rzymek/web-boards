@@ -19,6 +19,7 @@ import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
+import webboards.client.ClientEngine;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.HexInfo;
@@ -56,7 +57,7 @@ public class SVGDisplay extends BasicDisplay {
 	public SVGDisplay(SVGSVGElement svg, BastogneSide side) {
 		super(side);
 		this.svg = svg;
-		stackSelector = (SVGRectElement) svg.getElementById("stack-selector");
+		stackSelector = (SVGRectElement) svg.getElementById("stackSelector");
 		resetCounters();		
 		//TODO: move elsewhere:
 		handler = new SCSSelectionHandler(ctx);
@@ -510,7 +511,9 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	public void clearTraces() {
 		clearMarkers("traces");
+		clearMarkers("markers");
 	}
+	
 	@Override
 	protected void resetCounters() {
 		SVGRectElement rect = (SVGRectElement) getSVGElement("selection");

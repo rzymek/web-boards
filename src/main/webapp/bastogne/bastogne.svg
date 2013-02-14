@@ -1911,6 +1911,6 @@
       <text transform="scale(0.67037019,1.4917131)" y="6.6151958" x="2.3213608" style="font-size:15.50794411000000039px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan y="6.6151958" x="2.3213615" id="result-text">D1r3</tspan></text>
     </g>
     <path d="m 148.67082,-89.109646 165.40405,45.97641" id="trace" style="fill:none;stroke:#1506ff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.51141555;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#Arrow2Send)"/>
-    <rect width="57.219021" height="52.768597" x="131.99683" y="-60.271507" ry="7.0260873" id="stack-selector" style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none"/>
+    <rect width="57.219021" height="52.768597" x="131.99683" y="-60.271507" ry="7.0260873" id="stackSelector" style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none"/>
   </g>
 <g id="traces"/><g id="units"/><g id="markers"/></svg>

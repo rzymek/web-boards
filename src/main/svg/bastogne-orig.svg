@@ -33925,7 +33925,7 @@
        sodipodi:nodetypes="cc" />
     <rect
        style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none"
-       id="stack-selector"
+       id="stackSelector"
        width="57.219021"
        height="52.768597"
        x="131.99683"
