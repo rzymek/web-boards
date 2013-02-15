@@ -3,7 +3,6 @@ package webboards.client.display;
 import java.util.Collection;
 import java.util.List;
 
-import webboards.client.ClientEngine;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
@@ -43,11 +42,8 @@ public abstract class BasicDisplay implements EarlDisplay {
 
 	protected void initCounters(final Board board) {
 		Collection<Position> stacks = board.getStacks();
-		ClientEngine.log("counters: " + board.getCounters().toString());
-		ClientEngine.log("stacks: " + stacks.toString());
 		for (Position pos : stacks) {
 			List<CounterInfo> counters = board.getInfo(pos).getPieces();
-			ClientEngine.log(pos + ": " + counters);
 			for (CounterInfo counter : counters) {
 				createCounter(counter, board);
 			}

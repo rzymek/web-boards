@@ -6,7 +6,6 @@ import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
-import webboards.client.ClientEngine;
 import webboards.client.display.VisualCoords;
 
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -39,7 +38,6 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
 		size = new VisualCoords((int) viewbox.getWidth(), (int) viewbox.getHeight());
 		minScale = Math.min(Window.getClientWidth()  / viewbox.getWidth(), Window.getClientHeight() / viewbox.getHeight());
-		ClientEngine.log("minScale="+minScale);
 	}
 
 	@Override
