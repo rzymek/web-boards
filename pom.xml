@@ -10,13 +10,15 @@
 	<prerequisites>
 		<maven>3.0</maven>
 	</prerequisites>
-	
+
 	<properties>
+		<appid>web-boards</appid>
+		<ver>1</ver>
 		<gwt.version>2.5.0</gwt.version>
 		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
 		<gae.version>1.7.5</gae.version>
 		<gae.mvn.version>1.7.5-SNAPSHOT</gae.mvn.version>
-		
+
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -143,6 +145,21 @@
 					<jvmFlags>
 						<value>-Xrunjdwp:transport=dt_socket,address=${dev.debug.port},server=y,suspend=n</value>
 					</jvmFlags>
+				</configuration>
+			</plugin>
+			<!-- set GAE appId and Version from maven properties -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<include>WEB-INF/appengine-web.xml</include>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
