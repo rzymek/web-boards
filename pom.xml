@@ -7,9 +7,16 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+	
 	<properties>
 		<gwt.version>2.5.0</gwt.version>
-		<gae.version>1.7.4</gae.version>
+		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
+		<gae.version>1.7.5</gae.version>
+		<gae.mvn.version>1.7.5-SNAPSHOT</gae.mvn.version>
+		
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +29,6 @@
 			<add-linker name="xsiframe"/>  
 			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
 			<set-property name="user.agent" value="safari"/>		
-			<set-property name="compiler.useSourceMaps" value="true"/>
 			<set-property name="compiler.stackMode" value="emulated"/>			
 			<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true"/>
 			<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true"/>
@@ -69,14 +75,16 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-jsr107cache</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		 -->
 		<!-- google app engine -->
 		<dependency>
 			<groupId>com.google.appengine</groupId>
@@ -99,7 +107,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt.version}</version>
+				<version>${gwt.mvn.version}</version>
 				<executions>
 					<execution>
 						<phase>prepare-package</phase>
@@ -119,7 +127,7 @@
 					<bindAddress>0.0.0.0</bindAddress>
 					<port>${dev.server.port}</port>
 					<debugPort>${dev.debug.port}</debugPort>
-					<!-- <optimizationLevel>0</optimizationLevel> -->
+					<optimizationLevel>0</optimizationLevel>
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
 					<skip>${nogwt}</skip>
@@ -128,7 +136,7 @@
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>1.7.5-SNAPSHOT</version>
+				<version>${gae.mvn.version}</version>
 				<configuration>
 					<address>0.0.0.0</address>
 					<port>${dev.server.port}</port>
@@ -174,7 +182,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>gwt-maven-plugin</artifactId>
-						<version>${gwt.version}</version>
+						<version>${gwt.mvn.version}</version>
 						<configuration>
 							<inplace>false</inplace>
 							<compileReport>true</compileReport>
