@@ -146,7 +146,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String user = getUser();
 		Table table = getTable(tid);
 		ServerContext ctx = new ServerContext();
-		ctx.game = table.state;
+		ctx.game = getGame(table);		
 		op.updateBoard(ctx.game.getBoard());
 		op.serverExecute(ctx);
 
@@ -165,20 +165,35 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}else{
 			ofy().save().entity(e);
 		}
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
-		memcache.put(tid, table);
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
 	}
 
-	private Table getTable(long tableId) {
+	
+	private Game getGame(Table table) {
 		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
-		Table table = (Table) memcache.get(tableId);
-		if(table != null) {
-			return table;
+		Game game = (Game) memcache.get("game"+table.id);
+		if(game == null) {
+			System.out.println(table.id+" game NOT in cache.");
+			game = table.state;
+			ServerContext ctx = new ServerContext();
+			ctx.game = game;		
+			List<Operation> ops = loadOps(table);
+			for (Operation op : ops) {
+				System.out.println(table.id+" executing: "+op);
+				op.updateBoard(ctx.game.getBoard());
+				op.serverExecute(ctx);
+			}
+			memcache.put("game"+table.id, game);
+		}else{
+			System.out.println(table.id+" game taken from cache.");
 		}
-		table = ofy().load().type(Table.class).id(tableId).get();
+		return game;
+	}
+
+	private Table getTable(long tableId) {
+		Table table = ofy().load().type(Table.class).id(tableId).get();
 		if(table == null){
 			throw new EarlServerException("Invalid table id="+tableId);
 		}

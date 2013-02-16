@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.server.entity.CurrentGame;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Table;
 
@@ -35,6 +36,7 @@ public class ManagerServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ObjectifyService.register(OperationEntity.class);
 		ObjectifyService.register(Table.class);
+		ObjectifyService.register(CurrentGame.class);
 	}
 
 	@Override

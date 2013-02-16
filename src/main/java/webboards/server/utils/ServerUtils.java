@@ -36,7 +36,6 @@ public final class ServerUtils {
 		Class<?> type = obj.getClass();
 		Field[] fields = type.getFields();
 		StringBuilder buf = new StringBuilder();
-		// buf.append(type.getSimpleName()).append("\n");
 		for (Field field : fields) {
 			buf.append(field.getName()).append(":");
 			try {
