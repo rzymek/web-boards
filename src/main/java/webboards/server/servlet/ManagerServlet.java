@@ -1,5 +1,7 @@
 package webboards.server.servlet;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.server.entity.CurrentGame;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Table;
 
@@ -26,8 +27,6 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.Query;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class ManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger log = Logger.getLogger(ManagerServlet.class.getName());
@@ -36,7 +35,6 @@ public class ManagerServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ObjectifyService.register(OperationEntity.class);
 		ObjectifyService.register(Table.class);
-		ObjectifyService.register(CurrentGame.class);
 	}
 
 	@Override
