@@ -1,5 +1,7 @@
 package webboards.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,13 +31,12 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
 
 	private static final long serialVersionUID = 1L;
 	private transient final Notify notify = new Notify();
+	private transient MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 
 	@Override
 	protected void doUnexpectedFailure(Throwable e) {
@@ -124,7 +125,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if (principal == null) {
 			throw new SecurityException("Not logged in.");
 		}
-		log.fine("user: "+principal.getName());
+		log.finest("user: "+principal.getName());
 		return principal.getName();
 	}
 
@@ -145,10 +146,12 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		long tid = Long.parseLong(tableId);
 		String user = getUser();
 		Table table = getTable(tid);
-		ServerContext ctx = new ServerContext();
-		ctx.game = getGame(table);		
-		op.updateBoard(ctx.game.getBoard());
-		op.serverExecute(ctx);
+//		ServerContext ctx = new ServerContext(getGame(table));
+//		op.updateBoard(ctx.game.getBoard());		
+//		op.serverExecute(ctx);
+		op.updateBoard(table.state.getBoard());
+		op.serverExecute(new ServerContext(table.state));
+		table.lastOp = op.toString();
 
 		OperationEntity e = new OperationEntity();
 		e.sessionId = tableId;		
@@ -165,6 +168,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}else{
 			ofy().save().entity(e);
 		}
+		log.fine("putting table "+tid+" in memcache. LastOp: "+table.lastOp);
+		memcache.put(tid, table);
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
@@ -177,8 +182,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if(game == null) {
 			System.out.println(table.id+" game NOT in cache.");
 			game = table.state;
-			ServerContext ctx = new ServerContext();
-			ctx.game = game;		
+			ServerContext ctx = new ServerContext(game);
 			List<Operation> ops = loadOps(table);
 			for (Operation op : ops) {
 				System.out.println(table.id+" executing: "+op);
@@ -193,10 +197,25 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 
 	private Table getTable(long tableId) {
-		Table table = ofy().load().type(Table.class).id(tableId).get();
+		Table table = (Table) memcache.get(tableId);
+		if(table != null) {
+			log.fine(tableId+" found in memcache. LastOp:"+table.lastOp);
+			return table;
+		}
+		table = ofy().load().type(Table.class).id(tableId).get();
 		if(table == null){
 			throw new EarlServerException("Invalid table id="+tableId);
 		}
+		log.fine(tableId+" found in db. LastOp:"+table.lastOp);
+		List<Operation> ops = loadOps(table);
+		ServerContext ctx = new ServerContext(table.state);
+		for (Operation op : ops) {
+			log.fine(table.id+" executing: "+op);
+			op.updateBoard(ctx.game.getBoard());
+			op.serverExecute(ctx);
+			table.lastOp = op.toString();
+		}
+		log.fine(tableId+" from db updated. LastOp:"+table.lastOp);
 		return table;
 	}
 

@@ -29,6 +29,7 @@ public class Table implements Serializable {
 	@Serialize
 	public Game state;
 	public Date stateTimestamp;
+	public String lastOp;
 
 	@Override
 	public String toString() {
