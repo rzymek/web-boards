@@ -1,6 +1,5 @@
 package webboards.client.remote;
 
-import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.ops.Operation;
 
@@ -12,5 +11,4 @@ public interface ServerEngine extends RemoteService {
 	GameInfo getState(String tableId);
 	Operation process(Operation op);
 	void join(String tableId);
-	Game undo(long table);
 }

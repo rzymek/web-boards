@@ -74,7 +74,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			throw ex;
 		}
 	}
-	
+/*	
 	@Override
 	public Game undo(long tid) {
 		Table table = getTable(tid);
@@ -97,7 +97,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		}
 		return table.state;
 	}
-	
+	*/
 	public List<Operation> loadOps(Table table) {
 		return unwrap(loadOpEntities(table.id, table.stateTimestamp));
 	}
@@ -177,27 +177,6 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
-	}
-
-	
-	private Game getGame(Table table) {
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
-		Game game = (Game) memcache.get("game"+table.id);
-		if(game == null) {
-			System.out.println(table.id+" game NOT in cache.");
-			game = table.state;
-			ServerContext ctx = new ServerContext(game);
-			List<Operation> ops = loadOps(table);
-			for (Operation op : ops) {
-				System.out.println(table.id+" executing: "+op);
-				op.updateBoard(ctx.game.getBoard());
-				op.serverExecute(ctx);
-			}
-			memcache.put("game"+table.id, game);
-		}else{
-			System.out.println(table.id+" game taken from cache.");
-		}
-		return game;
 	}
 
 	private Table getCurrentTable(long tid) {
