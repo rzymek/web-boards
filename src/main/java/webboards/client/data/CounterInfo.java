@@ -50,13 +50,12 @@ public abstract class CounterInfo implements Serializable {
 			ctx.display.select(null);
 			return null;
 		}else{
-			ctx.display.select(null);
-			return new Move(this, counter.getPosition());
+			return onPointToEmpty(ctx, counter.getPosition());
 		}
 	}
 
 	public Operation onPointToEmpty(GameCtx ctx, Position pos) {
-		ctx.display.select(null);
+//		ctx.display.select(null);
 		return new Move(this, pos);
 	}
 
@@ -70,8 +69,7 @@ public abstract class CounterInfo implements Serializable {
 			ctx.display.showStackSelector(stack, pos);
 			return null;
 		}else{
-			ctx.display.select(null);
-			return new Move(this, pos);
+			return onPointToEmpty(ctx, pos);
 		}
 	}
 
