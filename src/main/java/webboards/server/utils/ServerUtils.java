@@ -64,4 +64,9 @@ public final class ServerUtils {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T extends Serializable> T clone(T obj) {
+		return (T) deserialize(serialize(obj));
+	}
+
 }

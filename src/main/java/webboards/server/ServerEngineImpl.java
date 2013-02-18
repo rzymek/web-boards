@@ -145,7 +145,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		String tableId = getTableId();
 		long tid = Long.parseLong(tableId);
 		String user = getUser();
-		Table table = getTable(tid);
+		Table table = getCurrentTable(tid);
 //		ServerContext ctx = new ServerContext(getGame(table));
 //		op.updateBoard(ctx.game.getBoard());		
 //		op.serverExecute(ctx);
@@ -169,7 +169,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			ofy().save().entity(e);
 		}
 		log.fine("putting table "+tid+" in memcache. LastOp: "+table.lastOp);
-		memcache.put(tid, table);
+		memcache.put("tbl#"+tid, table);
 		notify.notifyListeners(table, op, user);
 		log.info("Executed "+op);
 		return op;
@@ -196,17 +196,14 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return game;
 	}
 
-	private Table getTable(long tableId) {
-		Table table = (Table) memcache.get(tableId);
+	private Table getCurrentTable(long tid) {
+		Table table = (Table) memcache.get("tbl#"+tid);
 		if(table != null) {
-			log.fine(tableId+" found in memcache. LastOp:"+table.lastOp);
+			log.fine(tid+" found in memcache. LastOp:"+table.lastOp);
 			return table;
 		}
-		table = ofy().load().type(Table.class).id(tableId).get();
-		if(table == null){
-			throw new EarlServerException("Invalid table id="+tableId);
-		}
-		log.fine(tableId+" found in db. LastOp:"+table.lastOp);
+		table = ServerUtils.clone(getTable(tid));
+		log.fine(tid+" not it memcache. Retreiving from DB+update. LastOp:"+table.lastOp);
 		List<Operation> ops = loadOps(table);
 		ServerContext ctx = new ServerContext(table.state);
 		for (Operation op : ops) {
@@ -215,7 +212,16 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			op.serverExecute(ctx);
 			table.lastOp = op.toString();
 		}
-		log.fine(tableId+" from db updated. LastOp:"+table.lastOp);
+		log.fine(tid+" from db updated. LastOp:"+table.lastOp);
+		return table;
+	}
+
+	private Table getTable(long tableId) {
+		Table table = ofy().load().type(Table.class).id(tableId).get();
+		if(table == null){
+			throw new EarlServerException("Invalid table id="+tableId);
+		}
+		log.fine(tableId+" found in db. LastOp:"+table.lastOp);
 		return table;
 	}
 
