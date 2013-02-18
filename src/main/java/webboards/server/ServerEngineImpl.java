@@ -8,11 +8,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
-import webboards.client.ex.EarlException;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
@@ -27,6 +26,7 @@ import webboards.server.utils.ServerUtils;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
@@ -40,7 +40,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	@Override
 	protected void doUnexpectedFailure(Throwable e) {
-		e.printStackTrace();
+		log.log(Level.SEVERE, "UnexpectedFailure", e);
 		super.doUnexpectedFailure(e);
 	}
 
@@ -99,7 +99,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 	*/
 	public List<Operation> loadOps(Table table) {
-		return unwrap(loadOpEntities(table.id, table.stateTimestamp));
+		return unwrap(loadOpEntities(table));
 	}
 
 	public List<Operation> unwrap(Collection<OperationEntity> res) {
@@ -111,11 +111,11 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return results;
 	}
 
-	public List<OperationEntity> loadOpEntities(long tableId, Date timestamp) {
+	public List<OperationEntity> loadOpEntities(Table table) {
 		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tableId));
-		if(timestamp != null) {
-			query = query.filter("timestamp >=", timestamp);
+		Query<OperationEntity> query = load.ancestor(table);
+		if(table.stateTimestamp != null) {
+			query = query.filter("timestamp >=", table.stateTimestamp);
 		}
 		return query.order("timestamp").list();
 	}
@@ -141,42 +141,51 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 
 	@Override
-	public Operation process(Operation op) {
-		String tableId = getTableId();
-		long tid = Long.parseLong(tableId);
-		String user = getUser();
-		Table table = getCurrentTable(tid);
-		OperationEntity e = new OperationEntity();
-		e.author = getSide(tid, user);
+	public Operation process(final Operation op) {
+		return ofy().transact(new Work<Operation>(){
+			@Override
+			public Operation run() {
+				final String tableId = getTableId();
 				
-		if(table.last == null) {
-			//first operation in the game;
-			table.last = e.author;
-			ofy().save().entity(table);
-		}
+				final long tid = Long.parseLong(tableId);
+				final String user = getUser();
+				final BastogneSide side = getSide(tid, user);
+				Table table = getCurrentTable(tid);
+						
+				if(table.last == null) {
+					//first operation in the game;
+					//save the table with the game state unchanged.
+					//it will not be saveed again below, as last == side
+					table.last = side;
+					ofy().save().entity(table);
+				}
 
-		op.updateBoard(table.state.getBoard());
-		op.serverExecute(new ServerContext(table.state));
-		table.lastOp = op.toString();
+				op.updateBoard(table.state.getBoard());
+				op.serverExecute(new ServerContext(table.state));
+				table.lastOp = op.toString();
 
-		e.sessionId = tableId;		
-		e.data = ServerUtils.serialize(op);
-		e.className = op.getClass().getName();
-		e.timestamp = new Date();
-		e.adebug = ServerUtils.describe(op);
-		
-		if(table.last != e.author) {
-			table.last = e.author;
-			table.stateTimestamp = new Date();
-			ofy().save().entities(e, table);
-		}else{
-			ofy().save().entity(e);
-		}
-		log.fine("putting table "+tid+" in memcache. LastOp: "+table.lastOp);
-		memcache.put("tbl#"+tid, table);
-		notify.notifyListeners(table, op, user);
-		log.info("Executed "+op);
-		return op;
+				OperationEntity e = new OperationEntity();
+				e.table = Key.create(table); 
+				e.author = side; 
+				e.data = ServerUtils.serialize(op);
+				e.className = op.getClass().getName();
+				e.timestamp = new Date();
+				e.adebug = ServerUtils.describe(op);
+
+				if(table.last != side) {
+					table.last = side;
+					table.stateTimestamp = new Date();
+					ofy().save().entities(e, table);
+				}else{
+					ofy().save().entity(e);					
+				}
+				log.fine("putting table "+tid+" in memcache. LastOp: "+table.lastOp);
+				memcache.put("tbl#"+tid, table);
+				notify.notifyListeners(table, op, user);
+				log.info("Executed "+op);
+				return op;
+			}			
+		});
 	}
 
 	private Table getCurrentTable(long tid) {
