@@ -146,20 +146,24 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		long tid = Long.parseLong(tableId);
 		String user = getUser();
 		Table table = getCurrentTable(tid);
-//		ServerContext ctx = new ServerContext(getGame(table));
-//		op.updateBoard(ctx.game.getBoard());		
-//		op.serverExecute(ctx);
+		OperationEntity e = new OperationEntity();
+		e.author = getSide(tid, user);
+				
+		if(table.last == null) {
+			//first operation in the game;
+			table.last = e.author;
+			ofy().save().entity(table);
+		}
+
 		op.updateBoard(table.state.getBoard());
 		op.serverExecute(new ServerContext(table.state));
 		table.lastOp = op.toString();
 
-		OperationEntity e = new OperationEntity();
 		e.sessionId = tableId;		
 		e.data = ServerUtils.serialize(op);
 		e.className = op.getClass().getName();
 		e.timestamp = new Date();
 		e.adebug = ServerUtils.describe(op);
-		e.author = getSide(tid, user);
 		
 		if(table.last != e.author) {
 			table.last = e.author;
