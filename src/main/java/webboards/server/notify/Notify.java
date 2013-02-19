@@ -1,6 +1,5 @@
 package webboards.server.notify;
 
-import no.eirikb.gwtchannelapi.server.ChannelServer;
 import webboards.client.OperationMessage;
 import webboards.client.ops.Operation;
 import webboards.server.entity.Table;
@@ -18,7 +17,7 @@ public class Notify {
 		String clientId = getClientId(table.id, recipient);
 		OperationMessage message = new OperationMessage();
 		message.op = op;
-		ChannelServer.send(clientId, message);
+//		ChannelServer.send(clientId, message);
 	}
 
 	private String getRecipient(String fromUser, Table table) {
