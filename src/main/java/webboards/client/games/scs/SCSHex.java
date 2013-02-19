@@ -2,7 +2,6 @@ package webboards.client.games.scs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -26,23 +25,23 @@ public class SCSHex extends HexInfo {
 		this.traits = new HashSet<HexTraits>(Arrays.asList(traits));
 	}
 	
-	public Collection<SCSCounter> getUnits() {
+	public List<SCSCounter> getUnits() {
 		List<SCSCounter> units = new ArrayList<SCSCounter>();
 		for (CounterInfo piece : pieces) {
 			if(piece instanceof SCSCounter) {
 				units.add((SCSCounter) piece);
 			}
 		}
-		return Collections.unmodifiableCollection(units);
+		return Collections.unmodifiableList(units);
 	}
-	public Collection<SCSMarker> getMarkers() {
+	public List<SCSMarker> getMarkers() {
 		List<SCSMarker> result = new ArrayList<SCSMarker>();
 		for (CounterInfo piece : pieces) {
 			if(piece instanceof SCSMarker) {
 				result.add((SCSMarker) piece);
 			}
 		}
-		return Collections.unmodifiableCollection(result);
+		return Collections.unmodifiableList(result);
 	}
 
 	public Set<HexTraits> getTraits() {

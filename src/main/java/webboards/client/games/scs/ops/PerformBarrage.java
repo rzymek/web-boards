@@ -107,10 +107,14 @@ public class PerformBarrage extends AbstractOperation {
 	@Override
 	public void postServer(GameCtx ctx) {
 		if (resultDG) {
-			SCSMarker dg = new SCSMarker("dg" + target, "admin/misc_us-dg.png", BastogneSide.US);
-			ctx.board.place(target, dg);
-			ctx.display.createCounter(dg, ctx.board);
-			ctx.display.alignStack(target);
+			SCSHex hex = (SCSHex) ctx.board.getInfo(target);
+			if(hex.getMarkers().isEmpty()) {
+				BastogneSide tgOwner = hex.getUnits().get(0).getOwner();			
+				SCSMarker dg = new SCSMarker("dg" + target, "admin/misc_"+tgOwner.name().toLowerCase()+"-dg.png", tgOwner);
+				ctx.board.place(target, dg);
+				ctx.display.createCounter(dg, ctx.board);
+				ctx.display.alignStack(target);
+			}
 		}
 		VisualCoords pos = ctx.display.getCenter(target);
 		ctx.display.clearOds(arty.toString());
