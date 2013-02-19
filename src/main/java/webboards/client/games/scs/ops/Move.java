@@ -19,10 +19,7 @@ public class Move extends AbstractOperation implements Undoable {
 
 	public Move(CounterInfo counter, Position to) {
 		counterRef = counter.ref();
-		Position from = counter.getPosition();
-		if (from != null) {
-			this.from = from;
-		}
+		this.from = counter.getPosition();
 		this.to = to;
 	}
 
