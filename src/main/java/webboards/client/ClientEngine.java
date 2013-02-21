@@ -92,7 +92,7 @@ public class ClientEngine implements EntryPoint {
 		new NextPhase().draw(display.getCtx());
 
 		NotificationListener listener = new NotificationListener(ctx.ctx);
-		listener.join(info.channelToken);
+//		listener.join(info.channelToken);
 		
 		update(info);
 		if(info.joinAs != null) {

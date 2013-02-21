@@ -1,9 +1,7 @@
 package webboards.server.notify;
 
-import no.eirikb.gwtchannelapi.server.ChannelServer;
 import webboards.client.OperationMessage;
 import webboards.client.ops.Operation;
-import webboards.client.ops.generic.OpponentConnected;
 import webboards.server.entity.Table;
 
 import com.google.appengine.api.channel.ChannelService;
@@ -19,7 +17,7 @@ public class Notify {
 		String clientId = getClientId(table.id, recipient);
 		OperationMessage message = new OperationMessage();
 		message.op = op;
-		ChannelServer.send(clientId, message);
+//		ChannelServer.send(clientId, message);
 	}
 
 	private String getRecipient(String fromUser, Table table) {
@@ -35,9 +33,10 @@ public class Notify {
 	public String openChannel(Table table, String user) {
 		ChannelService service = ChannelServiceFactory.getChannelService();
 		String clientId = getClientId(table.id, user);
-		String token = service.createChannel(clientId);
-		notifyListeners(table, new OpponentConnected(user), user);
-		return token;
+//		String token = service.createChannel(clientId);
+//		notifyListeners(table, new OpponentConnected(user), user);
+//		return token;
+		return "";
 	}
 
 	private String getClientId(long tableId, String user) {
