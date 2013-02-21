@@ -40,7 +40,7 @@ public class Bastogne implements Game, IsSerializable {
 
 	public void setupScenarion52() {
 		BastogneCampain campain = new BastogneCampain(board);
-		campain.setup();
+		campain.battleForLongvilly();
 		
 		Map<BastogneSide, Area> dg = new HashMap<BastogneSide, Area>();
 		dg.put(BastogneSide.US, new Area("us_dg"));

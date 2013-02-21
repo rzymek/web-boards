@@ -66,11 +66,46 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
 public class BastogneCampain {
 	private final Board board;
 
-	public BastogneCampain(Board board){
-		this.board = board; 
+	public BastogneCampain(Board board) {
+		this.board = board;
 	}
-	
-	public void setup() {
+
+	public void battleForNoville() {
+		//US:
+		setup("34.27", BastogneUnits.us_Desobry_C_609);
+		setup("34.26", BastogneUnits.us_Comb_A);
+		setup("38.31", BastogneUnits.us_Desobry_B_20);
+		setup("36.32", BastogneUnits.us_Desobry_D_3);
+		setup("36.30", BastogneUnits.us_Desobry_B_3);
+		setup("35.30", BastogneUnits.us_Desobry_D_90);
+
+		setup("28.30", BastogneUnits.us_420_Art);
+		setup("28.29", BastogneUnits.us_755_Art);
+		setup("28.28", BastogneUnits.us_969_Art);
+
+		setup(2, "33.24", BastogneUnits.us_506_A_1);
+		setup(2, "33.24", BastogneUnits.us_506_B_1);
+		setup(2, "35.24", BastogneUnits.us_506_C_1);
+
+		//German
+		setup(2, "43.29", BastogneUnits.ge_26VG_II_26);
+		setup(2, "43.29", BastogneUnits.ge_26VG_III_26);
+		setup(2, "43.29", BastogneUnits.ge_766_Art);
+
+		setup(2, "41.28", BastogneUnits.ge_vBohm_2Aufk);
+		setup(2, "41.31", BastogneUnits.ge_vBohm_3Aufk);
+		setup(2, "41.31", BastogneUnits.ge_vBohm_HQ);
+		setup(2, "41.31", BastogneUnits.ge_vBohm_Pz);
+		setup(2, "41.35", BastogneUnits.ge_vBohm_Wpn);
+
+		setup(3, "42.28", BastogneUnits.ge_Coch_2 );
+		setup(3, "42.28", BastogneUnits.ge_Coch_3 );
+		setup(3, "42.28", BastogneUnits.ge_Coch_4 );
+		setup(3, "42.28", BastogneUnits.ge_Coch_3_38 );
+		setup(3, "42.28", BastogneUnits.ge_Coch_1_273 );
+	}
+
+	public void battleForLongvilly() {
 		setup("h3717", us_Cherry_D_90, "Team Cherry (D/90 Arm Recon Platoon)");
 		setup("h3717", us_Cherry_HHC_3, "Team Cherry (HHC/3 Mortar Platoon)");
 		setup("h5021", us_SNAFU_AdHoc, "Ad Hoc Inf Co (SNAFU)");
@@ -131,7 +166,7 @@ public class BastogneCampain {
 
 		setup(3, "E", ge_26VG_IV_26, "26 VG IV/26 Arty Bn");
 	}
-	
+
 	private void setup(String hexId, BastogneUnits unit, String desc) {
 		Position pos = Hex.fromSVGId(hexId);
 		setup(unit, desc, pos);
@@ -140,31 +175,33 @@ public class BastogneCampain {
 	private void setup(BastogneUnits unit, String desc, Position pos) {
 		String id = unit.getId();
 		String side = unit.name().substring(0, 2).toUpperCase();
-		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), 
-				unit.attack, unit.range, unit.artyType, unit.defence, unit.movement);
+		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
+				unit.range, unit.artyType, unit.defence, unit.movement);
 		counter.setDescription(desc);
 		board.place(pos, counter);
 	}
+
+	private void setup(int turn, String position, BastogneUnits unit) {
+		setup(unit, null, Hex.fromSVGId(position));
+	}
+	
+	private void setup(String position, BastogneUnits unit) {
+		setup(0, position, unit);
+	}
+
 
 	private void setup(int turn, String areaId, BastogneUnits unit, String desc) {
 		Area area = new Area(turn + areaId);
 		setup(unit, desc, area);
 	}
-	
+
 	public void dumpUsed() {
 		Collection<CounterInfo> counters = board.getCounters();
 		for (CounterInfo ci : counters) {
 			SCSCounter c = (SCSCounter) ci;
-			if(c.getOwner() == BastogneSide.GE) {
-				System.out.print(" *"+c.ref()+"_f.png");
+			if (c.getOwner() == BastogneSide.GE) {
+				System.out.print(" *" + c.ref() + "_f.png");
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		Bastogne game = new Bastogne();
-		BastogneCampain c = new BastogneCampain(game.getBoard());
-		c.setup();
-		c.dumpUsed();
 	}
 }
