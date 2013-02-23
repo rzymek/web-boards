@@ -68,6 +68,7 @@ public class ManagerServlet extends HttpServlet {
 			resp.setContentType("application/octet-stream");
 			ObjectOutputStream out = new ObjectOutputStream(resp.getOutputStream());
 			out.writeObject(table);
+			out.writeInt(ops.size());
 			for (OperationEntity operationEntity : ops) {
 				out.writeObject(operationEntity);				
 			}
