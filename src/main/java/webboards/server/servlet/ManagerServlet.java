@@ -2,7 +2,9 @@ package webboards.server.servlet;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -59,6 +61,26 @@ public class ManagerServlet extends HttpServlet {
 			Result<Key<Table>> result = ofy().save().entity(table);
 			String tableId = String.valueOf(result.now().getId());
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
+		} else if (req.getParameter("imp") != null) {
+			String path = req.getParameter("imp");
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
+			try {
+				Table table = (Table) in.readObject();
+				ofy().save().entity(table);
+				int count = in.readInt();
+				for(int i=0;i<count;i++) {
+					OperationEntity ope = (OperationEntity) in.readObject();
+					if(ope == null) {
+						break;
+					}
+					ofy().save().entity(ope);	
+				}
+				resp.sendRedirect("/bastogne/index.jsp?table=" + table.id);
+			} catch (ClassNotFoundException e) {
+				throw new ServletException(e);
+			}finally{
+				in.close();
+			}
 		} else if (req.getParameter("exp") != null) {
 			long tid = Long.parseLong(req.getParameter("exp"));
 			Table table = ofy().load().type(Table.class).id(tid).get();
