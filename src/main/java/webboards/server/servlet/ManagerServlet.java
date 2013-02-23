@@ -3,6 +3,7 @@ package webboards.server.servlet;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,7 @@ import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Result;
+import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
 public class ManagerServlet extends HttpServlet {
@@ -57,6 +59,19 @@ public class ManagerServlet extends HttpServlet {
 			Result<Key<Table>> result = ofy().save().entity(table);
 			String tableId = String.valueOf(result.now().getId());
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
+		} else if (req.getParameter("exp") != null) {
+			long tid = Long.parseLong(req.getParameter("exp"));
+			Table table = ofy().load().type(Table.class).id(tid).get();
+			LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
+			Query<OperationEntity> query = load.filter("sessionId", String.valueOf(tid));
+			List<OperationEntity> ops = query.list();
+			resp.setContentType("application/octet-stream");
+			ObjectOutputStream out = new ObjectOutputStream(resp.getOutputStream());
+			out.writeObject(table);
+			for (OperationEntity operationEntity : ops) {
+				out.writeObject(operationEntity);				
+			}
+			out.close();
 		} else {
 			req.setAttribute("webboards.started", getStarted(user));
 			req.setAttribute("webboards.waiting", getWaitingForOp(user));
