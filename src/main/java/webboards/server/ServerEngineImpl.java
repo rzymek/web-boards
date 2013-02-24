@@ -62,8 +62,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 					info.joinAs = BastogneSide.US;
 				} else if (table.player2 == null) {
 					info.joinAs = BastogneSide.GE;
-				} else {
-					throw new EarlServerException("This is not your game");
+//				} else {
+//					throw new EarlServerException("This is not your game");
 				}
 			}
 			info.game = table.state;

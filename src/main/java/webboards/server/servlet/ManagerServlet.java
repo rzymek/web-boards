@@ -68,6 +68,7 @@ public class ManagerServlet extends HttpServlet {
 				Table table = (Table) in.readObject();
 				ofy().save().entity(table);
 				int count = in.readInt();
+				log.info("Importing table "+table.id+": "+count+" ops.");
 				for(int i=0;i<count;i++) {
 					OperationEntity ope = (OperationEntity) in.readObject();
 					if(ope == null) {

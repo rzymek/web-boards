@@ -14,10 +14,8 @@
 		<property name="player1" direction="asc" />
 	</datastore-index>
 	
-	<datastore-index kind="OperationEntity" ancestor="false"
-		source="manual">
-		<property name="sessionId" direction="asc" />
-		<property name="timestamp" direction="asc" />
-	</datastore-index>
+	<datastore-index kind="OperationEntity" ancestor="true" source="manual">
+        <property name="timestamp" direction="asc"/>
+    </datastore-index>
 
 </datastore-indexes>
