@@ -5,6 +5,7 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.Board;
+import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
@@ -75,17 +76,18 @@ public class ClientEngine implements EntryPoint {
 	public void start(final String tableId, final GameInfo info) {
 		display = new SVGDisplay(svg, info.side);
 		ClientEngine.this.display = display;
-		board =info.game.getBoard();
+		Game game = info.game.start();
+
+		board = game.getBoard();
 		
 		final EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
-		ctx.game = (Bastogne) info.game;
+		ctx.game = (Bastogne) game;
 		ctx.side = info.side;
 		ctx.ctx = display.getCtx();
 		ctx.ctx.board = board;
 		ctx.engine = this;
 		ctx.ctx.ops = info.ops;
-		ctx.initial = info.game;
 		
 		menu = new EarlMenu(ctx);
 		display.setBoard(board);

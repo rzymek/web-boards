@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import webboards.client.data.Game;
+import webboards.client.data.GameFactory;
 import webboards.client.games.scs.bastogne.BastogneSide;
 
 import com.googlecode.objectify.annotation.Cache;
@@ -16,7 +16,7 @@ import com.googlecode.objectify.annotation.Serialize;
 @Entity
 @Cache
 public class Table implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	@Id	
 	public Long id;
 	public Date started = new Date();
@@ -27,7 +27,7 @@ public class Table implements Serializable {
 	
 	public BastogneSide last = null;
 	@Serialize
-	public Game state;
+	public GameFactory game;
 	public Date stateTimestamp;
 	public String lastOp;
 

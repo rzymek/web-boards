@@ -30,13 +30,11 @@ public class Notify {
 		}
 	}
 
-	public String openChannel(Table table, String user) {
+	public String openChannel(Table table) {
 		ChannelService service = ChannelServiceFactory.getChannelService();
-		String clientId = getClientId(table.id, user);
-//		String token = service.createChannel(clientId);
+//		String token = service.createChannel(table.id);
 //		notifyListeners(table, new OpponentConnected(user), user);
-//		return token;
-		return "";
+		return null;
 	}
 
 	private String getClientId(long tableId, String user) {

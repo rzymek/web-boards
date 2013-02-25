@@ -9,8 +9,8 @@ import webboards.client.ops.Operation;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class GameInfo implements Serializable, IsSerializable {
-	private static final long serialVersionUID = 1L;
-	public Game game;
+	private static final long serialVersionUID = 2L;
+	public GameFactory game;
 	public String channelToken;
 	public List<Operation> ops;
 	public BastogneSide joinAs;

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -50,7 +51,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			long tid = Long.parseLong(tableId);
 			Table table = getTable(tid);
 			GameInfo info = new GameInfo();
-			info.channelToken = notify.openChannel(table, getUser());
+//			info.channelToken = notify.openChannel(table, getUser());
 			String user = getUser();
 			if (user.equals(table.player1)) {
 				info.side = BastogneSide.US;
@@ -66,7 +67,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 //					throw new EarlServerException("This is not your game");
 				}
 			}
-			info.game = table.state;
+			info.game = table.game;
 			info.ops = loadOps(table);
 			return info;
 		}catch(RuntimeException ex){
@@ -150,62 +151,52 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				final long tid = Long.parseLong(tableId);
 				final String user = getUser();
 				final BastogneSide side = getSide(tid, user);
-				Table table = getCurrentTable(tid);
+				Game game = getCurrentGame(tid);
 						
-				if(table.last == null) {
-					//first operation in the game;
-					//save the table with the game state unchanged.
-					//it will not be saveed again below, as last == side
-					table.last = side;
-					ofy().save().entity(table);
-				}
-
-				op.updateBoard(table.state.getBoard());
-				op.serverExecute(new ServerContext(table.state));
-				table.lastOp = op.toString();
+				op.updateBoard(game.getBoard());
+				op.serverExecute(new ServerContext(game));
 
 				OperationEntity e = new OperationEntity();
-				e.table = Key.create(table); 
+				e.table = Key.create(Table.class, tid); 
 				e.author = side; 
 				e.data = ServerUtils.serialize(op);
 				e.className = op.getClass().getName();
 				e.timestamp = new Date();
 				e.adebug = ServerUtils.describe(op);
 
-				if(table.last != side) {
-					table.last = side;
-					table.stateTimestamp = new Date();
-					ofy().save().entities(e, table);
-				}else{
-					ofy().save().entity(e);					
-				}
-				log.fine("putting table "+tid+" in memcache. LastOp: "+table.lastOp);
-				memcache.put("tbl#"+tid, table);
-				notify.notifyListeners(table, op, user);
+				ofy().save().entity(e);					
+				memcache.put("game#"+tid, game);
+//				notify.notifyListeners(table, op, user);
 				log.info("Executed "+op);
 				return op;
 			}			
 		});
 	}
 
-	private Table getCurrentTable(long tid) {
-		Table table = (Table) memcache.get("tbl#"+tid);
-		if(table != null) {
-			log.fine(tid+" found in memcache. LastOp:"+table.lastOp);
-			return table;
+	private Game getCurrentGame(long tid) {
+		Game game= (Game) memcache.get("game#"+tid);
+		if(game != null) {
+			log.fine(tid+" found in memcache.");
+			return game;
 		}
-		table = ServerUtils.clone(getTable(tid));
-		log.fine(tid+" not it memcache. Retreiving from DB+update. LastOp:"+table.lastOp);
-		List<Operation> ops = loadOps(table);
-		ServerContext ctx = new ServerContext(table.state);
+		Table table = getTable(tid);
+		game = table.game.start();
+		List<Operation> ops = loadOps(tid);
+		ServerContext ctx = new ServerContext(game);
 		for (Operation op : ops) {
-			log.fine(table.id+" executing: "+op);
+			log.fine(tid+" executing: "+op);
 			op.updateBoard(ctx.game.getBoard());
 			op.serverExecute(ctx);
-			table.lastOp = op.toString();
 		}
-		log.fine(tid+" from db updated. LastOp:"+table.lastOp);
-		return table;
+		log.fine(tid+" from db updated.");
+		return game;
+	}
+
+	private List<Operation> loadOps(long tid) {
+		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
+		Query<OperationEntity> query = load.ancestor(Key.create(Table.class, tid));
+		List<OperationEntity> opEnts = query.order("timestamp").list();
+		return unwrap(opEnts);
 	}
 
 	private Table getTable(long tableId) {
