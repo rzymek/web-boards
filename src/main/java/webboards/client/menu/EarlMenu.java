@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
+import webboards.client.data.Game;
+import webboards.client.display.BasicDisplay;
+import webboards.client.display.EarlDisplay;
 import webboards.client.games.Area;
+import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.games.scs.ops.NextPhase;
@@ -127,28 +132,28 @@ public class EarlMenu implements ClickHandler {
 	}
 
 	private void undoOp() {
-		Undoable op = findLastOpToUndo();
+		Operation op = findLastOpToUndo();
 		if(op == null) {
 			Window.alert("Can't undo any more");
 			return;			
 		}
-		if (op instanceof Undoable) {
-			UndoOp undo = new UndoOp(op);
-			ctx.ctx.ops.remove(op);
-			ctx.ctx.process(undo);
-		} else {
-			Window.alert("Can't undo: " + op);
-		}		
+		ctx.ctx.display.clearTraces();
+		ctx.ctx.ops.remove(op);
+		ctx.game = (Bastogne) ctx.gameFactory.start();
+		ctx.ctx.board = ctx.game.getBoard();		
+		BasicDisplay display = (BasicDisplay) ctx.ctx.display;
+		display.updateBoard(ctx.ctx.board);
+		ClientEngine.update(ctx.ctx);
 	}
 
-	private Undoable findLastOpToUndo() {
+	private Operation findLastOpToUndo() {
 		for (int i = ctx.ctx.ops.size() - 1; i >= 0; i--) {
 			Operation op = ctx.ctx.ops.get(i);			
-			if (op instanceof UndoOp) {
-				continue;
-			}else if(op instanceof Undoable){
-				return (Undoable)  op;
-			}
+//			if (op instanceof UndoOp) {
+//				continue;
+//			}else if(op instanceof Undoable){
+				return op;
+//			}
 		}
 		return null;
 	}

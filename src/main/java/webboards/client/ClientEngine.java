@@ -6,6 +6,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.Board;
 import webboards.client.data.Game;
+import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
@@ -34,7 +35,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class ClientEngine implements EntryPoint {
 	private SVGDisplay display;
 	private SVGSVGElement svg;
-	protected Board board;
 	private ServerEngineAsync service;
 	private static EarlMenu menu;
 
@@ -79,7 +79,7 @@ public class ClientEngine implements EntryPoint {
 		ClientEngine.this.display = display;
 		Game game = info.game.start();
 
-		board = game.getBoard();
+		Board board = game.getBoard();
 		
 		final EarlClienContext ctx = new EarlClienContext();
 		ctx.svg = svg;
@@ -89,6 +89,7 @@ public class ClientEngine implements EntryPoint {
 		ctx.ctx.board = board;
 		ctx.engine = this;
 		ctx.ctx.ops = info.ops;
+		ctx.gameFactory = info.game;
 		
 		menu = new EarlMenu(ctx);
 		display.setBoard(board);
@@ -97,7 +98,7 @@ public class ClientEngine implements EntryPoint {
 		NotificationListener listener = new NotificationListener(ctx.ctx);
 //		listener.join(info.channelToken);
 		
-		update(info);
+		update(ctx.ctx);
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
 			if (yes) {
@@ -112,23 +113,23 @@ public class ClientEngine implements EntryPoint {
 		}
 	}
 
-	public void update(GameInfo info) {
-		int startDetailsFrom = info.ops.size()-30;
-		for (int i = info.ops.size()-1; i>=0; --i) {
-			Operation op = info.ops.get(i);
+	public static void update(GameCtx ctx) {
+		int startDetailsFrom = ctx.ops.size()-30;
+		for (int i = ctx.ops.size()-1; i>=0; --i) {
+			Operation op = ctx.ops.get(i);
 			if(op instanceof ClearScreen) {
 				startDetailsFrom = i;
 				break;
 			}
 		}
 		
-		for (int i = 0; i < info.ops.size(); ++i) {
-			Operation op = info.ops.get(i);
-			op.updateBoard(board);
-			op.postServer(display.getCtx());			
-			op.draw(display.getCtx());
+		for (int i = 0; i < ctx.ops.size(); ++i) {
+			Operation op = ctx.ops.get(i);
+			op.updateBoard(ctx.board);
+			op.postServer(ctx);			
+			op.draw(ctx);
 			if(i >= startDetailsFrom) {
-				op.drawDetails(display.getCtx());
+				op.drawDetails(ctx);
 			}
 			log(op.toString());
 		}

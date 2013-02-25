@@ -19,6 +19,7 @@ import org.vectomatic.dom.svg.impl.SVGRectElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
+import webboards.client.ClientEngine;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.HexInfo;
@@ -335,12 +336,16 @@ public class SVGDisplay extends BasicDisplay {
 			rect.getStyle().setVisibility(Visibility.HIDDEN);
 		} else {
 			SVGImageElement c = (SVGImageElement) svg.getElementById(ctx.selected.ref().toString());
-			rect.getStyle().setVisibility(Visibility.VISIBLE);
-			rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
-			rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
-			rect.getStyle().setDisplay(Display.BLOCK);
-			bringToTop(c);
-			c.getParentElement().insertBefore(rect, c);
+			if(c != null) { 
+				rect.getStyle().setVisibility(Visibility.VISIBLE);
+				rect.getX().getBaseVal().setValue(c.getX().getBaseVal().getValue());
+				rect.getY().getBaseVal().setValue(c.getY().getBaseVal().getValue());
+				rect.getStyle().setDisplay(Display.BLOCK);
+				bringToTop(c);
+				c.getParentElement().insertBefore(rect, c);
+			}else{
+				ClientEngine.log(ctx.selected.ref()+" not found");
+			}
 		}
 	}
 

@@ -4,6 +4,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.ClientEngine;
 import webboards.client.data.GameCtx;
+import webboards.client.data.GameFactory;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
 
@@ -13,4 +14,5 @@ public class EarlClienContext {
 	public BastogneSide side;
 	public GameCtx ctx;
 	public ClientEngine engine;
+	public GameFactory gameFactory;
 }
