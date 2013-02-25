@@ -14,6 +14,7 @@ import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.menu.EarlClienContext;
 import webboards.client.menu.EarlMenu;
+import webboards.client.ops.ClearScreen;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
@@ -112,11 +113,23 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	public void update(GameInfo info) {
-		for (Operation op : info.ops) {
+		int startDetailsFrom = info.ops.size()-30;
+		for (int i = info.ops.size()-1; i>=0; --i) {
+			Operation op = info.ops.get(i);
+			if(op instanceof ClearScreen) {
+				startDetailsFrom = i;
+				break;
+			}
+		}
+		
+		for (int i = 0; i < info.ops.size(); ++i) {
+			Operation op = info.ops.get(i);
 			op.updateBoard(board);
-			op.postServer(display.getCtx());
+			op.postServer(display.getCtx());			
 			op.draw(display.getCtx());
-			op.drawDetails(display.getCtx());
+			if(i >= startDetailsFrom) {
+				op.drawDetails(display.getCtx());
+			}
 			log(op.toString());
 		}
 	}
