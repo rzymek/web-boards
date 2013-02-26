@@ -6,20 +6,18 @@ import java.util.List;
 
 import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
-import webboards.client.data.Game;
 import webboards.client.display.BasicDisplay;
-import webboards.client.display.EarlDisplay;
 import webboards.client.games.Area;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
-import webboards.client.ops.generic.UndoOp;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.FontStyle;
@@ -132,18 +130,23 @@ public class EarlMenu implements ClickHandler {
 	}
 
 	private void undoOp() {
-		Operation op = findLastOpToUndo();
+		final Operation op = findLastOpToUndo();
 		if(op == null) {
 			Window.alert("Can't undo any more");
 			return;			
 		}
-		ctx.ctx.display.clearTraces();
-		ctx.ctx.ops.remove(op);
-		ctx.game = (Bastogne) ctx.gameFactory.start();
-		ctx.ctx.board = ctx.game.getBoard();		
-		BasicDisplay display = (BasicDisplay) ctx.ctx.display;
-		display.updateBoard(ctx.ctx.board);
-		ClientEngine.update(ctx.ctx);
+		Scheduler.get().scheduleFinally(new ScheduledCommand() {			
+			@Override
+			public void execute() {
+				ctx.ctx.display.clearTraces();
+				ctx.ctx.ops.remove(op);
+				ctx.game = (Bastogne) ctx.gameFactory.start();
+				ctx.ctx.board = ctx.game.getBoard();		
+				BasicDisplay display = (BasicDisplay) ctx.ctx.display;
+				display.updateBoard(ctx.ctx.board);
+				ClientEngine.update(ctx.ctx);
+			}
+		});
 	}
 
 	private Operation findLastOpToUndo() {
