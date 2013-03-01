@@ -52,8 +52,7 @@ public class PerformAttack extends AbstractOperation {
 
 	@Override
 	public void serverExecute(ServerContext ctx) {
-		Bastogne game = (Bastogne) ctx.game;
-		SCSBoard board = (SCSBoard) game.getBoard();
+		SCSBoard board = (SCSBoard) ctx.board;
 		SCSHex target = board.getInfo(targetRef);
 		Collection<SCSHex> attacking = board.getInfo(attackingRef);
 		int[] odds = SCSBoard.calculateOdds(target, attacking, targetRef);
@@ -63,7 +62,7 @@ public class PerformAttack extends AbstractOperation {
 		roll.serverExecute(ctx);
 		int sum = roll.getSum();
 		rollResult = String.valueOf(sum) + " - " + odds[0] + ":" + odds[1];
-		result = game.getCombatResult(odds, sum);
+		result = Bastogne.getCombatResult(odds, sum);
 	}
 
 	@Override

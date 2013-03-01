@@ -1,7 +1,5 @@
 package webboards.server.servlet;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,8 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webboards.client.games.scs.bastogne.BastogneFactory;
+import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.client.games.scs.bastogne.scenarios.BattleForLongvilly;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Table;
 
@@ -30,6 +29,8 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class ManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -49,12 +50,9 @@ public class ManagerServlet extends HttpServlet {
 			BastogneSide side = BastogneSide.valueOf(sideName);
 
 			Table table = new Table();
-			if (side == BastogneSide.US) {
-				table.player1 = user;
-			} else if (side == BastogneSide.GE) {
-				table.player2 = user;
-			}
-			table.game = new BastogneFactory();
+			table.players[side.ordinal()] = user;
+			table.game = new Bastogne();
+			table.scenario = new BattleForLongvilly();
 			table.stateTimestamp = new Date();
 			Result<Key<Table>> result = ofy().save().entity(table);
 			String tableId = String.valueOf(result.now().getId());

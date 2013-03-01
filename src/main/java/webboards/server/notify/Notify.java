@@ -21,13 +21,8 @@ public class Notify {
 	}
 
 	private String getRecipient(String fromUser, Table table) {
-		if (fromUser.equals(table.player1)) {
-			return table.player2;
-		} else if (fromUser.equals(table.player2)) {
-			return table.player1;
-		} else {
-			return null;
-		}
+		int pos = table.getPlayerPosition(fromUser);
+		return table.players[(pos + 1) % table.players.length];
 	}
 
 	public String openChannel(Table table) {

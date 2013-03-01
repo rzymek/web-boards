@@ -54,6 +54,5 @@
 		<auth-constraint>
 			<role-name>*</role-name>
 		</auth-constraint>
-	</security-constraint>
-
+	</security-constraint> 
 </web-app>

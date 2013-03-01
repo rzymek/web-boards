@@ -7,7 +7,6 @@ import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.games.Position;
-import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
 
@@ -17,14 +16,9 @@ public abstract class BasicDisplay implements EarlDisplay {
 	protected final ServerEngineAsync service;
 	protected final GameCtx ctx = new GameCtx();
 
-	public GameCtx getCtx() {
-		return ctx;
-	}
-	
-	protected BasicDisplay(BastogneSide side) {
+	protected BasicDisplay(GameCtx ctx) {
 		service = GWT.create(ServerEngine.class);
 		ctx.display = this;
-		ctx.side = side;
 	}
 
 	public void setBoard(final Board board) {

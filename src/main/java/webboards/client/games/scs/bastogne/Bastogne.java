@@ -1,31 +1,29 @@
 package webboards.client.games.scs.bastogne;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import webboards.client.data.Board;
 import webboards.client.data.Game;
-import webboards.client.data.GameCtx;
-import webboards.client.display.EarlDisplay;
+import webboards.client.data.Side;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Area;
+import webboards.client.games.Scenario;
 import webboards.client.games.scs.CombatResult;
 import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.SCSMarker;
-import webboards.client.ops.Operation;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class Bastogne implements Game, IsSerializable {
+public class Bastogne implements Game  {
 	private static final int DG_POOL = 18;
 	private static final long serialVersionUID = 1L;
-	private Board board = null;
 	private String playerUS;
 	private String playerGE;
 
 	public Bastogne() {
+	}
+	
+	@Override
+	public SCSBoard start(Scenario scenario) {
 		SCSHex[][] hexes = new SCSHex[56][36];
 		MapTraits.setupTraits(hexes);
 		for (int x = 0; x < hexes.length; x++) {
@@ -35,12 +33,8 @@ public class Bastogne implements Game, IsSerializable {
 				}
 			}
 		}
-		board = new SCSBoard(hexes);
-	}
-
-	public void setupScenarion52() {
-		BastogneCampain campain = new BastogneCampain(board);
-		campain.battleForLongvilly();
+		SCSBoard board = new SCSBoard(hexes);
+		scenario.setup(board);
 		
 		Map<BastogneSide, Area> dg = new HashMap<BastogneSide, Area>();
 		dg.put(BastogneSide.US, new Area("us_dg"));
@@ -55,7 +49,9 @@ public class Bastogne implements Game, IsSerializable {
 				board.place(area, counter);				
 			}
 		}
+		return board;
 	}
+
 
 	public void setPlayer(BastogneSide side, String player) {
 		if (side == BastogneSide.US) {
@@ -71,11 +67,6 @@ public class Bastogne implements Game, IsSerializable {
 		} else {
 			return playerGE;
 		}
-	}
-
-	@Override
-	public Board getBoard() {
-		return board;
 	}
 
 	@Override
@@ -103,14 +94,14 @@ public class Bastogne implements Game, IsSerializable {
 		{"12   ","A1D1","D1r2","D1r2","D1r3","D1r3","D2r4","D2r6"},		
 	};//@formatter:on
 
-	public CombatResult getCombatResult(int[] odds, int sum) {
+	public static CombatResult getCombatResult(int[] odds, int sum) {
 		int col = getCRTColumn(odds);
 		int row = sum - 1;
 		String value = CRT[row][col];
 		return new CombatResult(value);
 	}
 
-	private int getCRTColumn(int[] odds) {
+	private static int getCRTColumn(int[] odds) {
 		if (3 < odds[1]) {
 			return 1;
 		} else if (odds[0] > 5) {
@@ -125,17 +116,8 @@ public class Bastogne implements Game, IsSerializable {
 		throw new EarlException("invalid odds:" + oddsValue);
 	}
 
-	public void load(Collection<Operation> ops, EarlDisplay display) {
-		setupScenarion52();
-		GameCtx ctx = new GameCtx();
-		ctx.board = board;
-		ctx.display = display;
-		for (Operation op : ops) {
-			op.updateBoard(board);
-			if(display != null) {
-				op.draw(ctx);
-			}
-		}		
+	@Override
+	public Side[] getSides() {
+		return BastogneSide.values();
 	}
-
 }

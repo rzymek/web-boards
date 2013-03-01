@@ -4,17 +4,15 @@ import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
-import webboards.client.data.Board;
-import webboards.client.data.Game;
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
+import webboards.client.display.svg.edit.EmptyScenario;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.NextPhase;
-import webboards.client.menu.EarlClienContext;
-import webboards.client.menu.EarlMenu;
+import webboards.client.menu.ClientMenu;
 import webboards.client.ops.ClearScreen;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
@@ -33,10 +31,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class ClientEngine implements EntryPoint {
-	private SVGDisplay display;
 	private SVGSVGElement svg;
 	private ServerEngineAsync service;
-	private static EarlMenu menu;
+	private static ClientMenu menu;
 
 	@Override
 	public void onModuleLoad() {		
@@ -44,9 +41,9 @@ public class ClientEngine implements EntryPoint {
 		svg = getSVG();
 		setupZoomAndPan();
 		if (Window.Location.getParameter("editor") != null) {
-			display = new EditDisplay(svg);
+			EditDisplay display = new EditDisplay(svg);
 			Bastogne game = new Bastogne();
-			display.setBoard(game.getBoard());
+			display.setBoard(game.start(new EmptyScenario()));
 		}else{
 			connect();
 		}
@@ -74,31 +71,21 @@ public class ClientEngine implements EntryPoint {
 	}
 
 
-	public void start(final String tableId, final GameInfo info) {
-		display = new SVGDisplay(svg, info.side);
-		ClientEngine.this.display = display;
-		Game game = info.game.start();
-
-		Board board = game.getBoard();
-		
-		final EarlClienContext ctx = new EarlClienContext();
-		ctx.svg = svg;
-		ctx.game = (Bastogne) game;
+	public void start(final long tableId, final GameInfo info) {
+		final GameCtx ctx = new GameCtx();
 		ctx.side = info.side;
-		ctx.ctx = display.getCtx();
-		ctx.ctx.board = board;
-		ctx.engine = this;
-		ctx.ctx.ops = info.ops;
-		ctx.gameFactory = info.game;
-		
-		menu = new EarlMenu(ctx);
-		display.setBoard(board);
-		new NextPhase().draw(display.getCtx());
+		ctx.ops = info.ops;
+		ctx.info = info;		
+		ctx.board = info.game.start(info.scenario);
+		SVGDisplay display = new SVGDisplay(svg, ctx);
+		menu = new ClientMenu(svg, ctx);
+		display.setBoard(ctx.board);
+		new NextPhase().draw(ctx);
 
-		NotificationListener listener = new NotificationListener(ctx.ctx);
+		NotificationListener listener = new NotificationListener(ctx);
 //		listener.join(info.channelToken);
 		
-		update(ctx.ctx);
+		update(ctx);
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
 			if (yes) {
@@ -106,7 +93,6 @@ public class ClientEngine implements EntryPoint {
 					@Override
 					public void onSuccess(Void result) {
 						ctx.side = info.joinAs;
-						ctx.ctx.side = info.joinAs;
 					}
 				});
 			}
@@ -185,7 +171,7 @@ public class ClientEngine implements EntryPoint {
 	
 	protected void connect() {
 		service = GWT.create(ServerEngine.class);
-		final String tableId = getTableId();
+		final long tableId = getTableId();
 		service.getState(tableId, new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {					
@@ -194,8 +180,8 @@ public class ClientEngine implements EntryPoint {
 		});
 	}
 
-	public static String getTableId() {
-		return Window.Location.getParameter("table");
+	public static long getTableId() {
+		return Long.parseLong(Window.Location.getParameter("table"));
 	}
 
 	public static native int getViewportWidth()/*-{

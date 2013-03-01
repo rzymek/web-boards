@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("engine")
 public interface ServerEngine extends RemoteService {
-	GameInfo getState(String tableId);
+	GameInfo getState(long tableId);
 	Operation process(Operation op);
-	void join(String tableId);
+	void join(long tableId);
 }

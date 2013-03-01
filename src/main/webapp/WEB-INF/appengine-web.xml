@@ -28,8 +28,8 @@
 		<exclude path="**.gwt.rpc"/>
 	</static-files>
  -->
-	<static-files>
-		<include path="/**.png"/>
-		<include path="/**.jpg"/>
+	<static-files> 
+		<include path="/**/*.png" expiration="1d"/>
+		<include path="/**/*.jpg" expiration="1d"/>
 	</static-files>
 </appengine-web-app>

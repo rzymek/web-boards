@@ -11,7 +11,6 @@ import webboards.client.games.scs.SCSCounter;
 import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.SCSMarker;
 import webboards.client.games.scs.bastogne.ArtyType;
-import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.ServerContext;
@@ -62,8 +61,7 @@ public class PerformBarrage extends AbstractOperation {
 
 	@Override
 	public void serverExecute(ServerContext ctx) {
-		Bastogne game = (Bastogne) ctx.game;
-		SCSBoard board = (SCSBoard) game.getBoard();
+		SCSBoard board = (SCSBoard) ctx.board;
 		SCSHex hex = board.getInfo(target);
 		SCSCounter attacker = (SCSCounter) board.getInfo(arty);
 		float attack = hex.applyBarrageModifiers(attacker.getAttack());

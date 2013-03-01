@@ -22,6 +22,7 @@ import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 import webboards.client.ClientEngine;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
+import webboards.client.data.GameCtx;
 import webboards.client.data.HexInfo;
 import webboards.client.data.ref.CounterId;
 import webboards.client.display.BasicDisplay;
@@ -32,7 +33,6 @@ import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.SCSSelectionHandler;
-import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.utils.Browser;
 import webboards.client.utils.Utils;
 
@@ -54,8 +54,8 @@ public class SVGDisplay extends BasicDisplay {
 	private List<CounterInfo> stackSelectorContents = Collections.emptyList();
 	private Position stackSelectorPosition = null;
 
-	public SVGDisplay(SVGSVGElement svg, BastogneSide side) {
-		super(side);
+	public SVGDisplay(SVGSVGElement svg, GameCtx ctx) {
+		super(ctx);
 		this.svg = svg;
 		stackSelector = (SVGRectElement) svg.getElementById("stackSelector");
 		resetCounters();		
@@ -429,7 +429,7 @@ public class SVGDisplay extends BasicDisplay {
 		}
 	}
 
-	protected void clearMarkers(String layerId) {
+	protected void clearLayer(String layerId) {
 		Element markers = svg.getElementById(layerId);
 		while (markers.hasChildNodes()) {
 			markers.removeChild(markers.getLastChild());
@@ -514,14 +514,14 @@ public class SVGDisplay extends BasicDisplay {
 
 	@Override
 	public void clearTraces() {
-		clearMarkers("traces");
-		clearMarkers("markers");
+		clearLayer("traces");
+		clearLayer("markers");
 	}
 	
 	@Override
 	protected void resetCounters() {
 		SVGRectElement rect = (SVGRectElement) getSVGElement("selection");
-		clearMarkers("units");
+		clearLayer("units");
 		rect.getStyle().setDisplay(Display.NONE);
 		svg.getElementById("units").appendChild(rect);
 

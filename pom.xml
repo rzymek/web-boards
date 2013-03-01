@@ -213,7 +213,6 @@
 		</profile>
 	</profiles>
 
-
 	<pluginRepositories>
 		<pluginRepository>
 			<id>google-releases</id>

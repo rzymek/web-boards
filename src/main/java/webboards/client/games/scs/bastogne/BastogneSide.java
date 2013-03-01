@@ -1,5 +1,7 @@
 package webboards.client.games.scs.bastogne;
 
-public enum BastogneSide {
+import webboards.client.data.Side;
+
+public enum BastogneSide implements Side {
 	US, GE
 }
