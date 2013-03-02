@@ -14,9 +14,10 @@ import com.google.gwt.core.shared.GWT;
 
 public abstract class BasicDisplay implements EarlDisplay {
 	protected final ServerEngineAsync service;
-	protected final GameCtx ctx = new GameCtx();
+	protected final GameCtx ctx;
 
 	protected BasicDisplay(GameCtx ctx) {
+		this.ctx = ctx;
 		service = GWT.create(ServerEngine.class);
 		ctx.display = this;
 	}

@@ -28,7 +28,10 @@ public abstract class Scenario implements Serializable {
 
 	protected void setupHex(int turn, String hex, BastogneUnits unit) {
 		//TODO: include turn
-		setup(unit, Hex.fromSVGId(hex));
+		String[] split = hex.split("[.]");
+		int x = Integer.parseInt(split[0]);
+		int y = Integer.parseInt(split[1]);
+		setup(unit, new Hex(x,y));
 	}
 
 	protected void setupHex(String hex, BastogneUnits unit) {

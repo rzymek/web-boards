@@ -272,6 +272,7 @@ public class SVGDisplay extends BasicDisplay {
 		ClickHandler clickHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				ClientEngine.log("hex click");
 				hexClicked(board, event);
 			}
 		};

@@ -78,6 +78,11 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseMove(MouseMoveEvent e) {
+		if(e.getNativeButton() == 0) {
+			panning = false;
+			onMouseUp(null);
+			return;
+		}
 		if (panning) {
 			e.preventDefault();
 			float x = mouse.x;
