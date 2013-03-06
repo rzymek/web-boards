@@ -1,6 +1,7 @@
 package webboards.client.remote;
 
 import webboards.client.data.GameInfo;
+import webboards.client.data.Side;
 import webboards.client.ops.Operation;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -10,5 +11,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ServerEngine extends RemoteService {
 	GameInfo getState(long tableId);
 	Operation process(Operation op);
-	void join(long tableId);
+	void join(long tableId, Side side);
 }

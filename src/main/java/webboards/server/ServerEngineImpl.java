@@ -1,12 +1,14 @@
 package webboards.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,10 +16,14 @@ import webboards.client.data.Board;
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
 import webboards.client.ex.EarlServerException;
+import webboards.client.games.scs.bastogne.Bastogne;
+import webboards.client.games.scs.bastogne.BastogneSide;
+import webboards.client.games.scs.bastogne.scenarios.BattleForLongvilly;
 import webboards.client.ops.Operation;
 import webboards.client.ops.ServerContext;
 import webboards.client.remote.ServerEngine;
 import webboards.server.entity.OperationEntity;
+import webboards.server.entity.Player;
 import webboards.server.entity.Table;
 import webboards.server.notify.Notify;
 import webboards.server.utils.HttpUtils;
@@ -31,13 +37,11 @@ import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngine {
 	private static final Logger log = Logger.getLogger(ServerEngineImpl.class.getName());
 
 	private static final long serialVersionUID = 1L;
-	private transient final Notify notify = new Notify();
+	private transient static final Notify notify = new Notify();
 	private transient MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 
 	@Override
@@ -51,21 +55,30 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		Table table = getTable(tableId);
 		GameInfo info = new GameInfo();
 		try {
-//			info.channelToken = notify.openChannel(table, getUser());
 			String user = getUser();
-			int pos = table.getPlayerPosition(user);			
-			info.side = table.game.getSides()[pos];
+			List<Player> list = getPlayers(table);
+			info.side = getSide(list, user);
+			if(info.side == null) {
+				List<Side> available = new ArrayList<Side>(Arrays.asList(table.game.getSides()));
+				for (Player player : list) {
+					available.remove(player.side);
+				}
+				if(!available.isEmpty()) {
+					info.joinAs = available.get(0);
+				}
+			}
 			info.game = table.game;
 			info.scenario = table.scenario;
 			info.ops = loadOps(table);
-		}catch(NoSuchElementException ex) {
-			int pos = table.getEmptyPosition();
-			info.joinAs = table.game.getSides()[pos];
-		}catch(RuntimeException ex){
+		} catch (RuntimeException ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
 		return info;
+	}
+
+	private List<Player> getPlayers(Table table) {
+		return ofy().load().type(Player.class).ancestor(table).list();
 	}
 
 	public List<Operation> loadOps(Table table) {
@@ -92,7 +105,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if (principal == null) {
 			throw new SecurityException("Not logged in.");
 		}
-		log.finest("user: "+principal.getName());
+		log.finest("user: " + principal.getName());
 		return principal.getName();
 	}
 
@@ -109,40 +122,41 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	@Override
 	public Operation process(final Operation op) {
-		return ofy().transact(new Work<Operation>(){
+		return ofy().transact(new Work<Operation>() {
 			@Override
 			public Operation run() {
 				final String tableId = getTableId();
-				
+
 				final long tid = Long.parseLong(tableId);
+				Table table = getTable(tid);
 				final String user = getUser();
-				final Side side = getSide(tid, user);
+				final Side side = getSide(getPlayers(table), user);
 				Board board = getCurrentBoard(tid);
-						
+
 				op.updateBoard(board);
 				op.serverExecute(new ServerContext(board));
 
 				OperationEntity e = new OperationEntity();
-				e.table = Key.create(Table.class, tid); 
-				e.author = side.toString(); 
+				e.table = Key.create(Table.class, tid);
+				e.author = side.toString();
 				e.data = ServerUtils.serialize(op);
 				e.className = op.getClass().getName();
 				e.timestamp = new Date();
 				e.adebug = ServerUtils.describe(op);
 
-				ofy().save().entity(e);					
-				memcache.put("game#"+tid, board);
-//				notify.notifyListeners(table, op, user);
-				log.info("Executed "+op);
+				ofy().save().entity(e);
+				memcache.put("game#" + tid, board);
+				notify.notifyListeners(getTable(tid), op, side);
+				log.info("Executed " + op);
 				return op;
-			}			
+			}
 		});
 	}
 
 	private Board getCurrentBoard(long tid) {
-		Board board= (Board) memcache.get("game#"+tid);
-		if(board != null) {
-			log.fine(tid+" found in memcache.");
+		Board board = (Board) memcache.get("game#" + tid);
+		if (board != null) {
+			log.fine(tid + " found in memcache.");
 			return board;
 		}
 		Table table = getTable(tid);
@@ -150,11 +164,11 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		List<Operation> ops = loadOps(tid);
 		ServerContext ctx = new ServerContext(board);
 		for (Operation op : ops) {
-			log.fine(tid+" executing: "+op);
+			log.fine(tid + " executing: " + op);
 			op.updateBoard(board);
 			op.serverExecute(ctx);
 		}
-		log.fine(tid+" from db updated.");
+		log.fine(tid + " from db updated.");
 		return board;
 	}
 
@@ -167,28 +181,52 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 
 	private Table getTable(long tableId) {
 		Table table = ofy().load().type(Table.class).id(tableId).get();
-		if(table == null){
-			throw new EarlServerException("Invalid table id="+tableId);
+		if (table == null) {
+			throw new EarlServerException("Invalid table id=" + tableId);
 		}
-		log.fine(tableId+" found in db. LastOp:"+table.lastOp);
+		log.fine(tableId + " found in db. LastOp:" + table.lastOp);
 		return table;
 	}
 
-	private Side getSide(long tableId, String user) {
-		Table table = getTable(tableId);
-		return table.game.getSides()[table.getPlayerPosition(user)];
+	private Side getSide(List<Player> list, String user) {
+		if(user == null){
+			return null;
+		}
+		for (Player player : list) {
+			if(user.equals(player.user)){
+				return player.side;
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public void join(final long tableId) {
+	public void join(final long tableId, final Side side) {
 		ofy().transact(new Work<Table>() {
 			@Override
 			public Table run() {
 				Table table = getTable(tableId);
-				int pos = table.getEmptyPosition();
-				table.players[pos] = getUser();
-				ofy().save().entity(table).now();
+				Player player = new Player(table, getUser(), side, notify);
+				ofy().save().entity(player);
 				return table;
+			}
+		});
+	}
+
+	public static Long create(final String user, final String sideName) {
+		return ofy().transact(new Work<Long>() {
+			@Override
+			public Long run() {
+				BastogneSide side = BastogneSide.valueOf(sideName);
+				Table table = new Table();
+				table.game = new Bastogne();
+				table.scenario = new BattleForLongvilly();
+				table.stateTimestamp = new Date();
+				ofy().save().entity(table).now();
+
+				Player player = new Player(table, user, side, notify);
+				ofy().save().entity(player);
+				return table.id;
 			}
 		});
 	}

@@ -1,38 +1,53 @@
 package webboards.server.notify;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import no.eirikb.gwtchannelapi.server.ChannelServer;
 import webboards.client.OperationMessage;
+import webboards.client.data.Side;
 import webboards.client.ops.Operation;
+import webboards.server.entity.Player;
 import webboards.server.entity.Table;
 
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 
 public class Notify {
+	private static final Logger log = Logger.getLogger(Notify.class.getName());
 
-	public void notifyListeners(Table table, Operation op, String fromUser) {
-		String recipient = getRecipient(fromUser, table);
-		if (recipient == null) {
-			return;
+	public void notifyListeners(Table table, Operation op, Side side) {
+		List<Player> list = ofy().load().type(Player.class).ancestor(table).list();
+		for (Player player : list) {
+			if(side != null && side.equals(player.side)) {
+				continue;
+			}
+			try {
+				String clientId = getClientId(table, side);
+				OperationMessage message = new OperationMessage();
+				message.op = op;
+				ChannelServer.send(clientId, message);
+			} catch (Exception e) {
+				log.log(Level.SEVERE, "Unable to send channel message table.id=" + table.id + " side=" + side, e);
+			}			
 		}
-		String clientId = getClientId(table.id, recipient);
-		OperationMessage message = new OperationMessage();
-		message.op = op;
-//		ChannelServer.send(clientId, message);
 	}
 
-	private String getRecipient(String fromUser, Table table) {
-		int pos = table.getPlayerPosition(fromUser);
-		return table.players[(pos + 1) % table.players.length];
+	public String openChannel(Table table, Side side) {
+		try {
+			String id = getClientId(table, side);
+			ChannelService service = ChannelServiceFactory.getChannelService();
+			return service.createChannel(id);
+		} catch (Exception e) {
+			log.log(Level.SEVERE, "Unable to open channel for table=" + table.id + " side=" + side, e);
+			return null;
+		}
 	}
 
-	public String openChannel(Table table) {
-		ChannelService service = ChannelServiceFactory.getChannelService();
-//		String token = service.createChannel(table.id);
-//		notifyListeners(table, new OpponentConnected(user), user);
-		return null;
-	}
-
-	private String getClientId(long tableId, String user) {
-		return tableId + "-" + user;
+	private String getClientId(Table table, Side side) {
+		return table.id + ":" + side;
 	}
 }

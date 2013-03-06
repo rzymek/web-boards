@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -15,18 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webboards.client.games.scs.bastogne.Bastogne;
-import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.client.games.scs.bastogne.scenarios.BattleForLongvilly;
+import webboards.server.ServerEngineImpl;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Table;
 
 import com.google.appengine.api.channel.ChannelPresence;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.googlecode.objectify.Key;
+import com.google.gwt.core.shared.GWT;
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
@@ -47,15 +43,7 @@ public class ManagerServlet extends HttpServlet {
 		String user = req.getUserPrincipal().getName();
 		String sideName = req.getParameter("side");
 		if (sideName != null) {
-			BastogneSide side = BastogneSide.valueOf(sideName);
-
-			Table table = new Table();
-			table.players[side.ordinal()] = user;
-			table.game = new Bastogne();
-			table.scenario = new BattleForLongvilly();
-			table.stateTimestamp = new Date();
-			Result<Key<Table>> result = ofy().save().entity(table);
-			String tableId = String.valueOf(result.now().getId());
+			String tableId = ServerEngineImpl.create(user, sideName);
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
 		} else if (req.getParameter("imp") != null) {
 			String path = req.getParameter("imp");
