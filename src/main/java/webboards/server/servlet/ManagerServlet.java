@@ -21,7 +21,6 @@ import webboards.server.entity.Table;
 import com.google.appengine.api.channel.ChannelPresence;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
-import com.google.gwt.core.shared.GWT;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
@@ -43,7 +42,7 @@ public class ManagerServlet extends HttpServlet {
 		String user = req.getUserPrincipal().getName();
 		String sideName = req.getParameter("side");
 		if (sideName != null) {
-			String tableId = ServerEngineImpl.create(user, sideName);
+			Long tableId = ServerEngineImpl.create(user, sideName);
 			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
 		} else if (req.getParameter("imp") != null) {
 			String path = req.getParameter("imp");
