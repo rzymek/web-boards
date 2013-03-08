@@ -40,7 +40,8 @@ public class SVGCleaner {
 
 	public static void main(String[] args) throws Exception {
 		long start = System.currentTimeMillis();
-		TransformerFactory factory = TransformerFactory.newInstance();		
+		TransformerFactory factory = TransformerFactory.newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", 
+				SVGCleaner.class.getClassLoader());		
 		Transformer transformer = factory.newTransformer(new StreamSource("clean.xslt"));
 		File out = new File("../webboards/src/main/webapp/bastogne/bastogne.svg");
 		File in  = new File("../webboards/src/main/svg/bastogne-orig.svg");
