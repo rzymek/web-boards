@@ -1,5 +1,7 @@
 package webboards.client.data;
 
-public interface Side {
+import java.io.Serializable;
+
+public interface Side extends Serializable {
 
 }

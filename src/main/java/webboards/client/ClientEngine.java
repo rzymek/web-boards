@@ -89,7 +89,7 @@ public class ClientEngine implements EntryPoint {
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
 			if (yes) {
-				service.join(tableId, new AbstractCallback<Void>(){
+				service.join(tableId, info.joinAs, new AbstractCallback<Void>(){
 					@Override
 					public void onSuccess(Void result) {
 						ctx.side = info.joinAs;
