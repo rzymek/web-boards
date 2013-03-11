@@ -14,9 +14,12 @@ public final class NotificationListener implements ChannelListener {
 	}
 
 	public void join(String channelToken) {
-		Channel channel = new Channel(channelToken);
-		channel.addChannelListener(this);
-		channel.join();
+		ClientEngine.log("channel join:"+channelToken);
+		if(channelToken != null) {
+			Channel channel = new Channel(channelToken);
+			channel.addChannelListener(this);
+			channel.join();
+		}
 	}
 
 	@Override

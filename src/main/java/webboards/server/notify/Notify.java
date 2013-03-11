@@ -30,6 +30,7 @@ public class Notify {
 				OperationMessage message = new OperationMessage();
 				message.op = op;
 				ChannelServer.send(clientId, message);
+				log.fine(side+" >>> "+ player.channelToken+" <<< "+message.op.toString());
 			} catch (Exception e) {
 				log.log(Level.SEVERE, "Unable to send channel message table.id=" + table.id + " side=" + side, e);
 			}			
@@ -40,7 +41,9 @@ public class Notify {
 		try {
 			String id = getClientId(table, side);
 			ChannelService service = ChannelServiceFactory.getChannelService();
-			return service.createChannel(id);
+			String token = service.createChannel(id);
+			log.fine("created channel for "+side+": "+token);
+			return token;
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "Unable to open channel for table=" + table.id + " side=" + side, e);
 			return null;

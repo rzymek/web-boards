@@ -17,9 +17,12 @@ import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.ops.Operation;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
+import webboards.client.remote.ServerEngine;
+import webboards.client.remote.ServerEngineAsync;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.FontStyle;
@@ -28,6 +31,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.client.rpc.SerializationStreamFactory;
+import com.google.gwt.user.client.rpc.SerializationStreamReader;
+import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -96,7 +103,19 @@ public class ClientMenu implements ClickHandler {
 			undoOp();
 		} else if ("2d6".equals(text)) {
 			DiceRoll roll = new DiceRoll();
-			ctx.process(roll);
+			try {
+				SerializationStreamFactory f = GWT.create(ServerEngine.class);			
+				SerializationStreamWriter w = f.createStreamWriter();
+				w.writeObject(roll);
+				String s = w.toString();
+				Window.alert("roll:"+s);
+				SerializationStreamReader r = f.createStreamReader(s);
+				Operation op = (Operation) r.readObject();
+				ctx.process(op);
+			} catch (SerializationException e) {
+				Window.alert(e.toString());
+			}			
+//			ctx.process(roll);
 		} else if ("Toggle units".equals(text)) {
 			toggleVisible(svg.getElementById("units").getStyle());
 			toggleVisible(svg.getElementById("markers").getStyle());
@@ -153,15 +172,11 @@ public class ClientMenu implements ClickHandler {
 	}
 
 	private Operation findLastOpToUndo() {
-		for (int i = ctx.ops.size() - 1; i >= 0; i--) {
-			Operation op = ctx.ops.get(i);			
-//			if (op instanceof UndoOp) {
-//				continue;
-//			}else if(op instanceof Undoable){
-				return op;
-//			}
+		if(ctx.ops.isEmpty()) {
+			return null;
+		}else{
+			return ctx.ops.iterator().next();
 		}
-		return null;
 	}
 
 	public void log(String msg) {

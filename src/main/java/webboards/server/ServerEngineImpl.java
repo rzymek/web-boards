@@ -57,15 +57,18 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		try {
 			String user = getUser();
 			List<Player> list = getPlayers(table);
-			info.side = getSide(list, user);
-			if(info.side == null) {
+			Player player = getPlayer(list, user);
+			if(player == null) {
 				List<Side> available = new ArrayList<Side>(Arrays.asList(table.game.getSides()));
-				for (Player player : list) {
-					available.remove(player.side);
+				for (Player p : list) {
+					available.remove(p.side);
 				}
 				if(!available.isEmpty()) {
 					info.joinAs = available.get(0);
 				}
+			}else{
+				info.side = player.side;
+				info.channelToken = player.channelToken; 
 			}
 			info.game = table.game;
 			info.scenario = table.scenario;
@@ -130,7 +133,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				final long tid = Long.parseLong(tableId);
 				Table table = getTable(tid);
 				final String user = getUser();
-				final Side side = getSide(getPlayers(table), user);
+				final Side side = getPlayer(getPlayers(table), user).side;
 				Board board = getCurrentBoard(tid);
 
 				op.updateBoard(board);
@@ -188,13 +191,13 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return table;
 	}
 
-	private Side getSide(List<Player> list, String user) {
+	private Player getPlayer(List<Player> list, String user) {
 		if(user == null){
 			return null;
 		}
 		for (Player player : list) {
 			if(user.equals(player.user)){
-				return player.side;
+				return player;
 			}
 		}
 		return null;
@@ -206,7 +209,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			@Override
 			public Table run() {
 				Table table = getTable(tableId);
-				Player player = new Player(table, getUser(), side, notify);
+				Player player = new Player(table, getUser(), side);
+				player.channelToken = notify.openChannel(table, side);
 				ofy().save().entity(player);
 				return table;
 			}
@@ -224,7 +228,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				table.stateTimestamp = new Date();
 				ofy().save().entity(table).now();
 
-				Player player = new Player(table, user, side, notify);
+				Player player = new Player(table, user, side);
+				player.channelToken = notify.openChannel(table, side);
 				ofy().save().entity(player);
 				return table.id;
 			}
