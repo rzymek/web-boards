@@ -1,7 +1,5 @@
 package webboards.server.notify;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +14,8 @@ import webboards.server.entity.Table;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 public class Notify {
 	private static final Logger log = Logger.getLogger(Notify.class.getName());
 
@@ -26,13 +26,13 @@ public class Notify {
 				continue;
 			}
 			try {
-				String clientId = getClientId(table, side);
+				String clientId = getClientId(table, player.side);
 				OperationMessage message = new OperationMessage();
 				message.op = op;
 				ChannelServer.send(clientId, message);
 				log.fine(side+" >>> "+ player.channelToken+" <<< "+message.op.toString());
 			} catch (Exception e) {
-				log.log(Level.SEVERE, "Unable to send channel message table.id=" + table.id + " side=" + side, e);
+				log.log(Level.SEVERE, "Unable to send channel message table.id=" + table.id + " side=" + player.side, e);
 			}			
 		}
 	}
