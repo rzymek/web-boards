@@ -91,11 +91,11 @@ public class ManagerServlet extends HttpServlet {
 
 	private Object getWaitingForOp(String user) {
 		Query<Table> query = ofy().load().type(Table.class).limit(15);
-		Query<Table> q1 = query.filter("player1 =", user).filter("player2 =", null);
-		Query<Table> q2 = query.filter("player2 =", user).filter("player1 =", null);
+//		Query<Table> q1 = query.filter("player1 =", user).filter("player2 =", null);
+//		Query<Table> q2 = query.filter("player2 =", user).filter("player1 =", null);
 		List<Table> results = new ArrayList<Table>();
-		results.addAll(q1.list());
-		results.addAll(q2.list());
+//		results.addAll(q1.list());
+		results.addAll(query.list());
 		return results;
 	}
 

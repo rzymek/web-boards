@@ -28,6 +28,6 @@ public class Table implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("%s: %s %s", id, game.getClass().getSimpleName(), scenario.getClass().getSimpleName());		
+		return String.format("%s: %s - %s", id, game.getClass().getSimpleName(), scenario.getClass().getSimpleName());		
 	}
 }
