@@ -2,6 +2,7 @@ package webboards.client;
 
 import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.GameCtx;
@@ -34,11 +35,16 @@ public class ClientEngine implements EntryPoint {
 	private SVGSVGElement svg;
 	private ServerEngineAsync service;
 	private static ClientMenu menu;
+ 
 
 	@Override
 	public void onModuleLoad() {
 		svg = getSVG();
 		exceptionHandler();
+
+		SVGImageElement board = (SVGImageElement) svg.getElementById("img");
+		board.getHref().setBaseVal(Resources.INST.board().getSafeUri().asString());
+
 		setupZoomAndPan();
 		if (Window.Location.getParameter("editor") != null) {
 			EditDisplay display = new EditDisplay(svg);
