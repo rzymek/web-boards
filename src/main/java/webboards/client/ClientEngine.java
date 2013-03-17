@@ -43,7 +43,7 @@ public class ClientEngine implements EntryPoint {
 		exceptionHandler();
 
 		SVGImageElement board = (SVGImageElement) svg.getElementById("img");
-		board.getHref().setBaseVal(Resources.INST.board().getSafeUri().asString());
+		board.getHref().setBaseVal(Resources.INSTANCE.board().getSafeUri().asString());
 
 		setupZoomAndPan();
 		if (Window.Location.getParameter("editor") != null) {

@@ -522,7 +522,10 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	protected void resetCounters() {
 		SVGRectElement rect = (SVGRectElement) getSVGElement("selection");
-		clearLayer("units");
+//		Element unit = svg.getElementById("units");
+//		while (unit.hasChildNodes()) {			
+//			unit.
+//		}
 		rect.getStyle().setDisplay(Display.NONE);
 		svg.getElementById("units").appendChild(rect);
 
