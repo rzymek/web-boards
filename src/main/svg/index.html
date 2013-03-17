@@ -1,7 +1,4 @@
 <!doctype html>
-<%@page import="org.apache.commons.io.IOUtils"%>
-<%@page import="java.io.InputStream"%>
-<%@page import="org.apache.commons.io.FileUtils"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Bastogne</title>
@@ -24,7 +21,7 @@
 </style>
 </head>
 <body id="body">
-<% IOUtils.copy(config.getServletContext().getResourceAsStream("/bastogne/bastogne.svg"),out); %>
+${svg}
 <div id="menu"></div>	
 </body>
 </html>

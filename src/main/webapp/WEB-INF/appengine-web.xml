@@ -29,6 +29,7 @@
 	</static-files>
  -->
 	<static-files> 
+		<include path="/**/*.html" expiration="1d"/>
 		<include path="/**/*.png" expiration="1d"/>
 		<include path="/**/*.jpg" expiration="1d"/>
 	</static-files>

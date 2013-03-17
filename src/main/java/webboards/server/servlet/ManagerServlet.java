@@ -45,7 +45,7 @@ public class ManagerServlet extends HttpServlet {
 		String sideName = req.getParameter("side");
 		if (sideName != null) {
 			Long tableId = ServerEngineImpl.create(user, sideName);
-			resp.sendRedirect("/bastogne/index.jsp?table=" + tableId);
+			resp.sendRedirect("/bastogne/index.html?table=" + tableId);
 		} else if (req.getParameter("imp") != null) {
 			String path = req.getParameter("imp");
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
@@ -61,7 +61,7 @@ public class ManagerServlet extends HttpServlet {
 					}
 					ofy().save().entity(ope);	
 				}
-				resp.sendRedirect("/bastogne/index.jsp?table=" + table.id);
+				resp.sendRedirect("/bastogne/index.htmls?table=" + table.id);
 			} catch (ClassNotFoundException e) {
 				throw new ServletException(e);
 			}finally{
