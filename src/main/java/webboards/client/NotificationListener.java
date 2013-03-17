@@ -1,8 +1,12 @@
 package webboards.client;
 
+import no.eirikb.gwtchannelapi.client.Channel;
+import no.eirikb.gwtchannelapi.client.ChannelListener;
+import no.eirikb.gwtchannelapi.client.Message;
 import webboards.client.data.GameCtx;
+import webboards.client.ops.Operation;
 
-public final class NotificationListener {
+public final class NotificationListener implements ChannelListener {
 	private final GameCtx ctx;
 
 	public NotificationListener(GameCtx ctx) {
@@ -13,24 +17,14 @@ public final class NotificationListener {
 		ClientEngine.log("channel join:"+channelToken);
 		if(channelToken != null) {
 			try {
-				join(channelToken, this);
+				Channel channel = new Channel(channelToken);
+				channel.addChannelListener(this);
+				channel.join();
 			}catch(Exception ex){
 				ClientEngine.log("failed to connect:"+ex.toString());
 			}
 		}
 	}
-
-	private native void join(String token, NotificationListener listener) /*-{
-		channel = new $wnd.goog.appengine.Channel(token);
-		socket = channel.open();
-		socket.onmessage = function(data){
-			listener.@webboards.client.NotificationListener::onMessage(Ljava/lang/String;)(data);
-		}
-		socket.onopen= listener.@webboards.client.NotificationListener::onOpen();
-		socket.onerror = function(error) {
-			listener.@webboards.client.NotificationListener::onError(Ljava/lang/String;)(error.description);
-		}
-	}-*/;
 
 	public void onError(String desc) {
 		ClientEngine.log("Channel API error:"+desc);		
@@ -39,14 +33,14 @@ public final class NotificationListener {
 		ClientEngine.log("Connected");
 	}
 	
-	public void onMessage(String data) {
-		ClientEngine.log("Notif recv: "+data.toString());
-//		OperationMessage msg = (OperationMessage) message;
-//		Operation op = msg.op;
-//		op.updateBoard(ctx.board);
-//		op.postServer(ctx);
-//		op.draw(ctx);
-//		op.drawDetails(ctx);
+	@Override
+	public void onReceive(Message message) {
+		OperationMessage msg = (OperationMessage) message;
+		Operation op = msg.op;
+		op.updateBoard(ctx.board);
+		op.postServer(ctx);
+		op.draw(ctx);
+		op.drawDetails(ctx);		
 	}
 	
 

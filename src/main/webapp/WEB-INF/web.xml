@@ -19,7 +19,6 @@
 		<url-pattern>/webboards/edit</url-pattern>
 	</servlet-mapping>
 
-
 	<servlet>
 		<servlet-name>ManagerServlet</servlet-name>
 		<servlet-class>webboards.server.servlet.ManagerServlet</servlet-class>

@@ -18,7 +18,6 @@ import webboards.client.ops.Operation;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
-import webboards.client.remote.ServerEngineAsync;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
