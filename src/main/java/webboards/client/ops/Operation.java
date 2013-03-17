@@ -5,18 +5,30 @@ import java.io.Serializable;
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
 
-public interface Operation extends Serializable {
+public abstract class  Operation implements Serializable {
+	private static final long serialVersionUID = 2L;
+	public int index;
 
-	void updateBoard(Board board);
+	public void updateBoard(Board board) {
+	}
 
-	void drawDetails(GameCtx ctx);
+	public void drawDetails(GameCtx ctx) {
+	}
 
-	void serverExecute(ServerContext ctx);
+	public void serverExecute(ServerContext ctx) {
+	}
 
-	void postServer(GameCtx ctx);
+	public void postServer(GameCtx ctx) {
+	}
 
+	public void draw(GameCtx ctx) {
+	}
+	
 	@Override
-	String toString();
+	public abstract String toString();
 
-	void draw(GameCtx ctx);
+	public void undoDraw(GameCtx ctx) {
+	}
+	public void undoUpdate(Board board) {
+	}
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
-import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
 import webboards.client.utils.AbstractCallback;
+import webboards.client.utils.Utils;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -19,7 +19,7 @@ public class GameCtx {
 	public CounterInfo selected;
 	public Side side;
 	public GameInfo info;
-	public List<Operation> ops;
+	public ArrayList<Operation> ops;
 	public final ServerEngineAsync service = GWT.create(ServerEngine.class);
 
 	public GameCtx() {
@@ -29,8 +29,8 @@ public class GameCtx {
 		if (op == null) {
 			return;
 		}
-		AbstractOperation aop = (AbstractOperation) op;
-		aop.index = ops.size();
+		op.index = ops.size();
+		
 		op.updateBoard(board);
 		op.draw(this);
 		ops.add(op);
@@ -47,11 +47,15 @@ public class GameCtx {
 		}
 		processing = true;
 		Operation op = queue.remove(queue.size() - 1);
+		final int expected = op.index;
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
 				try {
 					processing = false;
+					if(result.index != expected) {
+						Utils.set(ops, result.index, result);
+					}
 					result.postServer(GameCtx.this);
 					result.drawDetails(GameCtx.this);
 					ClientEngine.log("" + result);
@@ -64,7 +68,7 @@ public class GameCtx {
 
 	public void setInfo(GameInfo info) {
 		this.side = info.side;
-		this.ops = info.ops;
+		this.ops = new ArrayList<Operation>(info.ops);
 		this.info = info;				
 	}
 }

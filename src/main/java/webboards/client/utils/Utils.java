@@ -1,5 +1,6 @@
 package webboards.client.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import webboards.client.games.Position;
@@ -44,6 +45,14 @@ public class Utils {
 
 	public static boolean isEmpty(String s) {
 		return s == null ? true : s.isEmpty();
+	}
+
+	public static <T> void set(ArrayList<T> list, int idx, T value) {
+		list.ensureCapacity(idx - 1);
+		while (idx >= list.size()) {
+			list.add(null);
+		}
+		list.set(idx, value);
 	}
 
 }

@@ -12,11 +12,11 @@ import webboards.client.games.scs.SCSHex;
 import webboards.client.games.scs.SCSMarker;
 import webboards.client.games.scs.bastogne.ArtyType;
 import webboards.client.games.scs.bastogne.BastogneSide;
-import webboards.client.ops.AbstractOperation;
+import webboards.client.ops.Operation;
 import webboards.client.ops.ServerContext;
 import webboards.client.ops.generic.DiceRoll;
 
-public class PerformBarrage extends AbstractOperation {
+public class PerformBarrage extends Operation {
 	private static final long serialVersionUID = 1L;
 	private CounterId arty;
 	private Hex target;

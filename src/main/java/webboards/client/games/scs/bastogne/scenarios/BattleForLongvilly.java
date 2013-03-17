@@ -1,7 +1,5 @@
 package webboards.client.games.scs.bastogne.scenarios;
 
-import webboards.client.data.Board;
-import webboards.client.games.Scenario;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_77;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_1_I_78;
 import static webboards.client.games.scs.bastogne.BastogneUnits.ge_26VG_2_I_77;
@@ -56,6 +54,8 @@ import static webboards.client.games.scs.bastogne.BastogneUnits.us_Cherry_HHC_3;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_C;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_Comb_D;
 import static webboards.client.games.scs.bastogne.BastogneUnits.us_SNAFU_AdHoc;
+import webboards.client.data.Board;
+import webboards.client.games.Scenario;
 
 public class BattleForLongvilly extends Scenario {
 	private static final long serialVersionUID = 1L;

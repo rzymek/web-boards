@@ -4,7 +4,7 @@ import webboards.client.data.GameCtx;
 
 import com.google.gwt.user.client.Window;
 
-public class NotImplemented extends AbstractOperation {
+public class NotImplemented extends Operation {
 	private static final long serialVersionUID = 1L;
 	private String msg;
 
