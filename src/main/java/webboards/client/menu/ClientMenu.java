@@ -47,6 +47,7 @@ public class ClientMenu implements ClickHandler {
 	private final List<String> logMessages = new ArrayList<String>();
 	private final Button logBtn;
 	private final SVGSVGElement svg;
+	private boolean expanded = false;
 
 	public ClientMenu(SVGSVGElement svg, GameCtx ctx) {
 		this.svg = svg;
@@ -64,6 +65,7 @@ public class ClientMenu implements ClickHandler {
 		add("Toggle units"); 
 		add("Remove unit");
 		add("DG");
+		add("Expand");
 		add("Refresh");
 	}
 
@@ -98,6 +100,9 @@ public class ClientMenu implements ClickHandler {
 		} else if ("Hide menu".equals(text)) {
 			toggleMenu();
 			source.setHTML("Show menu");
+		} else if ("Expand".equals(text)) {
+			root.setWidth(expanded ? "45px" : "90px");
+			expanded = !expanded;
 		} else if ("Flip".equals(text)) {
 			flip();
 		} else if ("Refresh".equals(text)) {
