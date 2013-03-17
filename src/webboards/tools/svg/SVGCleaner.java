@@ -31,6 +31,7 @@ import webboards.tools.svg.cleaners.FixHexIds;
 import webboards.tools.svg.cleaners.HideTmpl;
 import webboards.tools.svg.cleaners.NamespacesFix;
 import webboards.tools.svg.cleaners.RelativeImagePath;
+import webboards.tools.svg.cleaners.RemoveBoardHref;
 import webboards.tools.svg.cleaners.RemoveHexColor;
 import webboards.tools.svg.cleaners.RemoveIds;
 import webboards.tools.svg.cleaners.SetSVGDimentions;
@@ -67,6 +68,7 @@ public class SVGCleaner {
 		writer = new ApplyTransform(writer);
 		writer = new AddLayers(writer);
 		writer = new SetSVGDimentions(writer);
+		writer = new RemoveBoardHref(writer);
 		
 		Source source = new StreamSource(in);
 		Result result = new StAXResult(writer);
