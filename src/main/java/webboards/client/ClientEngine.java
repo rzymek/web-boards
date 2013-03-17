@@ -36,9 +36,9 @@ public class ClientEngine implements EntryPoint {
 	private static ClientMenu menu;
 
 	@Override
-	public void onModuleLoad() {		
-		exceptionHandler();
+	public void onModuleLoad() {
 		svg = getSVG();
+		exceptionHandler();
 		setupZoomAndPan();
 		if (Window.Location.getParameter("editor") != null) {
 			EditDisplay display = new EditDisplay(svg);
@@ -73,9 +73,7 @@ public class ClientEngine implements EntryPoint {
 
 	public void start(final long tableId, final GameInfo info) {
 		final GameCtx ctx = new GameCtx();
-		ctx.side = info.side;
-		ctx.ops = info.ops;
-		ctx.info = info;		
+		ctx.setInfo(info);
 		ctx.board = info.game.start(info.scenario);
 		SVGDisplay display = new SVGDisplay(svg, ctx);
 		menu = new ClientMenu(svg, ctx);
@@ -85,17 +83,21 @@ public class ClientEngine implements EntryPoint {
 		NotificationListener listener = new NotificationListener(ctx);
 		listener.join(info.channelToken);
 		
-		update(ctx);
 		if(info.joinAs != null) {
 			boolean yes = Window.confirm("Would you like to join this game as " + info.joinAs);
 			if (yes) {
 				service.join(tableId, info.joinAs, new AbstractCallback<Void>(){
 					@Override
 					public void onSuccess(Void result) {
+						log("Joined as " + ctx.side);		
 						ctx.side = info.joinAs;
+						update(ctx);
 					}
 				});
 			}
+		}else{
+			log("Playing as " + ctx.side);		
+			update(ctx);
 		}
 	}
 

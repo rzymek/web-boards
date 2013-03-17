@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import webboards.client.ClientEngine;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
+import webboards.client.data.GameInfo;
 import webboards.client.display.BasicDisplay;
 import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
@@ -18,6 +19,7 @@ import webboards.client.ops.Operation;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
+import webboards.client.utils.AbstractCallback;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -61,8 +63,8 @@ public class ClientMenu implements ClickHandler {
 		add("2d6");
 		add("Toggle units"); 
 		add("Remove unit");
-
-		log("Playing as " + ctx.side);
+		add("DG");
+		add("Refresh");
 	}
 
 	private Button add(String text) {
@@ -98,6 +100,19 @@ public class ClientMenu implements ClickHandler {
 			source.setHTML("Show menu");
 		} else if ("Flip".equals(text)) {
 			flip();
+		} else if ("Refresh".equals(text)) {
+			ctx.display.clearTraces();
+			ctx.service.getState(ClientEngine.getTableId(), new AbstractCallback<GameInfo>(){
+				@Override
+				public void onSuccess(GameInfo info) {
+					ctx.setInfo(info);					
+					ctx.board = ctx.info.game.start(ctx.info.scenario);		
+					BasicDisplay display = (BasicDisplay) ctx.display;
+					display.updateBoard(ctx.board);
+					ClientEngine.update(ctx);
+				}
+			});
+
 		} else if ("Undo Op".equals(text)) {
 			undoOp();
 		} else if ("2d6".equals(text)) {
@@ -160,8 +175,8 @@ public class ClientMenu implements ClickHandler {
 		Scheduler.get().scheduleFinally(new ScheduledCommand() {			
 			@Override
 			public void execute() {
-				ctx.display.clearTraces();
 				ctx.ops.remove(op);
+				ctx.display.clearTraces();
 				ctx.board = ctx.info.game.start(ctx.info.scenario);		
 				BasicDisplay display = (BasicDisplay) ctx.display;
 				display.updateBoard(ctx.board);
@@ -174,7 +189,7 @@ public class ClientMenu implements ClickHandler {
 		if(ctx.ops.isEmpty()) {
 			return null;
 		}else{
-			return ctx.ops.iterator().next();
+			return ctx.ops.get(ctx.ops.size()-1);
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
+import webboards.client.ops.AbstractOperation;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
@@ -19,7 +20,7 @@ public class GameCtx {
 	public Side side;
 	public GameInfo info;
 	public List<Operation> ops;
-	private final ServerEngineAsync service = GWT.create(ServerEngine.class);
+	public final ServerEngineAsync service = GWT.create(ServerEngine.class);
 
 	public GameCtx() {
 	}
@@ -28,6 +29,8 @@ public class GameCtx {
 		if (op == null) {
 			return;
 		}
+		AbstractOperation aop = (AbstractOperation) op;
+		aop.index = ops.size();
 		op.updateBoard(board);
 		op.draw(this);
 		ops.add(op);
@@ -57,5 +60,11 @@ public class GameCtx {
 				}
 			}
 		});
+	}
+
+	public void setInfo(GameInfo info) {
+		this.side = info.side;
+		this.ops = info.ops;
+		this.info = info;				
 	}
 }

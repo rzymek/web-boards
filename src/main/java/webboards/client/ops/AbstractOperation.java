@@ -4,7 +4,8 @@ import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
 
 public abstract class AbstractOperation implements Operation {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
+	public int index;
 
 	@Override
 	public void updateBoard(Board board) {
