@@ -53,10 +53,14 @@ You need [maven3](http://maven.apache.org/download.cgi) to build webboards.
 To generate [Eclipse](http://www.eclipse.org/downloads/) project files call `mvn eclipse:eclipse`.
 Then in the IDE select `File > Import > Existing projects into workspace...`
 
+Applying changes
+----------------
 To apply client side changes call `mvn gwt:compile` and refresh the page.  
-To apply changes to resources (jsp, html, etc) call `mvn resources:copy` and refresh the page. 
+To apply changes to resources (jsp, html, etc) call `mvn resources:copy` and refresh the page.  
 To apply server side changes restart the `mvn appengine:devserver` command.
 
+Debugging
+---------
 To debug server side code setup remote debugging to connect to localhost:8000.  
 In Eclipse select `Run > Debug configurations... > Remote Java Application`:
 ![Remote debugging in Eclipse](https://raw.github.com/wiki/rzymek/webboards/img/remote-dbg.png)
