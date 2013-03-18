@@ -73,3 +73,9 @@ When running in GWT DevMode you need to append '&gwt.codesvr=127.0.0.1:9997' to 
 You can create a bookmarklet that appends it to the current URL using this:  
     `javascript:window.location=window.location+'&gwt.codesvr=127.0.0.1:9997'`  
 The disadvantage of GWT DevMode is that opening webboards page takes a lot longer then using AppEngine DevServer. 
+
+Deploy to App Engine
+--------------------
+To deploy to Google App Engine call:   
+    `mvn clean appengine:update -Pprod -Dappid=$appid -Dver=$ver`   
+where `$appId` is your application id from http://appspot.com and `$ver` is version. The `ver` parameter is optional.
