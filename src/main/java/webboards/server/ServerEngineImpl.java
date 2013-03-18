@@ -142,7 +142,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 					opCount = new OpCount(table);
 				}
 				if(op.index != opCount.count()) {
-					throw new EarlException("Optimistic lock");
+					throw new EarlException("Optimistic lock: "+op.index+" != "+opCount.count());
 				}				
 				log.fine("opCount="+opCount);
 

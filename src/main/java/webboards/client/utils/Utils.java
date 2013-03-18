@@ -47,12 +47,4 @@ public class Utils {
 		return s == null ? true : s.isEmpty();
 	}
 
-	public static <T> void set(ArrayList<T> list, int idx, T value) {
-		list.ensureCapacity(idx - 1);
-		while (idx >= list.size()) {
-			list.add(null);
-		}
-		list.set(idx, value);
-	}
-
 }

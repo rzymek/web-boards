@@ -9,7 +9,6 @@ import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
 import webboards.client.remote.ServerEngineAsync;
 import webboards.client.utils.AbstractCallback;
-import webboards.client.utils.Utils;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -47,15 +46,11 @@ public class GameCtx {
 		}
 		processing = true;
 		Operation op = queue.remove(queue.size() - 1);
-		final int expected = op.index;
 		service.process(op, new AbstractCallback<Operation>() {
 			@Override
 			public void onSuccess(Operation result) {
 				try {
 					processing = false;
-					if(result.index != expected) {
-						Utils.set(ops, result.index, result);
-					}
 					result.postServer(GameCtx.this);
 					result.drawDetails(GameCtx.this);
 					ClientEngine.log("" + result);

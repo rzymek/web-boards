@@ -5,7 +5,6 @@ import no.eirikb.gwtchannelapi.client.ChannelListener;
 import no.eirikb.gwtchannelapi.client.Message;
 import webboards.client.data.GameCtx;
 import webboards.client.ops.Operation;
-import webboards.client.utils.Utils;
 
 public final class NotificationListener implements ChannelListener {
 	private final GameCtx ctx;
@@ -38,7 +37,7 @@ public final class NotificationListener implements ChannelListener {
 	public void onReceive(Message message) {
 		OperationMessage msg = (OperationMessage) message;
 		Operation op = msg.op;
-		Utils.set(ctx.ops, op.index, op);
+		ctx.ops.add(op);
 		op.updateBoard(ctx.board);
 		op.postServer(ctx);
 		op.draw(ctx);
