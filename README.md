@@ -47,7 +47,7 @@ You need [maven3](http://maven.apache.org/download.cgi) to build webboards.
 1. Clone your fork  
    `git clone https://github.com/$USER/webboards.git`     
 2. Start the devserver  
-   `mvn appengine:devserver`  
+   `mvn appengine:devserver` or `./dev.sh`
 3. Go to [http://localhost:8888](http://localhost:8888)  
 
 To generate [Eclipse](http://www.eclipse.org/downloads/) project files call `mvn eclipse:eclipse`.
