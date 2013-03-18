@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import webboards.server.ServerEngineImpl;
+import webboards.server.entity.OpCount;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Player;
 import webboards.server.entity.Table;
@@ -37,6 +38,7 @@ public class ManagerServlet extends HttpServlet {
 		ObjectifyService.register(OperationEntity.class);
 		ObjectifyService.register(Table.class);
 		ObjectifyService.register(Player.class);
+		ObjectifyService.register(OpCount.class);
 	}
 
 	@Override

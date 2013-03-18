@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import webboards.client.data.Board;
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
+import webboards.client.ex.EarlException;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -22,6 +23,7 @@ import webboards.client.games.scs.bastogne.scenarios.BattleForLongvilly;
 import webboards.client.ops.Operation;
 import webboards.client.ops.ServerContext;
 import webboards.client.remote.ServerEngine;
+import webboards.server.entity.OpCount;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Player;
 import webboards.server.entity.Table;
@@ -98,9 +100,13 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 
 	public List<OperationEntity> loadOpEntities(Table table) {
-		LoadType<OperationEntity> load = ofy().load().type(OperationEntity.class);
-		Query<OperationEntity> query = load.ancestor(table);
-		return query.order("timestamp").list();
+		//@formatter:off
+		return ofy().load()
+				.type(OperationEntity.class)
+				.ancestor(table)
+				.order("timestamp")
+				.list();
+		//@formatter:on
 	}
 
 	private String getUser() {
@@ -129,9 +135,17 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			@Override
 			public Operation run() {
 				final String tableId = getTableId();
-
 				final long tid = Long.parseLong(tableId);
 				Table table = getTable(tid);
+				OpCount opCount = ofy().load().type(OpCount.class).ancestor(table).first().get();
+				if(opCount == null) {
+					opCount = new OpCount(table);
+				}
+				if(op.index != opCount.count()) {
+					throw new EarlException("Optimistic lock");
+				}				
+				log.fine("opCount="+opCount);
+
 				final String user = getUser();
 				final Side side = getPlayer(getPlayers(table), user).side;
 				Board board = getCurrentBoard(tid);
@@ -147,7 +161,8 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				e.timestamp = new Date();
 				e.adebug = ServerUtils.describe(op);
 
-				ofy().save().entity(e);
+				opCount.incement();
+				ofy().save().entities(e, opCount);
 				memcache.put("game#" + tid, board);
 				notify.notifyListeners(getTable(tid), op, side);
 				log.info("Executed " + op);
