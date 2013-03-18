@@ -1,6 +1,5 @@
 package webboards.client.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import webboards.client.games.Position;

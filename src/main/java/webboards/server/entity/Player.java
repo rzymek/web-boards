@@ -8,6 +8,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Serialize;
 
@@ -22,6 +23,7 @@ public class Player implements Serializable {
 	protected String id;
 	@Serialize
 	public Side side;
+	@Index
 	public String user;
 	public String channelToken;
 
@@ -33,5 +35,10 @@ public class Player implements Serializable {
 		this.user = user;
 		this.side = side;
 		this.id = side.toString();
+	}
+
+	@Override
+	public String toString() {
+		return side + " " + user;
 	}
 }

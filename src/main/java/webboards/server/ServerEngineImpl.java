@@ -27,6 +27,7 @@ import webboards.server.entity.OpCount;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Player;
 import webboards.server.entity.Table;
+import webboards.server.entity.TableSearch;
 import webboards.server.notify.Notify;
 import webboards.server.utils.HttpUtils;
 import webboards.server.utils.ServerUtils;
@@ -201,7 +202,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		if (table == null) {
 			throw new EarlServerException("Invalid table id=" + tableId);
 		}
-		log.fine(tableId + " found in db. LastOp:" + table.lastOp);
+		log.fine(tableId + " found in db. ");
 		return table;
 	}
 
@@ -225,7 +226,10 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				Table table = getTable(tableId);
 				Player player = new Player(table, getUser(), side);
 				player.channelToken = notify.openChannel(table, side);
-				ofy().save().entity(player);
+				TableSearch ts = ofy().transactionless().load().type(TableSearch.class).id(table.id).get();
+				ts.join(player);
+				ofy().save().entities(player);
+				ofy().transactionless().save().entities(ts);
 				return table;
 			}
 		});
@@ -239,12 +243,14 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				Table table = new Table();
 				table.game = new Bastogne();
 				table.scenario = new BattleForLongvilly();
-				table.stateTimestamp = new Date();
 				ofy().save().entity(table).now();
 
 				Player player = new Player(table, user, side);
 				player.channelToken = notify.openChannel(table, side);
-				ofy().save().entity(player);
+				TableSearch ts = new TableSearch(table);
+				ts.join(player);
+				ofy().save().entities(player);
+				ofy().transactionless().save().entities(ts);
 				return table.id;
 			}
 		});

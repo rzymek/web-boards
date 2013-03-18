@@ -21,6 +21,7 @@ import webboards.server.entity.OpCount;
 import webboards.server.entity.OperationEntity;
 import webboards.server.entity.Player;
 import webboards.server.entity.Table;
+import webboards.server.entity.TableSearch;
 
 import com.google.appengine.api.channel.ChannelPresence;
 import com.google.appengine.api.channel.ChannelService;
@@ -39,6 +40,7 @@ public class ManagerServlet extends HttpServlet {
 		ObjectifyService.register(Table.class);
 		ObjectifyService.register(Player.class);
 		ObjectifyService.register(OpCount.class);
+		ObjectifyService.register(TableSearch.class);
 	}
 
 	@Override
@@ -101,24 +103,16 @@ public class ManagerServlet extends HttpServlet {
 		return results;
 	}
 
-	public List<Table> getStarted(String user) {
-		Query<Table> query = ofy().load().type(Table.class).limit(15);
-		Query<Table> q1 = query.filter("player1 =", user).filter("player2 !=", null);
-		Query<Table> q2 = query.filter("player2 =", user).filter("player1 !=", null);
-		List<Table> results = new ArrayList<Table>();
-		results.addAll(q1.list());
-		results.addAll(q2.list());
-		return results;
+	public List<TableSearch> getStarted(String user) {
+		List<TableSearch> result = ofy().load().type(TableSearch.class)
+			.filter("players", user).limit(15).list();
+		return result;
 	}
 
-	public List<Table> getVacant(String user) {
-		Query<Table> query = ofy().load().type(Table.class).limit(15);
-		Query<Table> q1 = query.filter("player1 !=", user).filter("player2 =", null);
-		Query<Table> q2 = query.filter("player2 !=", user).filter("player1 =", null);
-		List<Table> results = new ArrayList<Table>();
-		results.addAll(q1.list());
-		results.addAll(q2.list());
-		return results;
+	public List<TableSearch> getVacant(String user) {
+		List<TableSearch> result = ofy().load().type(TableSearch.class)
+				.filter("players!=", user).limit(15).list();
+		return result;
 	}
 
 	@Override

@@ -23,9 +23,6 @@ public class Table implements Serializable {
 	@Serialize
 	public Scenario scenario;
 	
-	public Date stateTimestamp;
-	public String lastOp;
-
 	@Override
 	public String toString() {
 		return String.format("%s: %s - %s", id, game.getClass().getSimpleName(), scenario.getClass().getSimpleName());		

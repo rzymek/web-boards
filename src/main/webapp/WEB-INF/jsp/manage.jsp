@@ -1,6 +1,6 @@
 <%@page import="java.util.Collection"%>
 <%@page import="webboards.server.servlet.ManagerServlet"%>
-<%@page import="webboards.server.entity.Table"%>
+<%@page import="webboards.server.entity.*"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <html>
 <head>
@@ -14,12 +14,12 @@
 			<option>GE</option>
 		</select><input type="submit" value="Start" />
 	</form>
-	<% Collection<Table> list; %>
+	<% Collection<Table> list;Collection<TableSearch> list1; %>
 	<br /> Your games:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("webboards.started");
-			for (Table t : list) {
+			list1 = (Collection<TableSearch>) request.getAttribute("webboards.started");
+			for (TableSearch t : list1) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
@@ -40,8 +40,8 @@
 	<br /> Join:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("webboards.invitations");
-			for (Table t : list) {
+			list1 = (Collection<TableSearch>) request.getAttribute("webboards.invitations");
+			for (TableSearch t : list1) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
