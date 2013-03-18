@@ -153,8 +153,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				op.updateBoard(board);
 				op.serverExecute(new ServerContext(board));
 
-				OperationEntity e = new OperationEntity();
-				e.table = Key.create(Table.class, tid);
+				OperationEntity e = new OperationEntity(table);
 				e.author = side.toString();
 				e.data = ServerUtils.serialize(op);
 				e.className = op.getClass().getName();

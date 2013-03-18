@@ -16,15 +16,24 @@ import com.googlecode.objectify.annotation.Parent;
 public class OperationEntity implements Comparable<OperationEntity>, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Parent
-	public Key<Table> table;
+	@SuppressWarnings("unused")
+	private Key<Table> table;
 	@Id
-	public Long id;
+	private Long id;
 	public byte[] data;
 	public String className;
 	@Index
 	public Date timestamp = new Date();
 	public String adebug;
 	public String author;
+
+	@SuppressWarnings("unused")
+	private OperationEntity() {
+	}
+
+	public OperationEntity(Table table) {
+		this.table = Key.create(table);
+	}
 
 	@Override
 	public String toString() {
