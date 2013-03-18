@@ -17,7 +17,7 @@
 		<gwt.version>2.5.0</gwt.version>
 		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
 		<gae.version>1.7.5</gae.version>
-		<gae.mvn.version>1.7.5-SNAPSHOT</gae.mvn.version>
+		<gae.mvn.version>1.7.5</gae.mvn.version>
 
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
