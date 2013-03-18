@@ -54,8 +54,18 @@ To generate [Eclipse](http://www.eclipse.org/downloads/) project files call `mvn
 Then in the IDE select `File > Import > Existing projects into workspace...`
 
 To apply client side changes call `mvn gwt:compile` and refresh the page.  
+To apply changes to resources (jsp, html, etc) call `mvn resources:copy` and refresh the page. 
 To apply server side changes restart the `mvn appengine:devserver` command.
 
 To debug server side code setup remote debugging to connect to localhost:8000.  
 In Eclipse select `Run > Debug configurations... > Remote Java Application`:
 ![Remote debugging in Eclipse](https://raw.github.com/wiki/rzymek/webboards/img/remote-dbg.png)
+
+To debug client and server code run in GWT DevMode using  
+    `mvn gwt:debug`   
+(Remember to first stop `mvn appengine:devserver` as it runs on the same ports).  
+Then use remote debugging to connect to localhost:8000 (as above).  
+When running in GWT DevMode you need to append '&gwt.codesvr=127.0.0.1:9997' to the URL.
+You can create a bookmarklet that appends it to the current URL using this:  
+    `javascript:window.location=window.location+'&gwt.codesvr=127.0.0.1:9997'`  
+The disadvantage of GWT DevMode is that opening webboards page takes a lot longer then using AppEngine DevServer. 
