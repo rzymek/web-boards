@@ -69,7 +69,7 @@ To debug client and server code run in GWT DevMode using
     `mvn gwt:debug`   
 (Remember to first stop `mvn appengine:devserver` as it runs on the same ports).  
 Then use remote debugging to connect to localhost:8000 (as above).  
-When running in GWT DevMode you need to append '&gwt.codesvr=127.0.0.1:9997' to the URL.
+When running in GWT DevMode you need to append '&gwt.codesvr=127.0.0.1:9997' to the URL.  
 You can create a bookmarklet that appends it to the current URL using this:  
     `javascript:window.location=window.location+'&gwt.codesvr=127.0.0.1:9997'`  
 The disadvantage of GWT DevMode is that opening webboards page takes a lot longer then using AppEngine DevServer. 
