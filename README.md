@@ -22,3 +22,34 @@ The first game being implemented is [MMP](http://www.multimanpublishing.com/Prod
 [Bastogne: Screaming Eagles under Siege](http://boardgamegeek.com/boardgame/35669/bastogne-screaming-eagles-under-siege).
 
 ![](https://raw.github.com/wiki/rzymek/webboards/img/screenshot.png)
+
+Contributing
+===========
+
+1. [Fork this repo](https://help.github.com/articles/fork-a-repo)
+2. Push changes to your fork
+2. [Create a pull request](https://help.github.com/articles/creating-a-pull-request)
+
+Setting up the development environment 
+---------------------------------
+
+You need [maven3](http://maven.apache.org/download.cgi) to build webboards.
+
+1. Clone your fork 
+ git clone https://github.com/$USER/webboards.git
+2. Start the devserver
+ mvn appengine:devserver
+3. Go to http://localhost:8888
+
+If you want to use [Eclipse](http://www.eclipse.org/downloads/) call:
+ mvn eclipse:eclipse
+to generate Eclipse project files. Then in the IDE select 'File > Import > Existing projects into workspace...'
+
+To apply client side changes call:
+ mvn gwt:compile
+and refresh the page.
+
+To apply server side changes restart the "mvn appengine:devserver" command.
+
+To debug server side code setup remote debugging to connect to localhost:8000
+![](https://raw.github.com/wiki/rzymek/webboards/img/remote-dbg.png)
