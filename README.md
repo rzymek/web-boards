@@ -35,21 +35,22 @@ Setting up the development environment
 
 You need [maven3](http://maven.apache.org/download.cgi) to build webboards.
 
-1. Clone your fork 
- git clone https://github.com/$USER/webboards.git
-2. Start the devserver
- mvn appengine:devserver
-3. Go to http://localhost:8888
+1. Clone your fork  
+ `git clone https://github.com/$USER/webboards.git`
+2. Start the devserver  
+ `mvn appengine:devserver`
+3. Go to [http://localhost:8888](http://localhost:8888)
 
-If you want to use [Eclipse](http://www.eclipse.org/downloads/) call:
- mvn eclipse:eclipse
-to generate Eclipse project files. Then in the IDE select 'File > Import > Existing projects into workspace...'
+If you want to use [Eclipse](http://www.eclipse.org/downloads/) call:  
+ `mvn eclipse:eclipse`  
+to generate Eclipse project files. Then in the IDE select `File > Import > Existing projects into workspace...`
 
-To apply client side changes call:
- mvn gwt:compile
+To apply client side changes call:  
+ `mvn gwt:compile`  
 and refresh the page.
 
-To apply server side changes restart the "mvn appengine:devserver" command.
+To apply server side changes restart the `mvn appengine:devserver` command.
 
-To debug server side code setup remote debugging to connect to localhost:8000
-![](https://raw.github.com/wiki/rzymek/webboards/img/remote-dbg.png)
+To debug server side code setup remote debugging to connect to localhost:8000.  
+In Eclipse select `Run > Debug configurations... > Remote Java Application`:
+![Remote debugging in Eclipse](https://raw.github.com/wiki/rzymek/webboards/img/remote-dbg.png)
