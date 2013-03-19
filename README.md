@@ -56,7 +56,7 @@ Then in the IDE select `File > Import > Existing projects into workspace...`
 Applying changes
 ----------------
 To apply client side changes call `mvn gwt:compile` and refresh the page.  
-To apply changes to resources (jsp, html, etc) call `mvn resources:copy` and refresh the page.  
+To apply changes to resources (jsp, html, etc) call `mvn war:exploded` and refresh the page.  
 To apply server side changes restart the `mvn appengine:devserver` command.
 
 Debugging
