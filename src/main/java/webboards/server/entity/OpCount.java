@@ -2,12 +2,14 @@ package webboards.server.entity;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
 
 @Entity
 public class OpCount {
-	@SuppressWarnings("unused")
-	private Long id;
-	@SuppressWarnings("unused")
+	@Id
+	private Long id;	
+	@Parent 
 	private Key<Table> table;
 	private int value;
 
