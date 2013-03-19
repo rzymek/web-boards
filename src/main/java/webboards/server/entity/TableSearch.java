@@ -21,6 +21,8 @@ public class TableSearch {
 	private Key<Table> table;
 	@Index @Load
 	private List<String> players = new ArrayList<String>();
+	@Index
+	private boolean full = false;
 	public Date started = new Date();
 	public String info;
 
@@ -33,8 +35,9 @@ public class TableSearch {
 		this.info = table.game.getClass().getSimpleName() + " - " + table.scenario.getClass().getSimpleName();
 	}
 
-	public void join(Player player) {
+	public void join(Player player, int maxPlayers) {
 		players.add(player.user);
+		full = (players.size() >= maxPlayers); 
 	}
 
 	@Override

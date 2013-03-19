@@ -94,24 +94,26 @@ public class ManagerServlet extends HttpServlet {
 	}
 
 	private Object getWaitingForOp(String user) {
-		Query<Table> query = ofy().load().type(Table.class).limit(15);
-//		Query<Table> q1 = query.filter("player1 =", user).filter("player2 =", null);
-//		Query<Table> q2 = query.filter("player2 =", user).filter("player1 =", null);
-		List<Table> results = new ArrayList<Table>();
-//		results.addAll(q1.list());
-		results.addAll(query.list());
-		return results;
+		List<TableSearch> result = ofy().load().type(TableSearch.class)
+				.filter("players", user)
+				.filter("full", false)
+				.limit(15).list();
+		return result;
 	}
 
 	public List<TableSearch> getStarted(String user) {
 		List<TableSearch> result = ofy().load().type(TableSearch.class)
-			.filter("players", user).limit(15).list();
+			.filter("players", user)
+			.filter("full", true)
+			.limit(15).list();
 		return result;
 	}
 
 	public List<TableSearch> getVacant(String user) {
 		List<TableSearch> result = ofy().load().type(TableSearch.class)
-				.filter("players!=", user).limit(15).list();
+				.filter("players !=", user)
+				.filter("full", false)
+				.limit(15).list();
 		return result;
 	}
 

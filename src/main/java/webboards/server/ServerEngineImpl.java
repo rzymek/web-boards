@@ -227,7 +227,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				Player player = new Player(table, getUser(), side);
 				player.channelToken = notify.openChannel(table, side);
 				TableSearch ts = ofy().transactionless().load().type(TableSearch.class).id(table.id).get();
-				ts.join(player);
+				ts.join(player, table.game.getSides().length);
 				ofy().save().entities(player);
 				ofy().transactionless().save().entities(ts);
 				return table;
@@ -248,7 +248,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 				Player player = new Player(table, user, side);
 				player.channelToken = notify.openChannel(table, side);
 				TableSearch ts = new TableSearch(table);
-				ts.join(player);
+				ts.join(player, table.game.getSides().length);
 				ofy().save().entities(player);
 				ofy().transactionless().save().entities(ts);
 				return table.id;

@@ -14,12 +14,12 @@
 			<option>GE</option>
 		</select><input type="submit" value="Start" />
 	</form>
-	<% Collection<Table> list;Collection<TableSearch> list1; %>
+	<% Collection<TableSearch> list; %>
 	<br /> Your games:
 	<ul>
 		<%
-			list1 = (Collection<TableSearch>) request.getAttribute("webboards.started");
-			for (TableSearch t : list1) {
+			list = (Collection<TableSearch>) request.getAttribute("webboards.started");
+			for (TableSearch t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
@@ -29,8 +29,8 @@
 	<br /> Waiting for opponent:
 	<ul>
 		<%
-			list = (Collection<Table>) request.getAttribute("webboards.waiting");
-			for (Table t : list) {
+			list = (Collection<TableSearch>) request.getAttribute("webboards.waiting");
+			for (TableSearch t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
@@ -40,8 +40,8 @@
 	<br /> Join:
 	<ul>
 		<%
-			list1 = (Collection<TableSearch>) request.getAttribute("webboards.invitations");
-			for (TableSearch t : list1) {
+			list = (Collection<TableSearch>) request.getAttribute("webboards.invitations");
+			for (TableSearch t : list) {
 		%>
 		<li><a href="/bastogne/?table=<%=t.id%>"><%=t%></a></li>
 		<%
