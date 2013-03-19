@@ -16,8 +16,6 @@ import webboards.client.games.scs.SCSMarker;
 public class Bastogne implements Game  {
 	private static final int DG_POOL = 18;
 	private static final long serialVersionUID = 1L;
-	private String playerUS;
-	private String playerGE;
 
 	public Bastogne() {
 	}
@@ -50,33 +48,6 @@ public class Bastogne implements Game  {
 			}
 		}
 		return board;
-	}
-
-
-	public void setPlayer(BastogneSide side, String player) {
-		if (side == BastogneSide.US) {
-			this.playerUS = player;
-		} else {
-			this.playerGE = player;
-		}
-	}
-
-	public String getPlayer(BastogneSide side) {
-		if (side == BastogneSide.US) {
-			return playerUS;
-		} else {
-			return playerGE;
-		}
-	}
-
-	@Override
-	public boolean isParticipating(String user) {
-		return user.equals(playerUS) || user.equals(playerGE);
-	}
-
-	@Override
-	public String[] getPlayers() {
-		return new String[] { playerUS, playerGE };
 	}
 
 	private static final String[][] CRT = {//@formatter:off
