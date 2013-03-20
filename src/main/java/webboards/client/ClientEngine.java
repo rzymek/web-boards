@@ -1,7 +1,5 @@
 package webboards.client;
 
-import org.vectomatic.dom.svg.OMDocument;
-import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -27,7 +25,6 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -45,7 +42,7 @@ public class ClientEngine implements EntryPoint {
 		SVGImageElement board = (SVGImageElement) svg.getElementById("img");
 		board.getHref().setBaseVal(Resources.INSTANCE.board().getSafeUri().asString());
 
-		setupZoomAndPan();
+		SVGZoomAndPanHandler.attach(svg);
 		if (Window.Location.getParameter("editor") != null) {
 			EditDisplay display = new EditDisplay(svg);
 			Bastogne game = new Bastogne();
@@ -167,16 +164,6 @@ public class ClientEngine implements EntryPoint {
 	}
 
 
-	protected void setupZoomAndPan() {
-		OMSVGSVGElement omsvg = OMDocument.convert(svg);
-		SVGZoomAndPanHandler zoomAndPan = new SVGZoomAndPanHandler(svg);
-		omsvg.addMouseDownHandler(zoomAndPan);
-		omsvg.addMouseUpHandler(zoomAndPan);
-		omsvg.addMouseMoveHandler(zoomAndPan);
-		RootPanel.get().addDomHandler(zoomAndPan, MouseWheelEvent.getType());
-		RootPanel.get().addDomHandler(zoomAndPan, KeyPressEvent.getType());
-	}
-	
 	protected void connect() {
 		service = GWT.create(ServerEngine.class);
 		final long tableId = getTableId();

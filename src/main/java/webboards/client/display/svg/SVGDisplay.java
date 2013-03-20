@@ -64,6 +64,9 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {
+		if(SVGZoomAndPanHandler.isPanning()){
+			return;
+		}
 		hideStackSelection();
 		String id = event.getRelativeElement().getId();
 		Hex position = Hex.fromSVGId(id);
@@ -71,6 +74,9 @@ public class SVGDisplay extends BasicDisplay {
 	}
 
 	protected void counterClicked(final Board board, ClickEvent event) {
+		if(SVGZoomAndPanHandler.isPanning()){
+			return;
+		}
 		SVGImageElement clicked = (SVGImageElement) event.getRelativeElement();
 		String id = clicked.getId();
 		CounterInfo counter = board.getCounter(id);

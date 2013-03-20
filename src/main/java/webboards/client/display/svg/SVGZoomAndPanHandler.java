@@ -1,13 +1,18 @@
 package webboards.client.display.svg;
 
+import org.vectomatic.dom.svg.OMDocument;
 import org.vectomatic.dom.svg.OMSVGMatrix;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
+import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.display.VisualCoords;
 
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -20,8 +25,9 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RootPanel;
 
-public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler {
+public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler, ClickHandler {
 	private static final float KEY_ZOOM_STEP = 1.3f;
 	private static final boolean LOW_RES_PANNING = false;
 	private float minScale = 0.25f;
@@ -31,9 +37,10 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	private final SVGSVGElement svg;
 	private float scale = 1.0f;
 	private boolean lowRes = false;
-	private boolean panning = false;
+	private boolean mouseDown = false;
+	private static boolean panning = false;
 
-	public SVGZoomAndPanHandler(SVGSVGElement svg) {
+	private SVGZoomAndPanHandler(SVGSVGElement svg) {
 		this.svg = svg;
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
 		size = new VisualCoords((int) viewbox.getWidth(), (int) viewbox.getHeight());
@@ -78,13 +85,8 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseMove(MouseMoveEvent e) {
-		if(e.getNativeButton() == 0) {
-			panning = false;
-			onMouseUp(null);
-			return;
-		}
-		if (panning) {
-			e.preventDefault();
+		if (mouseDown) {
+			panning = true;
 			float x = mouse.x;
 			float y = mouse.y;
 			OMSVGPoint start = toUsertSpace(x, y);
@@ -97,9 +99,17 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 			viewBox.setX(offset.x + (start.getX() - pos.getX()));
 			viewBox.setY(offset.y + (start.getY() - pos.getY()));
 		} else {
+			panning = false;
 			updateMousePosition(e);
 		}
 	}
+
+	private native static void stop(NativeEvent e) /*-{
+		if(e.stopPropagation) e.stopPropagation();
+		if(e.preventDefault)e.preventDefault();
+		if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+		console.log("stopped "+e);
+	}-*/;
 
 	private void updateImageResolution() {
 		if(LOW_RES_PANNING) {
@@ -118,10 +128,7 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		if (panning) {
-			event.preventDefault();
-		}
-		panning = false;
+		mouseDown = false;
 		lowRes = false;
 		updateImageResolution();
 	}
@@ -129,8 +136,8 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
 		updateMousePosition(event);
-		panning = true;
-	}
+		mouseDown = true;
+	}	
 
 	@Override
 	public void onKeyPress(KeyPressEvent event) {
@@ -154,4 +161,23 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 		}
 	}
 
+	public static void attach(SVGSVGElement svg) {
+		SVGZoomAndPanHandler zoomAndPan = new SVGZoomAndPanHandler(svg);
+		OMSVGSVGElement omsvg = OMDocument.convert(svg);
+		omsvg.addMouseDownHandler(zoomAndPan);
+		omsvg.addMouseUpHandler(zoomAndPan);
+		omsvg.addMouseMoveHandler(zoomAndPan);
+		omsvg.addClickHandler(zoomAndPan);
+		RootPanel.get().addDomHandler(zoomAndPan, MouseWheelEvent.getType());
+		RootPanel.get().addDomHandler(zoomAndPan, KeyPressEvent.getType());		
+	}
+
+	@Override
+	public void onClick(ClickEvent event) {
+		panning = false;
+	}
+
+	public static boolean isPanning() {
+		return panning;
+	}
 }
