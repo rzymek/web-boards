@@ -5,14 +5,11 @@ import org.vectomatic.dom.svg.OMSVGMatrix;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
-import webboards.client.Resources;
 import webboards.client.display.VisualCoords;
 import webboards.client.utils.Browser;
 
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -31,24 +28,22 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler, ClickHandler {
 	private static final float KEY_ZOOM_STEP = 1.3f;
-	private static boolean LOW_RES_PANNING = true;
 	private float minScale = 0.25f;
 	private final VisualCoords size;
 	private final VisualCoords mouse = new VisualCoords(0, 0);
 	private final VisualCoords offset = new VisualCoords(0, 0);	
-	private final SVGSVGElement svg;
+	protected final SVGSVGElement svg;
 	private float scale = 1.0f;
-	private boolean lowRes = false;
-	private boolean mouseDown = false;
+	protected boolean mouseDown = false;
 	private static boolean panning = false;
 
-	private SVGZoomAndPanHandler(SVGSVGElement svg) {
+	public SVGZoomAndPanHandler(SVGSVGElement svg) {
 		this.svg = svg;
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
 		size = new VisualCoords((int) viewbox.getWidth(), (int) viewbox.getHeight());
 		minScale = Math.min(Window.getClientWidth()  / viewbox.getWidth(), Window.getClientHeight() / viewbox.getHeight());
-		LOW_RES_PANNING = (Window.Location.getParameter("low")!=null);
 		Browser.console("LOW_RES_PANNING=["+Window.Location.getParameter("low")+"]");
+		attach(svg);
 	}
 
 	@Override
@@ -95,10 +90,6 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 			float y = mouse.y;
 			OMSVGPoint start = toUsertSpace(x, y);
 			OMSVGPoint pos = toUsertSpace(e.getClientX(), e.getClientY());
-			if (!lowRes) {
-				lowRes = true;
-				updateImageResolution();
-			}
 			OMSVGRect viewBox = svg.getViewBox().getBaseVal();
 			viewBox.setX(offset.x + (start.getX() - pos.getX()));
 			viewBox.setY(offset.y + (start.getY() - pos.getY()));
@@ -107,23 +98,7 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 			updateMousePosition(e);
 		}
 	}
-
-	private native static void stop(NativeEvent e) /*-{
-		if(e.stopPropagation) e.stopPropagation();
-		if(e.preventDefault)e.preventDefault();
-		if(e.stopImmediatePropagation)e.stopImmediatePropagation();
-		console.log("stopped "+e);
-	}-*/;
-
-	private void updateImageResolution() {
-		if(LOW_RES_PANNING) {
-			SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
-			boardImg.getHref().setBaseVal(lowRes ? 
-				Resources.INSTANCE.boardLow().getSafeUri().asString(): 
-				Resources.INSTANCE.board().getSafeUri().asString());
-		}
-	}
-
+	
 	private void updateMousePosition(MouseEvent<?> e) {
 		mouse.x = e.getClientX();
 		mouse.y = e.getClientY();
@@ -135,8 +110,6 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
 		mouseDown = false;
-		lowRes = false;
-		updateImageResolution();
 	}
 
 	@Override
@@ -167,15 +140,14 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 		}
 	}
 
-	public static void attach(SVGSVGElement svg) {
-		SVGZoomAndPanHandler zoomAndPan = new SVGZoomAndPanHandler(svg);
+	private void attach(SVGSVGElement svg) {
 		OMSVGSVGElement omsvg = OMDocument.convert(svg);
-		omsvg.addMouseDownHandler(zoomAndPan);
-		omsvg.addMouseUpHandler(zoomAndPan);
-		omsvg.addMouseMoveHandler(zoomAndPan);
-		omsvg.addClickHandler(zoomAndPan);
-		RootPanel.get().addDomHandler(zoomAndPan, MouseWheelEvent.getType());
-		RootPanel.get().addDomHandler(zoomAndPan, KeyPressEvent.getType());		
+		omsvg.addMouseDownHandler(this);
+		omsvg.addMouseUpHandler(this);
+		omsvg.addMouseMoveHandler(this);
+		omsvg.addClickHandler(this);
+		RootPanel.get().addDomHandler(this, MouseWheelEvent.getType());
+		RootPanel.get().addDomHandler(this, KeyPressEvent.getType());		
 	}
 
 	@Override

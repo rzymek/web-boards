@@ -6,6 +6,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
 import webboards.client.display.svg.SVGDisplay;
+import webboards.client.display.svg.SVGLowResZoomPan;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
 import webboards.client.display.svg.edit.EmptyScenario;
@@ -42,7 +43,11 @@ public class ClientEngine implements EntryPoint {
 		SVGImageElement board = (SVGImageElement) svg.getElementById("img");
 		board.getHref().setBaseVal(Resources.INSTANCE.board().getSafeUri().asString());
 
-		SVGZoomAndPanHandler.attach(svg);
+		if((Window.Location.getParameter("low")!=null)){
+			new SVGLowResZoomPan(svg);
+		}else{
+			new SVGZoomAndPanHandler(svg);
+		}
 		if (Window.Location.getParameter("editor") != null) {
 			EditDisplay display = new EditDisplay(svg);
 			Bastogne game = new Bastogne();
