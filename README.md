@@ -60,7 +60,7 @@ To apply changes to resources (jsp, html, etc) call `mvn war:exploded` and refre
 To apply server side changes restart the `mvn appengine:devserver` command.
 
 To speed up gwt compilation, only one browser type is supported during developement. 
-The default is webkit-based (chrome, safari). You can select another use using `mvn gwt:compile -Dbrowser=...`.
+The default is webkit-based (chrome, safari). You can select another use passing `-Dbrowser=...` to the `mvn` command.
 The possible values are: safari(for chrome as well), opera, gecko1_8, ie9, ie8, ie6. 
 Up to date values can be found in [UserAgent module](https://code.google.com/p/google-web-toolkit/source/browse/trunk/user/src/com/google/gwt/useragent/UserAgent.gwt.xml) 
 
