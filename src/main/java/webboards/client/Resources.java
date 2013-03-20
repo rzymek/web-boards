@@ -9,4 +9,6 @@ public interface Resources extends ClientBundle {
 	
 	@Source("board.jpg")
 	ImageResource board();
+	@Source("board-low.jpg")
+	ImageResource boardLow();
 }

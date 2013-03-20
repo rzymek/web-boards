@@ -8,7 +8,9 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGImageElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
+import webboards.client.Resources;
 import webboards.client.display.VisualCoords;
+import webboards.client.utils.Browser;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,7 +31,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseWheelHandler, KeyPressHandler, ClickHandler {
 	private static final float KEY_ZOOM_STEP = 1.3f;
-	private static final boolean LOW_RES_PANNING = false;
+	private static boolean LOW_RES_PANNING = true;
 	private float minScale = 0.25f;
 	private final VisualCoords size;
 	private final VisualCoords mouse = new VisualCoords(0, 0);
@@ -45,6 +47,8 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 		OMSVGRect viewbox = svg.getViewBox().getBaseVal();
 		size = new VisualCoords((int) viewbox.getWidth(), (int) viewbox.getHeight());
 		minScale = Math.min(Window.getClientWidth()  / viewbox.getWidth(), Window.getClientHeight() / viewbox.getHeight());
+		LOW_RES_PANNING = (Window.Location.getParameter("low")!=null);
+		Browser.console("LOW_RES_PANNING=["+Window.Location.getParameter("low")+"]");
 	}
 
 	@Override
@@ -114,7 +118,9 @@ public class SVGZoomAndPanHandler implements MouseDownHandler, MouseUpHandler, M
 	private void updateImageResolution() {
 		if(LOW_RES_PANNING) {
 			SVGImageElement boardImg = (SVGImageElement) svg.getElementById("img");
-			boardImg.getHref().setBaseVal(lowRes ? "board-low.jpg" : "board.jpg");
+			boardImg.getHref().setBaseVal(lowRes ? 
+				Resources.INSTANCE.boardLow().getSafeUri().asString(): 
+				Resources.INSTANCE.board().getSafeUri().asString());
 		}
 	}
 
