@@ -21,25 +21,37 @@ public class GameCtx {
 	public ArrayList<Operation> ops;
 	public final ServerEngineAsync service = GWT.create(ServerEngine.class);
 
-	public GameCtx() {
-	}
-
 	public void process(Operation op) {
 		if (op == null) {
 			return;
 		}
-		op.index = ops.size();
-		
-		op.updateBoard(board);
-		op.draw(this);
+		op.index = ops.size();	
+		preServerExec(op);
 		ops.add(op);
 		queue.add(op);
 		processQueued();
 	}
 
-	//see: https://gist.github.com/chumpy/1696249
+	private void preServerExec(Operation op) {
+		op.updateBoard(board);
+		op.draw(this);
+	}
+	private void postServerExec(Operation result) {
+		result.postServer(GameCtx.this);
+		result.drawDetails(GameCtx.this);
+		ClientEngine.log("" + result);
+	}
+
+	public void setInfo(GameInfo info) {
+		this.side = info.side;
+		this.ops = new ArrayList<Operation>(info.ops);
+		this.info = info;				
+	}
+	
 	private final List<Operation> queue = new ArrayList<Operation>();
 	private boolean processing = false;
+	
+	/** see: https://gist.github.com/chumpy/1696249 */
 	private void processQueued() {
 		if (processing || queue.isEmpty()) {
 			return;
@@ -51,19 +63,11 @@ public class GameCtx {
 			public void onSuccess(Operation result) {
 				try {
 					processing = false;
-					result.postServer(GameCtx.this);
-					result.drawDetails(GameCtx.this);
-					ClientEngine.log("" + result);
+					postServerExec(result);
 				} finally {
 					processQueued();
 				}
 			}
 		});
-	}
-
-	public void setInfo(GameInfo info) {
-		this.side = info.side;
-		this.ops = new ArrayList<Operation>(info.ops);
-		this.info = info;				
 	}
 }
