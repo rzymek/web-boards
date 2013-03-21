@@ -1,16 +1,9 @@
 package webboards.client.data;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import webboards.client.ClientEngine;
 import webboards.client.display.EarlDisplay;
 import webboards.client.ops.Operation;
-import webboards.client.remote.ServerEngine;
-import webboards.client.remote.ServerEngineAsync;
-import webboards.client.utils.AbstractCallback;
-
-import com.google.gwt.core.shared.GWT;
 
 public class GameCtx {
 	public Board board;
@@ -19,55 +12,15 @@ public class GameCtx {
 	public Side side;
 	public GameInfo info;
 	public ArrayList<Operation> ops;
-	public final ServerEngineAsync service = GWT.create(ServerEngine.class);
-
-	public void process(Operation op) {
-		if (op == null) {
-			return;
-		}
-		op.index = ops.size();	
-		preServerExec(op);
-		ops.add(op);
-		queue.add(op);
-		processQueued();
-	}
-
-	private void preServerExec(Operation op) {
-		op.updateBoard(board);
-		op.draw(this);
-	}
-	private void postServerExec(Operation result) {
-		result.postServer(GameCtx.this);
-		result.drawDetails(GameCtx.this);
-		ClientEngine.log("" + result);
-	}
+	private ClientOpRunner runner = new ClientOpRunner(this);
 
 	public void setInfo(GameInfo info) {
 		this.side = info.side;
 		this.ops = new ArrayList<Operation>(info.ops);
-		this.info = info;				
+		this.info = info;
 	}
-	
-	private final List<Operation> queue = new ArrayList<Operation>();
-	private boolean processing = false;
-	
-	/** see: https://gist.github.com/chumpy/1696249 */
-	private void processQueued() {
-		if (processing || queue.isEmpty()) {
-			return;
-		}
-		processing = true;
-		Operation op = queue.remove(queue.size() - 1);
-		service.process(op, new AbstractCallback<Operation>() {
-			@Override
-			public void onSuccess(Operation result) {
-				try {
-					processing = false;
-					postServerExec(result);
-				} finally {
-					processQueued();
-				}
-			}
-		});
+
+	public void process(Operation op) {
+		runner.process(op);
 	}
 }

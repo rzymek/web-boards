@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import webboards.client.data.Board;
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.ConcurrentOpException;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -131,7 +131,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	}
 
 	@Override
-	public Operation process(final Operation op) {
+	public Operation process(final Operation op) throws ConcurrentOpException {
 		return ofy().transact(new Work<Operation>() {
 			@Override
 			public Operation run() {
@@ -143,7 +143,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 					opCount = new OpCount(table);
 				}
 				if(op.index != opCount.count()) {
-					throw new EarlException("Optimistic lock: "+op.index+" != "+opCount.count());
+					throw new ConcurrentOpException("Optimistic lock: "+op.index+" != "+opCount.count());
 				}				
 				log.fine("opCount="+opCount);
 

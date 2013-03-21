@@ -7,6 +7,7 @@ import java.util.List;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.ClientEngine;
+import webboards.client.data.ClientOpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
@@ -107,7 +108,7 @@ public class ClientMenu implements ClickHandler {
 			flip();
 		} else if ("Refresh".equals(text)) {
 			ctx.display.clearTraces();
-			ctx.service.getState(ClientEngine.getTableId(), new AbstractCallback<GameInfo>(){
+			ClientOpRunner.service.getState(ClientEngine.getTableId(), new AbstractCallback<GameInfo>(){
 				@Override
 				public void onSuccess(GameInfo info) {
 					ctx.setInfo(info);					
