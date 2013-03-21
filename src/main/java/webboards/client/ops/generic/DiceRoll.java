@@ -9,7 +9,7 @@ public class DiceRoll extends Operation {
 	private static final long serialVersionUID = 1L;
 	public int dice = 2;
 	public int sides = 6;
-	private int[] results;
+	private int[] results = new int[0];
 
 	private transient Random random;
 

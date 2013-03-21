@@ -10,7 +10,6 @@ import webboards.client.ClientEngine;
 import webboards.client.ClientOpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
-import webboards.client.data.GameInfo;
 import webboards.client.display.BasicDisplay;
 import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
@@ -20,7 +19,6 @@ import webboards.client.ops.Operation;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
-import webboards.client.utils.AbstractCallback;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -49,10 +47,12 @@ public class ClientMenu implements ClickHandler {
 	private final Button logBtn;
 	private final SVGSVGElement svg;
 	private boolean expanded = false;
+	private ClientOpRunner runner;
 
 	public ClientMenu(SVGSVGElement svg, GameCtx ctx) {
 		this.svg = svg;
 		this.ctx = ctx;
+		runner = new ClientOpRunner(ctx);
 		root = RootPanel.get("menu");
 		Button menu = add("Show menu");
 		menu.setVisible(true);
@@ -94,7 +94,7 @@ public class ClientMenu implements ClickHandler {
 		} else if ("Send msg".equals(text)) {
 			String msg = Window.prompt("Enter message:", "");
 			if(msg != null) {
-				ctx.process(new ChatOp(msg));
+				runner.process(new ChatOp(msg));
 			}
 		} else if ("Clear traces".equals(text)) {
 			ctx.display.clearTraces();
@@ -107,18 +107,7 @@ public class ClientMenu implements ClickHandler {
 		} else if ("Flip".equals(text)) {
 			flip();
 		} else if ("Refresh".equals(text)) {
-			ctx.display.clearTraces();
-			ClientOpRunner.service.getState(ClientEngine.getTableId(), new AbstractCallback<GameInfo>(){
-				@Override
-				public void onSuccess(GameInfo info) {
-					ctx.setInfo(info);					
-					ctx.board = ctx.info.game.start(ctx.info.scenario);		
-					BasicDisplay display = (BasicDisplay) ctx.display;
-					display.updateBoard(ctx.board);
-					ClientEngine.update(ctx);
-				}
-			});
-
+			ClientEngine.reload(ctx);
 		} else if ("Undo Op".equals(text)) {
 			undoOp();
 		} else if ("2d6".equals(text)) {
@@ -131,7 +120,7 @@ public class ClientMenu implements ClickHandler {
 				Window.alert("roll:"+s);
 				SerializationStreamReader r = f.createStreamReader(s);
 				Operation op = (Operation) r.readObject();
-				ctx.process(op);
+				runner.process(op);
 			} catch (SerializationException e) {
 				Window.alert(e.toString());
 			}			
@@ -148,7 +137,7 @@ public class ClientMenu implements ClickHandler {
 
 	private void nextPhase() {
 		NextPhase op = new NextPhase();
-		ctx.process(op);
+		runner.process(op);
 	}
 
 	private void removeUnit() {
@@ -158,7 +147,7 @@ public class ClientMenu implements ClickHandler {
 		} else {
 			Move move = new Move(piece, new Area("Dead pool"));
 			ctx.display.select(null);
-			ctx.process(move);
+			runner.process(move);
 		}
 	}
 
@@ -168,7 +157,7 @@ public class ClientMenu implements ClickHandler {
 			Window.alert("Select a counter first");
 		} else {
 			Flip op = new Flip(piece.ref());
-			ctx.process(op);
+			runner.process(op);
 		}
 	}
 
@@ -185,7 +174,7 @@ public class ClientMenu implements ClickHandler {
 				ctx.display.clearTraces();
 				ctx.board = ctx.info.game.start(ctx.info.scenario);		
 				BasicDisplay display = (BasicDisplay) ctx.display;
-				display.updateBoard(ctx.board);
+				display.updateBoard(ctx.board);runner = new ClientOpRunner(ctx);
 				ClientEngine.update(ctx);
 			}
 		});

@@ -2,6 +2,7 @@ package webboards.client.display;
 
 import java.util.List;
 
+import webboards.client.ClientOpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.HexInfo;
@@ -10,29 +11,33 @@ import webboards.client.ops.Operation;
 
 public class SelectionHandler {
 	protected final GameCtx ctx;
+	private ClientOpRunner runner;
 
 	public SelectionHandler(GameCtx ctx) {
+		runner = new ClientOpRunner(ctx);
 		this.ctx = ctx;
 	}
 
 	public final void onClicked(Position position) {
-		ctx.process(onPositionClicked(position));
+		runner.process(onPositionClicked(position));
 	}
 
 	public final void onClicked(List<CounterInfo> stack, Position pos) {
-		ctx.process(onStackClicked(stack, pos));
+		runner.process(onStackClicked(stack, pos));
 	}
 
 	public final void onClicked(CounterInfo counter) {
-		ctx.process(onSingleCounterClicked(counter));
+		runner.process(onSingleCounterClicked(counter));
+	}
+
+	public final void onSelect(CounterInfo counter) {
+		runner.process(onSelected(counter));
 	}
 
 	public boolean canSelect(CounterInfo counter) {
 		return true;
 	}
-	public final void onSelect(CounterInfo counter) {
-		ctx.process(onSelected(counter));
-	}
+
 	protected Operation onSelected(CounterInfo counter) {
 		return null;
 	}

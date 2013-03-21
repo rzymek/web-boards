@@ -28,7 +28,6 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 		}
 		op.index = ctx.ops.size();	
 		preServerExec(op);
-		ctx.ops.add(op);
 		queue.add(op);
 		processQueued();
 	}
@@ -39,6 +38,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 	}
 	
 	private void postServerExec(Operation result) {
+		ctx.ops.add(result);
 		result.postServer(ctx);
 		result.drawDetails(ctx);
 		ClientEngine.log("" + result);
@@ -46,20 +46,16 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 	
 	private final List<Operation> queue = new ArrayList<Operation>();
 	private boolean processing = false;
+	private Operation currentOp;
 	
 	/** see: https://gist.github.com/chumpy/1696249 */
 	private void processQueued() {
-		try {
-			if (processing || queue.isEmpty()) {
-				return;
-			}
-			processing = true;
-			Operation op = queue.remove(queue.size() - 1);
-			service.process(op, this);
-		} catch (ConcurrentOpException e) {
-			//TODO
-			Window.alert(e.toString());
+		if (processing || queue.isEmpty()) {
+			return;
 		}
+		processing = true;
+		currentOp = queue.remove(queue.size() - 1);
+		service.process(currentOp, this);
 	}
 	
 	@Override
@@ -70,6 +66,27 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 		} finally {
 			processQueued();
 		}
+	}
+	
+	@Override
+	public void onFailure(Throwable e) {
+		if(e instanceof ConcurrentOpException) {
+			ConcurrentOpException coe = (ConcurrentOpException) e;
+			String msg = "Your opponent managed to perform an operation ("+coe.op+") before your's ("+currentOp+")." +
+					"Do you want to resend your operation?";
+			boolean resend = ask(msg);
+			if(resend) {
+				service.process(currentOp, this);
+			}else{
+				ClientEngine.reload(ctx);
+			}
+		}else{
+			super.onFailure(e);
+		}
+	}
+
+	protected boolean ask(String msg) {
+		return Window.confirm(msg);
 	}
 
 }

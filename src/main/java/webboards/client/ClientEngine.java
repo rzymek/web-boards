@@ -5,11 +5,13 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
+import webboards.client.display.BasicDisplay;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.display.svg.SVGLowResZoomPan;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
 import webboards.client.display.svg.edit.EmptyScenario;
+import webboards.client.ex.EarlException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.menu.ClientMenu;
@@ -34,7 +36,6 @@ public class ClientEngine implements EntryPoint {
 	private ServerEngineAsync service;
 	private static ClientMenu menu;
  
-
 	@Override
 	public void onModuleLoad() {
 		svg = getSVG();
@@ -181,7 +182,11 @@ public class ClientEngine implements EntryPoint {
 	}
 
 	public static long getTableId() {
-		return Long.parseLong(Window.Location.getParameter("table"));
+		String value = Window.Location.getParameter("table");
+		if(value == null) {
+			throw new EarlException("Invalid URL: table parameter is missing");
+		}
+		return Long.parseLong(value);
 	}
 
 	public static native int getViewportWidth()/*-{
@@ -208,4 +213,19 @@ public class ClientEngine implements EntryPoint {
 	public static native SVGSVGElement getSVG() /*-{
  		return $doc.getElementsByTagNameNS("http://www.w3.org/2000/svg", "svg")[0];
 	}-*/;
+
+
+	public static void reload(final GameCtx ctx) {
+		ctx.display.clearTraces();
+		ClientOpRunner.service.getState(getTableId(), new AbstractCallback<GameInfo>(){
+			@Override
+			public void onSuccess(GameInfo info) {
+				ctx.setInfo(info);					
+				ctx.board = ctx.info.game.start(ctx.info.scenario);		
+				BasicDisplay display = (BasicDisplay) ctx.display;
+				display.updateBoard(ctx.board);
+				ClientEngine.update(ctx);
+			}
+		});	
+	}
 }
