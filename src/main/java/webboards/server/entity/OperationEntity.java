@@ -13,6 +13,7 @@ import com.googlecode.objectify.annotation.Parent;
 
 @Entity
 @Cache
+@SuppressWarnings("unused")
 public class OperationEntity implements Comparable<OperationEntity>, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Parent
@@ -26,7 +27,6 @@ public class OperationEntity implements Comparable<OperationEntity>, Serializabl
 	public String adebug;
 	public String author;
 
-	@SuppressWarnings("unused")
 	private OperationEntity() {
 	}
 

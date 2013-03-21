@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
 
 @Entity
+@SuppressWarnings("unused")
 public class OpCount {
 	@Id
 	private Long id;	
@@ -13,7 +14,6 @@ public class OpCount {
 	private Key<Table> table;
 	private int value;
 
-	@SuppressWarnings("unused")
 	private OpCount(){}
 	public OpCount(Table table) {
 		this.table = Key.create(table);

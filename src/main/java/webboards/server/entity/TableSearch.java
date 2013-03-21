@@ -14,6 +14,7 @@ import com.googlecode.objectify.annotation.Load;
 
 @Entity
 @Cache
+@SuppressWarnings("unused")
 public class TableSearch {
 	@Id
 	public long id;
@@ -26,7 +27,6 @@ public class TableSearch {
 	public Date started = new Date();
 	public String info;
 
-	@SuppressWarnings("unused")
 	private TableSearch(){}
 	
 	public TableSearch(Table table) {
