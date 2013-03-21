@@ -2,6 +2,7 @@ package webboards.client.data;
 
 import java.util.ArrayList;
 
+import webboards.client.ClientOpRunner;
 import webboards.client.display.EarlDisplay;
 import webboards.client.ops.Operation;
 

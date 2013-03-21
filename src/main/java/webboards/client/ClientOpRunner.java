@@ -1,9 +1,9 @@
-package webboards.client.data;
+package webboards.client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import webboards.client.ClientEngine;
+import webboards.client.data.GameCtx;
 import webboards.client.ex.ConcurrentOpException;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;

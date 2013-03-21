@@ -7,7 +7,7 @@ import java.util.List;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import webboards.client.ClientEngine;
-import webboards.client.data.ClientOpRunner;
+import webboards.client.ClientOpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
