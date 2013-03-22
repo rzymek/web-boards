@@ -121,10 +121,10 @@ public class ClientEngine implements EntryPoint {
 		}
 		
 		for (int i = 0; i < ctx.ops.size(); ++i) {
-			Operation op = ctx.ops.get(i);
+			Operation op = ctx.ops.get(i);			
 			op.updateBoard(ctx.board);
-			op.postServer(ctx);			
 			op.draw(ctx);
+			op.postServer(ctx);			
 			if(i >= startDetailsFrom) {
 				op.drawDetails(ctx);
 			}

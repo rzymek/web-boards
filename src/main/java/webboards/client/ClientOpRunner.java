@@ -45,6 +45,11 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 		ClientEngine.log("" + result);
 	}
 	
+	public void apply(Operation op) {
+		preServerExec(op);
+		postServerExec(op);
+	}
+	
 	private final List<Operation> queue = new ArrayList<Operation>();
 	private boolean processing = false;
 	private Operation currentOp;
