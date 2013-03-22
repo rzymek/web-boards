@@ -7,6 +7,7 @@ import webboards.client.data.GameCtx;
 import webboards.client.display.SelectionHandler;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
+import webboards.client.games.scs.ops.AcknowlegeResults;
 import webboards.client.games.scs.ops.PerformAttack;
 import webboards.client.games.scs.ops.PerformBarrage;
 import webboards.client.ops.Operation;
@@ -37,15 +38,19 @@ public class SCSSelectionHandler extends SelectionHandler {
 			return null;
 		}
 		Hex target = (Hex) pos;
-		Collection<Hex> attacking = board.getAttacking(target);
+		CombatResult combatResult = board.combatResultsShown.get(target);
+		if(combatResult != null) {
+			return new AcknowlegeResults(target, combatResult);
+		}
 		Collection<SCSCounter> arty = board.getBarragesOn(target);
 		if(!arty.isEmpty()) {
 			SCSCounter attacing = arty.iterator().next();
 			board.clearBarrageOf(attacing);
 			return new PerformBarrage(attacing, target);
-		} else if (board.isDeclaredAttackOn(target)) {
+		} 
+		if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown
-			board.clearAttacksOn(target);
+			Collection<Hex> attacking = board.getAttacking(target);
 			return new PerformAttack(target, attacking);			
 		}
 		return null; 

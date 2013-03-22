@@ -13,7 +13,6 @@ import webboards.client.data.Board;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
-import webboards.client.utils.Browser;
 
 public class SCSBoard extends Board implements Serializable {
 	private static final long serialVersionUID = 2L;
@@ -22,6 +21,7 @@ public class SCSBoard extends Board implements Serializable {
 	protected Map<String, SCSHex> areas = new HashMap<String, SCSHex>();
 	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();
 	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>();
+	protected Map<Hex, CombatResult> combatResultsShown = new HashMap<Hex, CombatResult>(); 
 	public int phase = 0;
 	public int turn = 0;
 
@@ -91,7 +91,6 @@ public class SCSBoard extends Board implements Serializable {
 	}
 
 	public void clearAttacksOn(Hex target) {
-		Browser.console(attacks.toString());
 		Iterator<Entry<Hex, Hex>> iterator = attacks.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Entry<Hex, Hex> e = iterator.next();
@@ -100,7 +99,6 @@ public class SCSBoard extends Board implements Serializable {
 				iterator.remove();
 			}
 		}
-		Browser.console(attacks.toString());
 	}
 
 	public void declareBarrage(SCSCounter who, Hex target) {
@@ -160,6 +158,10 @@ public class SCSBoard extends Board implements Serializable {
 		int b = Math.round(defence / smaller);
 		int[] odds = { a, b };
 		return odds;
+	}
+
+	public void showingResult(Hex targetRef, CombatResult result) {
+		combatResultsShown.put(targetRef, result);
 	}
 
 }

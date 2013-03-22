@@ -47,7 +47,7 @@ public class PerformAttack extends Operation {
 	}
 
 	@Override
-	public void updateBoard(Board board) {
+	public void updateBoard(Board b) {
 	}
 
 	@Override
@@ -69,6 +69,8 @@ public class PerformAttack extends Operation {
 	public void postServer(GameCtx ctx) {
 		ctx.display.clearOds(targetRef.getSVGId());
 		ctx.display.showResults(ctx.display.getCenter(targetRef), result.toString());
+		SCSBoard board = (SCSBoard) ctx.board;
+		board.showingResult(targetRef, result);
 	}
 
 	@Override
