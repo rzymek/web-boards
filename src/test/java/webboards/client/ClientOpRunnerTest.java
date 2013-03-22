@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,7 +30,6 @@ import webboards.client.display.EarlDisplay;
 import webboards.client.ops.Operation;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
-import webboards.client.remote.ServerEngineAsync;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.core.shared.GWTBridge;
@@ -46,17 +44,15 @@ public class ClientOpRunnerTest {
 	@Mock
 	EarlDisplay display;
 	ClientOpRunner runner;
-	ServerEngineAsync service;
-	@Mock
-	WindowImpl windowImpl;
+	static ServerEngineMock service = spy(new ServerEngineMock());
 
 	@Before
 	public void setUp() throws Exception {
 		GWTBridge bridge = mock(GWTBridge.class);
 		GWT.setBridge(bridge);
-		service = spy(new ServerEngineMock());
+		Mockito.reset(service);
 		doReturn(service).when(bridge).create(ServerEngine.class);
-		doReturn(windowImpl).when(bridge).create(WindowImpl.class);
+		doReturn(mock(WindowImpl.class)).when(bridge).create(WindowImpl.class);
 		Field field = Window.Location.class.getDeclaredField("paramMap");
 		field.setAccessible(true);
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -64,6 +60,7 @@ public class ClientOpRunnerTest {
 		field.set(null, paramMap);
 		runner = Mockito.spy(new ClientOpRunner(ctx));
 		ctx.ops = new ArrayList<Operation>();
+		service.doThrow=true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,15 +68,17 @@ public class ClientOpRunnerTest {
 	public void processRefresh() {
 		doReturn(false).when(runner).ask(anyString());
 		runner.process(new DiceRoll());
+		System.out.println("processRefresh.service="+service);
 		verify(service).getState(eq(1l), (AsyncCallback<GameInfo>) anyObject());
 	}
 
 	@SuppressWarnings("unchecked")
-	@Test @Ignore
+	@Test 
 	public void processCancel() {
 		doReturn(true).when(runner).ask(anyString());
 		DiceRoll op = new DiceRoll();
 		runner.process(op);
+		System.out.println("processCancel.service="+service);
 		verify(service, times(2)).process(op, runner);
 		verify(service, never()).getState(eq(1l), (AsyncCallback<GameInfo>) any());
 	}

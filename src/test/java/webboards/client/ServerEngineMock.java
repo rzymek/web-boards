@@ -9,7 +9,7 @@ import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngineAsync;
 
 public class ServerEngineMock implements ServerEngineAsync {
-	private boolean doThrow = true;
+	boolean doThrow = true;
 
 	@Override
 	public void getState(long tableId, AsyncCallback<GameInfo> callback) {

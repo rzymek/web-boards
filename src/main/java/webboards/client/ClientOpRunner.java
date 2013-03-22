@@ -23,6 +23,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 	}
 
 	public void process(Operation op) {
+		System.out.println("ClientOpRunner.service:"+service);
 		if (op == null) {
 			return;
 		}
