@@ -27,7 +27,6 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 		if (op == null) {
 			return;
 		}
-		op.index = ctx.ops.size();	
 		preServerExec(op);
 		queue.add(op);
 		processQueued();
@@ -61,6 +60,11 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 		}
 		processing = true;
 		currentOp = queue.remove(queue.size() - 1);
+		callServer();
+	}
+
+	private void callServer() {
+		currentOp.index = ctx.ops.size();	
 		service.process(currentOp, this);
 	}
 	
@@ -82,7 +86,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> {
 					"Do you want to resend your operation?";
 			boolean resend = ask(msg);
 			if(resend) {
-				service.process(currentOp, this);
+				callServer();
 			}else{
 				ClientEngine.reload(ctx);
 			}

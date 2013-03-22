@@ -550,4 +550,28 @@ public class SVGDisplay extends BasicDisplay {
 	public void setText(String id, String value) {
 		getSVGElement(id).setInnerText(value);
 	}
+	
+	public void verify() {
+		int maxDist=30;
+		Collection<CounterInfo> counters = ctx.board.getCounters();
+		for (CounterInfo c : counters) {
+			Position pos = c.getPosition();
+			if(pos instanceof Hex) {
+				VisualCoords cnt = getCenter(c.ref().toString());
+				VisualCoords hex = getCenter(pos.getSVGId());
+				int dist = Math.max(Math.abs(cnt.x-hex.x), Math.abs(cnt.y-hex.y));
+				if(dist > maxDist) {
+					ClientEngine.log("[WARN] "+c+" is "+dist+" from it's expected position");
+					Browser.console(getSVGElement(c.ref().toString()));
+					Browser.console(getSVGElement(c.getPosition().getSVGId()));
+				}
+				HexInfo info = ctx.board.getInfo(pos);
+				if(!info.getPieces().contains(c)) {
+					ClientEngine.log("[WARN] Inconsistency cnt.getPosition.contains(cnt) broken: "+cnt);
+					Browser.console(getSVGElement(c.getPosition().getSVGId()));					
+				}
+			}
+		}
+		ClientEngine.log("verify done");
+	}
 }

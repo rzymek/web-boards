@@ -11,6 +11,7 @@ import webboards.client.ClientOpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.display.BasicDisplay;
+import webboards.client.display.svg.SVGDisplay;
 import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
@@ -68,6 +69,7 @@ public class ClientMenu implements ClickHandler {
 		add("DG");
 		add("Expand");
 		add("Refresh");
+		add("Verify");
 	}
 
 	private Button add(String text) {
@@ -106,6 +108,9 @@ public class ClientMenu implements ClickHandler {
 			expanded = !expanded;
 		} else if ("Flip".equals(text)) {
 			flip();
+		} else if ("Verify".equals(text)) {
+			SVGDisplay d = (SVGDisplay) ctx.display;
+			d.verify();
 		} else if ("Refresh".equals(text)) {
 			ClientEngine.reload(ctx);
 		} else if ("Undo Op".equals(text)) {

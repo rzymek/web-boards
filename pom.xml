@@ -29,13 +29,14 @@
 		<nogwt>false</nogwt>
 		<browser>safari</browser>
 		<dev.module.config><![CDATA[
-			<!-- for super dev mode -->
-			<add-linker name="xsiframe"/>  
-			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
 			<set-property name="user.agent" value="${browser}"/>		
 			<set-property name="compiler.stackMode" value="emulated"/>			
+			<!-- for super dev mode 
+			<add-linker name="xsiframe"/>  
+			<set-configuration-property name="devModeRedirectEnabled" value="true"/>
 			<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true"/>
 			<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true"/>
+			-->
 		]]></dev.module.config>
 	</properties>
 
@@ -134,7 +135,7 @@
 					<appEngineVersion>${gae.version}</appEngineVersion>
 					<appEngineHome>gae</appEngineHome>
 					<compileReport>false</compileReport>
-					<draftCompile>true</draftCompile><!-- speedup -->
+					<draftCompile>true</draftCompile>
 					<debugSuspend>false</debugSuspend>
 					<bindAddress>0.0.0.0</bindAddress>
 					<port>${dev.server.port}</port>

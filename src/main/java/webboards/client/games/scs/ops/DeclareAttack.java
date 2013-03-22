@@ -40,8 +40,8 @@ public class DeclareAttack extends Operation {
 			ctx.display.drawArrow(from, target, "combat_" + from.getSVGId(), SCSColor.DELCARE.getColor());
 			updateOdsDisplay(ctx, target, board);
 		}
-	}
-
+	} 
+  
 	private void updateOdsDisplay(GameCtx ctx, Hex target, SCSBoard board) {
 		SCSHex targetHex = (SCSHex) ctx.board.getInfo(target);
 		Collection<SCSHex> attacking = board.getAttackingInfo(target);

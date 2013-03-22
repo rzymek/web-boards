@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import webboards.client.data.Board;
-import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 
@@ -129,7 +128,7 @@ public class SCSBoard extends Board implements Serializable {
 		return defence;
 	}
 
-	private static float getAttackRawSum(Collection<SCSHex> list) {
+	public static float getAttackRawSum(Collection<SCSHex> list) {
 		float total = 0;
 		for (SCSHex hex : list) {
 			int attack = 0;
@@ -151,8 +150,8 @@ public class SCSBoard extends Board implements Serializable {
 		defence *= defenceModifier;
 		float attack = getAttackRawSum(attacking);
 		float smaller = Math.min(attack, defence);
-		if (smaller == 0) {
-			throw new EarlException("Error calculating odds: " + defence + ":" + attack);
+		if(smaller == 0){
+			smaller = 1;
 		}
 		int a = Math.round(attack / smaller);
 		int b = Math.round(defence / smaller);
