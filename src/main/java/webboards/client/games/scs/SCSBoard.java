@@ -21,7 +21,7 @@ public class SCSBoard extends Board implements Serializable {
 	protected Map<String, SCSHex> areas = new HashMap<String, SCSHex>();
 	protected Map<Hex, Hex> attacks = new HashMap<Hex, Hex>();
 	protected Map<SCSCounter, Hex> barrages = new HashMap<SCSCounter, Hex>();
-	protected Map<Hex, CombatResult> combatResultsShown = new HashMap<Hex, CombatResult>(); 
+	public Map<Hex, CombatResult> combatResultsShown = new HashMap<Hex, CombatResult>(); 
 	public int phase = 0;
 	public int turn = 0;
 

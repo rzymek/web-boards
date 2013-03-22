@@ -30,6 +30,7 @@ public class AcknowlegeResults extends Operation {
 		SCSBoard board = (SCSBoard) b;
 		attacking = new ArrayList<Hex>(board.getAttacking(target));
 		board.clearAttacksOn(target);
+		board.combatResultsShown.remove(target);
 	}
 
 	@Override
