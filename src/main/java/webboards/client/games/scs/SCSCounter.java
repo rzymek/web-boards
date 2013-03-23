@@ -117,12 +117,20 @@ public class SCSCounter extends CounterInfo implements Serializable {
 	}
 
 	private Operation onBarrage(GameCtx ctx, List<CounterInfo> stack, Hex target) {
+		String oddsId = ref().toString();
 		SCSBoard board = (SCSBoard) ctx.board;
-		board.declareBarrage(this, target);
-		new PerformBarrage(this, target).drawDetails(ctx);
-		SCSHex hex = (SCSHex) ctx.board.getInfo(target);
-		int value = (int) hex.applyBarrageModifiers(attack);
-		ctx.display.drawOds(ctx.display.getCenter(target), "" + value, ref().toString());
+		if(board.getBarragesOn(target).contains(this)) {
+			//redeclaration -> cancel barrage
+			board.clearBarrageOf(this);
+			ctx.display.clearOds(oddsId);
+			ctx.display.clearArrow(PerformBarrage.getArrowId(this));
+		} else {
+			board.declareBarrage(this, target);
+			new PerformBarrage(this, target).drawDetails(ctx);
+			SCSHex hex = (SCSHex) ctx.board.getInfo(target);
+			int value = (int) hex.applyBarrageModifiers(attack);
+			ctx.display.drawOds(ctx.display.getCenter(target), "" + value, oddsId);
+		}
 		return null;
 	}
 

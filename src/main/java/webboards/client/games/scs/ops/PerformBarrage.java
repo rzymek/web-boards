@@ -55,8 +55,12 @@ public class PerformBarrage extends Operation {
 				color = SCSColor.FAILURE;
 			}
 		}
-		String id = "barrage_" + a.getPosition().getSVGId();
+		String id = getArrowId(a);
 		ctx.display.drawArrow(a.getPosition(), target, id, color.getColor());
+	}
+
+	public static String getArrowId(SCSCounter a) {
+		return "barrage_" + a.getPosition().getSVGId();
 	}
 
 	@Override
