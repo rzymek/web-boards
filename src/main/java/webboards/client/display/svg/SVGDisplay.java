@@ -574,4 +574,5 @@ public class SVGDisplay extends BasicDisplay {
 		}
 		ClientEngine.log("verify done");
 	}
+	
 }

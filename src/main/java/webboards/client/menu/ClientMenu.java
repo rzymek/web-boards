@@ -13,6 +13,7 @@ import webboards.client.data.GameCtx;
 import webboards.client.display.BasicDisplay;
 import webboards.client.display.svg.SVGDisplay;
 import webboards.client.games.Area;
+import webboards.client.games.Hex;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.games.scs.ops.NextPhase;
@@ -70,6 +71,18 @@ public class ClientMenu implements ClickHandler {
 		add("Expand");
 		add("Refresh");
 		add("Verify");
+		add("Generate");
+		
+		RootPanel controls = RootPanel.get("controls");
+		Button back = new Button("&lt;");
+		back.addClickHandler(this);
+		controls.add(back);
+		Button next = new Button("&gt;");
+		next.addClickHandler(this);
+		controls.add(next);	
+		Button end = new Button("&gt;|");
+		end.addClickHandler(this);
+		controls.add(end);	
 	}
 
 	private Button add(String text) {
@@ -112,6 +125,7 @@ public class ClientMenu implements ClickHandler {
 			SVGDisplay d = (SVGDisplay) ctx.display;
 			d.verify();
 		} else if ("Refresh".equals(text)) {
+			historyIndex = null;
 			ClientEngine.reload(ctx);
 		} else if ("Undo Op".equals(text)) {
 			undoOp();
@@ -135,8 +149,56 @@ public class ClientMenu implements ClickHandler {
 			toggleVisible(svg.getElementById("markers").getStyle());
 		} else if ("Next phase".equals(text)) {
 			nextPhase();
+		}else if("Generate".equals(text)) {
+			String prompt = Window.prompt("Turns:", "300");
+			int count = Integer.parseInt(prompt);
+			generate(count);
+		}else if("&lt;".equals(text)) {
+			back();
+		}else if("&gt;".equals(text)) {
+			forward();
+		}else if("&gt;|".equals(text)) {
+			historyIndex = ctx.ops.size();
 		} else {
 			Window.alert("Not implemented yet: " + text);
+		}
+	}
+
+	private void forward() {
+		if(historyIndex == null || historyIndex >= ctx.ops.size())  {
+			return;
+		}
+		Operation op = ctx.ops.get(historyIndex);			
+		op.updateBoard(ctx.board);
+		op.draw(ctx);
+		op.postServer(ctx);			
+		op.drawDetails(ctx);
+		
+		historyIndex++;
+	}
+
+	private Integer historyIndex = null;
+	
+	private void back() {
+		ctx.display.clearTraces();
+		ctx.board = ctx.info.game.start(ctx.info.scenario);		
+		BasicDisplay display = (BasicDisplay) ctx.display;
+		display.updateBoard(ctx.board);runner = new ClientOpRunner(ctx);
+		if(historyIndex == null) {
+			historyIndex = ctx.ops.size();
+		}else{
+			historyIndex--;
+		}
+		int max = historyIndex;
+		ctx.display.clearTraces();
+		for (int i = 0; i < max; ++i) {
+			Operation op = ctx.ops.get(i);			
+			op.updateBoard(ctx.board);
+			op.draw(ctx);
+			op.postServer(ctx);			
+			if(i > max-5) {
+				op.drawDetails(ctx);
+			}
 		}
 	}
 
@@ -237,4 +299,18 @@ public class ClientMenu implements ClickHandler {
 			w.setVisible(!w.isVisible());
 		}
 	}
+	
+	public void generate(int count) {
+		List<CounterInfo> counters = new ArrayList<CounterInfo>(ctx.board.getCounters());
+		for (int i = 0; i < count; ++i) {
+			CounterInfo ci = counters.get((int) (counters.size()*Math.random()));
+			int x = (int) (1 + Math.random() * 30);
+			int y = (int) (1 + Math.random() * 30);
+			runner.process(new Move(ci, new Hex(x,y)));
+			if(i % 30 == 0) {
+				runner.process(new NextPhase());
+			}
+		}
+	} 
+
 }

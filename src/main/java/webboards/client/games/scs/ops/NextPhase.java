@@ -30,9 +30,14 @@ public class NextPhase extends Operation implements Undoable, ClearScreen {
 		TurnPhase current = TurnSequence.PHASES[board.phase];
 		String phaseText = (board.phase+1)+": "+current;
 		ctx.display.setText("phaseText", phaseText);
-		ctx.display.setText("turnText", "Turn: "+(board.turn+1));		
+		ctx.display.setText("turnText", "Turn: "+(board.turn+1));
 	}
 	
+	@Override
+	public void drawDetails(GameCtx ctx) {
+		ctx.display.clearTraces();
+	}
+		
 	@Override
 	public void undoUpdate(Board b) {
 		SCSBoard board = (SCSBoard) b;
