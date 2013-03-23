@@ -8,9 +8,9 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<parent>
-	<groupId>webboards</groupId>
-	<artifactId>webboards</artifactId>
-	<version>1.0-SNAPSHOT</version>
+		<groupId>webboards</groupId>
+		<artifactId>webboards</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 

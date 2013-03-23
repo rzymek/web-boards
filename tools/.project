@@ -3,7 +3,7 @@
   <name>tools</name>
   <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects>
-    <project>engine</project>
+    <project>core</project>
   </projects>
   <buildSpec>
     <buildCommand>
