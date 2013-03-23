@@ -44,7 +44,7 @@ public class Bastogne implements Game  {
 				counter = new SCSMarker(low+"_dg" + i, "admin/misc_"+low+"-dg.png", side);
 				counter.setDescription(side+" Disorganized Units");
 				Area area = dg.get(side);
-				board.place(area, counter);				
+				board.setup(area, counter);				
 			}
 		}
 		return board;

@@ -528,12 +528,13 @@ public class SVGDisplay extends BasicDisplay {
 	@Override
 	protected void resetCounters() {
 		SVGRectElement rect = (SVGRectElement) getSVGElement("selection");
-//		Element unit = svg.getElementById("units");
-//		while (unit.hasChildNodes()) {			
-//			unit.
-//		}
 		rect.getStyle().setDisplay(Display.NONE);
-		svg.getElementById("units").appendChild(rect);
+		Element unitsLayer = svg.getElementById("units");
+		unitsLayer.appendChild(rect);
+		for (CounterInfo ci : ctx.board.getPlaced()) {
+			//TODO: make hidden
+			removeElement(ci.ref().toString());
+		}
 
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
 		OMSVGRectElement omstackSelector = OMNode.convert(stackSelector);
@@ -543,7 +544,7 @@ public class SVGDisplay extends BasicDisplay {
 				handler.onClicked(stackSelectorContents, stackSelectorPosition);
 			}
 		});
-		svg.getElementById("units").appendChild(stackSelector);
+		unitsLayer.appendChild(stackSelector);
 	}
 	
 	@Override

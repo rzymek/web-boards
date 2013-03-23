@@ -19,6 +19,7 @@ import webboards.client.games.Position;
 public abstract class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Map<String, CounterInfo> counters = null;
+	private Collection<CounterInfo> placed = new ArrayList<CounterInfo>();
 
 	public Board() {
 		counters = new HashMap<String, CounterInfo>();
@@ -40,8 +41,12 @@ public abstract class Board implements Serializable {
 	public CounterInfo getCounter(String id) {
 		return counters.get(id);
 	}
-
 	public void place(Position to, CounterInfo counter) {
+		setup(to, counter);
+		placed.add(counter);
+	}
+
+	public void setup(Position to, CounterInfo counter) {
 		String id = counter.ref().toString();
 		CounterInfo prev = counters.put(id, counter);
 		if (prev != null) {
@@ -80,5 +85,8 @@ public abstract class Board implements Serializable {
 	public CounterInfo getInfo(CounterId ref) {
 		return getCounter(ref.toString());
 	}
-
+	
+	public Collection<CounterInfo> getPlaced() {
+		return Collections.unmodifiableCollection(placed);
+	}
 }

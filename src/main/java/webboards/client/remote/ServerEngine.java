@@ -13,4 +13,5 @@ public interface ServerEngine extends RemoteService {
 	GameInfo getState(long tableId);
 	Operation process(Operation op) throws ConcurrentOpException;
 	void join(long tableId, Side side);
+	String reopenInstantNotif();
 }

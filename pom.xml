@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>no.eirikb</groupId>
 			<artifactId>gwt-channel-api</artifactId>
-			<version>0.1</version>
+			<version>0.1.1</version>
 		</dependency>
 		<!-- <dependency> <groupId>net.sf.jsr107cache</groupId> <artifactId>jsr107cache</artifactId> 
 			<version>1.1</version> </dependency> -->

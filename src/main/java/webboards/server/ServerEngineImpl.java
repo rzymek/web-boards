@@ -16,6 +16,7 @@ import webboards.client.data.Board;
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
 import webboards.client.ex.ConcurrentOpException;
+import webboards.client.ex.EarlException;
 import webboards.client.ex.EarlServerException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -119,15 +120,19 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return principal.getName();
 	}
 
-	protected String getTableId() {
+	protected long getTableId() throws EarlException {
 		String referer = getThreadLocalRequest().getHeader("referer");
 		Map<String, List<String>> queryParams = HttpUtils.getQueryParams(referer);
 		List<String> list = queryParams.get("table");
 		if (list == null || list.isEmpty()) {
-			return null;
+			throw new EarlException("table parameter is missing");
 		}
 		String tableId = list.get(0);
-		return tableId;
+		try {
+			return Long.parseLong(tableId);
+		}catch(NumberFormatException ex){
+			throw new EarlException(ex);
+		}
 	}
 
 	@Override
@@ -135,8 +140,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return ofy().transact(new Work<Operation>() {
 			@Override
 			public Operation run() {
-				final String tableId = getTableId();
-				final long tid = Long.parseLong(tableId);
+				final long tid = getTableId();
 				Table table = getTable(tid);
 				OpCount opCount = ofy().load().type(OpCount.class).ancestor(table).first().get();
 				if(opCount == null) {
@@ -234,7 +238,31 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 			}
 		});
 	}
+	
+	@Override
+	public String reopenInstantNotif() {
+		return ofy().transact(new Work<String>() {			
+			@Override
+			public String run() {
+				Table table = getTable();
+				Player player = getPlayer(table);
+				player.channelToken = notify.openChannel(table, player.side);
+				ofy().save().entities(player);
+				return player.channelToken;
+			}
+		});
+	}
 
+	protected Player getPlayer(Table table) {
+		List<Player> players = getPlayers(table);
+		return getPlayer(players, getUser());
+	}
+
+	protected Table getTable() {
+		long tableId = getTableId();
+		return getTable(tableId);
+	}
+	
 	public static Long create(final String user, final String sideName) {
 		return ofy().transact(new Work<Long>() {
 			@Override

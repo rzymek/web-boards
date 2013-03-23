@@ -29,4 +29,8 @@ public class ServerEngineMock implements ServerEngineAsync {
 	@Override
 	public void join(long tableId, Side side, AsyncCallback<Void> abstractCallback) {
 	}
+
+	@Override
+	public void reopenInstantNotif(AsyncCallback<String> abstractCallback) {		
+	}
 }

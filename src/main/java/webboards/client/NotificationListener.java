@@ -1,9 +1,12 @@
 package webboards.client;
 
+import com.google.gwt.user.client.Window;
+
 import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
 import no.eirikb.gwtchannelapi.client.Message;
 import webboards.client.data.GameCtx;
+import webboards.client.utils.AbstractCallback;
 
 public final class NotificationListener implements ChannelListener {
 	private ClientOpRunner runner;
@@ -24,10 +27,8 @@ public final class NotificationListener implements ChannelListener {
 			}
 		}
 	}
-
-	public void onError(String desc) {
-		ClientEngine.log("Channel API error:"+desc);		
-	}
+	
+	@Override
 	public void onOpen() {
 		ClientEngine.log("Connected");
 	}
@@ -37,6 +38,24 @@ public final class NotificationListener implements ChannelListener {
 		OperationMessage msg = (OperationMessage) message;
 		runner.apply(msg.op);
 	}
-	
 
+	@Override
+	public void onError(int code, String description) {
+		String msg = "Instant notifications error: "+code+": "+description+"\n" +
+				"Would you like to reestablish instant notifications?";
+		if(!Window.confirm(msg)) {
+			return;
+		}
+		ClientOpRunner.service.reopenInstantNotif(new AbstractCallback<String>(){
+			@Override
+			public void onSuccess(String channelToken) {
+				join(channelToken);
+			}
+		});
+	}
+
+	@Override
+	public void onClose() {
+		ClientEngine.log("Dis-connected");		
+	}
 }

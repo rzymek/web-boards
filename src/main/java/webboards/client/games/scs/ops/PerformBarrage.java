@@ -81,15 +81,26 @@ public class PerformBarrage extends Operation {
 			roll.serverExecute(ctx);
 			killRoll = roll.getSum();
 			int value = getKillRollValue(attacker);
-			if (killRoll >= value)
+			if (killRoll >= value) 
 				killSteps = 1;
 			else
 				killSteps = 0;
+			applyResults(board);
 		} else {
 			killRoll = 0;
 			killSteps = 0;
 		}
+	}
 
+	private SCSMarker applyResults(SCSBoard board) {
+		SCSHex hex = board.getInfo(target);
+		if(hex.getMarkers().isEmpty()) {
+			BastogneSide tgOwner = hex.getUnits().get(0).getOwner();			
+			SCSMarker dg = new SCSMarker("dg" + target, "admin/misc_"+tgOwner.name().toLowerCase()+"-dg.png", tgOwner);
+			board.place(target, dg);
+			return dg;
+		}
+		return null;
 	}
 
 	private int getKillRollValue(SCSCounter attacker) {
@@ -108,15 +119,11 @@ public class PerformBarrage extends Operation {
 
 	@Override
 	public void postServer(GameCtx ctx) {
-		if (resultDG) {
-			SCSHex hex = (SCSHex) ctx.board.getInfo(target);
-			if(hex.getMarkers().isEmpty()) {
-				BastogneSide tgOwner = hex.getUnits().get(0).getOwner();			
-				SCSMarker dg = new SCSMarker("dg" + target, "admin/misc_"+tgOwner.name().toLowerCase()+"-dg.png", tgOwner);
-				ctx.board.place(target, dg);
-				ctx.display.createCounter(dg, ctx.board);
-				ctx.display.alignStack(target);
-			}
+		SCSBoard board = (SCSBoard) ctx.board;
+		SCSMarker dg = applyResults(board);
+		if(dg != null) {
+			ctx.display.createCounter(dg, ctx.board);
+			ctx.display.alignStack(target);
 		}
 		VisualCoords pos = ctx.display.getCenter(target);
 		ctx.display.clearOds(arty.toString());

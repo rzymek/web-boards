@@ -18,7 +18,7 @@ public abstract class Scenario implements Serializable {
 		String side = unit.name().substring(0, 2).toUpperCase();
 		SCSCounter counter = new SCSCounter(id, unit.front, unit.back, BastogneSide.valueOf(side), unit.attack,
 				unit.range, unit.artyType, unit.defence, unit.movement);
-		board.place(pos, counter);
+		board.setup(pos, counter);
 	}
 
 	protected void setupArea(int turn, String areaId, BastogneUnits unit) {

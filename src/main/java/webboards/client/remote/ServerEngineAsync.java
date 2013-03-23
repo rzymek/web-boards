@@ -10,4 +10,5 @@ public interface ServerEngineAsync {
 	void getState(long tableId, AsyncCallback<GameInfo> callback);
 	void process(Operation op, AsyncCallback<Operation> abstractCallback);
 	void join(long tableId, Side side, AsyncCallback<Void> abstractCallback);
+	void reopenInstantNotif(AsyncCallback<String> abstractCallback);
 }
