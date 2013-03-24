@@ -4,9 +4,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>webboards</groupId>
-	<artifactId>tools</artifactId>
+	<artifactId>webboards</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>server</module>
+		<module>core</module>
+		<module>tools</module>
+	</modules>
 
 	<prerequisites>
 		<maven>3.0</maven>
@@ -16,23 +22,20 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<gwt.version>2.5.0</gwt.version>
+		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
+		<gae.version>1.7.5</gae.version>
+		<gae.mvn.version>1.7.5</gae.mvn.version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>webboards</groupId>
-			<artifactId>core</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-	</dependencies>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>google-releases</id>
+			<name>Google Releases</name>
+			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 </project>
