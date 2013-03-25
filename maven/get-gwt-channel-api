@@ -1,0 +1,4 @@
+git remote add -f gwt-channel-api https://github.com/rzymek/gwt-channel-api.git 
+git merge -s ours --no-commit gwt-channel-api/gwt-channel-api-0.1.1 
+git read-tree --prefix=gwt-channel-api -u gwt-channel-api/gwt-channel-api-0.1.1
+
