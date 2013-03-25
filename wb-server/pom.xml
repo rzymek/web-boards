@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>webboards</groupId>
-	<artifactId>server</artifactId>
+	<artifactId>wb-server</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<parent>
+		<relativePath>../maven/appengine.pom.xml</relativePath>
 		<groupId>webboards</groupId>
-		<artifactId>webboards</artifactId>
+		<artifactId>appengine</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
@@ -25,7 +25,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>webboards</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>wb-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -55,6 +55,20 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.mvn.version}</version>
+				<executions>
+					<execution>
+						<id>gwt-compile</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
