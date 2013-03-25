@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
-mvn $* install
-cd server
-mvn $* appengine:devserver
+mvn $* install -DskipTests
+cd wb-server
+mvn $* appengine:devserver -DskipTests

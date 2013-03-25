@@ -23,7 +23,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 
 import webboards.tools.svg.cleaners.AddLayers;
 import webboards.tools.svg.cleaners.ApplyTransform;
@@ -113,8 +112,4 @@ public class SVGCleaner {
 
 	}
 
-	@Test
-	public void test() throws Exception {
-		main(new String[0]);
-	}
 }

@@ -1,0 +1,10 @@
+Mon Mar 25 13:12:03 2013 +0100 maven relationships
+Sun Mar 24 10:01:43 2013 +0100 cleanup
+Sat Mar 23 22:38:11 2013 +0100 rm .settings
+Sat Mar 23 22:29:57 2013 +0100 gwt refactoring
+Sat Mar 23 21:56:37 2013 +0100 pom cleanup
+Sat Mar 23 20:00:59 2013 +0100 setup inter-project dependencies
+Sat Mar 23 19:57:55 2013 +0100 ignore in tools
+Sat Mar 23 19:57:28 2013 +0100 rm target
+Sat Mar 23 19:57:01 2013 +0100 deleted .classpath
+Sat Mar 23 19:55:56 2013 +0100 moved client from engine to core

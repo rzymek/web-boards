@@ -13,6 +13,7 @@
 		<artifactId>gwt</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
+
 	<dependencies>
 		<dependency>
 			<groupId>no.eirikb</groupId>
@@ -20,4 +21,23 @@
 			<version>0.1.1</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.mvn.version}</version>
+				<executions>
+					<execution>
+						<id>gwt-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
