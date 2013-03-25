@@ -174,29 +174,6 @@
 					</webResources>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>git</executable>
-					<workingDirectory>${basedir}</workingDirectory>
-					<arguments>
-						<argument>log</argument>
-						<argument>-10</argument>
-						<argument>--pretty=%ad %s</argument>
-					</arguments>
-					<outputFile>${project.build.directory}/${project.build.finalName}/log.txt</outputFile>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -218,6 +195,29 @@
 							<draftCompile>false</draftCompile>
 							<optimizationLevel>9</optimizationLevel>
 							<style>OBFUSCATED</style>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>git</executable>
+							<workingDirectory>${basedir}</workingDirectory>
+							<arguments>
+								<argument>log</argument>
+								<argument>-10</argument>
+								<argument>--pretty=%ad %s</argument>
+							</arguments>
+							<outputFile>${project.build.directory}/${project.build.finalName}/log.txt</outputFile>
 						</configuration>
 					</plugin>
 				</plugins>
