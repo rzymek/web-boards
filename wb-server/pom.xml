@@ -15,11 +15,6 @@
 
 	<properties>
 		<appid>web-boards</appid>
-		<ver>1</ver>
-
-		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
-		<dev.server.port>8888</dev.server.port>
-		<dev.debug.port>8000</dev.debug.port>
 	</properties>
 
 	<dependencies>
@@ -29,97 +24,11 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode.objectify</groupId>
-			<artifactId>objectify</artifactId>
-			<version>4.0b1</version>
-		</dependency>
-		<dependency>
+			<!-- for editor only -->
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>${gae.version}</version>
-		</dependency>
 	</dependencies>
-
-	<build>
-		<outputDirectory>${outputDirectory}</outputDirectory>
-		<finalName>${project.artifactId}</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt.mvn.version}</version>
-				<executions>
-					<execution>
-						<id>gwt-compile</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.google.appengine</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${gae.mvn.version}</version>
-				<configuration>
-					<address>0.0.0.0</address>
-					<port>${dev.server.port}</port>
-					<disableUpdateCheck>true</disableUpdateCheck>
-					<jvmFlags>
-						<value>-Xrunjdwp:transport=dt_socket,address=${dev.debug.port},server=y,suspend=n</value>
-					</jvmFlags>
-				</configuration>
-			</plugin>
-			<!-- set GAE appId and Version from maven properties -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<webResources>
-						<resource>
-							<directory>src/main/webapp</directory>
-							<filtering>true</filtering>
-							<include>WEB-INF/appengine-web.xml</include>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>git</executable>
-					<workingDirectory>${basedir}</workingDirectory>
-					<arguments>
-						<argument>log</argument>
-						<argument>-10</argument>
-						<argument>--pretty=%ad %s</argument>
-					</arguments>
-					<outputFile>${project.build.directory}/${project.build.finalName}/log.txt</outputFile>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	
 </project>

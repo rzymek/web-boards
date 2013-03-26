@@ -15,11 +15,6 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-		<gwt.version>2.5.0</gwt.version>
-		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
-		<gae.version>1.7.5</gae.version>
-		<gae.mvn.version>1.7.5</gae.mvn.version>
 	</properties>
 
 
@@ -37,13 +32,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>google-releases</id>
-			<name>Google Releases</name>
-			<url>https://oss.sonatype.org/content/repositories/google-releases</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

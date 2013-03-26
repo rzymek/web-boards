@@ -16,8 +16,7 @@
 	<properties>
 		<gwt.version>2.5.0</gwt.version>
 		<gwt.mvn.version>${gwt.version}</gwt.mvn.version>
-
-		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+		
 		<dev.server.port>8888</dev.server.port>
 		<dev.debug.port>8000</dev.debug.port>
 		<nogwt>false</nogwt>
@@ -32,6 +31,7 @@
 			<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true"/>
 			-->
 		]]></dev.module.config>
+		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 	</properties>
 
 	<dependencies>
