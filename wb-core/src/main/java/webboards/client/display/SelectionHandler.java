@@ -2,7 +2,7 @@ package webboards.client.display;
 
 import java.util.List;
 
-import webboards.client.ClientOpRunner;
+import webboards.client.OpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.HexInfo;
@@ -11,11 +11,11 @@ import webboards.client.ops.Operation;
 
 public class SelectionHandler {
 	protected final GameCtx ctx;
-	private ClientOpRunner runner;
+	private final OpRunner runner;
 
-	public SelectionHandler(GameCtx ctx) {
-		runner = new ClientOpRunner(ctx);
+	public SelectionHandler(GameCtx ctx, OpRunner runner) {
 		this.ctx = ctx;
+		this.runner = runner;
 	}
 
 	public final void onClicked(Position position) {

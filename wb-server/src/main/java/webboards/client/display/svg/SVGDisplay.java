@@ -20,6 +20,7 @@ import org.vectomatic.dom.svg.impl.SVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
 import webboards.client.ClientEngine;
+import webboards.client.ClientOpRunner;
 import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
@@ -60,7 +61,7 @@ public class SVGDisplay extends BasicDisplay {
 		stackSelector = (SVGRectElement) svg.getElementById("stackSelector");
 		resetCounters();		
 		//TODO: move elsewhere:
-		handler = new SCSSelectionHandler(ctx);
+		handler = new SCSSelectionHandler(ctx, new ClientOpRunner(ctx));
 	}
 
 	protected void hexClicked(final Board board, ClickEvent event) {

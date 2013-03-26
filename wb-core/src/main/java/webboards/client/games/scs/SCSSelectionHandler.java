@@ -2,6 +2,7 @@ package webboards.client.games.scs;
 
 import java.util.Collection;
 
+import webboards.client.OpRunner;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.display.SelectionHandler;
@@ -14,8 +15,8 @@ import webboards.client.ops.Operation;
 
 public class SCSSelectionHandler extends SelectionHandler {
 
-	public SCSSelectionHandler(GameCtx ctx) {
-		super(ctx);
+	public SCSSelectionHandler(GameCtx ctx, OpRunner runner) {
+		super(ctx, runner);
 	}
 
 	@Override

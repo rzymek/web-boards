@@ -6,9 +6,7 @@ import java.util.List;
 import webboards.client.games.Scenario;
 import webboards.client.ops.Operation;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public class GameInfo implements Serializable, IsSerializable {
+public class GameInfo implements Serializable {
 	private static final long serialVersionUID = 3L;
 	public Game game;
 	public Scenario scenario;

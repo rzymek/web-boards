@@ -13,7 +13,7 @@ import webboards.client.utils.AbstractCallback;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
-public class ClientOpRunner extends AbstractCallback<Operation> {
+public class ClientOpRunner extends AbstractCallback<Operation> implements OpRunner {
 	public final static ServerEngineAsync service = GWT.create(ServerEngine.class);
 	private final GameCtx ctx;
 	

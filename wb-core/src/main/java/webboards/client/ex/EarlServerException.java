@@ -1,8 +1,7 @@
 package webboards.client.ex;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class EarlServerException extends RuntimeException implements IsSerializable {
+public class EarlServerException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	

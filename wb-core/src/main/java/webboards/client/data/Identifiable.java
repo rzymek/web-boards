@@ -2,9 +2,7 @@ package webboards.client.data;
 
 import java.io.Serializable;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
-public abstract class Identifiable implements Serializable, IsSerializable {
+public abstract class Identifiable implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public abstract String getId();
 

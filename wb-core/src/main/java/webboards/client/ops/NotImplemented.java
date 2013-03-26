@@ -1,8 +1,7 @@
 package webboards.client.ops;
 
 import webboards.client.data.GameCtx;
-
-import com.google.gwt.user.client.Window;
+import webboards.client.ex.EarlException;
 
 public class NotImplemented extends Operation {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +17,7 @@ public class NotImplemented extends Operation {
 
 	@Override
 	public void draw(GameCtx ctx) {
-		Window.alert("TODO: " + msg);
+		throw new EarlException("not implemented");
 	}
 
 	@Override

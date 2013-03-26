@@ -7,18 +7,12 @@ import webboards.client.data.Board;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.games.Position;
-import webboards.client.remote.ServerEngine;
-import webboards.client.remote.ServerEngineAsync;
-
-import com.google.gwt.core.shared.GWT;
 
 public abstract class BasicDisplay implements EarlDisplay {
-	protected final ServerEngineAsync service;
 	protected final GameCtx ctx;
 
 	protected BasicDisplay(GameCtx ctx) {
 		this.ctx = ctx;
-		service = GWT.create(ServerEngine.class);
 		ctx.display = this;
 	}
 
