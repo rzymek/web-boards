@@ -48,6 +48,6 @@
 			}
 		%>
 	</ul>
-	<a href="<% UserServiceFactory.getUserService().createLogoutURL(request.getRequestURI()); %>">Logout</a>
+	<a href="<%= UserServiceFactory.getUserService().createLogoutURL("/") %>">Logout</a>
 </body>
 </html>
