@@ -5,11 +5,7 @@ import webboards.client.data.ref.CounterId;
 import webboards.client.display.VisualCoords;
 import webboards.client.ex.EarlException;
 import webboards.client.games.Hex;
-import webboards.client.games.scs.SCSBoard;
-import webboards.client.games.scs.SCSColor;
-import webboards.client.games.scs.SCSCounter;
-import webboards.client.games.scs.SCSHex;
-import webboards.client.games.scs.SCSMarker;
+import webboards.client.games.scs.*;
 import webboards.client.games.scs.bastogne.ArtyType;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.ops.Operation;
@@ -81,18 +77,19 @@ public class PerformBarrage extends Operation {
 			roll.serverExecute(ctx);
 			killRoll = roll.getSum();
 			int value = getKillRollValue(attacker);
-			if (killRoll >= value) 
-				killSteps = 1;
-			else
-				killSteps = 0;
-			applyResults(board);
+            if (killRoll >= value) {
+                killSteps = 1;
+            } else {
+                killSteps = 0;
+            }
+            placeDG(board);
 		} else {
 			killRoll = 0;
 			killSteps = 0;
 		}
 	}
 
-	private SCSMarker applyResults(SCSBoard board) {
+	private SCSMarker placeDG(SCSBoard board) {
 		SCSHex hex = board.getInfo(target);
 		if(hex.getMarkers().isEmpty()) {
 			BastogneSide tgOwner = hex.getUnits().get(0).getOwner();			
@@ -122,15 +119,17 @@ public class PerformBarrage extends Operation {
 	@Override
 	public void postServer(GameCtx ctx) {
 		SCSBoard board = (SCSBoard) ctx.board;
-		SCSMarker dg = applyResults(board);
-		if(dg != null) {
+        if(resultDG) {
+    		SCSMarker dg = placeDG(board);
 			ctx.display.createCounter(dg, ctx.board);
 			ctx.display.alignStack(target);
 		}
 		VisualCoords pos = ctx.display.getCenter(target);
 		ctx.display.clearOds(arty.toString());
 		if(killSteps > 0) {
+            CombatResult result = new CombatResult("D"+killSteps);
 			ctx.display.showResults(pos, "");
+            board.showingResult(target, result);
 		}
 	}
 

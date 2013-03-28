@@ -42,8 +42,8 @@ public abstract class Board implements Serializable {
 		return counters.get(id);
 	}
 	public void place(Position to, CounterInfo counter) {
-		setup(to, counter);
 		placed.add(counter);
+        move(to, counter);
 	}
 
 	public void setup(Position to, CounterInfo counter) {
