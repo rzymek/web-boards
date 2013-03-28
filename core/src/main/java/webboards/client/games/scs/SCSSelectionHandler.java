@@ -45,9 +45,9 @@ public class SCSSelectionHandler extends SelectionHandler {
 		}
 		Collection<SCSCounter> arty = board.getBarragesOn(target);
 		if(!arty.isEmpty()) {
-			SCSCounter attacing = arty.iterator().next();
-			board.clearBarrageOf(attacing);
-			return new PerformBarrage(attacing, target);
+			SCSCounter attacking = arty.iterator().next();
+			board.clearBarrageOf(attacking);
+			return new PerformBarrage(attacking, target);
 		} 
 		if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown
