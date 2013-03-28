@@ -11,8 +11,8 @@
         <module>maven/module</module>
         <module>maven/gwt</module>
         <module>maven/appengine</module>
-        <module>wb-tools</module>
-		<module>wb-core</module>
-		<module>wb-server</module>
+        <module>tools</module>
+		<module>core</module>
+		<module>engine</module>
 	</modules>
 </project>
