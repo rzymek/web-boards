@@ -96,7 +96,9 @@ public class PerformBarrage extends Operation {
 		SCSHex hex = board.getInfo(target);
 		if(hex.getMarkers().isEmpty()) {
 			BastogneSide tgOwner = hex.getUnits().get(0).getOwner();			
-			SCSMarker dg = new SCSMarker("dg" + target, "admin/misc_"+tgOwner.name().toLowerCase()+"-dg.png", tgOwner);
+			SCSMarker dg = new SCSMarker("dg" + target,
+                    "admin/misc_"+tgOwner.name().toLowerCase()+"-dg.png",
+                    tgOwner);
 			board.place(target, dg);
 			return dg;
 		}

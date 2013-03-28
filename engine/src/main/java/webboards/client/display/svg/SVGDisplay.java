@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.appengine.labs.repackaged.com.google.common.collect.Iterables;
+import com.sun.xml.internal.messaging.saaj.soap.impl.ElementFactory;
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -291,17 +293,15 @@ public class SVGDisplay extends BasicDisplay {
 
 	@Override
 	public void createCounter(CounterInfo counter, final Board board) {
-		Element tmpl = svg.getElementById("counter");
-		SVGImageElement c = (SVGImageElement) tmpl.cloneNode(true);
-		String id = counter.ref().toString();
-		com.google.gwt.user.client.Element existing = DOM.getElementById(id);
-		if (existing != null) {
-			String msg = "Element with id=" + id + " aleady exists:" + existing;
-			Browser.console(msg);
-			Browser.console(existing);
-			throw new RuntimeException(msg);
-		}
-		c.setId(id);
+        String id = counter.ref().toString();
+        SVGImageElement c = (SVGImageElement) svg.getElementById(id);
+        if(c == null) {
+            Element template = svg.getElementById("counter");
+	    	c = (SVGImageElement) template.cloneNode(true);
+    		c.setId(id);
+        }else{
+            c.getStyle().setVisibility(Visibility.VISIBLE);
+        }
 		c.getHref().setBaseVal(counter.getState());
 		ClickHandler clickHandler = new ClickHandler() {
 			@Override
@@ -533,9 +533,12 @@ public class SVGDisplay extends BasicDisplay {
 		Element unitsLayer = svg.getElementById("units");
 		unitsLayer.appendChild(rect);
 		for (CounterInfo ci : ctx.board.getPlaced()) {
-			//TODO: make hidden
-			removeElement(ci.ref().toString());
-		}
+            String id = ci.ref().toString();
+            Element element = svg.getElementById(id);
+            if(element!=null){
+                element.getStyle().setVisibility(Visibility.HIDDEN);
+            }
+        }
 
 		stackSelector.getStyle().setVisibility(Visibility.HIDDEN);
 		OMSVGRectElement omstackSelector = OMNode.convert(stackSelector);
