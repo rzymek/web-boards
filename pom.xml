@@ -3,11 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>webboards</groupId>
 	<artifactId>webboards</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>wb-tools</module>
+        <module>maven/common</module>
+        <module>maven/module</module>
+        <module>maven/gwt</module>
+        <module>maven/appengine</module>
+        <module>wb-tools</module>
 		<module>wb-core</module>
 		<module>wb-server</module>
 	</modules>
