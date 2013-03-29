@@ -90,9 +90,6 @@
                     <style>PRETTY</style>
                     <logLevel>INFO</logLevel>
                     <skip>${nogwt}</skip>
-                    <compileSourcesArtifacts>
-                        <artifact>webboards:core</artifact>
-                    </compileSourcesArtifacts>
                 </configuration>
             </plugin>
         </plugins>
