@@ -38,7 +38,7 @@ import webboards.tools.svg.cleaners.SetSVGDimentions;
 
 public class SVGCleaner {
 
-	private static final String BASEDIR = "../webboards/";
+	private static final String BASEDIR = "../engine/";
 	private static final String WEBDIR = BASEDIR + "src/main/webapp/";
 	private static final String SRCDIR = BASEDIR + "src/main/svg/";
 

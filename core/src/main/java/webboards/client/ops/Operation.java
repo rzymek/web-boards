@@ -5,7 +5,7 @@ import java.io.Serializable;
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
 
-public abstract class  Operation implements Serializable {
+public abstract class Operation implements Serializable {
 	private static final long serialVersionUID = 2L;
 	public int index;
 
