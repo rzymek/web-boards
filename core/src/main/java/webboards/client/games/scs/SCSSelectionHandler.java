@@ -1,6 +1,7 @@
 package webboards.client.games.scs;
 
 import java.util.Collection;
+import java.util.List;
 
 import webboards.client.OpRunner;
 import webboards.client.data.CounterInfo;
@@ -29,31 +30,38 @@ public class SCSSelectionHandler extends SelectionHandler {
 	}
 
 	@Override
-	public Operation onSelected(CounterInfo counter) {
-		if (counter == null) {
-			return null;
-		}
+	protected Operation onSingleCounterClicked(CounterInfo counter) {
+		Operation op = arrackOrAcknowlege(counter.getPosition());
+		return op != null ? op : super.onSingleCounterClicked(counter);
+	}
+
+	@Override 
+	protected Operation onStackClicked(List<CounterInfo> stack, Position pos) {
+		Operation op = arrackOrAcknowlege(pos);
+		return op != null ? op : super.onStackClicked(stack, pos);
+	}
+
+	private Operation arrackOrAcknowlege(Position pos) {
 		SCSBoard board = (SCSBoard) ctx.board;
-		Position pos = counter.getPosition();
-		if(!(pos instanceof Hex)) {
+		if (!(pos instanceof Hex)) {
 			return null;
 		}
 		Hex target = (Hex) pos;
 		CombatResult combatResult = board.combatResultsShown.get(target);
-		if(combatResult != null) {
+		if (combatResult != null) {
 			return new AcknowlegeResults(target, combatResult);
 		}
 		Collection<SCSCounter> declaredBarrages = board.getBarragesOn(target);
-		if(!declaredBarrages.isEmpty()) {
+		if (!declaredBarrages.isEmpty()) {
 			SCSCounter attacking = declaredBarrages.iterator().next();
 			board.clearBarrageOf(attacking);
 			return new PerformBarrage(attacking, target);
-		} 
+		}
 		if (board.isDeclaredAttackOn(target)) {
 			// TODO: issue #5 PerformAttack countdown
 			Collection<Hex> attacking = board.getAttacking(target);
-			return new PerformAttack(target, attacking);			
+			return new PerformAttack(target, attacking);
 		}
-		return null; 
+		return null;
 	}
 }

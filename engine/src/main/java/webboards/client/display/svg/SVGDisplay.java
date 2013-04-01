@@ -66,7 +66,7 @@ public class SVGDisplay extends BasicDisplay {
 		}
 		SVGImageElement clicked = (SVGImageElement) event.getRelativeElement();
 		String id = clicked.getId();
-		CounterInfo counter = board.getCounter(id);
+		CounterInfo counter = board.getCounter(new CounterId(id));
 		List<SVGElement> stack = getStacksWith(counter);
 		if(stack == null) {
 			handler.onClicked(counter);

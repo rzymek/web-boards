@@ -18,17 +18,18 @@ import webboards.client.games.Position;
 
 public abstract class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Map<String, CounterInfo> counters = null;
-	private Collection<CounterInfo> placed = new ArrayList<CounterInfo>();
+	private Map<CounterId, CounterInfo> counters = null;
+	private Map<CounterId, CounterInfo> placed = null;
 
 	public Board() {
-		counters = new HashMap<String, CounterInfo>();
+		counters = new HashMap<CounterId, CounterInfo>();
+		placed = new HashMap<CounterId, CounterInfo>();
 	}
 
 	public Set<Position> getStacks() {
 		Set<Position> stacks = new HashSet<Position>();
-		Set<Entry<String, CounterInfo>> entrySet = counters.entrySet();		
-		for (Entry<String, CounterInfo> entry : entrySet) {
+		Set<Entry<CounterId, CounterInfo>> entrySet = counters.entrySet();		
+		for (Entry<CounterId, CounterInfo> entry : entrySet) {
 			stacks.add(entry.getValue().getPosition());
 		}
 		return stacks;
@@ -38,16 +39,26 @@ public abstract class Board implements Serializable {
 		return Collections.unmodifiableCollection(counters.values());
 	}
 
-	public CounterInfo getCounter(String id) {
-		return counters.get(id);
+	public CounterInfo getCounter(CounterId id) {
+		CounterInfo c;
+		c = counters.get(id);
+		if(c != null) {
+			return c;			
+		}
+		c = placed.get(id);
+		if(c != null) {
+			return c;			
+		}
+		throw new EarlException("Counter "+id+" not found.");
 	}
+	
 	public void place(Position to, CounterInfo counter) {
-		placed.add(counter);
+		placed.put(counter.ref(), counter);
         move(to, counter);
 	}
 
 	public void setup(Position to, CounterInfo counter) {
-		String id = counter.ref().toString();
+		CounterId id = counter.ref();
 		CounterInfo prev = counters.put(id, counter);
 		if (prev != null) {
 			throw new EarlException(id + " aleader placed");
@@ -83,10 +94,10 @@ public abstract class Board implements Serializable {
 	public abstract HexInfo getInfo(Position area);
 
 	public CounterInfo getInfo(CounterId ref) {
-		return getCounter(ref.toString());
+		return getCounter(ref);
 	}
 	
 	public Collection<CounterInfo> getPlaced() {
-		return Collections.unmodifiableCollection(placed);
+		return Collections.unmodifiableCollection(placed.values());
 	}
 }

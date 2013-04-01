@@ -36,7 +36,7 @@ public class PerformBarrage extends Operation {
 
 	@Override
 	public void drawDetails(GameCtx ctx) {
-		SCSCounter a = (SCSCounter) ctx.board.getInfo(arty);
+		SCSCounter attacker = (SCSCounter) ctx.board.getInfo(arty);
 		SCSColor color;
 		if (diceRoll < 0) {
 			// before dice rolls
@@ -51,8 +51,8 @@ public class PerformBarrage extends Operation {
 				color = SCSColor.FAILURE;
 			}
 		}
-		String id = getArrowId(a);
-		ctx.display.drawArrow(a.getPosition(), target, id, color.getColor());
+		String id = getArrowId(attacker);
+		ctx.display.drawArrow(attacker.getPosition(), target, id, color.getColor());
 	}
 
 	public static String getArrowId(SCSCounter a) {
@@ -126,11 +126,14 @@ public class PerformBarrage extends Operation {
 		}
 		VisualCoords pos = ctx.display.getCenter(target);
 		ctx.display.clearOds(arty.toString());
+        CombatResult result = new CombatResult("D"+killSteps);
+        board.showingResult(target, result);
+		String res = resultDG ? "DG" : "";
 		if(killSteps > 0) {
-            CombatResult result = new CombatResult("D"+killSteps);
-			ctx.display.showResults(pos, "");
-            board.showingResult(target, result);
+			res += killSteps;
 		}
+		//;filter:url(#filter5698)
+		ctx.display.showResults(pos, res);
 	}
 
 	@Override
