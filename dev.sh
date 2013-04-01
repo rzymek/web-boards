@@ -1,2 +1,2 @@
 cd `dirname $0`
-mvn $* -pl engine appengine:devserver -DskipTests
+mvn -f engine/pom.xml $* appengine:devserver -DskipTests -Pdev
