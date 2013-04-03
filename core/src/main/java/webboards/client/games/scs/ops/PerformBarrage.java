@@ -53,10 +53,12 @@ public class PerformBarrage extends Operation {
 		}
 		String id = getArrowId(attacker);
 		ctx.display.drawArrow(attacker.getPosition(), target, id, color.getColor());
+		SCSBoard board = (SCSBoard) ctx.board;
+		board.declareBarrage(attacker, target);
 	}
 
 	public static String getArrowId(SCSCounter a) {
-		return "barrage_" + a.getPosition().getSVGId();
+		return "barrage_" + a.ref();
 	}
 
 	@Override

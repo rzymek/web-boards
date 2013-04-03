@@ -116,7 +116,7 @@ public class SCSBoard extends Board implements Serializable {
 		return result;
 	}
 
-	public void clearBarrageOf(SCSCounter attacing) {
+	public void undeclareBarrageOf(SCSCounter attacing) {
 		barrages.remove(attacing);
 	}
 
@@ -161,6 +161,10 @@ public class SCSBoard extends Board implements Serializable {
 
 	public void showingResult(Hex targetRef, CombatResult result) {
 		combatResultsShown.put(targetRef, result);
+	}
+
+	public Hex getBarrageTarget(SCSCounter arty) {
+		return barrages.get(arty);
 	}
 
 }

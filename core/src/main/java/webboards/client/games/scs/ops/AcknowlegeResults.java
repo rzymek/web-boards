@@ -16,7 +16,8 @@ public class AcknowlegeResults extends Operation {
 	private static final long serialVersionUID = 1L;
 	private Hex target;
 	private CombatResult result;
-	private transient Collection<Hex> attacking;
+	private transient Collection<Hex> combatAttacks;
+	private transient Collection<SCSCounter> barrages;
 
 	@SuppressWarnings("unused")
 	private AcknowlegeResults() {}
@@ -29,24 +30,30 @@ public class AcknowlegeResults extends Operation {
 	@Override
 	public void updateBoard(Board b) {
 		SCSBoard board = (SCSBoard) b;
-		attacking = new ArrayList<Hex>(board.getAttacking(target));
-		Collection<SCSCounter> barrages = board.getBarragesOn(target);
-		for (SCSCounter arty : barrages) {
-			Hex hex = (Hex) arty.getPosition();
-			attacking.add(hex);
-			board.clearBarrageOf(arty);
-		}
-		board.clearAttacksOn(target);
 		board.combatResultsShown.remove(target);
+		
+		Collection<Hex> combatAttacks = board.getAttacking(target);
+		//create a copy
+		this.combatAttacks = new ArrayList<Hex>(combatAttacks); 
+		board.clearAttacksOn(target);
+		
+		Collection<SCSCounter> barrages = board.getBarragesOn(target);
+		//create a copy
+		this.barrages = new ArrayList<SCSCounter>(barrages);
+		for (SCSCounter arty : barrages) {
+			board.undeclareBarrageOf(arty);
+		}		
 	}
 
 	@Override
 	public void draw(GameCtx ctx) {
 		VisualCoords pos = ctx.display.getCenter(target);		
 		ctx.display.clearResults(pos);
-		for (Hex from : attacking) {
-			ctx.display.clearArrow("combat_" + from.getSVGId());			
-			ctx.display.clearArrow("barrage_" + from.getSVGId());			
+		for (Hex from : combatAttacks) {
+			ctx.display.clearArrow("combat_" + from.getSVGId());						
+		}
+		for (SCSCounter arty : barrages) {
+			ctx.display.clearArrow("barrage_" + arty.ref());			
 		}
 	}
 

@@ -54,7 +54,6 @@ public class SCSSelectionHandler extends SelectionHandler {
 		Collection<SCSCounter> declaredBarrages = board.getBarragesOn(target);
 		if (!declaredBarrages.isEmpty()) {
 			SCSCounter attacking = declaredBarrages.iterator().next();
-			board.clearBarrageOf(attacking);
 			return new PerformBarrage(attacking, target);
 		}
 		if (board.isDeclaredAttackOn(target)) {
