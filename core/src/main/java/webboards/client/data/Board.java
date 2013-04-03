@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import webboards.client.data.ref.CounterId;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 
@@ -49,7 +49,7 @@ public abstract class Board implements Serializable {
 		if(c != null) {
 			return c;			
 		}
-		throw new EarlException("Counter "+id+" not found.");
+		throw new WebBoardsException("Counter "+id+" not found.");
 	}
 	
 	public void place(Position to, CounterInfo counter) {
@@ -61,7 +61,7 @@ public abstract class Board implements Serializable {
 		CounterId id = counter.ref();
 		CounterInfo prev = counters.put(id, counter);
 		if (prev != null) {
-			throw new EarlException(id + " aleader placed");
+			throw new WebBoardsException(id + " aleader placed");
 		}
 		move(to, counter);
 	}

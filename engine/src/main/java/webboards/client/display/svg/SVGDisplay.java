@@ -20,7 +20,7 @@ import webboards.client.display.BasicDisplay;
 import webboards.client.display.Color;
 import webboards.client.display.SelectionHandler;
 import webboards.client.display.VisualCoords;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.SCSSelectionHandler;
@@ -344,7 +344,7 @@ public class SVGDisplay extends BasicDisplay {
 	private SVGElement getSVGElement(String id) {
 		SVGElement e = (SVGElement) svg.getElementById(id);
 		if (e == null) {
-			throw new EarlException("svg element [" + id + "] not found");
+			throw new WebBoardsException("svg element [" + id + "] not found");
 		}
 		return e;
 	}

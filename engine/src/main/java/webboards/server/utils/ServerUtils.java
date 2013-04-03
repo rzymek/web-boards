@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import webboards.client.ex.EarlServerException;
+import webboards.client.ex.WebBoardsServerException;
 
 public final class ServerUtils {
 	private ServerUtils() {
@@ -24,7 +24,7 @@ public final class ServerUtils {
 				out.close();
 			}
 		} catch (IOException e) {
-			throw new EarlServerException(e);
+			throw new WebBoardsServerException(e);
 		}
 		return buf.toByteArray();
 	}
@@ -60,7 +60,7 @@ public final class ServerUtils {
 				in.close();
 			}
 		} catch (Exception e) {
-			throw new EarlServerException(e);
+			throw new WebBoardsServerException(e);
 		}
 	}
 

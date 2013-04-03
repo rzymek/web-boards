@@ -16,8 +16,8 @@ import webboards.client.data.Board;
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
 import webboards.client.ex.ConcurrentOpException;
-import webboards.client.ex.EarlException;
-import webboards.client.ex.EarlServerException;
+import webboards.client.ex.WebBoardsException;
+import webboards.client.ex.WebBoardsServerException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
 import webboards.client.games.scs.bastogne.scenarios.BattleForLongvilly;
@@ -120,18 +120,18 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return principal.getName();
 	}
 
-	protected long getTableId() throws EarlException {
+	protected long getTableId() throws WebBoardsException {
 		String referer = getThreadLocalRequest().getHeader("referer");
 		Map<String, List<String>> queryParams = HttpUtils.getQueryParams(referer);
 		List<String> list = queryParams.get("table");
 		if (list == null || list.isEmpty()) {
-			throw new EarlException("table parameter is missing");
+			throw new WebBoardsException("table parameter is missing");
 		}
 		String tableId = list.get(0);
 		try {
 			return Long.parseLong(tableId);
 		}catch(NumberFormatException ex){
-			throw new EarlException(ex);
+			throw new WebBoardsException(ex);
 		}
 	}
 
@@ -204,7 +204,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 	private Table getTable(long tableId) {
 		Table table = ofy().load().type(Table.class).id(tableId).get();
 		if (table == null) {
-			throw new EarlServerException("Invalid table id=" + tableId);
+			throw new WebBoardsServerException("Invalid table id=" + tableId);
 		}
 		log.fine(tableId + " found in db. ");
 		return table;

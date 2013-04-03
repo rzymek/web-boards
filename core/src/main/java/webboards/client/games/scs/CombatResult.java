@@ -2,7 +2,7 @@ package webboards.client.games.scs;
 
 import java.io.Serializable;
 
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 
 public class CombatResult implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class CombatResult implements Serializable {
 				} else if ('r' == cmd) {
 					r = numVal;
 				} else {
-					throw new EarlException("Invalid combat result value:" + value + " @" + i);
+					throw new WebBoardsException("Invalid combat result value:" + value + " @" + i);
 				}
 			}else{
 				cmd = c;

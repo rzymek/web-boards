@@ -5,7 +5,7 @@ import java.util.Map;
 
 import webboards.client.data.Game;
 import webboards.client.data.Side;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.Area;
 import webboards.client.games.Scenario;
 import webboards.client.games.scs.CombatResult;
@@ -84,7 +84,7 @@ public class Bastogne implements Game  {
 				return col;
 			}
 		}
-		throw new EarlException("invalid odds:" + oddsValue);
+		throw new WebBoardsException("invalid odds:" + oddsValue);
 	}
 
 	@Override

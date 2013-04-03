@@ -1,7 +1,7 @@
 package webboards.client.ops;
 
 import webboards.client.data.GameCtx;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 
 public class NotImplemented extends Operation {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +17,7 @@ public class NotImplemented extends Operation {
 
 	@Override
 	public void draw(GameCtx ctx) {
-		throw new EarlException("not implemented");
+		throw new WebBoardsException("not implemented");
 	}
 
 	@Override

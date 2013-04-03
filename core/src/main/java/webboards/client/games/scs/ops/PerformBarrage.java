@@ -3,7 +3,7 @@ package webboards.client.games.scs.ops;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
 import webboards.client.display.VisualCoords;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.Hex;
 import webboards.client.games.scs.*;
 import webboards.client.games.scs.bastogne.ArtyType;
@@ -107,14 +107,14 @@ public class PerformBarrage extends Operation {
 	private int getKillRollValue(SCSCounter attacker) {
 		ArtyType artyType = attacker.getArtyType();
 		if(artyType == null) {
-			throw new EarlException(attacker.ref()+" is missing artyType");
+			throw new WebBoardsException(attacker.ref()+" is missing artyType");
 		}
 		switch (artyType) {
 		case YELLOW:  return 4;
 		case GUNS_88: return 5;
 		case OTHER:   return 6;		
 		default:
-			throw new EarlException("Unsupported ArtyType:"+artyType);
+			throw new WebBoardsException("Unsupported ArtyType:"+artyType);
 		}
 	}
 

@@ -11,7 +11,7 @@ import webboards.client.display.svg.SVGLowResZoomPan;
 import webboards.client.display.svg.SVGZoomAndPanHandler;
 import webboards.client.display.svg.edit.EditDisplay;
 import webboards.client.display.svg.edit.EmptyScenario;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.menu.ClientMenu;
@@ -184,7 +184,7 @@ public class ClientEngine implements EntryPoint {
 	public static long getTableId() {
 		String value = Window.Location.getParameter("table");
 		if(value == null) {
-			throw new EarlException("Invalid URL: table parameter is missing");
+			throw new WebBoardsException("Invalid URL: table parameter is missing");
 		}
 		return Long.parseLong(value);
 	}

@@ -7,7 +7,7 @@ import java.util.List;
 import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
-import webboards.client.ex.EarlException;
+import webboards.client.ex.WebBoardsException;
 import webboards.client.games.Hex;
 import webboards.client.games.Position;
 import webboards.client.games.scs.bastogne.ArtyType;
@@ -126,7 +126,7 @@ public class SCSCounter extends CounterInfo implements Serializable {
 			if(c instanceof SCSCounter) {
 				SCSCounter counter = (SCSCounter) c;
 				if(side != null && side != counter.getOwner()) {
-					throw new EarlException("Inconsistent board: Mixed side in one stack");
+					throw new WebBoardsException("Inconsistent board: Mixed side in one stack");
 				}
 				side = counter.getOwner();
 			}
