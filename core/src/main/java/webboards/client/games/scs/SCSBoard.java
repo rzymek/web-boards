@@ -120,16 +120,16 @@ public class SCSBoard extends Board implements Serializable {
 		barrages.remove(attacing);
 	}
 
-	private static float getDefenceRawSum(Collection<SCSCounter> defending) {
-		float defence = 0;
+	private static double getDefenceRawSum(Collection<SCSCounter> defending) {
+		double defence = 0;
 		for (SCSCounter counter : defending) {
 			defence += counter.getDefence();
 		}
 		return defence;
 	}
 
-	public static float getAttackRawSum(Collection<SCSHex> list) {
-		float total = 0;
+	public static double getAttackRawSum(Collection<SCSHex> list) {
+		double total = 0;
 		for (SCSHex hex : list) {
 			int attack = 0;
 			for (SCSCounter c : hex.getUnits()) {
@@ -145,16 +145,16 @@ public class SCSBoard extends Board implements Serializable {
 
 	public static int[] calculateOdds(SCSHex target, Collection<SCSHex> attacking, Hex targetPosition) {
 		Collection<SCSCounter> defending = target.getUnits();
-		float defence = getDefenceRawSum(defending);
-		float defenceModifier = target.getDefenceCombatModifier();
+		double defence = getDefenceRawSum(defending);
+		double defenceModifier = target.getDefenceCombatModifier();
 		defence *= defenceModifier;
-		float attack = getAttackRawSum(attacking);
-		float smaller = Math.min(attack, defence);
+		double attack = getAttackRawSum(attacking);
+		double smaller = Math.min(attack, defence);
 		if(smaller == 0){
 			smaller = 1;
 		}
-		int a = Math.round(attack / smaller);
-		int b = Math.round(defence / smaller);
+		int a = (int) Math.round(attack / smaller);
+		int b = (int) Math.round(defence / smaller);
 		int[] odds = { a, b };
 		return odds;
 	}

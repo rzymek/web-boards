@@ -68,16 +68,16 @@ public class SCSHex extends HexInfo {
 		return a.x == x && a.y == y;
 	}
 
-	public float getDefenceCombatModifier() {
-		int modifier = 1;
+	public double getDefenceCombatModifier() {
+		double modifier = 1.0;
 		if(traits.contains(HexTraits.FOREST)) {
-			modifier *= 2;
+			modifier *= 2.0;
 		}
 		if(traits.contains(HexTraits.CITY)) {
-			modifier *= 2;
+			modifier *= 2.0;
 		}
 		if(hasDG()) {
-			modifier /= 2;
+			modifier /= 2.0;
 		}
 		return modifier;
 	}

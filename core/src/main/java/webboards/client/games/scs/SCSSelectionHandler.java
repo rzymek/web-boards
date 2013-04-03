@@ -42,6 +42,9 @@ public class SCSSelectionHandler extends SelectionHandler {
 	}
 
 	private Operation arrackOrAcknowlege(Position pos) {
+		if(ctx.selected != null) {
+			return null;
+		}
 		SCSBoard board = (SCSBoard) ctx.board;
 		if (!(pos instanceof Hex)) {
 			return null;
