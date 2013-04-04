@@ -64,29 +64,29 @@ ul.art-vmenu a
 .art-postcontent a
 {
    text-decoration: none;
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postcontent a:link
 {
    text-decoration: none;
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postcontent a:visited, .art-postcontent a.visited
 {
-   color: #775B3C;
+   color: #705638;
 }
 
 .art-postcontent  a:hover, .art-postcontent a.hover
 {
    text-decoration: underline;
-   color: #797E6D;
+   color: #767B6B;
 }
 
 .art-postcontent h1
 {
-   color: #5C5F53;
+   color: #575A4E;
    margin: 10px 0 0;
    font-size: 26px;
 }
@@ -104,7 +104,7 @@ ul.art-vmenu a
 
 .art-postcontent h2
 {
-   color: #5C5F53;
+   color: #575A4E;
    margin: 10px 0 0;
 }
 
@@ -115,7 +115,7 @@ ul.art-vmenu a
 
 .art-postcontent h3
 {
-   color: #775B3C;
+   color: #705638;
    margin: 10px 0 0;
    font-size: 18px;
 }
@@ -133,7 +133,7 @@ ul.art-vmenu a
 
 .art-postcontent h4
 {
-   color: #44270D;
+   color: #40250D;
    margin: 10px 0 0;
    font-size: 16px;
 }
@@ -151,7 +151,7 @@ ul.art-vmenu a
 
 .art-postcontent h5
 {
-   color: #44270D;
+   color: #40250D;
    margin: 10px 0 0;
    font-size: 14px;
 }
@@ -169,7 +169,7 @@ ul.art-vmenu a
 
 .art-postcontent h6
 {
-   color: #623813;
+   color: #5E3613;
    margin: 10px 0 0;
    font-size: 13px;
 }
@@ -217,7 +217,7 @@ body
    padding: 0;
    margin:0;
    min-width: 900px;
-   color: #362A1B;
+   color: #33271A;
    background-color: #2F2418;
    background-image: url('/css/images/Bottom_texture.jpg');
    background-repeat: repeat;
@@ -1157,7 +1157,30 @@ div.art-block img
 }
 .art-post-body 
 {
-   padding:15px;
+   padding:18px;
+}
+.art-post:before, .art-post:after 
+{
+   content: url('/css/images/post_t.png');
+   font-size: 0;
+   background-image: url('/css/images/post_b.png');
+}
+.art-post:after{
+   clip:rect(auto, auto, auto, 883px);
+}
+.art-post:before,.art-post-body:before{
+   right:9px;
+}
+.art-post-body:after{
+   width: 9px;
+   top:9px;
+   bottom:9px;
+   background-image:url('/css/images/post.png');
+}
+.art-post-body:before{
+   top:9px;
+   bottom:9px;
+   background-image:url('/css/images/post.png');
 }
 
 a img
@@ -1235,7 +1258,7 @@ pre
 /* begin PostHeaderIcon */
 .art-postheader
 {
-   color: #42443B;
+   color: #3D3F37;
    margin: 5px 0;
    line-height: 1em;
    font-size: 20px;
@@ -1255,17 +1278,17 @@ pre
 {
    text-align: left;
    text-decoration: none;
-   color: #4F5247;
+   color: #4A4C42;
 }
 
 .art-postheader a:visited, .art-postheader a.visited
 {
-   color: #AA8255;
+   color: #A37D52;
 }
 
 .art-postheader a:hover,  .art-postheader a.hovered
 {
-   color: #797E6D;
+   color: #767B6B;
 }
 
 /* end PostHeaderIcon */
@@ -1278,7 +1301,7 @@ pre
 .art-postheadericons a:hover
 {
    font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   color: #AF8A60;
+   color: #AA8255;
 }
 
 .art-postheadericons
@@ -1289,14 +1312,14 @@ pre
 .art-postheadericons a, .art-postheadericons a:link
 {
    text-decoration: none;
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postheadericons a:visited, .art-postheadericons a.visited
 {
    font-style: italic;
    font-weight: normal;
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postheadericons a:hover, .art-postheadericons a.hover
@@ -1304,7 +1327,7 @@ pre
    font-style: italic;
    font-weight: normal;
    text-decoration: underline;
-   color: #C47027;
+   color: #C06E26;
 }
 
 /* end PostIcons, PostHeaderIcons */
@@ -1364,7 +1387,7 @@ span.art-postediticon:after
 .art-postcontent li
 {
    font-size: 13px;
-   color: #55412B;
+   color: #4E3C27;
    margin: 3px 0 0 -15px;
    padding: 0 0 0 12px;
 }
@@ -1445,7 +1468,7 @@ blockquote
 .art-postfootericons a:hover
 {
    font-family: Tahoma, Arial, Helvetica, Sans-Serif;
-   color: #AF8A60;
+   color: #AA8255;
 }
 
 .art-postfootericons
@@ -1456,17 +1479,17 @@ blockquote
 .art-postfootericons a, .art-postfootericons a:link
 {
    text-decoration: none;
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postfootericons a:visited, .art-postfootericons a.visited
 {
-   color: #5C5F53;
+   color: #575A4E;
 }
 
 .art-postfootericons a:hover, .art-postfootericons a.hover
 {
-   color: #C47027;
+   color: #C06E26;
 }
 
 /* end PostIcons, PostFooterIcons */

@@ -259,6 +259,26 @@ ul.art-hmenu>li>span.art-hmenu-separator
 }
 /* end Box, BlockContent */
 
+/* begin Box, Post */
+.art-post>.art-box-tl, .art-post>.art-box-tr{
+   background-image: url('images/post_t.png');
+}
+.art-post>.art-box-bl, .art-post>.art-box-br {
+   background-image: url('images/post_b.png');
+}
+.art-post>.art-box-tl, .art-post>.art-box-bl, .art-post>.art-box-cl{
+   right:9px;
+}
+.art-post>.art-box-tr, .art-post>.art-box-br, .art-post>.art-box-cr{
+   width: 9px;
+}
+.art-post>.art-box-cl, .art-post>.art-box-cr{
+   top:9px;
+   bottom:9px;
+   background-image:url('images/post.png');
+}
+/* end Box, Post */
+
 /* begin PostIcons, PostHeaderIcons */
 .art-postheadericons span{
    zoom: 1;
