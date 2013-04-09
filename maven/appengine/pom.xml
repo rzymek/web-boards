@@ -16,7 +16,7 @@
 	<properties>
 		<ver>1</ver>
 
-		<gae.version>1.7.5</gae.version>
+		<gae.version>1.7.6</gae.version>
 		<gae.mvn.version>${gae.version}</gae.mvn.version>
 
 		<outputDirectory>target/${project.build.finalName}/WEB-INF/classes</outputDirectory>
