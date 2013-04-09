@@ -35,12 +35,7 @@ public String print_content_footer(){
 
 	<style type="text/css">
 	<%@ include file="/css/style.css" %>
-	</style>
- 	<!--[if IE 6]><link rel="stylesheet" href="/css/style.ie6.css" type="text/css" media="screen" /><![endif]-->
-    <!--[if IE 7]><link rel="stylesheet" href="/css/style.ie7.css" type="text/css" media="screen" /><![endif]-->
-	    
- 	<script type="text/javascript" src="/css/jquery.js"></script>
-    <script type="text/javascript" src="/css/script.js"></script>
+	</style>    
     
    	<style type="text/css">
 	.art-post .layout-item-0 { padding-right: 10px;padding-left: 10px; }
