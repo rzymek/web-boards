@@ -84,15 +84,15 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return info;
 	}
 
-	private List<Player> getPlayers(Table table) {
+	protected List<Player> getPlayers(Table table) {
 		return ofy().load().type(Player.class).ancestor(table).list();
 	}
 
-	public List<Operation> loadOps(Table table) {
+	private List<Operation> loadOps(Table table) {
 		return unwrap(loadOpEntities(table));
 	}
 
-	public List<Operation> unwrap(Collection<OperationEntity> res) {
+	private List<Operation> unwrap(Collection<OperationEntity> res) {
 		List<Operation> results = new ArrayList<Operation>();
 		for (OperationEntity operationEntity : res) {
 			Operation op = ServerUtils.deserialize(operationEntity.data);
@@ -101,7 +101,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return results;
 	}
 
-	public List<OperationEntity> loadOpEntities(Table table) {
+	private List<OperationEntity> loadOpEntities(Table table) {
 		//@formatter:off
 		return ofy().load()
 				.type(OperationEntity.class)
@@ -111,7 +111,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		//@formatter:on
 	}
 
-	private String getUser() {
+	protected String getUser() {
 		Principal principal = getThreadLocalRequest().getUserPrincipal();
 		if (principal == null) {
 			throw new SecurityException("Not logged in.");
@@ -201,7 +201,7 @@ public class ServerEngineImpl extends RemoteServiceServlet implements ServerEngi
 		return unwrap(opEnts);
 	}
 
-	private Table getTable(long tableId) {
+	protected Table getTable(long tableId) {
 		Table table = ofy().load().type(Table.class).id(tableId).get();
 		if (table == null) {
 			throw new WebBoardsServerException("Invalid table id=" + tableId);

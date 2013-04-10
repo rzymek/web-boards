@@ -35,6 +35,10 @@ public class ManagerServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+		registerEntities();
+	}
+
+	public static void registerEntities() {
 		ObjectifyService.register(OperationEntity.class);
 		ObjectifyService.register(Table.class);
 		ObjectifyService.register(Player.class);
