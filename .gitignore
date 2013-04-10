@@ -1,11 +1,6 @@
-gwt-unitCache/
-bin/
-.metadata/
-.netrc
-.gwt
+*.iml
+*.ipr
+*.iws
 target
-gae
-.settings
-.project
-.classpath
-/war
+.*
+*.log

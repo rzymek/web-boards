@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>webboards</groupId>
+	<artifactId>engine</artifactId>
+	<version>1.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<parent>
+		<relativePath>../maven/appengine/pom.xml</relativePath>
+		<groupId>webboards</groupId>
+		<artifactId>appengine</artifactId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<appid>web-boards</appid>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<!-- for editor only -->
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<id>add-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>../core/src/main/java</source>
+									</sources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>add-resource</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-resource</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>../core/src/main/resources</directory>
+											<targetPath>resources</targetPath>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>prod</id>
+			<dependencies>
+				<dependency>
+					<groupId>webboards</groupId>
+					<artifactId>core</artifactId>
+					<version>1.1-SNAPSHOT</version>
+				</dependency>
+			</dependencies>			
+		</profile>
+	</profiles>
+</project>

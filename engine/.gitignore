@@ -1,0 +1,13 @@
+gwt-unitCache/
+bin/
+.metadata/
+.netrc
+.gwt
+target
+gae
+.settings
+.project
+.classpath
+/war
+parent.pom.xml
+maven
