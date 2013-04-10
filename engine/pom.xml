@@ -78,22 +78,7 @@
 					<artifactId>core</artifactId>
 					<version>1.1-SNAPSHOT</version>
 				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<!-- GWT Maven Plugin -->
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>gwt-maven-plugin</artifactId>
-						<version>${gwt.mvn.version}</version>
-						<configuration>
-							<compileSourcesArtifacts>
-								<artifact>webboards:core</artifact>
-							</compileSourcesArtifacts>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
+			</dependencies>			
 		</profile>
 	</profiles>
 </project>
