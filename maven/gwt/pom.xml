@@ -90,6 +90,9 @@
 					<style>PRETTY</style>
 					<logLevel>INFO</logLevel>
 					<skip>${nogwt}</skip>
+					<!-- 
+					<extraJvmArgs>-javaagent:"/home/rzymek/opt/eclipse/plugins/org.zeroturnaround.eclipse.embedder_5.2.0.SR1-201303112135/jrebel/jrebel.jar" -Drebel.workspace.path="/home/rzymek/eh/oadm/workspace" -Drebel.log.file="/home/rzymek/.jrebel/jrebel.log" -Drebel.properties="/home/rzymek/.jrebel/jrebel.properties" -Drebel.notification.url="http://127.0.0.1:55602/jrebel/notifications"</extraJvmArgs>
+					 -->
 				</configuration>
 			</plugin>
 		</plugins>
