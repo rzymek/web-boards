@@ -2,23 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>webboards</groupId>
-	<artifactId>webboards</artifactId>
+	<artifactId>maven</artifactId>
 	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>maven/pom.xml</module>
-		<module>tools</module>
-		<module>core</module>
-		<module>engine</module>
+		<module>common/pom.xml</module>
+		<module>gwt/pom.xml</module>
+		<module>module/pom.xml</module>
+		<module>appengine/pom.xml</module>
 	</modules>
-
-	<profiles>
-		<profile>
-			<id>geadev</id>
-			<build>
-				<defaultGoal>initialize</defaultGoal>
-			</build>
-		</profile>
-	</profiles>
 </project>
