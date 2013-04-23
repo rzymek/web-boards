@@ -12,10 +12,12 @@ public class GameCtx {
 	public Side side;
 	public GameInfo info;
 	public ArrayList<Operation> ops;
+	public int position;
 
 	public void setInfo(GameInfo info) {
 		this.side = info.side;
 		this.ops = new ArrayList<Operation>(info.ops);
 		this.info = info;
+		this.position = ops.size() - 1;
 	}
 }

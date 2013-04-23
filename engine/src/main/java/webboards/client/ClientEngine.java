@@ -15,6 +15,7 @@ import webboards.client.ex.WebBoardsException;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.menu.ClientMenu;
+import webboards.client.menu.HistoryControls;
 import webboards.client.ops.ClearScreen;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngine;
@@ -86,6 +87,7 @@ public class ClientEngine implements EntryPoint {
 		ctx.board = info.game.start(info.scenario);
 		SVGDisplay display = new SVGDisplay(svg, ctx);
 		menu = new ClientMenu(svg, ctx);
+		RootPanel.get("controls").add(new HistoryControls(ctx));
 		display.setBoard(ctx.board);
 		new NextPhase().draw(ctx);
 

@@ -71,18 +71,7 @@ public class ClientMenu implements ClickHandler {
 		add("Expand");
 		add("Refresh");
 		add("Verify");
-		add("Generate");
-		
-		RootPanel controls = RootPanel.get("controls");
-		Button back = new Button("&lt;");
-		back.addClickHandler(this);
-		controls.add(back);
-		Button next = new Button("&gt;");
-		next.addClickHandler(this);
-		controls.add(next);	
-		Button end = new Button("&gt;|");
-		end.addClickHandler(this);
-		controls.add(end);	
+		add("Generate");		
 	}
 
 	private Button add(String text) {
