@@ -9,7 +9,10 @@ import webboards.client.data.ref.CounterId;
 import webboards.client.games.Position;
 
 public interface EarlDisplay {
-
+	public static enum Mode {
+		VIEW_ONLY, INTERACTIVE
+	}
+	
 	VisualCoords getCenter(Position to);
 
 	void drawArrow(Position from, Position to, String id, Color color);
@@ -48,4 +51,5 @@ public interface EarlDisplay {
 
 	void setText(String id, String value);
 
+	void setMode(Mode mode);
 }

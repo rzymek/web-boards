@@ -195,17 +195,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="998"
+     inkscape:window-width="1280"
+     inkscape:window-height="971"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="5.3940696"
-     inkscape:cx="20.166761"
-     inkscape:cy="1978.4774"
+     inkscape:zoom="0.6742587"
+     inkscape:cx="929.77225"
+     inkscape:cy="1455.4555"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="tmpl"
+     inkscape:current-layer="board"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -226,8 +226,8 @@
      inkscape:label="board"
      style="display:inline">
     <image
-       sodipodi:absref="/home/rzymek/devel/webboards/engine/src/main/svg/../webapp/bastogne/board.jpg"
-       xlink:href="../webapp/bastogne/board.jpg"
+       sodipodi:absref="/home/rzymek/devel/webboards/engine/src/main/svg/../../../../core/src/main/resources/board.jpg"
+       xlink:href="../../../../core/src/main/resources/board.jpg"
        y="37.070801"
        x="10"
        id="img"
@@ -278,7 +278,8 @@
      inkscape:groupmode="layer"
      id="area"
      inkscape:label="hexes"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        inkscape:tile-y0="4263.254"
        inkscape:tile-x0="9.0968435"
@@ -33838,7 +33839,9 @@
   <g
      inkscape:groupmode="layer"
      id="tmpl"
-     inkscape:label="tmpl">
+     inkscape:label="tmpl"
+     sodipodi:insensitive="true"
+     style="display:inline">
     <rect
        inkscape:label="#rect15007"
        style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"

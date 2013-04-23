@@ -1,14 +1,24 @@
 package webboards.client.display.svg;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.dom.client.Text;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import org.vectomatic.dom.svg.*;
-import org.vectomatic.dom.svg.impl.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.vectomatic.dom.svg.OMElement;
+import org.vectomatic.dom.svg.OMNode;
+import org.vectomatic.dom.svg.OMSVGImageElement;
+import org.vectomatic.dom.svg.OMSVGPathSegList;
+import org.vectomatic.dom.svg.OMSVGPoint;
+import org.vectomatic.dom.svg.OMSVGRect;
+import org.vectomatic.dom.svg.OMSVGRectElement;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGImageElement;
+import org.vectomatic.dom.svg.impl.SVGPathElement;
+import org.vectomatic.dom.svg.impl.SVGRectElement;
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
+import org.vectomatic.dom.svg.impl.SVGTSpanElement;
+
 import webboards.client.ClientEngine;
 import webboards.client.ClientOpRunner;
 import webboards.client.data.Board;
@@ -27,10 +37,14 @@ import webboards.client.games.scs.SCSSelectionHandler;
 import webboards.client.utils.Browser;
 import webboards.client.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Visibility;
+import com.google.gwt.dom.client.Text;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 
 public class SVGDisplay extends BasicDisplay {
 	private static final String STACKS = "wb-stacks";
@@ -562,6 +576,19 @@ public class SVGDisplay extends BasicDisplay {
 			}
 		}
 		ClientEngine.log("verify done");
+	}
+	
+	@Override
+	public void setMode(Mode mode) {
+		Style style = getSVGElement("img").getStyle();
+		switch (mode) {
+		case INTERACTIVE:
+			style.clearProperty("filter");
+			break;
+		case VIEW_ONLY:
+			style.setProperty("filter", "url(#grayscale)");
+			break;
+		}
 	}
 	
 }
