@@ -57,20 +57,20 @@ public class HistoryControls extends Composite {
 	}
 
 	private void back() {
-		if (ctx.position > 0) {
-			Operation last = ctx.ops.get(ctx.position);
+		if (ctx.getPosition() > 0) {
+			Operation last = ctx.ops.get(ctx.getPosition());
 			last.undoUpdate(ctx.board);
 			last.undoDraw(ctx);
-			ctx.position--;
+			ctx.setPosition(ctx.getPosition() - 1);
 		}
 		showMode();
 	}
 
 	private void reset() {
-		while (ctx.position < ctx.ops.size()) {
+		while (ctx.getPosition() < ctx.ops.size()) {
 			ctx.ops.remove(ctx.ops.size() - 1);
 		}
-		ctx.position--;
+		ctx.setPosition(ctx.getPosition() - 1);
 		//TODO: remove on server
 	}
 
@@ -80,11 +80,11 @@ public class HistoryControls extends Composite {
 	}
 
 	private boolean doForward() {
-		if (ctx.position < ctx.ops.size() - 1) {
-			ctx.ops.get(ctx.position).updateBoard(ctx.board);
-			ctx.ops.get(ctx.position).draw(ctx);
-			ctx.ops.get(ctx.position).drawDetails(ctx);
-			ctx.position++;
+		if (ctx.getPosition() < ctx.ops.size() - 1) {
+			ctx.setPosition(ctx.getPosition() + 1);
+			ctx.ops.get(ctx.getPosition()).updateBoard(ctx.board);
+			ctx.ops.get(ctx.getPosition()).draw(ctx);
+			ctx.ops.get(ctx.getPosition()).drawDetails(ctx);
 			return true;
 		} else {
 			return false;

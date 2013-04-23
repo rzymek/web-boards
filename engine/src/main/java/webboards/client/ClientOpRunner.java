@@ -39,7 +39,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 	
 	private void postServerExec(Operation result) {
 		ctx.ops.add(result);
-		ctx.position = ctx.ops.size()-1;
+		ctx.setPosition(ctx.ops.size()-1);
 		result.postServer(ctx);
 		result.drawDetails(ctx);
 		ClientEngine.log("" + result);		

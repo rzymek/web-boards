@@ -82,7 +82,13 @@ public class ClientEngine implements EntryPoint {
 
 
 	public void start(final long tableId, final GameInfo info) {
-		final GameCtx ctx = new GameCtx();
+		final GameCtx ctx = new GameCtx(){
+			@Override
+			public void setPosition(int position) {
+				super.setPosition(position);
+				log("ctx.position="+position);
+			};
+		};
 		ctx.setInfo(info);
 		ctx.board = info.game.start(info.scenario);
 		SVGDisplay display = new SVGDisplay(svg, ctx);

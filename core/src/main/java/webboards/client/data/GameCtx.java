@@ -12,16 +12,27 @@ public class GameCtx {
 	public Side side;
 	public GameInfo info;
 	public ArrayList<Operation> ops;
-	public int position;
+	private int position;
+
+	public GameCtx() {
+	}
 
 	public void setInfo(GameInfo info) {
 		this.side = info.side;
 		this.ops = new ArrayList<Operation>(info.ops);
 		this.info = info;
-		this.position = ops.size() - 1;
+		this.setPosition(ops.size() - 1);
 	}
 
 	public boolean isHistoryMode() {
-		return position != ops.size() - 1;
+		return getPosition() != ops.size() - 1;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
 	}
 }
