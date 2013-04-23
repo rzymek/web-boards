@@ -27,6 +27,28 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>webboards</groupId>
+				<artifactId>tools</artifactId>
+				<version>1.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>svgclean</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<in>${basedir}/src/main/svg/bastogne-orig.svg</in>
+					<out>${project.build.directory}/${project.build.finalName}/bastogne/bastogne.svg</out>
+					<htmlTemplate>${basedir}/src/main/svg/index.html</htmlTemplate>
+					<htmlOut>${project.build.directory}/${project.build.finalName}/bastogne/index.html</htmlOut>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -69,7 +91,7 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>prod</id>
 			<dependencies>
@@ -78,7 +100,7 @@
 					<artifactId>core</artifactId>
 					<version>1.1-SNAPSHOT</version>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 		</profile>
 	</profiles>
 </project>
