@@ -24,7 +24,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 
 	public void process(Operation op) {
 		System.out.println("ClientOpRunner.service:"+service);
-		if (op == null) {
+		if (op == null || ctx.isHistoryMode()) {
 			return;
 		}
 		preServerExec(op);
@@ -39,9 +39,10 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 	
 	private void postServerExec(Operation result) {
 		ctx.ops.add(result);
+		ctx.position = ctx.ops.size()-1;
 		result.postServer(ctx);
 		result.drawDetails(ctx);
-		ClientEngine.log("" + result);
+		ClientEngine.log("" + result);		
 	}
 	
 	public void apply(Operation op) {

@@ -64,6 +64,7 @@ public class HistoryControls extends Composite {
 			ctx.ops.remove(ctx.ops.size() - 1);
 		}
 		ctx.position--;
+		//TODO: remove on server
 	}
 
 	private boolean forward() {

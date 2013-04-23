@@ -20,4 +20,8 @@ public class GameCtx {
 		this.info = info;
 		this.position = ops.size() - 1;
 	}
+
+	public boolean isHistoryMode() {
+		return position != ops.size() - 1;
+	}
 }
