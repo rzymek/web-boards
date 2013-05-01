@@ -2,7 +2,9 @@ package webboards.client.menu;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
@@ -18,12 +20,12 @@ import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.games.scs.ops.NextPhase;
 import webboards.client.ops.Operation;
+import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.DiceRoll;
+import webboards.client.ops.generic.UndoOp;
 import webboards.client.remote.ServerEngine;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style;
@@ -218,29 +220,38 @@ public class ClientMenu implements ClickHandler {
 	}
 
 	private void undoOp() {
-		final Operation op = findLastOpToUndo();
-		if(op == null) {
+		final Integer opIdx = findLastOpToUndo();
+		if(opIdx == null) {
 			Window.alert("Can't undo any more");
-			return;			
+			return;		
 		}
-		Scheduler.get().scheduleFinally(new ScheduledCommand() {			
-			@Override
-			public void execute() {
-				ctx.ops.remove(op);
-				ctx.display.clearTraces();
-				ctx.board = ctx.info.game.start(ctx.info.scenario);		
-				BasicDisplay display = (BasicDisplay) ctx.display;
-				display.updateBoard(ctx.board);runner = new ClientOpRunner(ctx);
-				ClientEngine.update(ctx);
-			}
-		});
+		Operation op = ctx.ops.get(opIdx);
+		if(!(op instanceof Undoable)) {
+			Window.alert("Can't undo "+op);
+			return;
+		}
+		Undoable undoable = (Undoable) op;
+		runner.process(new UndoOp(undoable, opIdx));
 	}
 
-	private Operation findLastOpToUndo() {
+	private Integer findLastOpToUndo() {
 		if(ctx.ops.isEmpty()) {
 			return null;
-		}else{
-			return ctx.ops.get(ctx.ops.size()-1);
+		}else{			
+			Set<Integer> undone = new HashSet<Integer>();
+			for(int i=ctx.ops.size()-1; i>=0; i--) {
+				Operation op = ctx.ops.get(i);
+				if(op instanceof UndoOp) {
+					UndoOp undo = (UndoOp) op;
+					undone.add(undo.opIndex);
+					continue;
+				}
+				if(undone.contains(i)) {
+					continue;
+				}
+				return i;
+			}
+			return null;
 		}
 	}
 

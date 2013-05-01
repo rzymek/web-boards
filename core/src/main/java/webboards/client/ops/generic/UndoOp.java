@@ -8,13 +8,15 @@ import webboards.client.ops.Undoable;
 public class UndoOp extends Operation implements Undoable {
 	private static final long serialVersionUID = 1L;
 	private Undoable op;
+	public Integer opIndex;
 
 	@SuppressWarnings("unused")
 	private UndoOp() {
 	}
-
-	public UndoOp(Undoable op) {
+ 
+	public UndoOp(Undoable op, Integer opIndex) {
 		this.op = op;
+		this.opIndex = opIndex;
 	}
 
 	@Override

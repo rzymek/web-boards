@@ -24,11 +24,6 @@ public class HistoryControls extends Composite {
 			public void exec() {
 				back();
 			};
-		}, new MenuEntry("[]") {
-			@Override
-			public void exec() {
-				reset();
-			};
 		}, new MenuEntry("&gt;") {
 			@Override
 			public void exec() {
@@ -64,14 +59,6 @@ public class HistoryControls extends Composite {
 			ctx.setPosition(ctx.getPosition() - 1);
 		}
 		showMode();
-	}
-
-	private void reset() {
-		while (ctx.getPosition() < ctx.ops.size()) {
-			ctx.ops.remove(ctx.ops.size() - 1);
-		}
-		ctx.setPosition(ctx.getPosition() - 1);
-		//TODO: remove on server
 	}
 
 	private void forward() {

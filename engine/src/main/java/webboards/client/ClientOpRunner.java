@@ -11,6 +11,8 @@ import webboards.client.remote.ServerEngineAsync;
 import webboards.client.utils.AbstractCallback;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.user.client.Window;
 
 public class ClientOpRunner extends AbstractCallback<Operation> implements OpRunner {
@@ -27,6 +29,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 		if (op == null || ctx.isHistoryMode()) {
 			return;
 		}
+		Document.get().getElementById("ajax").getStyle().setVisibility(Visibility.VISIBLE);
 		preServerExec(op);
 		queue.add(op);
 		processQueued();
@@ -56,6 +59,9 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 	
 	/** see: https://gist.github.com/chumpy/1696249 */
 	private void processQueued() {
+		if(queue.isEmpty()) {
+			Document.get().getElementById("ajax").getStyle().setVisibility(Visibility.HIDDEN);
+		}
 		if (processing || queue.isEmpty()) {
 			return;
 		}
