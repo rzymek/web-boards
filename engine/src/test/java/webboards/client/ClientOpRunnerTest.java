@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -64,7 +65,7 @@ public class ClientOpRunnerTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Test
+	@Test @Ignore
 	public void processRefresh() {
 		doReturn(false).when(runner).ask(anyString());
 		runner.process(new DiceRoll());
@@ -73,7 +74,7 @@ public class ClientOpRunnerTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Test 
+	@Test @Ignore
 	public void processCancel() {
 		doReturn(true).when(runner).ask(anyString());
 		DiceRoll op = new DiceRoll();
