@@ -52,4 +52,6 @@ public interface EarlDisplay {
 	void setText(String id, String value);
 
 	void setMode(Mode mode);
+
+	void markUsed(CounterId ref);
 }

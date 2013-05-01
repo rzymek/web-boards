@@ -62,6 +62,7 @@ public class ClientMenu implements ClickHandler {
 		menu.setVisible(true);
 		add("Undo Op");
 		add("Next phase");
+		add("Mark used");
 		add("Flip");
 		add("Clear traces");
 		add("Send msg");
@@ -110,6 +111,10 @@ public class ClientMenu implements ClickHandler {
 		} else if ("Expand".equals(text)) {
 			root.setWidth(expanded ? "45px" : "90px");
 			expanded = !expanded;
+		} else if ("Mark used".equals(text)) {
+			if(ctx.selected != null) {
+				ctx.display.markUsed(ctx.selected.ref());
+			}
 		} else if ("Flip".equals(text)) {
 			flip();
 		} else if ("Verify".equals(text)) {

@@ -457,9 +457,11 @@ public class SVGDisplay extends BasicDisplay {
 		}
 		target.getStyle().setProperty("pointerEvents", "none");
 		target.getStyle().setVisibility(Visibility.VISIBLE);
-		SVGTSpanElement tspan = (SVGTSpanElement) target.getElementsByTagName("tspan").getItem(0);
-		Text item = (Text) tspan.getChildNodes().getItem(0);
-		item.setNodeValue(text);
+		if(text != null) {
+			SVGTSpanElement tspan = (SVGTSpanElement) target.getElementsByTagName("tspan").getItem(0);
+			Text item = (Text) tspan.getChildNodes().getItem(0);
+			item.setNodeValue(text);
+		}
 		target.setAttribute("transform", "translate(" + center.x + ", " + center.y + ")");
 		bringToTop(target);
 	}
@@ -590,5 +592,9 @@ public class SVGDisplay extends BasicDisplay {
 			break;
 		}
 	}
-	
+
+	@Override
+	public void markUsed(CounterId ref) {
+		drawFromTemplate(getCenter(ref.toString()), "used", null, "used_"+ref);
+	}
 }

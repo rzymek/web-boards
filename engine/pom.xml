@@ -35,6 +35,8 @@
 				<version>1.1-SNAPSHOT</version>
 				<executions>
 					<execution>
+						<id>svgclean</id>
+						<phase>generate-resources</phase>
 						<goals>
 							<goal>svgclean</goal>
 						</goals>

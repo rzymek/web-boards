@@ -195,17 +195,17 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1280"
-     inkscape:window-height="971"
+     inkscape:window-width="1680"
+     inkscape:window-height="998"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="0.6742587"
-     inkscape:cx="929.77225"
-     inkscape:cy="1455.4555"
+     inkscape:zoom="15.256733"
+     inkscape:cx="26.679376"
+     inkscape:cy="1993.0799"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="board"
+     inkscape:current-layer="tmpl"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-bbox="true"
@@ -224,7 +224,8 @@
      inkscape:groupmode="layer"
      id="board"
      inkscape:label="board"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <image
        sodipodi:absref="/home/rzymek/devel/webboards/engine/src/main/svg/../../../../core/src/main/resources/board.jpg"
        xlink:href="../../../../core/src/main/resources/board.jpg"
@@ -267,7 +268,7 @@
        id="text4890"
        y="1274.1661"
        x="2681.0647"
-       style="font-size:19.09885215999999986px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       style="font-size:19.09885216px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
        xml:space="preserve"><tspan
          y="1274.1661"
          x="2681.0647"
@@ -33840,7 +33841,6 @@
      inkscape:groupmode="layer"
      id="tmpl"
      inkscape:label="tmpl"
-     sodipodi:insensitive="true"
      style="display:inline">
     <rect
        inkscape:label="#rect15007"
@@ -33858,7 +33858,7 @@
        width="40"
        height="40"
        id="counter"
-       x="-27.70993"
+       x="-27.65992"
        y="-86.663177"
        style="display:inline" />
     <path
@@ -33948,5 +33948,12 @@
        x="131.99683"
        y="-60.271507"
        ry="7.0260873" />
+    <rect
+       style="opacity:0.72307691;fill:#d147cc;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="used"
+       width="40"
+       height="15"
+       x="-20.370777"
+       y="-7.5093231" />
   </g>
 </svg>

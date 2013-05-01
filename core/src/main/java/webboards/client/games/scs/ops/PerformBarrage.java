@@ -80,7 +80,7 @@ public class PerformBarrage extends Operation {
 			killRoll = roll.getSum();
 			int value = getKillRollValue(attacker);
             if (killRoll >= value) {
-                killSteps = 1;
+                killSteps = 1;                
             } else {
                 killSteps = 0;
             }

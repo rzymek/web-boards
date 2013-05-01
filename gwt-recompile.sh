@@ -1,1 +1,1 @@
-mvn -f engine/pom.xml $* generate-sources gwt:compile -Pdev 
+mvn -f engine/pom.xml $* generate-sources gwt:compile -Pdev -DskipTests 
