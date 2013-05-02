@@ -27,7 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import webboards.client.data.GameCtx;
 import webboards.client.data.GameInfo;
-import webboards.client.display.EarlDisplay;
+import webboards.client.display.Display;
 import webboards.client.ops.Operation;
 import webboards.client.ops.generic.DiceRoll;
 import webboards.client.remote.ServerEngine;
@@ -43,7 +43,7 @@ public class ClientOpRunnerTest {
 	@InjectMocks
 	GameCtx ctx;
 	@Mock
-	EarlDisplay display;
+	Display display;
 	ClientOpRunner runner;
 	static ServerEngineMock service = spy(new ServerEngineMock());
 

@@ -8,7 +8,7 @@ import webboards.client.data.CounterInfo;
 import webboards.client.data.ref.CounterId;
 import webboards.client.games.Position;
 
-public interface EarlDisplay {
+public interface Display {
 	public static enum Mode {
 		VIEW_ONLY, INTERACTIVE
 	}

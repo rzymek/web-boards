@@ -8,7 +8,7 @@ import webboards.client.data.CounterInfo;
 import webboards.client.data.GameCtx;
 import webboards.client.games.Position;
 
-public abstract class BasicDisplay implements EarlDisplay {
+public abstract class BasicDisplay implements Display {
 	protected final GameCtx ctx;
 
 	protected BasicDisplay(GameCtx ctx) {

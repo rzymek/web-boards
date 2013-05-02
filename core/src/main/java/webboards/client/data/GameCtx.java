@@ -2,12 +2,12 @@ package webboards.client.data;
 
 import java.util.ArrayList;
 
-import webboards.client.display.EarlDisplay;
+import webboards.client.display.Display;
 import webboards.client.ops.Operation;
 
 public class GameCtx {
 	public Board board;
-	public EarlDisplay display;
+	public Display display;
 	public CounterInfo selected;
 	public Side side;
 	public GameInfo info;

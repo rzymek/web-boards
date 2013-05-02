@@ -1,8 +1,8 @@
 package webboards.client.menu;
 
 import webboards.client.data.GameCtx;
-import webboards.client.display.EarlDisplay;
-import webboards.client.display.EarlDisplay.Mode;
+import webboards.client.display.Display;
+import webboards.client.display.Display.Mode;
 import webboards.client.ops.Operation;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -79,7 +79,7 @@ public class HistoryControls extends Composite {
 	}
 
 	private void showMode() {
-		EarlDisplay.Mode mode = ctx.isHistoryMode() ? Mode.VIEW_ONLY : Mode.INTERACTIVE;
+		Display.Mode mode = ctx.isHistoryMode() ? Mode.VIEW_ONLY : Mode.INTERACTIVE;
 		ctx.display.setMode(mode);
 	}
 
