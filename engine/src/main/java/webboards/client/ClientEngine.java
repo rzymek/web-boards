@@ -94,6 +94,7 @@ public class ClientEngine implements EntryPoint {
 		SVGDisplay display = new SVGDisplay(svg, ctx);
 		menu = new ClientMenu(svg, ctx);
 		RootPanel.get("controls").add(new HistoryControls(ctx));
+		RootPanel.get("menu").add(menu);
 		display.setBoard(ctx.board);
 		new NextPhase().draw(ctx);
 

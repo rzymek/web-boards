@@ -17,8 +17,6 @@ public interface Display {
 
 	void drawArrow(Position from, Position to, String id, Color color);
 
-//	void drawArrow(VisualCoords start, VisualCoords end, String id, Color color);
-
 	void update(CounterId counter, String state);
 
 	void alignStack(Position ref);

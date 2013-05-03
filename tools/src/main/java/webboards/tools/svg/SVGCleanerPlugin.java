@@ -41,7 +41,6 @@ import webboards.tools.svg.cleaners.RelativeImagePath;
 import webboards.tools.svg.cleaners.RemoveBoardHref;
 import webboards.tools.svg.cleaners.RemoveHexColor;
 import webboards.tools.svg.cleaners.RemoveIds;
-import webboards.tools.svg.cleaners.SetSVGDimentions;
 
 @Mojo(name = "svgclean", defaultPhase = LifecyclePhase.PREPARE_PACKAGE)
 public class SVGCleanerPlugin extends AbstractMojo {

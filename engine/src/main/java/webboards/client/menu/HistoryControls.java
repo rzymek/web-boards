@@ -5,50 +5,33 @@ import webboards.client.display.Display;
 import webboards.client.display.Display.Mode;
 import webboards.client.ops.Operation;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
 
 public class HistoryControls extends Composite {
-	private final Grid grid = new Grid(1, 4);
 	private final GameCtx ctx;
 
 	public HistoryControls(GameCtx context) {
 		this.ctx = context;
-		initWidget(grid);
-
-		setEntries(new MenuEntry("&lt;") {
-			@Override
-			public void exec() {
-				back();
-			};
-		}, new MenuEntry("&gt;") {
-			@Override
-			public void exec() {
-				forward();
-			};
-		}, new MenuEntry("&gt;&gt;") {
-			@Override
-			public void exec() {
-				fastForward();
-			};
-		});
-	}
-
-	private void setEntries(MenuEntry... entries) {
-		int column = 0;
-		for (final MenuEntry entry : entries) {
-			Button button = new Button(entry.label);
-			button.addClickHandler(new ClickHandler() {
+		ButtonMenu menu = new ButtonMenu();
+		menu.addAll(
+			new MenuEntry("&lt;") {
 				@Override
-				public void onClick(ClickEvent event) {
-					entry.exec();
-				}
-			});
-			grid.setWidget(0, column++, button);
-		}
+				public void exec() {
+					back();
+				};
+			}, new MenuEntry("&gt;") {
+				@Override
+				public void exec() {
+					forward();
+				};
+			}, new MenuEntry("&gt;&gt;") {
+				@Override
+				public void exec() {
+					fastForward();
+				};
+			}
+		);
+		initWidget(menu.createHorizontal());
 	}
 
 	private void back() {
