@@ -5,26 +5,20 @@
 	
 	
 <%!
-public String print_content_header(String txt){
-
-	String res; 
-	
-	res =  "<div class=\"art-box art-post\">";
-    res += "<div class=\"art-box-body art-post-body\">";
-	res += "<div class=\"art-post-inner art-article\"> ";
-	
-	res+= "<h2 class=\"art-postheader\">" + txt + "</h2>";
-	res += "<div class=\"art-postcontent\">";
-	res += "<div class=\"art-content-layout\"> ";
-    res += "<div class=\"art-content-layout-row\"> ";
-	res += "<div class=\"art-layout-cell layout-item-0\" style=\"width: 100%;\"> ";  
-    return res;   
+public String print_content_header(String txt){	
+	return "<div class=\"art-box art-post\">"+
+	    "<div class=\"art-box-body art-post-body\">"+
+		"<div class=\"art-post-inner art-article\"> "+
+		
+		"<h2 class=\"art-postheader\">" + txt + "</h2>"+
+		"<div class=\"art-postcontent\">"+
+		"<div class=\"art-content-layout\"> "+
+	    "<div class=\"art-content-layout-row\"> "+
+		"<div class=\"art-layout-cell layout-item-0\" style=\"width: 100%;\"> ";      
 }
 
 public String print_content_footer(){
-
 	return " </div>	</div> </div> </div> </div>	</div> </div>";
-
 }
 %>
 
@@ -155,7 +149,7 @@ public String print_content_footer(){
 		%>
 	</ul>
 	
-	<% if (list_i.size() == 0) { %> Sory, you haven't games here. <% } %>
+	<% if (list_i.size() == 0) { %> You don't have any games running. <% } %>
 	
 	<%= print_content_footer() %>
 	<% 	} %>
@@ -178,7 +172,7 @@ public String print_content_footer(){
 		%>
 	</ul>
 	
-	<% if (list_w.size() == 0) { %> Sory, you haven't games here. <% } %>
+	<% if (list_w.size() == 0) { %> You don't have any games pending. <% } %>
 	
 	<%= print_content_footer() %>
 	<% 	} %>
@@ -199,7 +193,7 @@ public String print_content_footer(){
 		%>
 	</ul>
 	
-	<% if (list_i.size() == 0) { %> Sory, you haven't games here. <% } %>
+	<% if (list_i.size() == 0) { %> No games available. <% } %>
 	
 	<%= print_content_footer() %>
 	<% 	} %> 
