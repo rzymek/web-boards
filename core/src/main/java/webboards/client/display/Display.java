@@ -13,43 +13,29 @@ public interface Display {
 		VIEW_ONLY, INTERACTIVE
 	}
 	
-	VisualCoords getCenter(Position to);
-
 	void drawArrow(Position from, Position to, String id, Color color);
-
-	void update(CounterId counter, String state);
-
-	void alignStack(Position ref);
-
-	void mark(Collection<? extends Position> hexes);
-
-	void clearMarks();
-
-	void clearArrow(String id);
-
+	void drawLine(Position fromRef, Position toRef);
+	void smark(Collection<? extends Position> hexes);
+	void markUsed(CounterId ref);
 	void showResults(VisualCoords center, String result);
-
-	void clearResults(VisualCoords center);
-
+	void drawOds(VisualCoords center, String text, String id);
+	
 	void select(CounterInfo i);
-
-	void clearTraces();
-
 	void showStackSelector(List<CounterInfo> stack, Position pos);
 
-	void drawOds(VisualCoords center, String text, String id);
-
-	void createCounter(CounterInfo counter, Board board);
-
+	void clearMarks();
+	void clearArrow(String id);
+	void clearResults(VisualCoords center);
+	void clearTraces();
 	void clearOds(String id);
-
-	void drawLine(Position fromRef, Position toRef);
-
 	void clearLine(Position from, Position to);
 
+	VisualCoords getCenter(Position to);
+	
+	void createCounter(CounterInfo counter, Board board);
+	void alignStack(Position ref);
+	void update(CounterId counter, String state);
+	
 	void setText(String id, String value);
-
 	void setMode(Mode mode);
-
-	void markUsed(CounterId ref);
 }
