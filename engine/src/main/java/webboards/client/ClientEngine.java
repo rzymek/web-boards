@@ -226,7 +226,8 @@ public class ClientEngine implements EntryPoint {
 
 	public static void reload(final GameCtx ctx) {
 		ctx.display.clearTraces();
-		ClientOpRunner.service.getState(getTableId(), new AbstractCallback<GameInfo>(){
+		ServerEngineAsync service = GWT.create(ServerEngine.class);
+		service.getState(getTableId(), new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {
 				ctx.setInfo(info);					
