@@ -70,7 +70,7 @@ public class ClientOpRunner extends AbstractCallback<Operation> implements OpRun
 		callServer();
 	}
 
-	private void callServer() {
+	protected void callServer() {
 		currentOp.index = ctx.ops.size();	
 		service.process(currentOp, this);
 	}

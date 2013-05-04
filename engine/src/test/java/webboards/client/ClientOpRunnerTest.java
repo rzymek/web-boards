@@ -65,7 +65,7 @@ public class ClientOpRunnerTest {
 		doReturn(false).when(runner).ask(anyString());
 		runner.process(new DiceRoll());
 		verify(runner, times(1)).reload();
-//		verify(service).getState(eq(1l), (AsyncCallback<GameInfo>) anyObject());
+		verify(runner, times(1)).callServer();
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class ClientOpRunnerTest {
 		doReturn(true).when(runner).ask(anyString());
 		DiceRoll op = new DiceRoll();
 		runner.process(op);
-//		verify(service, times(2)).process(op, runner);
+		verify(runner, times(2)).callServer();
 		verify(runner, never()).reload();
 	}
 }
