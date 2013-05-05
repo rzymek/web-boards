@@ -27,6 +27,9 @@ public class Table implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("%s: %s - %s", id, game == null ? "?" : game.getClass().getSimpleName(), scenario == null ? "?" : scenario.getClass().getSimpleName());
+		return String.format("%s: %s - %s", 
+				id, 
+				game == null ? "?" : game.getClass().getSimpleName(), 
+				scenario == null ? "?" : scenario.getClass().getSimpleName());
 	}
 }
