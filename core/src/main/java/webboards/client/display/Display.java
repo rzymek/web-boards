@@ -15,7 +15,7 @@ public interface Display {
 	
 	void drawArrow(Position from, Position to, String id, Color color);
 	void drawLine(Position fromRef, Position toRef);
-	void smark(Collection<? extends Position> hexes);
+	void mark(Collection<? extends Position> hexes);
 	void markUsed(CounterId ref);
 	void showResults(VisualCoords center, String result);
 	void drawOds(VisualCoords center, String text, String id);
