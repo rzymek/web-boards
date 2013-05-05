@@ -36,15 +36,15 @@ public class Move extends Operation implements Undoable {
 	}
 
 	@Override
-	public void undoDraw(GameCtx ctx) {
-		draw(ctx);
-		ctx.display.clearLine(from, to);
-	}
-
-	@Override
 	public void draw(GameCtx ctx) {
 		ctx.display.alignStack(from);
 		ctx.display.alignStack(to);
+	}
+
+	@Override
+	public void undoDraw(GameCtx ctx) {
+		draw(ctx);
+		ctx.display.clearLine(from, to);
 	}
 
 	@Override
