@@ -44,6 +44,13 @@ public class ServerEngineTest {
 		doReturn(p1.user).when(engine).getUser();
 		GameInfo state = engine.getState(table.id);
 		assertEquals(Bastogne.class, state.game.getClass());
-		//TODO: other assertions		
+		//TODO: other assertions	
+		
+		//assertEquals(table.game, state.game);
+		//assertEquals(loadOps(table), state.ops);
+		assertEquals(BastogneSide.US, state.side);
+		//assertEquals(table.scenario, state.scenario); //czym to jest ?
+		
+		
 	}
 }
