@@ -6,6 +6,10 @@ import java.util.List;
 import webboards.client.games.Scenario;
 import webboards.client.ops.Operation;
 
+/**
+ * DTO used to transfer all the game information from the server
+ * to the client. 
+ */
 public class GameInfo implements Serializable {
 	private static final long serialVersionUID = 3L;
 	public Game game;
