@@ -1,11 +1,14 @@
 package webboards.client;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
 import no.eirikb.gwtchannelapi.client.Channel;
 import no.eirikb.gwtchannelapi.client.ChannelListener;
 import no.eirikb.gwtchannelapi.client.Message;
 import webboards.client.data.GameCtx;
+import webboards.client.remote.ServerEngine;
+import webboards.client.remote.ServerEngineAsync;
 import webboards.client.utils.AbstractCallback;
 
 public final class NotificationListener implements ChannelListener {
@@ -46,7 +49,8 @@ public final class NotificationListener implements ChannelListener {
 		if(!Window.confirm(msg)) {
 			return;
 		}
-		ClientOpRunner.service.reopenInstantNotif(new AbstractCallback<String>(){
+		ServerEngineAsync service = GWT.create(ServerEngine.class);
+		service.reopenInstantNotif(new AbstractCallback<String>(){
 			@Override
 			public void onSuccess(String channelToken) {
 				join(channelToken);

@@ -67,6 +67,14 @@ public class SCSCounter extends CounterInfo implements Serializable {
 			flipped = !flipped;
 		}
 	}
+	
+	public int getStepsLeft() {
+		if(back == null) {
+			return 1;		
+		}else{
+			return flipped ? 1 : 2;
+		}
+	}
 
 	@Override
 	public Operation onPointTo(GameCtx ctx, CounterInfo c) {

@@ -11,7 +11,7 @@ import com.google.appengine.tools.development.testing.LocalTaskQueueTestConfig;
 public class EmbeddedDataStore extends ExternalResource {
 	private static LocalServiceTestHelper helper;
 
-	@Override
+	@Override 
 	protected void before() throws Throwable {
 		LocalDatastoreServiceTestConfig cfg = new LocalDatastoreServiceTestConfig();
 		LocalBlobstoreServiceTestConfig blobCfg = new LocalBlobstoreServiceTestConfig();
@@ -21,7 +21,7 @@ public class EmbeddedDataStore extends ExternalResource {
 		helper.setUp();
 	}
 
-	@Override
+	@Override 
 	protected void after() {
 		helper.tearDown();
 	}

@@ -94,6 +94,7 @@ public class ClientEngine implements EntryPoint {
 		SVGDisplay display = new SVGDisplay(svg, ctx);
 		menu = new ClientMenu(svg, ctx);
 		RootPanel.get("controls").add(new HistoryControls(ctx));
+		RootPanel.get("menu").add(menu);
 		display.setBoard(ctx.board);
 		new NextPhase().draw(ctx);
 
@@ -225,7 +226,8 @@ public class ClientEngine implements EntryPoint {
 
 	public static void reload(final GameCtx ctx) {
 		ctx.display.clearTraces();
-		ClientOpRunner.service.getState(getTableId(), new AbstractCallback<GameInfo>(){
+		ServerEngineAsync service = GWT.create(ServerEngine.class);
+		service.getState(getTableId(), new AbstractCallback<GameInfo>(){
 			@Override
 			public void onSuccess(GameInfo info) {
 				ctx.setInfo(info);					

@@ -12,7 +12,7 @@ public class GameCtx {
 	public Side side;
 	public GameInfo info;
 	public ArrayList<Operation> ops;
-	private int position;
+	private int position = -1;
 
 	public GameCtx() {
 	}

@@ -1,12 +1,12 @@
 package webboards.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import webboards.client.data.GameInfo;
 import webboards.client.data.Side;
 import webboards.client.ex.ConcurrentOpException;
 import webboards.client.ops.Operation;
 import webboards.client.remote.ServerEngineAsync;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ServerEngineMock implements ServerEngineAsync {
 	boolean doThrow = true;

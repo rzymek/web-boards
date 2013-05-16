@@ -41,7 +41,6 @@ import webboards.tools.svg.cleaners.RelativeImagePath;
 import webboards.tools.svg.cleaners.RemoveBoardHref;
 import webboards.tools.svg.cleaners.RemoveHexColor;
 import webboards.tools.svg.cleaners.RemoveIds;
-import webboards.tools.svg.cleaners.SetSVGDimentions;
 
 @Mojo(name = "svgclean", defaultPhase = LifecyclePhase.PREPARE_PACKAGE)
 public class SVGCleanerPlugin extends AbstractMojo {
@@ -96,7 +95,7 @@ public class SVGCleanerPlugin extends AbstractMojo {
 		writer = new RelativeImagePath(writer);
 		writer = new ApplyTransform(writer);
 		writer = new AddLayers(writer);
-		writer = new SetSVGDimentions(writer);
+//		writer = new SetSVGDimentions(writer);
 		writer = new RemoveBoardHref(writer);
 
 		Source source = new StreamSource(in);
