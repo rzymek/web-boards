@@ -70,7 +70,7 @@ public class ServerEngineTest {
 		assertNull("state.side", state.side);
 		assertNotEquals(player1.side, state.joinAs);
 		// TODO: other assertions
-<<<<<<< HEAD
+
 		
 		//assertEquals(player1.channelToken, state.channelToken);
 		assertEquals(table.game.getClass(), state.game.getClass());
@@ -78,7 +78,6 @@ public class ServerEngineTest {
 		assertNotNull("ops", state.ops);
 		assertNotEquals(player1.channelToken, state.channelToken);
 		
-=======
->>>>>>> upstream/master
+
 	}
 }
