@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import webboards.client.data.Game;
 import webboards.client.data.GameInfo;
 import webboards.client.games.scs.bastogne.Bastogne;
 import webboards.client.games.scs.bastogne.BastogneSide;
@@ -69,5 +70,14 @@ public class ServerEngineTest {
 		assertNull("state.side", state.side);
 		assertNotEquals(player1.side, state.joinAs);
 		// TODO: other assertions
+
+		
+		//assertEquals(player1.channelToken, state.channelToken);
+		assertEquals(table.game.getClass(), state.game.getClass());
+		assertEquals(table.scenario.getClass(), state.scenario.getClass());
+		assertNotNull("ops", state.ops);
+		assertNotEquals(player1.channelToken, state.channelToken);
+		
+
 	}
 }
