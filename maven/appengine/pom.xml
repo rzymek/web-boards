@@ -158,7 +158,12 @@
 			</build>
 		</profile>
 	</profiles>
-
+	<repositories>
+	    <repository>
+		<id>rzymek-snapshots</id>
+		<url>https://github.com/rzymek/repository/raw/master/snapshots</url>
+	    </repository>
+	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>google-releases</id>
