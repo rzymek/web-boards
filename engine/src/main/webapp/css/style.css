@@ -1,3 +1,13 @@
+.startBtn {
+	font-size: 200%;
+	font-weight: bold;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: d9ddce;
+	border: 5px solid;
+	border-radius: 15px;
+}
 /* begin Page */
 /* Created by Artisteer v3.1.0.48375 */
 

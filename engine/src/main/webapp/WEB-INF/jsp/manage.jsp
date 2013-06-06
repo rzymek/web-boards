@@ -3,7 +3,6 @@
 <%@page import="webboards.server.entity.*"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 	
-	
 <%!
 public String print_content_header(String txt){	
 	return "<div class=\"art-box art-post\">"+
@@ -21,7 +20,6 @@ public String print_content_footer(){
 	return " </div>	</div> </div> </div> </div>	</div> </div>";
 }
 %>
-
 
 <html>
 <head>
@@ -119,12 +117,8 @@ public String print_content_footer(){
 	if ( "new".equals( request.getParameter("menu") ) || request.getParameter("menu") == null ) { %> 
 	
 	<%= print_content_header("New Game") %>
-	<form type="get">
-		Start new game as: <select name="side">
-			<option>US</option>
-			<option>GE</option>
-		</select><input type="submit" value="Start" />
-	</form> 
+	Start new game as: 
+		<a class="startBtn" href="?side=US">US</a> <a class="startBtn" href="?side=GE">GE</a>  
 	<%= print_content_footer() %>
 	
 	<% 	} %>
