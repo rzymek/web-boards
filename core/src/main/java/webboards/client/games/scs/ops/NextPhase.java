@@ -7,9 +7,8 @@ import webboards.client.games.scs.SCSBoard;
 import webboards.client.games.scs.bastogne.TurnSequence;
 import webboards.client.ops.ClearScreen;
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 
-public class NextPhase extends Operation implements Undoable, ClearScreen {
+public class NextPhase extends Operation implements ClearScreen {
 	private static final long serialVersionUID = 1L;
 	private String desc = "";
 

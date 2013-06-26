@@ -1,10 +1,8 @@
 package webboards.client.ops.generic;
 
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 
-
-public class OpponentConnected extends Operation implements Undoable {
+public class OpponentConnected extends Operation {
 	private static final long serialVersionUID = 1L;
 	private String user;
 
@@ -14,9 +12,10 @@ public class OpponentConnected extends Operation implements Undoable {
 
 	public OpponentConnected() {
 	}
+
 	@Override
 	public String toString() {
-		return user+" connected.";
+		return user + " connected.";
 	}
 
 }

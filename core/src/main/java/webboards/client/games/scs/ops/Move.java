@@ -6,9 +6,8 @@ import webboards.client.data.GameCtx;
 import webboards.client.data.ref.CounterId;
 import webboards.client.games.Position;
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 
-public class Move extends Operation implements Undoable {
+public class Move extends Operation {
 	private static final long serialVersionUID = 1L;
 	public CounterId counterRef;
 	public Position from;

@@ -3,18 +3,16 @@ package webboards.client.ops.generic;
 import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 
-public class UndoOp extends Operation implements Undoable {
+public class UndoOp extends Operation {
 	private static final long serialVersionUID = 1L;
-	private Undoable op;
+	private Operation op;
 	public Integer opIndex;
 
-	@SuppressWarnings("unused")
-	private UndoOp() {
+	protected UndoOp() {
 	}
- 
-	public UndoOp(Undoable op, Integer opIndex) {
+
+	public UndoOp(Operation op, Integer opIndex) {
 		this.op = op;
 		this.opIndex = opIndex;
 	}
