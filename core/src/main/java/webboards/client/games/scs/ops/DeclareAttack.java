@@ -2,6 +2,7 @@ package webboards.client.games.scs.ops;
 
 import java.util.Collection;
 
+import webboards.client.data.Board;
 import webboards.client.data.GameCtx;
 import webboards.client.games.Hex;
 import webboards.client.games.scs.SCSBoard;
@@ -53,7 +54,12 @@ public class DeclareAttack extends Operation {
 			ctx.display.drawOds(ctx.display.getCenter(target), text, target.getSVGId());
 		}
 	}
-
+	
+	public void undoDraw(GameCtx ctx) {
+		ctx.display.clearArrow("combat_"+from.getSVGId());
+		ctx.display.clearOds(target.getSVGId());
+	};
+	
 	@Override
 	public String toString() {
 		return "Declare attack " + from + " -> " + target;

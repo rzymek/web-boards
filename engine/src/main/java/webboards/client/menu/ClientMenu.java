@@ -16,7 +16,6 @@ import webboards.client.games.Area;
 import webboards.client.games.scs.ops.Flip;
 import webboards.client.games.scs.ops.Move;
 import webboards.client.ops.Operation;
-import webboards.client.ops.Undoable;
 import webboards.client.ops.generic.ChatOp;
 import webboards.client.ops.generic.UndoOp;
 
@@ -59,12 +58,7 @@ public class ClientMenu extends SimplePanel {
 					return;
 				}
 				Operation op = ctx.ops.get(opIdx);
-				if (!(op instanceof Undoable)) {
-					Window.alert("Can't undo " + op);
-					return;
-				}
-				Undoable undoable = (Undoable) op;
-				runner.process(new UndoOp(undoable, opIdx));
+				runner.process(new UndoOp(op, opIdx));
 			}
 		},
 		new MenuEntry("Refresh") {

@@ -45,6 +45,13 @@ public class PerformAttack extends Operation {
 			ctx.display.drawArrow(from, targetRef, id, color.getColor());
 		}
 	}
+	@Override
+	public void undoDraw(GameCtx ctx) {
+		for (Hex from : attackingRef) {
+			String id = "combat_" + from.getSVGId();
+			ctx.display.clearArrow(id);
+		}
+	}
 
 	@Override
 	public void updateBoard(Board b) {
