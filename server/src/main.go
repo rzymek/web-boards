@@ -5,13 +5,14 @@ import (
     "net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+func init() {
+    http.HandleFunc("/", handler)
 }
 
+func handler(w http.ResponseWriter, r *http.Request) {
+ 	fmt.Fprintf(w, "Hi there: %s", r.URL.Path[1:])
+ }
+
 func main() {
-	bind := ":8888" 
-	fmt.Printf("Starting server on %s...\n", bind) 
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(bind, nil)
+    http.ListenAndServe(":8888", nil)
 }
