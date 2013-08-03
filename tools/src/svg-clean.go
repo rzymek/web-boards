@@ -16,14 +16,20 @@ type xmldoc struct {
 }
 
 func (doc *xmldoc) do(xpath string, processor xpathProcessor) {
-	nodes, _ := doc.Root().Search(xpath)
+	nodes, err := doc.Root().Search(xpath)
+	if err != nil {
+		panic(err)
+	}
+	if len(nodes) == 0 {
+		panic("No elements matching " + xpath)
+	}
 	for _, node := range nodes {
 		processor(node)
 	}
 }
 
 func main() {
-	in, err := ioutil.ReadFile("bastogne-orig.svg")
+	in, err := ioutil.ReadFile("../../games/bastogne/src/bastogne-orig.svg")
 	if err != nil {
 		panic(err)
 	}
@@ -42,20 +48,11 @@ func main() {
 			node.SetAttr("id", id)
 		}
 	}
-
-	svg.do(`//*[@id='tmpl']`, removeAll)
+	svg.do(`//*[namespace-uri()!='http://www.w3.org/2000/svg']`, removeAll)
+	svg.do(`//*/@*[namespace-uri()!='' and namespace-uri()!='http://www.w3.org/1999/xlink']`, removeAll)
+	svg.do(`//*[@id='tmpl']`, func(node xml.Node) {
+		node.SetAttr("style", "display:none")
+	})
 	svg.do(`//*[@id]`, fixHexIds)
-	svg.do(`//*[@id='text4105']`, func(node xml.Node) {
-		fmt.Println(node)
-		for k, v := range node.Attributes() {
-			fmt.Println(k + ": " + v.String())
-			for kk, vv := range v.Attributes() {
-				fmt.Println(k + ": " + kk + " -> " + vv.String())
-			}
-		}
-	})
-	fmt.Println("----------------------")
-	svg.do(`//*[@id='text4105']/@*[namespace-uri()='']`, func(node xml.Node) {
-		fmt.Println(node)
-	})
+	fmt.Println(doc)
 }

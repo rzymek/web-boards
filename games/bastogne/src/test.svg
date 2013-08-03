@@ -1,0 +1,26 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+style="buffered-rendering:dynamic"
+>
+	<script type="text/javascript">
+		function test(s) {
+			console.log(s);
+			text = document.getElementById('text');
+			t = document.createTextNode(s+", ");
+			text.appendChild(t);
+		}
+	</script>
+	<rect onactivate="test('activate')" 
+	onclick="test('click')" 
+	onfocusin="test('f-in')" 
+	onfocusout="test('f-out')" 
+	onload="test('load')" 
+	onmousedown="test('m-down')"
+		onmousemove="test('m-move')" 
+		onmouseout="test('m-out')" 
+		onmouseover="test('m-over')" 
+		onmouseup="test('m-up')" x="10" y="10" width="100"
+		height="100" style="fill:red" />
+	<text id="text" x="10" y="110"/>
+</svg>
