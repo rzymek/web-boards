@@ -18,6 +18,7 @@ type RunningGame struct {
 
 func init() {
 	http.HandleFunc("/start", startGame)
+	http.HandleFunc("/", handler)
 }
 
 func jsonResponse(w http.ResponseWriter, v interface{}) {
@@ -50,7 +51,7 @@ func startGame(w http.ResponseWriter, r *http.Request) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there: %s")
+	fmt.Fprintf(w, "go handler: %s %s", r.URL.Path, r.URL.RawQuery)
 }
 
 func main() {

@@ -12,7 +12,7 @@ packages:
   browser:
     description: browser
     source: hosted
-    version: "0.6.14"
+    version: "0.6.15+3"
   intl:
     description: intl
     source: hosted
@@ -33,3 +33,9 @@ packages:
     description: unmodifiable_collection
     source: hosted
     version: "0.6.15+3"
+  webboards_client:
+    description:
+      path: "/home/rzymek/devel/github/web-boards/games/bastogne/../../client"
+      relative: true
+    source: path
+    version: "0.0.1"

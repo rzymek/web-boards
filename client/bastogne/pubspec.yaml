@@ -1,6 +1,0 @@
-name: webboards_bastogne
-version: 0.0.1
-description: web-boards core library
-dependencies:
-  webboards_core:
-    path: ../core
