@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 //	"net/url"
-//	"io"
 )
 
 type RunningGame struct {
@@ -18,6 +17,7 @@ type RunningGame struct {
 
 func init() {
 	http.HandleFunc("/start", startGame)
+	http.HandleFunc("/game/", gameHandler)
 	http.HandleFunc("/", handler)
 }
 
@@ -50,6 +50,9 @@ func startGame(w http.ResponseWriter, r *http.Request) {
 	jsonResponse(w, &game)
 }
 
+func gameHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w,r, "/games/bastogne/units.json", 307);
+}
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "go handler: %s %s", r.URL.Path, r.URL.RawQuery)
 }

@@ -1,4 +1,4 @@
-library webboards_core;
+library webboards_client;
 
 import 'dart:html';
 import 'package:intl/intl.dart';
@@ -6,6 +6,8 @@ import 'dart:svg' as svg;
 import 'package:svg_zoom_and_pan/svg_zoom_and_pan.dart' as zoomAndPan;
 import 'package:logging/logging.dart';
 import 'dart:json' as json;
+
+part 'src/workarounds.dart'; 
 
 final Logger log = new Logger("web-boards.core");
 svg.SvgSvgElement root; 
@@ -21,17 +23,31 @@ void initLogging() {
 
 
 void init() {
-  initLogging();
-  log.info("\n\n\nweb-boards init ...");
-  root = query("svg");
-  zoomAndPan.setupZoomAndPan(root);
-  root.attributes["width"] = "100%";
-  root.attributes["height"] = "99%"; 
-  connect();
+  try {
+    initLogging();
+    log.info("\n\n\nweb-boards init ...");
+    root = query("svg");
+    zoomAndPan.setupZoomAndPan(root);
+    root.attributes["width"] = "100%";
+    root.attributes["height"] = "99%"; 
+    connect();
+  }catch(e) {
+    window.alert(e.toString());
+  }
+}
+
+int _tableId() {
+  var params = getUriParams(window.location.search);
+  try {
+    return int.parse(params['id']);
+  }catch(e) {
+    log.severe('id param missing', e);
+    throw 'Invalid URL: expected id parameter';
+  }  
 }
 
 void connect() {
-  var url = "units.json";
+  var url = "/game/${_tableId()}";
   var request = HttpRequest.getString(url).then((String resp) {
     log.fine("units: ${resp}");
     Map units = json.parse(resp);
