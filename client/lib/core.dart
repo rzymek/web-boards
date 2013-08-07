@@ -10,9 +10,23 @@ import 'dart:json' as json;
 part 'src/workarounds.dart'; 
 
 final Logger log = new Logger("web-boards.core");
-svg.SvgSvgElement root; 
+svg.SvgSvgElement _svg; 
 
-void initLogging() {
+void init() {
+  try {
+    _initLogging();
+    log.info("\n\n\nweb-boards init ...");
+    _svg = query("svg");
+    zoomAndPan.setupZoomAndPan(_svg);
+    _svg.attributes["width"] = "100%";
+    _svg.attributes["height"] = "99%"; 
+    _connect();
+  }catch(e) {
+    _handleEx(e);
+  }
+}
+
+void _initLogging() {
   log.onRecord.listen((LogRecord e) {
     var fmt = new DateFormat("H:m:s");
     print("${fmt.format(e.time)} [${e.level}] ${e.message}");
@@ -21,24 +35,11 @@ void initLogging() {
   log.level = Level.FINE;
 }
 
-void handleEx(e){ 
+void _handleEx(e){ 
   log.severe("Error:",e);
   window.alert(e.toString());  
 }
 
-void init() {
-  try {
-    initLogging();
-    log.info("\n\n\nweb-boards init ...");
-    root = query("svg");
-    zoomAndPan.setupZoomAndPan(root);
-    root.attributes["width"] = "100%";
-    root.attributes["height"] = "99%"; 
-    connect();
-  }catch(e) {
-    handleEx(e);
-  }
-}
 
 int _tableId() {
   var params = getUriParams(window.location.search);
@@ -50,20 +51,20 @@ int _tableId() {
   }  
 }
 
-void connect() {
+void _connect() {
   var url = "/game/${_tableId()}";
   var request = HttpRequest.getString(url).then((String resp) {
     log.fine("units: ${resp}");
     Map units = json.parse(resp);
-    var unitsLayer = root.getElementById('units');
+    var unitsLayer = _svg.getElementById('units');
     units.forEach((v,k) {
       log.fine("creating counter ${v} at ${k}");
-      var template = root.getElementById('counter');
+      var template = _svg.getElementById('counter');
       svg.ImageElement c = template.clone(true);
       c.href.baseVal = v;
       c.x.baseVal.value = 10;
       c.y.baseVal.value = 10;
       unitsLayer.append(c);
     });
-  }).catchError(handleEx);
+  }).catchError(_handleEx);
 }
