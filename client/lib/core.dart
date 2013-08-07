@@ -15,12 +15,14 @@ void initLogging() {
     var fmt = new DateFormat("H:m:s");
     print("${fmt.format(e.time)} [${e.level}] ${e.message}");
   });  
+  hierarchicalLoggingEnabled = true;
+  log.level = Level.FINE;
 }
 
 
 void init() {
   initLogging();
-  log.info("web-boards init...");
+  log.info("\n\n\nweb-boards init ...");
   root = query("svg");
   zoomAndPan.setupZoomAndPan(root);
   root.attributes["width"] = "100%";
@@ -31,13 +33,17 @@ void init() {
 void connect() {
   var url = "units.json";
   var request = HttpRequest.getString(url).then((String resp) {
-    Map units = json.parse(resp);    
+    log.fine("units: ${resp}");
+    Map units = json.parse(resp);
+    var unitsLayer = root.getElementById('units');
     units.forEach((v,k) {
+      log.fine("creating counter ${v} at ${k}");
       var template = root.getElementById('counter');
-      svg.SvgElement c = template.clone(true);
+      svg.ImageElement c = template.clone(true);
       c.href.baseVal = v;
-      c.x.baseVal = 10;
-      c.y.baseVal = 10;
+      c.x.baseVal.value = 10;
+      c.y.baseVal.value = 10;
+      unitsLayer.append(c);
     });
   });
 }
