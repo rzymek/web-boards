@@ -1,4 +1,6 @@
-name: webboards
-description: A sample web application
+name: webboards_core
+version: 0.0.1
+description: web-boards core library
 dependencies:
-  browser: any
+  browser: '>=0.6.14'
+  svg_zoom_and_pan: any
