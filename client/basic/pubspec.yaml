@@ -1,6 +1,0 @@
-name: webboards_basic
-description: logic-less web boards
-dependencies:
-  browser: any
-  webboards_core:
-    path: ../core

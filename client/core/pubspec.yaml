@@ -3,4 +3,6 @@ version: 0.0.1
 description: web-boards core library
 dependencies:
   browser: '>=0.6.14'
+  intl: any
+  logging: any
   svg_zoom_and_pan: any
