@@ -2,5 +2,5 @@ import "package:webboards_core/core.dart";
 
 void main() {
   init();
-  log.info("core main");
+  log.info("bastogne main");
 }
