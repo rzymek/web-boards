@@ -21,6 +21,10 @@ void initLogging() {
   log.level = Level.FINE;
 }
 
+void handleEx(e){ 
+  log.severe("Error:",e);
+  window.alert(e.toString());  
+}
 
 void init() {
   try {
@@ -32,7 +36,7 @@ void init() {
     root.attributes["height"] = "99%"; 
     connect();
   }catch(e) {
-    window.alert(e.toString());
+    handleEx(e);
   }
 }
 
@@ -61,5 +65,5 @@ void connect() {
       c.y.baseVal.value = 10;
       unitsLayer.append(c);
     });
-  });
+  }).catchError(handleEx);
 }
