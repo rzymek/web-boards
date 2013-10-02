@@ -1,5 +1,4 @@
 <template name="main">
-    <img src="games/{{game}}/board.jpg" style="position:absolute; left:0; top:0"/>
 	<svg id='svg' style='position: absolute; left: 0; top: 0'
 		xmlns:xlink="http://www.w3.org/1999/xlink"		
 		xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -7,10 +6,8 @@
 			<path id='hex'
 			d="m 25.564256,43.379099 -49.228,0 -24.614,-42.71300014 24.614,-42.71299986 h 49.228 l 24.614,42.71299986 z"
 			stroke="#000" stroke-miterlimit="0" stroke-dasharray="none"
-			stroke-width="1.54357183" fill="none" />
-		</defs>		
-		{{#each hexes}}
-		<use xlink:href="#hex" transform="translate({{hex.x}} {{hex.y}}) scale({{hex.scale}} {{hex.scale}}) "/>
-		{{/each}}
+			stroke-width="1.54357183" fill="red" style="opacity:0.5"/>
+		</defs>
+	    <image  xlink:href="games/{{game}}/board.jpg" x="0" y="0" height="{{board.h}}" width="{{board.w}}"/>
 	</svg>	
 </template>

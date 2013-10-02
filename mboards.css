@@ -1,1 +1,7 @@
 /* CSS declarations go here */
+.hex {
+	opacity: 0.3;
+}
+.hex:hover{
+	opacity: 0.9;
+}

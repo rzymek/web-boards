@@ -7,8 +7,8 @@
     "packages": {
       "typescript-compiler": {
         "git": "https://github.com/orefalo/meteor-typescript-compiler.git",
-        "tag": "v0.7.6.3",
-        "commit": "9242d3f292223eb0272e51a36c21244196a80f3a"
+        "tag": "v0.7.7",
+        "commit": "3e3b6e14aba70e7fc974f8c03782394a3b7b0741"
       }
     }
   }
