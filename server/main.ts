@@ -129,6 +129,6 @@ Meteor.startup(function () {
     }
     s += "}";
     var foo = new Foo(xml);
-    console.log(mod.Map('mapName','Main Map'));
+//    console.log(mod.Map('mapName','Main Map'));
 });
 

@@ -12,7 +12,7 @@ module svgZoomAndPan{
     class SvgZoomAndPan {
         KEY_ZOOM_STEP = 1.3;
         size: Point;
-        minScale = 0.25;
+        minScale = 0.1;
         scale = 1.0;
         root: SVGSVGElement;
         mouse = new Point();

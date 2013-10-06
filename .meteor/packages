@@ -10,3 +10,6 @@ preserve-inputs
 typescript-compiler
 typescript-libs
 xml2js
+jquery-ui
+bootstrap3-less
+less

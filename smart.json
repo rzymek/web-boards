@@ -2,6 +2,8 @@
   "packages": {
     "typescript-compiler": {},
     "typescript-libs": {},
-    "xml2js": {}
+    "xml2js": {},
+    "jquery-ui": {},
+    "bootstrap3-less": {}
   }
 }

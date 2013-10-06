@@ -4,7 +4,9 @@
     "basePackages": {
       "typescript-compiler": {},
       "typescript-libs": {},
-      "xml2js": {}
+      "xml2js": {},
+      "jquery-ui": {},
+      "bootstrap3-less": {}
     },
     "packages": {
       "typescript-compiler": {
@@ -21,6 +23,16 @@
         "git": "https://github.com/peerlibrary/meteor-xml2js.git",
         "tag": "v0.2.8.4",
         "commit": "98ba391239dd79901a7718593b48c1a7e6b0f7b2"
+      },
+      "jquery-ui": {
+        "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
+        "tag": "v1.9.2",
+        "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
+      },
+      "bootstrap3-less": {
+        "git": "https://github.com/eprochasson/bootstrap3-less",
+        "tag": "v0.1.1",
+        "commit": "82d3e32b6a44bad7bd439b9e02ce33161e58996d"
       },
       "blocking": {
         "git": "https://github.com/peerlibrary/meteor-blocking.git",

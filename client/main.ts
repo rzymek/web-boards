@@ -42,6 +42,8 @@ function setupGrid() {
     svg.viewBox.baseVal.height = board.h;
     svg.setAttribute('width', board.w.toString());
     svg.setAttribute('height', board.h.toString());
+    svg.style.width = '100%';
+    svg.style.height = '100%';
     return svg;
 }
 
@@ -56,5 +58,6 @@ Meteor.startup(function () {
     var svg = setupGrid();
     svgZoomAndPan.setup(svg);
     operations();
+
 });
 setupTemplate();

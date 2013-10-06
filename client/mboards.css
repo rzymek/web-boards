@@ -1,9 +1,0 @@
-.hex {
-    fill: rgba(0,0,0,0);
-    opacity:0.5;
-
-}
-.hex:hover{
-    fill:red;
-    opacity: 1;
-}
