@@ -4,18 +4,21 @@
 
 var svgns = "http://www.w3.org/2000/svg";
 
+var boardScale = 0.4;
+var board = {w: 6800*boardScale , h: 4400*boardScale };
+
 function setupTemplate() {
     var main = Template['main'];
     main['game'] = 'bastogne';
-    main['board'] = {w: 6800, h: 4400};
+    main['board'] = {w:board.w, h:board.h};
 }
 
 function setupGrid() {
-    var board = {w: 6800, h: 4400};
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
-    var hex2hex = { y: 125.29, x: 108.5};
-    var A = 2 * 125.29 / Math.sqrt(3);
+    var hex2hex = { y: 125.29* boardScale, x: 108.5* boardScale};
+
+    var A = 2 * 125.29 / Math.sqrt(3) ;
     var hexes = [];
     var use:SVGUseElement;
     var yn = board.h / hex2hex.y;
@@ -23,9 +26,9 @@ function setupGrid() {
     for (var y = 0; y < yn; y++) {
         var s = A / 2;
         for (var x = 0; x < xn; x++) {
-            var hx = 80 + x * hex2hex.x;
-            var hy = 65 + y * hex2hex.y;
-            var hscale = A / 100;
+            var hx = (80*boardScale + x * hex2hex.x);
+            var hy = (65*boardScale + y * hex2hex.y);
+            var hscale = A / 100 *boardScale;
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
@@ -36,15 +39,15 @@ function setupGrid() {
             svg.appendChild(use);
         }
     }
-    svg.viewBox.baseVal.x = 0;
-    svg.viewBox.baseVal.y = 0;
-    svg.viewBox.baseVal.width = board.w;
-    svg.viewBox.baseVal.height = board.h;
-    svg.setAttribute('width', board.w.toString());
-    svg.setAttribute('height', board.h.toString());
-    svg.style.width = '100%';
-    svg.style.height = '100%';
+    if(!isTouchDevice()) {
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+    }
     return svg;
+}
+
+function isTouchDevice() {
+    return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
 
 var operations = function () {
@@ -54,9 +57,15 @@ var operations = function () {
        }
     });
 };
+declare function jsSetup();
 Meteor.startup(function () {
     var svg = setupGrid();
-    svgZoomAndPan.setup(svg);
+    if(!isTouchDevice()) {
+        svgZoomAndPan.setup(svg);
+        jsSetup();
+    }else{
+        document.getElementById('panel').style.display='none';
+    }
     operations();
 
 });
