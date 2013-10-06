@@ -97,5 +97,5 @@ module svgZoomAndPan{
         zoomAndPan.attach();
     }
 }
-
-window['setupSvgZoomAndPan']= svgZoomAndPan.setup
+//meteor export:
+window['svgZoomAndPan']= svgZoomAndPan

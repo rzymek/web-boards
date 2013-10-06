@@ -1,7 +1,7 @@
 /// <reference path="../packages/meteor-typescript-libs/lib.d.ts" />
+/// <reference path="svg_zoom_and_pan.d.ts"/>
 
 declare var Meteor:any;
-declare function setupSvgZoomAndPan(any);
 
 var svgns = "http://www.w3.org/2000/svg";
 
@@ -39,5 +39,5 @@ Meteor.startup(function () {
     svg.setAttribute('width', board.w.toString());
     svg.setAttribute('height', board.h.toString());
 
-    setupSvgZoomAndPan(svg);
+    svgZoomAndPan.setup(svg);
 });
