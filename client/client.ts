@@ -12,14 +12,16 @@ Meteor.startup(function () {
     var A = 2 * 125.29 / Math.sqrt(3);
     var hexes = [];
     var use:SVGUseElement;
-    for(var y=0;y<10;y++)  {
+    var yn = board.h / hex2hex.y;
+    var xn = board.w / hex2hex.x;
+    for(var y=0;y<yn;y++)  {
         var s = A/2;
-        for(var x=0;x<30;x++) {
+        for(var x=0;x<xn;x++) {
             var hx= 80 + x * hex2hex.x;
             var hy = 65 + y * hex2hex.y;            
             var hscale = A/100;
             if(x % 2) {
-                hy += hex2hex.y/2;
+                hy -= hex2hex.y/2;
             }
             use = <SVGUseElement>document.createElementNS(svgns, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href",'#hex');
