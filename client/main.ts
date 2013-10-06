@@ -55,6 +55,6 @@ var operations = function () {
 Meteor.startup(function () {
     var svg = setupGrid();
     svgZoomAndPan.setup(svg);
-    setupTemplate();
     operations();
 });
+setupTemplate();

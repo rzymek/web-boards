@@ -1,7 +1,9 @@
-/* CSS declarations go here */
 .hex {
-	opacity: 0.3;
+    fill: rgba(0,0,0,0);
+    opacity:0.5;
+
 }
 .hex:hover{
-	opacity: 0.9;
+    fill:red;
+    opacity: 1;
 }
