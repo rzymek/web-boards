@@ -8,3 +8,5 @@ autopublish
 insecure
 preserve-inputs
 typescript-compiler
+typescript-libs
+xml2js

@@ -1,4 +1,4 @@
-/// <reference path="../packages/meteor-typescript-libs/lib.d.ts" />
+/// <reference path="../packages/typescript-libs/lib.d.ts" />
 
 module svgZoomAndPan{
     class Point{

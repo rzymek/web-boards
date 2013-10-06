@@ -1,4 +1,4 @@
-/// <reference path="../packages/meteor-typescript-libs/meteor.d.ts" />
+/// <reference path="../packages/typescript-libs/meteor.d.ts" />
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
 

@@ -2,13 +2,30 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "typescript-compiler": {}
+      "typescript-compiler": {},
+      "typescript-libs": {},
+      "xml2js": {}
     },
     "packages": {
       "typescript-compiler": {
         "git": "https://github.com/orefalo/meteor-typescript-compiler.git",
-        "tag": "v0.7.7",
-        "commit": "3e3b6e14aba70e7fc974f8c03782394a3b7b0741"
+        "tag": "v0.7.7.1",
+        "commit": "325301b9f66d085f873b9a138717d023c6a19bac"
+      },
+      "typescript-libs": {
+        "git": "https://github.com/orefalo/meteor-typescript-libs.git",
+        "tag": "v0.1.7",
+        "commit": "c1304e7621a25019778b9a04c6684ff89458329c"
+      },
+      "xml2js": {
+        "git": "https://github.com/peerlibrary/meteor-xml2js.git",
+        "tag": "v0.2.8.4",
+        "commit": "98ba391239dd79901a7718593b48c1a7e6b0f7b2"
+      },
+      "blocking": {
+        "git": "https://github.com/peerlibrary/meteor-blocking.git",
+        "tag": "v0.4.0",
+        "commit": "e25a0be72e771b317b26d2bb5758c983bdcef23c"
       }
     }
   }

@@ -1,5 +1,7 @@
 {
   "packages": {
-    "typescript-compiler": {}
+    "typescript-compiler": {},
+    "typescript-libs": {},
+    "xml2js": {}
   }
 }
