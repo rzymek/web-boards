@@ -1,3 +1,4 @@
+/// <reference path="../packages/meteor-typescript-libs/lib.d.ts" />
 var svgZoomAndPan;
 (function (svgZoomAndPan) {
     var Point = (function () {
@@ -13,6 +14,7 @@ var svgZoomAndPan;
         function SvgZoomAndPan(root) {
             this.KEY_ZOOM_STEP = 1.3;
             this.minScale = 0.25;
+            this.scale = 1.0;
             this.mouse = new Point();
             this.offset = new Point();
             this.mouseDown = false;
@@ -20,7 +22,6 @@ var svgZoomAndPan;
             this.root = root;
             var viewbox = root.viewBox.baseVal;
             this.size = new Point(viewbox.width, viewbox.height);
-            this.minScale = Math.min(document.body.clientWidth / viewbox.width, document.body.clientHeight / viewbox.height);
         }
         SvgZoomAndPan.prototype.updateMousePosition = function (e) {
             this.mouse.x = e.clientX;
@@ -60,6 +61,36 @@ var svgZoomAndPan;
                     _this.updateMousePosition(e);
                 }
             };
+            this.root.onclick = function (e) {
+                _this.panning = false;
+            };
+            this.root.addEventListener("mousewheel", function (e) {
+                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                if (delta < 0) {
+                    _this.scale /= _this.KEY_ZOOM_STEP;
+                } else {
+                    _this.scale *= _this.KEY_ZOOM_STEP;
+                }
+                _this.updateZoom();
+                e.preventDefault();
+            }, false);
+        };
+
+        SvgZoomAndPan.prototype.updateZoom = function () {
+            if (this.scale < this.minScale) {
+                this.scale = this.minScale;
+            }
+            var x = this.mouse.x;
+            var y = this.mouse.y;
+            var before = this.toUsertSpace(x, y);
+            var viewbox = this.root.viewBox.baseVal;
+            viewbox.width = this.size.x / this.scale;
+            viewbox.height = this.size.y / this.scale;
+            var after = this.toUsertSpace(x, y);
+            var dx = before.x - after.x;
+            var dy = before.y - after.y;
+            viewbox.x = viewbox.x + dx;
+            viewbox.y = viewbox.y + dy;
         };
         return SvgZoomAndPan;
     })();
@@ -70,6 +101,3 @@ var svgZoomAndPan;
     }
     svgZoomAndPan.setup = setup;
 })(svgZoomAndPan || (svgZoomAndPan = {}));
-
-
-svgZAP = svgZoomAndPan;

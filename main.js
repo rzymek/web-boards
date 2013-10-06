@@ -12,10 +12,6 @@ if (Meteor.isClient) {
     
     Template.main.game = 'bastogne';
     Template.main.board = {w: 6800, h: 4400};
-    Meteor.startup(function() {
-        svgZAP.setup(document.getElementsByTagName("svg")[0]);
-        console.log('started');
-    });
     Operations.find().observeChanges({
        added: function(id,fields) {           
            var op =  Ops.ops[fields.name];
