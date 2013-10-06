@@ -1,12 +1,16 @@
-/// <reference path="../packages/meteor-typescript-libs/lib.d.ts" />
+/// <reference path="../packages/meteor-typescript-libs/meteor.d.ts" />
 /// <reference path="svg_zoom_and_pan.d.ts"/>
-
-declare var Meteor:any;
+/// <reference path="../common/model.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
 
-Meteor.startup(function () {
-    console.log('started');
+function setupTemplate() {
+    var main = Template['main'];
+    main['game'] = 'bastogne';
+    main['board'] = {w: 6800, h: 4400};
+}
+
+function setupGrid() {
     var board = {w: 6800, h: 4400};
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
@@ -38,6 +42,19 @@ Meteor.startup(function () {
     svg.viewBox.baseVal.height = board.h;
     svg.setAttribute('width', board.w.toString());
     svg.setAttribute('height', board.h.toString());
+    return svg;
+}
 
+var operations = function () {
+    Operations.find().observeChanges({
+       added: (id,field) => {
+
+       }
+    });
+};
+Meteor.startup(function () {
+    var svg = setupGrid();
     svgZoomAndPan.setup(svg);
+    setupTemplate();
+    operations();
 });
