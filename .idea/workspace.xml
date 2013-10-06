@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f24ec9f-0ce6-4b6a-a377-56860aac0d74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.ts" afterPath="$PROJECT_DIR$/client/main.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/mboards.css" afterPath="$PROJECT_DIR$/client/mboards.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/templates.html" afterPath="$PROJECT_DIR$/client/templates.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Roadmap.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mboards.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,10 +84,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mboards.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mboards.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/mboards.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="1" selection-start="95" selection-end="95" vertical-scroll-proportion="0.14084508" vertical-offset="0" max-vertical-offset="852">
+            <state line="8" column="1" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Roadmap.md" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Roadmap.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="17" selection-start="224" selection-end="224" vertical-scroll-proportion="0.123239435" vertical-offset="0" max-vertical-offset="852">
               <folding />
             </state>
           </provider>
@@ -134,6 +142,7 @@
         <option value="$PROJECT_DIR$/client/main.ts" />
         <option value="$PROJECT_DIR$/client/templates.html" />
         <option value="$PROJECT_DIR$/client/mboards.css" />
+        <option value="$PROJECT_DIR$/Roadmap.md" />
       </list>
     </option>
   </component>
@@ -150,14 +159,51 @@
             <id />
           </State>
           <State>
-            <id>Spelling</id>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>DOM issuesJavaScript</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Invalid elementsCSS</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript function metricsJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>SASS/SCSS</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
           </State>
         </expanded-state>
-        <selected-state>
-          <State>
-            <id>Spelling</id>
-          </State>
-        </selected-state>
       </profile-state>
     </entry>
   </component>
@@ -255,7 +301,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="Errors" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
@@ -363,13 +409,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/packages/typescript-compiler/package.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/typescript-compiler/smart.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="1" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="851">
@@ -476,7 +515,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/mboards.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="1" selection-start="95" selection-end="95" vertical-scroll-proportion="0.14084508" vertical-offset="0" max-vertical-offset="852">
+        <state line="8" column="1" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Roadmap.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="17" selection-start="224" selection-end="224" vertical-scroll-proportion="0.123239435" vertical-offset="0" max-vertical-offset="852">
           <folding />
         </state>
       </provider>
