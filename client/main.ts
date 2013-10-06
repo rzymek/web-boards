@@ -1,4 +1,5 @@
 /// <reference path="../packages/typescript-libs/meteor.d.ts" />
+/// <reference path="../packages/typescript-libs/jquery.d.ts" />
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
 
@@ -11,6 +12,19 @@ function setupTemplate() {
     var main = Template['main'];
     main['game'] = 'bastogne';
     main['board'] = {w:board.w, h:board.h};
+    Template['controls'].events({
+        'click button': (event:MouseEvent) => {
+            var button = <HTMLButtonElement>event.currentTarget;
+            var txt=button.textContent;
+            if(txt === 'Menu') {
+                $('div.menu-folded').hide();
+                $('div.menu-unfolded').show();
+            }else if(txt === 'Hide'){
+                $('div.menu-folded').show();
+                $('div.menu-unfolded').hide();
+            }
+        }
+    })
 }
 
 function setupGrid() {

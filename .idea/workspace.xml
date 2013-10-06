@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f24ec9f-0ce6-4b6a-a377-56860aac0d74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js.js" afterPath="$PROJECT_DIR$/client/js.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.html" afterPath="$PROJECT_DIR$/client/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.less" afterPath="$PROJECT_DIR$/client/main.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.ts" afterPath="$PROJECT_DIR$/client/main.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/templates.html" afterPath="$PROJECT_DIR$/client/templates.html" />
@@ -32,10 +30,28 @@
       <file leaf-file-name="main.ts" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="5" selection-start="2064" selection-end="2064" vertical-scroll-proportion="0.80679154" vertical-offset="316" max-vertical-offset="1170">
+            <state line="25" column="0" selection-start="935" selection-end="935" vertical-scroll-proportion="0.43911007" vertical-offset="0" max-vertical-offset="1380">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/main.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="3" selection-start="331" selection-end="331" vertical-scroll-proportion="-11.25" vertical-offset="90" max-vertical-offset="1020">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="templates.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/templates.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="24" selection-start="964" selection-end="964" vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="750">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -69,9 +85,9 @@
         <option value="$PROJECT_DIR$/client/mboards.html" />
         <option value="$PROJECT_DIR$/client/mboards.css" />
         <option value="$PROJECT_DIR$/client/main.css" />
-        <option value="$PROJECT_DIR$/client/main.less" />
         <option value="$PROJECT_DIR$/client/main.html" />
         <option value="$PROJECT_DIR$/client/js.js" />
+        <option value="$PROJECT_DIR$/client/main.less" />
         <option value="$PROJECT_DIR$/client/templates.html" />
         <option value="$PROJECT_DIR$/client/main.ts" />
       </list>
@@ -520,13 +536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="11" selection-start="389" selection-end="389" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="975">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="38" selection-start="241" selection-end="241" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
@@ -537,13 +546,6 @@
     <entry file="file://$PROJECT_DIR$/client/js.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="0" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="65" selection-start="621" selection-end="621" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="615">
           <folding />
         </state>
       </provider>
@@ -564,9 +566,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="3" selection-start="331" selection-end="331" vertical-scroll-proportion="-11.25" vertical-offset="90" max-vertical-offset="1020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="24" selection-start="964" selection-end="964" vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="750">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/main.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="5" selection-start="2064" selection-end="2064" vertical-scroll-proportion="0.80679154" vertical-offset="316" max-vertical-offset="1170">
+        <state line="25" column="0" selection-start="935" selection-end="935" vertical-scroll-proportion="0.43911007" vertical-offset="0" max-vertical-offset="1380">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
