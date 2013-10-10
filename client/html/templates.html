@@ -11,6 +11,9 @@
         </defs>
         <image xlink:href="games/{{game}}/board-low.jpg" x="0" y="0" height="{{board.h}}" width="{{board.w}}"/>
     </svg>
+    <div id="status">
+        Status:{{status.status}}
+    </div>
 </template>
 
 <template name="controls">
@@ -29,7 +32,7 @@
 
     <div id="panel" class="panel panel-primary">
         <div class="panel-heading">
-            <select class="form-control">
+            <select>
                 <option>101 AB</option>
                 <option>Others</option>
             </select>

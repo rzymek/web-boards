@@ -12,6 +12,7 @@ function setupTemplate() {
     var main = Template['main'];
     main['game'] = 'bastogne';
     main['board'] = {w:board.w, h:board.h};
+    main['status'] = () => Meteor.status();
     Template['controls'].events({
         'click button': (event:MouseEvent) => {
             var button = <HTMLButtonElement>event.currentTarget;

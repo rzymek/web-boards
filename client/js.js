@@ -1,4 +1,5 @@
 jsSetup = function () {
-    $('#panel').draggable();
+    var panel = $('#panel');
+    panel.draggable();
 }
 
