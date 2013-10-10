@@ -2,11 +2,26 @@
 /// <reference path="../packages/typescript-libs/jquery.d.ts" />
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
+/// <reference path="../common/vassal.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
 
 var boardScale = 1;
-var board = {w: 6800 * boardScale, h: 4400 * boardScale };
+interface Session {
+    get(s:'gameInfo'):Module
+};
+
+var emptyModule:Module = {
+    pieces: [],
+    board: {
+        image:'',
+        width:0,
+        height:0,
+        grid:null
+    }
+};
+
+Session.setDefault('gameInfo', emptyModule);
 
 function setupTemplate() {
     Template['main']['gameSelected'] = () => Session.get('selectedGame') != null
@@ -14,21 +29,19 @@ function setupTemplate() {
 
     var play = Template['play'];
 //    play['game'] = () => Session.get('selectedGame');
-    play['board'] = {w: board.w, h: board.h};
-    play['boardImg'] = () => {
+    play['board'] = () => {
         var gameInfo = Session.get('gameInfo');
-        if (gameInfo !== undefined) {
-            return '/games/' + Session.get('selectedGame') + '/' + gameInfo.board.image;
-        } else {
-            return '';
-        }
+        return {w: gameInfo.board.width, h: gameInfo.board.height};
+    };
+    play['boardImg'] = () => {
+        return '/games/' + Session.get('selectedGame') + '/' + Session.get('gameInfo').board.image;
     }
     if (!isTouchDevice()) {
         play['svgWidth'] = '100%';
         play['svgHeight'] = '100%';
     } else {
-        play['svgWidth'] = board.w;
-        play['svgHeight'] = board.h;
+        play['svgWidth'] = () => Session.get('gameInfo').board.width;
+        play['svgHeight'] = () => Session.get('gameInfo').board.height;
     }
     play['status'] = () => Meteor.status();
 
@@ -64,12 +77,13 @@ function setupGrid() {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
+    var board = Session.get('gameInfo').board;
 
     var A = 2 * 125.29 / Math.sqrt(3);
     var hexes = [];
     var use:SVGUseElement;
-    var yn = board.h / hex2hex.y;
-    var xn = board.w / hex2hex.x;
+    var yn = board.height / hex2hex.y;
+    var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
         var s = A / 2;
         for (var x = 0; x < xn; x++) {
@@ -106,7 +120,7 @@ Deps.autorun(()=> {
     var game = Session.get('selectedGame');
     if (game !== undefined) {
         console.log('game selected:', game);
-        $.get('/games/' + game + '/game.json', (data:any) => {
+        $.get('/games/' + game + '/game.json', (data:Module) => {
             console.log('got game info:', data.board);
             data.board.image = 'board-low.jpg'; //TODO: remove
             Session.set('gameInfo', data);

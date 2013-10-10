@@ -1,17 +1,28 @@
-interface VassalMod {
-    Language:string;
-    Chatter:string;
-    Map:Maps;
-}
-interface Maps {
-    [name:string]:VMap;
-}
-interface  VMap {
-    name:string;
-}
-interface  MapX {
-    nameX:string;
+interface Module {
+    board: Board;
+    pieces: Pieces[];
 }
 
-var x:VassalMod;
-var z = x.Map['xx'].name
+interface Board {
+    image: string;
+    width: number;
+    height: number;
+    grid: Grid;
+}
+
+interface Grid {
+    hexSize: number;
+    hexWidth: number;
+    originX: number;
+    originY: number;
+}
+
+interface Pieces {
+    category: string;
+    list: Piece[];
+}
+
+interface Piece {
+    name: string;
+    images: String[];
+} 
