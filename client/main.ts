@@ -7,41 +7,63 @@
 var svgns = "http://www.w3.org/2000/svg";
 
 var boardScale = 1;
-interface Session {
-    get(s:'gameInfo'):Module
-};
 
-var emptyModule:Module = {
+
+Session.setDefault('gameInfo', <Module>{
     pieces: [],
     board: {
-        image:'',
-        width:0,
-        height:0,
-        grid:null
+        image: '',
+        width: 0,
+        height: 0,
+        grid: null
     }
-};
+});
 
-Session.setDefault('gameInfo', emptyModule);
+class TypedSession {
+    selectedGame():string {
+        return Session.get('selectedGame');
+    }
+
+    gameInfo():Module {
+        return Session.get('gameInfo');
+    }
+
+    games():string[] {
+        return Session.get('games');
+    }
+
+    setSelectedGame(v:string) {
+        Session.set('selectedGame', v);
+    }
+
+    setGameInfo(v:Module) {
+        Session.set('gameInfo', v);
+    }
+
+    setGames(v:string[]) {
+        Session.set('games', v);
+    }
+}
+var S = new TypedSession();
 
 function setupTemplate() {
-    Template['main']['gameSelected'] = () => Session.get('selectedGame') != null
-    Template['welcome']['games'] = () => Session.get('games')
+    Template['main']['gameSelected'] = () => S.selectedGame() != null;
+    Template['welcome']['games'] = () => S.games();
 
     var play = Template['play'];
-//    play['game'] = () => Session.get('selectedGame');
     play['board'] = () => {
-        var gameInfo = Session.get('gameInfo');
+        var gameInfo = S.gameInfo();
         return {w: gameInfo.board.width, h: gameInfo.board.height};
     };
     play['boardImg'] = () => {
-        return '/games/' + Session.get('selectedGame') + '/' + Session.get('gameInfo').board.image;
+        return '/games/' + S.selectedGame() + '/' + S.gameInfo().board.image;
     }
     if (!isTouchDevice()) {
         play['svgWidth'] = '100%';
         play['svgHeight'] = '100%';
     } else {
-        play['svgWidth'] = () => Session.get('gameInfo').board.width;
-        play['svgHeight'] = () => Session.get('gameInfo').board.height;
+        play['svgWidth'] = () => S.gameInfo().board.width;
+        play['svgHeight'] = () => S.gameInfo().board.height;
     }
     play['status'] = () => Meteor.status();
 
@@ -68,7 +90,7 @@ function setupTemplate() {
     Template['welcome'].events({
         'click button': (e:MouseEvent) => {
             var t = <HTMLButtonElement>e.currentTarget;
-            Session.set('selectedGame', t.value);
+            S.setSelectedGame(t.value);
         }
     })
 }
@@ -77,7 +99,7 @@ function setupGrid() {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
-    var board = Session.get('gameInfo').board;
+    var board = S.gameInfo().board;
 
     var A = 2 * 125.29 / Math.sqrt(3);
     var hexes = [];
@@ -107,36 +129,25 @@ function isTouchDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
 
-var operations = function () {
-    Operations.find().observeChanges({
-        added: (id, field) => {
-
-        }
-    });
-};
-declare var gameInfo;
-
 Deps.autorun(()=> {
     var game = Session.get('selectedGame');
     if (game !== undefined) {
-        console.log('game selected:', game);
         $.get('/games/' + game + '/game.json', (data:Module) => {
-            console.log('got game info:', data.board);
             data.board.image = 'board-low.jpg'; //TODO: remove
             Session.set('gameInfo', data);
         });
     }
 });
 
-Meteor.call('games', (err, games:String[]) => {
+Meteor.call('games', (err, games:string[]) => {
     if (games.length === 1)
-        Session.set('selectedGame', games[0])
+        S.setSelectedGame(games[0]);
     else
-        Session.set('games', games);
+        S.setGames(games);
 })
 
+declare function jsSetup();
 Template['play'].rendered = () => {
-    console.log('play rendered');
     var svg = setupGrid();
     if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
@@ -144,8 +155,6 @@ Template['play'].rendered = () => {
     } else {
         document.getElementById('panel').style.display = 'none';
     }
-    operations();
 }
 
-declare function jsSetup();
 setupTemplate();
