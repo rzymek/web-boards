@@ -1,8 +1,10 @@
 <template name="welcome">
-    <h1>Welcome</h1>
-    {{#each games}}
-        <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button><br>
-    {{/each}}
+    <div class="welcome">
+        <h1>Welcome</h1>
+        {{#each games}}
+            <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
+        {{/each}}
+    </div>
 </template>
 
 <template name="main">
@@ -48,7 +50,6 @@
 </template>
 
 <template name="pieces">
-
     <div id="panel" class="panel panel-primary">
         <div class="panel-heading">
             <select>
@@ -65,5 +66,4 @@
             <img src="games/bastogne/units/2.png">
         </div>
     </div>
-
 </template>
