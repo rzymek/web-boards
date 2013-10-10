@@ -8,19 +8,25 @@ var svgns = "http://www.w3.org/2000/svg";
 var boardScale = 1;
 var board = {w: 6800 * boardScale, h: 4400 * boardScale };
 
+
+function gameSelected() {
+    return Session.get('selectedGame') != null
+}
 function setupTemplate() {
-    var main = Template['main'];
-    main['game'] = 'bastogne';
-    main['board'] = {w: board.w, h: board.h};
+    Template['main']['gameSelected'] = gameSelected
+
+    var play = Template['play'];
+    play['game'] = () => Session.get('selectedGame');
+    play['board'] = {w: board.w, h: board.h};
     if (!isTouchDevice()) {
-        main['svgWidth'] = '100%';
-        main['svgHeight'] = '100%';
-    }else{
-        main['svgWidth'] = board.w;
-        main['svgHeight'] = board.h;
+        play['svgWidth'] = '100%';
+        play['svgHeight'] = '100%';
+    } else {
+        play['svgWidth'] = board.w;
+        play['svgHeight'] = board.h;
     }
 
-    main['status'] = () => Meteor.status();
+    play['status'] = () => Meteor.status();
     Template['controls'].events({
         'click button': (event:MouseEvent) => {
             var button = <HTMLButtonElement>event.currentTarget;
@@ -40,6 +46,17 @@ function setupTemplate() {
             $(e.currentTarget).addClass('pieceSelected')
         }
     });
+
+    Template['welcome']['games'] = () => {
+        var games = Games.findOne();
+        return <String[]>(games ? games.games : []);
+    }
+    Template['welcome'].events({
+        'click button': (e:MouseEvent) =>{
+            var t = <HTMLButtonElement>e.currentTarget;
+            Session.set('selectedGame', t.value);
+        }
+    })
 }
 
 function setupGrid() {
@@ -88,10 +105,14 @@ function startGame() {
     console.log('start game ', gameInfo);
 }
 
-declare function jsSetup();
-Meteor.startup(function () {
+declare var Games:Meteor.Collection<any>;
+Games = new Meteor.Collection<any>('games')
+Deps.autorun(()=>{
+   Meteor.subscribe('gamesSub');
+});
+
+Template['play'].rendered = () => {
     var svg = setupGrid();
-    console.log("isTouchDevice():"+isTouchDevice());
     if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
         jsSetup();
@@ -99,11 +120,14 @@ Meteor.startup(function () {
         document.getElementById('panel').style.display = 'none';
     }
     operations();
+}
 
-    $.get("games/bastogne/game.json", (data) => {
+Template['play'].created = () => {
+    $.get('/games/' + Session.get('selectedGame') + '/game.json', (data) => {
         gameInfo = data;
         startGame();
     });
+}
 
-});
+declare function jsSetup();
 setupTemplate();

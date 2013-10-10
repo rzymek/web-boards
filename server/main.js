@@ -1,5 +1,7 @@
 //Meteor.startup(function() {
 //});
-Meteor.publish('games',function() {
-    return fs.readdirSync('../client/app/games');
+Meteor.publish('gamesSub',function() {
+    var games = fs.readdirSync('../client/app/games');
+    this.added('games', 'theid', {games:games})
+    this.ready();
 });

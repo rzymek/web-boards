@@ -1,9 +1,16 @@
 <template name="welcome">
-    {{games}}
+    <h1>Welcome</h1>
+    {{#each games}}
+        <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button><br>
+    {{/each}}
 </template>
 
 <template name="main">
-     {{>play}}
+    {{#if gameSelected }}
+        {{>play}}
+    {{else}}
+        {{>welcome}}
+    {{/if}}
 </template>
 
 <template name="play">
