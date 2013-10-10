@@ -1,7 +1,6 @@
 @panel-padding: 4px;
 @menu-size: 45px;
-@piece-panel-width: 230px;
-@piece-panel-height: 260px;
+@piece-panel-width: 5 * (@menu-size + @panel-padding) + 1.5*@panel-padding;
 
 .hex {
   fill: rgba(0, 0, 0, 0);
@@ -13,10 +12,11 @@
   fill: red;
   opacity: 1;
 }
-#status{
+
+#status {
   position: absolute;
-  bottom:0;
-  left:0;
+  bottom: 0;
+  left: 0;
   background-color: lightgray;
   //color:white;
   border-top: solid 1px black;
@@ -43,14 +43,14 @@
 }
 
 #panel {
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 10px;
-  width: @piece-panel-width;
-  height: @piece-panel-height;
+  max-width: @piece-panel-width;
   img {
     width: @menu-size;
     height: auto;
+    padding-bottom: @panel-padding;
   }
   .panel-heading {
     padding: @panel-padding;

@@ -1,5 +1,9 @@
 jsSetup = function () {
     var panel = $('#panel');
-    panel.draggable();
-}
+    panel.draggable({
+        start:function () {
+            panel.height(panel.height());
+        }
+    });
+};
 
