@@ -1,4 +1,12 @@
+<template name="welcome">
+    {{games}}
+</template>
+
 <template name="main">
+     {{>play}}
+</template>
+
+<template name="play">
     <svg id='svg' style='position: absolute; left: 0; top: 0'
          xmlns:xlink="http://www.w3.org/1999/xlink"
          viewBox="0 0 {{board.w}} {{board.h}}" width="{{svgWidth}}" height="{{svgHeight}}"
@@ -14,6 +22,7 @@
     <div id="status">
         Status:{{status.status}}
     </div>
+    {{> controls}}{{> pieces}}
 </template>
 
 <template name="controls">

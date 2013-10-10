@@ -6,7 +6,3 @@ jsSetup = function () {
         }
     });
 };
-
-Meteor.call('dirs', function(err, res){
-    console.log(res);
-});
