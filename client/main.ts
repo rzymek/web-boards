@@ -52,7 +52,7 @@ function setupTemplate() {
         return <String[]>(games ? games.games : []);
     }
     Template['welcome'].events({
-        'click button': (e:MouseEvent) =>{
+        'click button': (e:MouseEvent) => {
             var t = <HTMLButtonElement>e.currentTarget;
             Session.set('selectedGame', t.value);
         }
@@ -107,8 +107,15 @@ function startGame() {
 
 declare var Games:Meteor.Collection<any>;
 Games = new Meteor.Collection<any>('games')
-Deps.autorun(()=>{
-   Meteor.subscribe('gamesSub');
+Deps.autorun(()=> {
+    Meteor.subscribe('gamesSub');
+});
+Games.find().observeChanges({
+    added: (id, obj) => {
+        if(obj.games.length == 1) {
+            Session.set('selectedGame', obj.games[0])
+        }
+    }
 });
 
 Template['play'].rendered = () => {
