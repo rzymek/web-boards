@@ -1,4 +1,15 @@
 {
+    "board": {
+        "image": "Bastogne-Map-vassal.png",
+        "width": 6800,
+        "height": 4400,
+        "grid": {
+            "hexSize": 125.29999999999993,
+            "hexWidth": 108.5000000000002,
+            "originX": 80,
+            "originY": 65
+        }
+    },
     "pieces": [
         {
             "category": "Misc Counters",
@@ -2144,16 +2155,5 @@
                 }
             ]
         }
-    ],
-    "board": {
-        "image": "Bastogne-Map-vassal.png",
-        "width": 6800,
-        "height": 4400,
-        "grid": {
-            "hexSize": 125.29999999999993,
-            "hexWidth": 108.5000000000002,
-            "originX": 80,
-            "originY": 65
-        }
-    }
+    ]
 }

@@ -8,16 +8,21 @@ var svgns = "http://www.w3.org/2000/svg";
 var boardScale = 1;
 var board = {w: 6800 * boardScale, h: 4400 * boardScale };
 
-
-function gameSelected() {
-    return Session.get('selectedGame') != null
-}
 function setupTemplate() {
-    Template['main']['gameSelected'] = gameSelected
+    Template['main']['gameSelected'] = () => Session.get('selectedGame') != null
+    Template['welcome']['games'] = () => Session.get('games')
 
     var play = Template['play'];
-    play['game'] = () => Session.get('selectedGame');
+//    play['game'] = () => Session.get('selectedGame');
     play['board'] = {w: board.w, h: board.h};
+    play['boardImg'] = () => {
+        var gameInfo = Session.get('gameInfo');
+        if (gameInfo !== undefined) {
+            return '/games/' + Session.get('selectedGame') + '/' + gameInfo.board.image;
+        } else {
+            return '';
+        }
+    }
     if (!isTouchDevice()) {
         play['svgWidth'] = '100%';
         play['svgHeight'] = '100%';
@@ -25,8 +30,8 @@ function setupTemplate() {
         play['svgWidth'] = board.w;
         play['svgHeight'] = board.h;
     }
-
     play['status'] = () => Meteor.status();
+
     Template['controls'].events({
         'click button': (event:MouseEvent) => {
             var button = <HTMLButtonElement>event.currentTarget;
@@ -47,10 +52,6 @@ function setupTemplate() {
         }
     });
 
-    Template['welcome']['games'] = () => {
-        var games = Games.findOne();
-        return <String[]>(games ? games.games : []);
-    }
     Template['welcome'].events({
         'click button': (e:MouseEvent) => {
             var t = <HTMLButtonElement>e.currentTarget;
@@ -101,20 +102,27 @@ var operations = function () {
 };
 declare var gameInfo;
 
-function startGame() {
-    console.log('start game ', gameInfo);
-}
-
-declare var Games:Meteor.Collection<any>;
-Games = new Meteor.Collection<any>('games')
 Deps.autorun(()=> {
-    Meteor.subscribe('gamesSub');
+    var game = Session.get('selectedGame');
+    if (game !== undefined) {
+        console.log('game selected:', game);
+        $.get('/games/' + game + '/game.json', (data:any) => {
+            console.log('got game info:', data.board);
+            data.board.image = 'board-low.jpg'; //TODO: remove
+            Session.set('gameInfo', data);
+        });
+    }
 });
-Games.find().observeChanges({
-    added: (id, obj) => (obj.games.length == 1) ? Session.set('selectedGame', obj.games[0]) : ''
-});
+
+Meteor.call('games', (err, games:String[]) => {
+    if (games.length === 1)
+        Session.set('selectedGame', games[0])
+    else
+        Session.set('games', games);
+})
 
 Template['play'].rendered = () => {
+    console.log('play rendered');
     var svg = setupGrid();
     if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
@@ -123,13 +131,6 @@ Template['play'].rendered = () => {
         document.getElementById('panel').style.display = 'none';
     }
     operations();
-}
-
-Template['play'].created = () => {
-    $.get('/games/' + Session.get('selectedGame') + '/game.json', (data) => {
-        gameInfo = data;
-        startGame();
-    });
 }
 
 declare function jsSetup();
