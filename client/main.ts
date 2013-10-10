@@ -111,11 +111,7 @@ Deps.autorun(()=> {
     Meteor.subscribe('gamesSub');
 });
 Games.find().observeChanges({
-    added: (id, obj) => {
-        if(obj.games.length == 1) {
-            Session.set('selectedGame', obj.games[0])
-        }
-    }
+    added: (id, obj) => (obj.games.length == 1) ? Session.set('selectedGame', obj.games[0]) : ''
 });
 
 Template['play'].rendered = () => {
