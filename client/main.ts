@@ -5,22 +5,30 @@
 
 var svgns = "http://www.w3.org/2000/svg";
 
-var boardScale = 0.4;
-var board = {w: 6800*boardScale , h: 4400*boardScale };
+var boardScale = 1;
+var board = {w: 6800 * boardScale, h: 4400 * boardScale };
 
 function setupTemplate() {
     var main = Template['main'];
     main['game'] = 'bastogne';
-    main['board'] = {w:board.w, h:board.h};
+    main['board'] = {w: board.w, h: board.h};
+    if (!isTouchDevice()) {
+        main['svgWidth'] = '100%';
+        main['svgHeight'] = '100%';
+    }else{
+        main['svgWidth'] = board.w;
+        main['svgHeight'] = board.h;
+    }
+
     main['status'] = () => Meteor.status();
     Template['controls'].events({
         'click button': (event:MouseEvent) => {
             var button = <HTMLButtonElement>event.currentTarget;
-            var txt=button.textContent;
-            if(txt === 'Menu') {
+            var txt = button.textContent;
+            if (txt === 'Menu') {
                 $('div.menu-folded').hide();
                 $('div.menu-unfolded').show();
-            }else if(txt === 'Hide'){
+            } else if (txt === 'Hide') {
                 $('div.menu-folded').show();
                 $('div.menu-unfolded').hide();
             }
@@ -37,9 +45,9 @@ function setupTemplate() {
 function setupGrid() {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
-    var hex2hex = { y: 125.29* boardScale, x: 108.5* boardScale};
+    var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
 
-    var A = 2 * 125.29 / Math.sqrt(3) ;
+    var A = 2 * 125.29 / Math.sqrt(3);
     var hexes = [];
     var use:SVGUseElement;
     var yn = board.h / hex2hex.y;
@@ -47,9 +55,9 @@ function setupGrid() {
     for (var y = 0; y < yn; y++) {
         var s = A / 2;
         for (var x = 0; x < xn; x++) {
-            var hx = (80*boardScale + x * hex2hex.x);
-            var hy = (65*boardScale + y * hex2hex.y);
-            var hscale = A / 100 *boardScale;
+            var hx = (80 * boardScale + x * hex2hex.x);
+            var hy = (65 * boardScale + y * hex2hex.y);
+            var hscale = A / 100 * boardScale;
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
@@ -60,10 +68,6 @@ function setupGrid() {
             svg.appendChild(use);
         }
     }
-    if(!isTouchDevice()) {
-        svg.style.width = '100%';
-        svg.style.height = '100%';
-    }
     return svg;
 }
 
@@ -73,36 +77,33 @@ function isTouchDevice() {
 
 var operations = function () {
     Operations.find().observeChanges({
-       added: (id,field) => {
+        added: (id, field) => {
 
-       }
+        }
     });
 };
 declare var gameInfo;
-window['startGame'] = function startGame() {
-    console.log('start game ',gameInfo);
+
+function startGame() {
+    console.log('start game ', gameInfo);
 }
+
 declare function jsSetup();
 Meteor.startup(function () {
     var svg = setupGrid();
-    if(!isTouchDevice()) {
+    console.log("isTouchDevice():"+isTouchDevice());
+    if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
         jsSetup();
-    }else{
-        document.getElementById('panel').style.display='none';
+    } else {
+        document.getElementById('panel').style.display = 'none';
     }
     operations();
 
-    var head= document.getElementsByTagName('head')[0];
-    var script= document.createElement('script');
-    script.type= 'text/javascript';
-    script.src= 'games/bastogne/game.js';
-    head.appendChild(script);
-
-    var script= document.createElement('script');
-    script.type= 'text/javascript';
-    script.innerText='startGame();'
-    head.appendChild(script);
+    $.get("games/bastogne/game.json", (data) => {
+        gameInfo = data;
+        startGame();
+    });
 
 });
 setupTemplate();
