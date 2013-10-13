@@ -26,6 +26,12 @@ function setupTemplate() {
             }
         }
     })
+    Template['pieces'].events({
+        'click img': (e:MouseEvent) => {
+            $('#panel .panel-body img').removeClass('pieceSelected');
+            $(e.currentTarget).addClass('pieceSelected')
+        }
+    });
 }
 
 function setupGrid() {
