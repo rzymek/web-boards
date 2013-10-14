@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f24ec9f-0ce6-4b6a-a377-56860aac0d74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/api/selection-handler.ts" afterPath="$PROJECT_DIR$/client/api/selection-handler.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/games/bastogne/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js.js" afterPath="$PROJECT_DIR$/client/js.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.ts" afterPath="$PROJECT_DIR$/client/main.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mboards.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,10 +28,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.ts" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="main.ts" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
+            <state line="103" column="35" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.80679154" vertical-offset="811" max-vertical-offset="1665">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="js.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="1" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
               <folding />
             </state>
           </provider>
@@ -37,8 +49,10 @@
       <file leaf-file-name="templates.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/html/templates.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="17" selection-start="1522" selection-end="1522" vertical-scroll-proportion="-26.833334" vertical-offset="1" max-vertical-offset="855">
-              <folding />
+            <state line="1" column="0" selection-start="23" selection-end="23" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="855">
+              <folding>
+                <element signature="n#style#0;n#path#0;n#defs#0;n#svg#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,10 +66,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="selection-handler.ts" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="selection-handler.ts" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/api/selection-handler.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/games/bastogne/game.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="32475">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/html/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="40" selection-start="243" selection-end="243" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
               <folding />
             </state>
           </provider>
@@ -79,22 +111,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/common/vassal.d.ts" />
-        <option value="$PROJECT_DIR$/private/bastogne/buildFile" />
         <option value="$PROJECT_DIR$/client/svg_zoom_and_pan.ts" />
         <option value="$PROJECT_DIR$/server/main.ts" />
         <option value="$PROJECT_DIR$/client/mboards.html" />
         <option value="$PROJECT_DIR$/client/mboards.css" />
         <option value="$PROJECT_DIR$/client/main.css" />
         <option value="$PROJECT_DIR$/client/main.html" />
-        <option value="$PROJECT_DIR$/client/js.js" />
         <option value="$PROJECT_DIR$/client/main.less" />
         <option value="$PROJECT_DIR$/client/templates.html" />
         <option value="$PROJECT_DIR$/client/html/main.html" />
-        <option value="$PROJECT_DIR$/client/html/templates.html" />
-        <option value="$PROJECT_DIR$/client/main.ts" />
         <option value="$PROJECT_DIR$/client/less/main.less" />
         <option value="$PROJECT_DIR$/client/api/selection-handler.ts" />
+        <option value="$PROJECT_DIR$/public/games/bastogne/game.json" />
+        <option value="$PROJECT_DIR$/client/html/templates.html" />
+        <option value="$PROJECT_DIR$/public/games/bastogne/game.js" />
+        <option value="$PROJECT_DIR$/client/js.js" />
+        <option value="$PROJECT_DIR$/client/main.ts" />
       </list>
     </option>
   </component>
@@ -352,6 +384,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mboards" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mboards" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -493,15 +543,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/packages/typescript-libs/lib.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2542" column="12" selection-start="85234" selection-end="85242" vertical-scroll-proportion="-6.8736978" vertical-offset="43409" max-vertical-offset="137760">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/typescript-libs/jquery.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="6" selection-start="2622" selection-end="2624" vertical-scroll-proportion="0.33333334" vertical-offset="1004" max-vertical-offset="10230">
@@ -547,11 +588,6 @@
         <state line="259" column="77" selection-start="22861" selection-end="22867" vertical-scroll-proportion="0.0" vertical-offset="3465" max-vertical-offset="22710" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/main.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state line="132" column="3" selection-start="4640" selection-end="4640" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="2100" />
@@ -560,27 +596,6 @@
     <entry file="file://$PROJECT_DIR$/common/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/html/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="40" selection-start="243" selection-end="243" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/html/templates.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="17" selection-start="1522" selection-end="1522" vertical-scroll-proportion="-26.833334" vertical-offset="1" max-vertical-offset="855">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/less/main.less">
@@ -593,6 +608,43 @@
     <entry file="file://$PROJECT_DIR$/client/api/selection-handler.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/html/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="40" selection-start="243" selection-end="243" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/html/templates.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="23" selection-end="23" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="855">
+          <folding>
+            <element signature="n#style#0;n#path#0;n#defs#0;n#svg#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/games/bastogne/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="32475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="1" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="35" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.80679154" vertical-offset="811" max-vertical-offset="1665">
           <folding />
         </state>
       </provider>

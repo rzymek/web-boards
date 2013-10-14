@@ -78,6 +78,10 @@ var operations = function () {
        }
     });
 };
+declare var gameInfo;
+window['startGame'] = function startGame() {
+    console.log('start game ',gameInfo);
+}
 declare function jsSetup();
 Meteor.startup(function () {
     var svg = setupGrid();
@@ -88,6 +92,17 @@ Meteor.startup(function () {
         document.getElementById('panel').style.display='none';
     }
     operations();
+
+    var head= document.getElementsByTagName('head')[0];
+    var script= document.createElement('script');
+    script.type= 'text/javascript';
+    script.src= 'games/bastogne/game.js';
+    head.appendChild(script);
+
+    var script= document.createElement('script');
+    script.type= 'text/javascript';
+    script.innerText='startGame();'
+    head.appendChild(script);
 
 });
 setupTemplate();
