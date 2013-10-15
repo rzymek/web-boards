@@ -27,6 +27,8 @@
                   stroke-width="1.54357183" style="opacity:0.5"/>
         </defs>
         <image xlink:href="{{boardImg}}" x="0" y="0" height="{{board.h}}" width="{{board.w}}"/>
+        <g id="hexes"></g>
+        <g id="counters"></g>
     </svg>
     <div id="status">
         Status:{{status.status}}
@@ -64,7 +66,7 @@
 <template name="selectedPieces">
     <div class="panel-body">
         {{#each pieces}}
-        <img src="{{.}}">
+            <img src="{{.}}">
         {{/each}}
     </div>
 </template>

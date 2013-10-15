@@ -2,32 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f24ec9f-0ce6-4b6a-a377-56860aac0d74" name="Default" comment="pieces panel height fix">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/TypedSession.api.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/api/core.api.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/model.api.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/server.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/svg_zoom_and_pan.d.ts" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/client/api/selection-handler.ts" afterPath="$PROJECT_DIR$/client/api/core.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/.gitignore" afterPath="$PROJECT_DIR$/packages/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/TypedSession.d.ts" afterPath="$PROJECT_DIR$/client/TypedSession.d.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/TypedSession.ts" afterPath="$PROJECT_DIR$/client/TypedSession.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js.js" afterPath="$PROJECT_DIR$/client/js.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/api/core.d.ts" afterPath="$PROJECT_DIR$/client/api/core.d.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/api/core.js" afterPath="$PROJECT_DIR$/client/api/core.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/api/core.ts" afterPath="$PROJECT_DIR$/client/api/core.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.d.ts" afterPath="$PROJECT_DIR$/client/main.d.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/main.js" afterPath="$PROJECT_DIR$/server/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.js" afterPath="$PROJECT_DIR$/client/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.ts" afterPath="$PROJECT_DIR$/client/main.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/mboards.iml" afterPath="$PROJECT_DIR$/.idea/mboards.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/model.d.ts" afterPath="$PROJECT_DIR$/common/model.d.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/model.ts" afterPath="$PROJECT_DIR$/common/model.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/session.js" afterPath="$PROJECT_DIR$/packages/session.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart.json" afterPath="$PROJECT_DIR$/smart.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart.lock" afterPath="$PROJECT_DIR$/smart.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/svg_zoom_and_pan.ts" afterPath="$PROJECT_DIR$/client/svg_zoom_and_pan.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/html/templates.html" afterPath="$PROJECT_DIR$/client/html/templates.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/templates.ts" afterPath="$PROJECT_DIR$/client/templates.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mboards.iws" />
@@ -54,7 +35,7 @@
       <file leaf-file-name="main.ts" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="39" selection-start="572" selection-end="572" vertical-scroll-proportion="0.36057693" vertical-offset="0" max-vertical-offset="1230">
+            <state line="25" column="15" selection-start="693" selection-end="693" vertical-scroll-proportion="0.12620193" vertical-offset="270" max-vertical-offset="1395">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -62,10 +43,28 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="core.d.ts" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/api/core.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="296" selection-end="296" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="core.api.d.ts" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/api/core.api.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="templates.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/html/templates.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="10" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-31.875" vertical-offset="255" max-vertical-offset="1125">
+            <state line="24" column="17" selection-start="727" selection-end="727" vertical-scroll-proportion="-3.75" vertical-offset="270" max-vertical-offset="1155">
               <folding />
             </state>
           </provider>
@@ -74,7 +73,7 @@
       <file leaf-file-name="templates.ts" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/templates.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="26" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1515">
+            <state line="64" column="26" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0" vertical-offset="383" max-vertical-offset="1515">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,21 +84,8 @@
       <file leaf-file-name="main.d.ts" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/main.d.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="session.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/session.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="22" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="1" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="240">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,6 +96,7 @@
             <state line="7" column="0" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1381918938029" expanded="true" signature="143:1027" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -121,17 +108,7 @@
             <state line="2" column="0" selection-start="111" selection-end="111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TypedSession.d.ts" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/TypedSession.d.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <marker date="1381918932549" expanded="true" signature="130:609" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -140,19 +117,8 @@
       <file leaf-file-name="core.ts" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/api/core.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+            <state line="4" column="1" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/api/core.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="90" selection-end="90" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="525">
-              <folding>
-                <marker date="1381918603377" expanded="true" signature="380:534" placeholder="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -175,7 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/client/TypedSession.api.d.ts" />
         <option value="$PROJECT_DIR$/client/svg_zoom_and_pan.api.d.ts" />
         <option value="$PROJECT_DIR$/client/svg_zoom_and_pan.ts" />
         <option value="$PROJECT_DIR$/common/model.d.ts" />
@@ -184,12 +149,13 @@
         <option value="$PROJECT_DIR$/common/model.ts" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/api/core.api.d.ts" />
-        <option value="$PROJECT_DIR$/client/api/core.ts" />
         <option value="$PROJECT_DIR$/client/TypedSession.ts" />
         <option value="$PROJECT_DIR$/packages/session.js" />
         <option value="$PROJECT_DIR$/client/TypedSession.js" />
-        <option value="$PROJECT_DIR$/client/html/templates.html" />
         <option value="$PROJECT_DIR$/client/templates.ts" />
+        <option value="$PROJECT_DIR$/client/api/core.ts" />
+        <option value="$PROJECT_DIR$/client/api/core.d.ts" />
+        <option value="$PROJECT_DIR$/client/html/templates.html" />
         <option value="$PROJECT_DIR$/client/main.ts" />
       </list>
     </option>
@@ -688,26 +654,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/api/core.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/games/bastogne/game.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="32475">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -716,31 +666,17 @@
         <state line="21" column="0" selection-start="722" selection-end="722" vertical-scroll-proportion="0.0" vertical-offset="976" max-vertical-offset="1725">
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1381922256785" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1381923578777" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/api/core.api.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/api/core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="90" selection-end="90" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="525">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
           <folding>
-            <marker date="1381918603377" expanded="true" signature="380:534" placeholder="{...}" />
+            <marker date="1381922919913" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/api/core.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -767,6 +703,7 @@
         <state line="7" column="0" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1381918938029" expanded="true" signature="143:1027" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -776,14 +713,45 @@
         <state line="2" column="0" selection-start="111" selection-end="111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1381918932549" expanded="true" signature="130:609" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/html/templates.html">
+    <entry file="file://$PROJECT_DIR$/client/main.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="10" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-31.875" vertical-offset="255" max-vertical-offset="1125">
+        <state line="1" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="240">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/api/core.api.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/api/core.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="1" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/api/core.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="296" selection-end="296" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -796,18 +764,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.d.ts">
+    <entry file="file://$PROJECT_DIR$/client/html/templates.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state line="24" column="17" selection-start="727" selection-end="727" vertical-scroll-proportion="-3.75" vertical-offset="270" max-vertical-offset="1155">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/main.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="39" selection-start="572" selection-end="572" vertical-scroll-proportion="0.36057693" vertical-offset="0" max-vertical-offset="1230">
+        <state line="25" column="15" selection-start="693" selection-end="693" vertical-scroll-proportion="0.12620193" vertical-offset="270" max-vertical-offset="1395">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

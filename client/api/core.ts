@@ -1,17 +1,20 @@
 /// <reference path="core.api.d.ts"/>
 
-class Counter {
+interface Counter {
+    getImage():string;
 }
 
-class HTMLCounter extends Counter {
+class HTMLCounter implements Counter {
     img:HTMLImageElement;
 
     constructor(node:HTMLImageElement) {
-        super();
         this.img = node;
     }
+    getImage():string {
+        return this.img.src;
+    }
 }
-window['HTMLCounter']=HTMLCounter;
+window['HTMLCounter'] = HTMLCounter;
 
 class GameCtx {
     public selected:Counter;

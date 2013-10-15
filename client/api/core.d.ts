@@ -1,9 +1,11 @@
 /// <reference path="core.api.d.ts" />
-declare class Counter {
+interface Counter {
+    getImage(): string;
 }
-declare class HTMLCounter extends Counter {
+declare class HTMLCounter implements Counter {
     public img: HTMLImageElement;
     constructor(node: HTMLImageElement);
+    public getImage(): string;
 }
 declare class GameCtx {
     public selected: Counter;
