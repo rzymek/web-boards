@@ -1,28 +1,50 @@
-var Session = {
-    selectedGame: 'string',
-    gameInfo: 'Module',
-    games: 'string[]'
-}
+var fs = require('fs');
 
 function capitalise(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-var ts = 'class TypedSession {\n'
-for (var p in Session) {
-    ts += '   ' + p + "():" + Session[p] + " { return Session.get('" + p + "');}\n";
-    ts += '   set' + capitalise(p) + "(v:" + Session[p] + ") { Session.set('" + p + "',v);}\n";
-}
-ts += '}'
+fs.readFile('packages/session.js', 'utf8', function (err, data) {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
 
-var v = 'window["S"] = new TypedSession();';
+    process(data);
+});
 
-var tsd = 'declare class TypedSession {\n';
-for (var p in Session) {
-    tsd += '   public ' + p + '():' + Session[p]+';\n';
-    tsd += '   public set' + capitalise(p) + '(v:'+Session[p]+'):void;\n';
+function getReferences(data) {
+    return data.split('\n').filter(function(line){
+        return line.match('^[/][/][/]')
+    }).join('\n');
 }
-tsd += '}';
-console.log(ts);
-console.log(tsd);
-console.log(v);
+
+function process(data) {
+    eval(data);
+    var references = getReferences(data);
+    var ts = references+'\n' +
+        'class TypedSession {\n'
+    for (var p in Session) {
+        ts += '   ' + p + "():" + Session[p] + " { return Session.get('" + p + "');}\n";
+        ts += '   set' + capitalise(p) + "(v:" + Session[p] + ") { Session.set('" + p + "',v);}\n";
+    }
+    ts += '}'
+
+    var v = 'window["S"] = new TypedSession();';
+
+    var tsd = references+'\n' +
+        'declare class TypedSession {\n';
+    for (var p in Session) {
+        tsd += '   public ' + p + '():' + Session[p] + ';\n';
+        tsd += '   public set' + capitalise(p) + '(v:' + Session[p] + '):void;\n';
+    }
+    tsd += '}\n' +
+        'declare var S:TypedSession;';
+    fs.writeFile("client/TypedSession.ts", ts + '\n' + v, function (err) {
+        if (err) console.log(err);
+    });
+    fs.writeFile("client/TypedSession.d.ts", tsd, function (err) {
+        if (err) console.log(err);
+    });
+//    console.log(tsd);
+}

@@ -3,11 +3,11 @@
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
 /// <reference path="../common/vassal.d.ts"/>
+/// <reference path="TypedSession.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
 
 var boardScale = 1;
-
 
 Session.setDefault('gameInfo', <Module>{
     pieces: [],
@@ -18,33 +18,6 @@ Session.setDefault('gameInfo', <Module>{
         grid: null
     }
 });
-
-class TypedSession {
-    selectedGame():string {
-        return Session.get('selectedGame');
-    }
-
-    gameInfo():Module {
-        return Session.get('gameInfo');
-    }
-
-    games():string[] {
-        return Session.get('games');
-    }
-
-    setSelectedGame(v:string) {
-        Session.set('selectedGame', v);
-    }
-
-    setGameInfo(v:Module) {
-        Session.set('gameInfo', v);
-    }
-
-    setGames(v:string[]) {
-        Session.set('games', v);
-    }
-}
-var S = new TypedSession();
 
 function setupTemplate() {
     Template['main']['gameSelected'] = () => S.selectedGame() != null;
