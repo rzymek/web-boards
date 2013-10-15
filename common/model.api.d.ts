@@ -1,1 +1,1 @@
-declare var Operations:Meteor.Collection<Operation>;
+declare var Operations:Meteor.Collection<any>;

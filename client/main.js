@@ -5,6 +5,7 @@
 /// <reference path="../common/vassal.d.ts"/>
 /// <reference path="TypedSession.api.d.ts"/>
 /// <reference path="api/core.d.ts"/>
+/// <reference path="api/ops.d.ts"/>
 var svgns = "http://www.w3.org/2000/svg";
 
 var boardScale = 1;
@@ -23,15 +24,18 @@ Session.setDefault('selectedPieces', '');
 function hexClicked(e) {
     if (ctx.selected === null)
         return;
-    var img = document.createElementNS(svgns, 'image');
-    img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", ctx.selected.getImage());
     var use = e.currentTarget;
-    img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
-    img.width.baseVal.value = 75;
-    img.height.baseVal.value = 75;
-    var svg = document.getElementById('svg');
-    svg.getElementById('counters').appendChild(img);
-    console.log(img);
+    var op = new PlaceOperation({ image: ctx.selected.getImage(), hexid: use.id });
+    Operations.insert(op.data);
+    //    //TODO: create MoveOperation (or PlaceOperation)
+    //    var img = <SVGImageElement>document.createElementNS(svgns, 'image');
+    //    img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", );
+    //    img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'),''));
+    //    img.width.baseVal.value = 75;
+    //    img.height.baseVal.value = 75;
+    //    var svg = <SVGSVGElement><any>document.getElementById('svg');
+    //    svg.getElementById('counters').appendChild(img);
+    //    console.log(img);
 }
 
 setupGrid = function () {
@@ -59,6 +63,7 @@ setupGrid = function () {
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
+            use.id = 'h' + x + '_' + y;
             use.onclick = hexClicked;
             layer.appendChild(use);
         }

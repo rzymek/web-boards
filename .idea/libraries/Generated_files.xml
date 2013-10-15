@@ -5,9 +5,10 @@
         <item url="file://$PROJECT_DIR$/common/model.js" />
         <item url="file://$PROJECT_DIR$/client/TypedSession.js" />
         <item url="file://$PROJECT_DIR$/client/svg_zoom_and_pan.js" />
+        <item url="file://$PROJECT_DIR$/client/api/ops.js" />
         <item url="file://$PROJECT_DIR$/client/api/core.js" />
-        <item url="file://$PROJECT_DIR$/server/main.js" />
         <item url="file://$PROJECT_DIR$/client/templates.js" />
+        <item url="file://$PROJECT_DIR$/server/main.js" />
         <item url="file://$PROJECT_DIR$/client/main.js" />
       </sourceFilesUrls>
     </properties>
@@ -16,8 +17,9 @@
       <root url="file://$PROJECT_DIR$/client/TypedSession.js" />
       <root url="file://$PROJECT_DIR$/client/svg_zoom_and_pan.js" />
       <root url="file://$PROJECT_DIR$/client/api/core.js" />
-      <root url="file://$PROJECT_DIR$/client/templates.js" />
+      <root url="file://$PROJECT_DIR$/client/api/ops.js" />
       <root url="file://$PROJECT_DIR$/server/main.js" />
+      <root url="file://$PROJECT_DIR$/client/templates.js" />
       <root url="file://$PROJECT_DIR$/client/main.js" />
     </CLASSES>
     <SOURCES />

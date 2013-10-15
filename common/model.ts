@@ -2,6 +2,7 @@
 /// <reference path="model.api.d.ts"/>
 
 interface Operation{
-
+    run():void;
+    undo():void;
 }
-Operations = new Meteor.Collection<Operation>('operations');
+Operations = new Meteor.Collection<any>('operations');

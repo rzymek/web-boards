@@ -43,13 +43,19 @@ play['status'] = function () {
 };
 
 play.rendered = function () {
+    if (S.gameInfo().board.grid === null) {
+        return;
+    }
+    console.log('rendered', S.gameInfo());
     var svg = setupGrid();
+    console.log('grid setup');
     if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
         jsSetup();
     } else {
         document.getElementById('panel').style.display = 'none';
     }
+    Meteor.subscribe('operations');
 };
 controls.events({
     'click button': function (event) {
@@ -72,13 +78,17 @@ pieces['categories'] = function () {
 Template['selectedPieces']['pieces'] = function () {
     var g = S.selectedGame();
     var cat = S.piecesCategory();
-    return S.gameInfo().pieces.filter(function (p) {
+    var inCat = S.gameInfo().pieces.filter(function (p) {
         return p.category === cat;
-    })[0].list.map(function (p) {
-        return p.images[0];
-    }).map(function (name) {
-        return '/games/' + g + '/images/' + name;
     });
+    if (inCat.length > 0)
+        return inCat[0].list.map(function (p) {
+            return p.images[0];
+        }).map(function (name) {
+            return '/games/' + g + '/images/' + name;
+        });
+else
+        return [];
 };
 pieces.events({
     'change select': function (e) {

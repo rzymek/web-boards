@@ -5,6 +5,7 @@
 /// <reference path="../common/vassal.d.ts" />
 /// <reference path="TypedSession.api.d.ts" />
 /// <reference path="api/core.d.ts" />
+/// <reference path="api/ops.d.ts" />
 declare var svgns: string;
 declare var boardScale: number;
 declare function hexClicked(e: MouseEvent): void;

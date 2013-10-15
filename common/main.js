@@ -1,18 +1,12 @@
 if (Meteor.isClient) {
-    Ops = {ops: []};
-    Ops.register = function (name, func) {
-        this.ops[name] = func;
-    }
-
-    Ops.register('move', function (args) {
-        console.log("run: move: ", args);
-    });
-
     Operations.find().observeChanges({
         added: function (id, fields) {
-            var op = Ops.ops[fields.name];
-            op(fields.args);
+            console.log("operations added: ",id);
+            var op = new PlaceOperation(fields);
+            op.run();
         }
     });
+}else{
+//    Operations.remove({});
 }
 

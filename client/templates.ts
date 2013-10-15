@@ -40,13 +40,19 @@ declare function jsSetup();
 declare function setupGrid():SVGSVGElement;
 
 play.rendered = () => {
+    if(S.gameInfo().board.grid === null){
+        return;
+    }
+    console.log('rendered', S.gameInfo());
     var svg = setupGrid();
+    console.log('grid setup');
     if (!isTouchDevice()) {
         svgZoomAndPan.setup(svg);
         jsSetup();
     } else {
         document.getElementById('panel').style.display = 'none';
     }
+    Meteor.subscribe('operations');
 }
 controls.events({
     'click button': (event:MouseEvent) => {
@@ -65,9 +71,13 @@ pieces['categories'] = ()=> S.gameInfo().pieces.map((pieces:Pieces) => pieces.ca
 Template['selectedPieces']['pieces'] = () => {
     var g = S.selectedGame();
     var cat = S.piecesCategory();
-    return S.gameInfo().pieces.filter((p:Pieces)=>
-        p.category === cat
-    )[0].list.map((p:Piece)=>p.images[0]).map((name:string)=>'/games/'+g+'/images/'+name);
+    var inCat = S.gameInfo().pieces.filter((p:Pieces)=>
+            p.category === cat
+    );
+    if(inCat.length > 0)
+        return inCat[0].list.map((p:Piece)=>p.images[0]).map((name:string)=>'/games/'+g+'/images/'+name);
+    else
+        return [];
 }
 pieces.events({
     'change select': (e:Event) => {
