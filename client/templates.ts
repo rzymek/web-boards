@@ -42,6 +42,11 @@ play.rendered = () => {
         document.getElementById('panel').style.display = 'none';
     }
 }
+play.events({
+    'click': (e:MouseEvent) => {
+        console.log(e.currentTarget);
+    }
+});
 
 
 controls.events({

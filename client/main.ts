@@ -20,6 +20,11 @@ Session.setDefault('gameInfo', <Module>{
     }
 });
 
+function hexClicked(e:MouseEvent){
+    console.log(e.currentTarget);
+    window['hex'] = e.currentTarget;
+}
+
 setupGrid = function() {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
@@ -44,6 +49,7 @@ setupGrid = function() {
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
+            use.onclick = hexClicked;
             svg.appendChild(use);
         }
     }
@@ -51,11 +57,11 @@ setupGrid = function() {
 }
 
 Deps.autorun(()=> {
-    var game = Session.get('selectedGame');
+    var game = S.selectedGame();
     if (game !== undefined) {
         $.get('/games/' + game + '/game.json', (data:Module) => {
             data.board.image = 'board-low.jpg'; //TODO: remove
-            Session.set('gameInfo', data);
+            S.setGameInfo(data);
         });
     }
 });
@@ -65,4 +71,4 @@ Meteor.call('games', (err, games:string[]) => {
         S.setSelectedGame(games[0]);
     else
         S.setGames(games);
-})
+});
