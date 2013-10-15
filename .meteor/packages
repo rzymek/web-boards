@@ -6,7 +6,6 @@
 standard-app-packages
 insecure
 preserve-inputs
-typescript-compiler
 typescript-libs
 xml2js
 jquery-ui

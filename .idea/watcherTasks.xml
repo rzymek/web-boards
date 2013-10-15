@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="--sourcemap $FileName$ --out /tmp/tsc" />
-      <option name="checkSyntaxErrors" value="true" />
+      <option name="arguments" value="-d $FileName$" />
+      <option name="checkSyntaxErrors" value="false" />
       <option name="description" value="Compiles .ts files into .js files" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="ts" />
       <option name="immediateSync" value="true" />
       <option name="name" value="TypeScript" />
-      <option name="output" value="$FileNameWithoutExtension$.js:$FileNameWithoutExtension$.js.map" />
+      <option name="output" value="$FileNameWithoutExtension$.js:$FileNameWithoutExtension$.js.map:$FileNameWithoutExtension$.d.ts" />
       <option name="outputFilters">
         <array>
           <FilterInfo>

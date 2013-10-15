@@ -53,17 +53,18 @@
     <div id="panel" class="panel panel-primary">
         <div class="panel-heading">
             <select>
-                <option>101 AB</option>
-                <option>Others</option>
+                {{#each categories}}
+                    <option>{{.}}</option>
+                {{/each}}
             </select>
         </div>
-        <div class="panel-body">
-            <img src="games/bastogne/units/1.png">
-            <img src="games/bastogne/units/2.png">
-            <img src="games/bastogne/units/3.png">
-            <img src="games/bastogne/units/4.png">
-            <img src="games/bastogne/units/1.png">
-            <img src="games/bastogne/units/2.png">
-        </div>
+        {{> selectedPieces}}
+    </div>
+</template>
+<template name="selectedPieces">
+    <div class="panel-body">
+        {{#each pieces}}
+        <img src="{{.}}">
+        {{/each}}
     </div>
 </template>

@@ -3,6 +3,7 @@
 var Session = {
     selectedGame: 'string',
     gameInfo: 'Module',
-    games: 'string[]'
+    games: 'string[]',
+    piecesCategory: 'string'
 }
 

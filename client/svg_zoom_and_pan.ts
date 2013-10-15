@@ -1,5 +1,3 @@
-/// <reference path="../packages/typescript-libs/lib.d.ts" />
-
 module svgZoomAndPan{
     class Point{
         x:number;

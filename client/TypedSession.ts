@@ -7,6 +7,8 @@ class TypedSession {
    setGameInfo(v:Module) { Session.set('gameInfo',v);}
    games():string[] { return Session.get('games');}
    setGames(v:string[]) { Session.set('games',v);}
+   piecesCategory():string { return Session.get('piecesCategory');}
+   setPiecesCategory(v:string) { Session.set('piecesCategory',v);}
 }
 declare var S:TypedSession;
 S = new TypedSession();

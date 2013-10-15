@@ -1,6 +1,5 @@
 {
   "packages": {
-    "typescript-compiler": {},
     "typescript-libs": {},
     "xml2js": {},
     "jquery-ui": {},

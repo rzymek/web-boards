@@ -3,8 +3,7 @@
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
 /// <reference path="../common/vassal.d.ts"/>
-/// <reference path="TypedSession.d.ts"/>
-/// <reference path="main.d.ts"/>
+/// <reference path="TypedSession.api.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
 
@@ -19,13 +18,16 @@ Session.setDefault('gameInfo', <Module>{
         grid: null
     }
 });
+Session.setDefault('selectedPieces','');
 
 function hexClicked(e:MouseEvent){
     console.log(e.currentTarget);
     window['hex'] = e.currentTarget;
 }
 
-setupGrid = function() {
+declare var setupGrid:()=>SVGSVGElement;
+
+setupGrid = function () {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};

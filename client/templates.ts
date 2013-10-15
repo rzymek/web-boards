@@ -5,6 +5,8 @@
 /// <reference path="TypedSession.d.ts"/>
 /// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="main.d.ts"/>
+/// <reference path="api/core.d.ts"/>
+
 
 function isTouchDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
@@ -33,6 +35,10 @@ if (!isTouchDevice()) {
     play['svgHeight'] = () => S.gameInfo().board.height;
 }
 play['status'] = () => Meteor.status();
+
+declare function jsSetup();
+declare function setupGrid():SVGSVGElement;
+
 play.rendered = () => {
     var svg = setupGrid();
     if (!isTouchDevice()) {
@@ -42,13 +48,6 @@ play.rendered = () => {
         document.getElementById('panel').style.display = 'none';
     }
 }
-play.events({
-    'click': (e:MouseEvent) => {
-        console.log(e.currentTarget);
-    }
-});
-
-
 controls.events({
     'click button': (event:MouseEvent) => {
         var button = <HTMLButtonElement>event.currentTarget;
@@ -62,10 +61,29 @@ controls.events({
         }
     }
 })
+pieces['categories'] = ()=> S.gameInfo().pieces.map((pieces:Pieces) => pieces.category);
+Template['selectedPieces']['pieces'] = () => {
+    var g = S.selectedGame();
+    var cat = S.piecesCategory();
+    return S.gameInfo().pieces.filter((p:Pieces)=>
+        p.category === cat
+    )[0].list.map((p:Piece)=>p.images[0]).map((name:string)=>'/games/'+g+'/images/'+name);
+}
+pieces.events({
+    'change select': (e:Event) => {
+        var combo = <HTMLSelectElement>e.target;
+        var category = combo.options[combo.selectedIndex].value;
+        S.setPiecesCategory(category);
+        return true;
+    }
+});
+
 pieces.events({
     'click img': (e:MouseEvent) => {
+        var img = <HTMLImageElement>e.currentTarget;
         $('#panel .panel-body img').removeClass('pieceSelected');
-        $(e.currentTarget).addClass('pieceSelected')
+        $(img).addClass('pieceSelected');
+        ctx.selected = <Counter>new HTMLCounter(img);
     }
 });
 
