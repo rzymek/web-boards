@@ -8,4 +8,5 @@ class TypedSession {
    games():string[] { return Session.get('games');}
    setGames(v:string[]) { Session.set('games',v);}
 }
-window["S"] = new TypedSession();
+declare var S:TypedSession;
+S = new TypedSession();

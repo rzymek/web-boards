@@ -99,4 +99,4 @@ module svgZoomAndPan{
 }
 
 //meteor export:
-window['svgZoomAndPan']= svgZoomAndPan
+window['svgZoomAndPan']= svgZoomAndPan;

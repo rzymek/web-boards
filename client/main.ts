@@ -4,6 +4,7 @@
 /// <reference path="../common/model.d.ts"/>
 /// <reference path="../common/vassal.d.ts"/>
 /// <reference path="TypedSession.d.ts"/>
+/// <reference path="main.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
 
@@ -19,56 +20,7 @@ Session.setDefault('gameInfo', <Module>{
     }
 });
 
-function setupTemplate() {
-    Template['main']['gameSelected'] = () => S.selectedGame() != null;
-    Template['welcome']['games'] = () => S.games();
-
-    var play = Template['play'];
-    play['board'] = () => {
-        var gameInfo = S.gameInfo();
-        return {w: gameInfo.board.width, h: gameInfo.board.height};
-    };
-    play['boardImg'] = () => {
-        return '/games/' + S.selectedGame() + '/' + S.gameInfo().board.image;
-    }
-    if (!isTouchDevice()) {
-        play['svgWidth'] = '100%';
-        play['svgHeight'] = '100%';
-    } else {
-        play['svgWidth'] = () => S.gameInfo().board.width;
-        play['svgHeight'] = () => S.gameInfo().board.height;
-    }
-    play['status'] = () => Meteor.status();
-
-    Template['controls'].events({
-        'click button': (event:MouseEvent) => {
-            var button = <HTMLButtonElement>event.currentTarget;
-            var txt = button.textContent;
-            if (txt === 'Menu') {
-                $('div.menu-folded').hide();
-                $('div.menu-unfolded').show();
-            } else if (txt === 'Hide') {
-                $('div.menu-folded').show();
-                $('div.menu-unfolded').hide();
-            }
-        }
-    })
-    Template['pieces'].events({
-        'click img': (e:MouseEvent) => {
-            $('#panel .panel-body img').removeClass('pieceSelected');
-            $(e.currentTarget).addClass('pieceSelected')
-        }
-    });
-
-    Template['welcome'].events({
-        'click button': (e:MouseEvent) => {
-            var t = <HTMLButtonElement>e.currentTarget;
-            S.setSelectedGame(t.value);
-        }
-    })
-}
-
-function setupGrid() {
+setupGrid = function() {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
@@ -98,10 +50,6 @@ function setupGrid() {
     return svg;
 }
 
-function isTouchDevice() {
-    return 'ontouchstart' in window || 'onmsgesturechange' in window;
-}
-
 Deps.autorun(()=> {
     var game = Session.get('selectedGame');
     if (game !== undefined) {
@@ -118,16 +66,3 @@ Meteor.call('games', (err, games:string[]) => {
     else
         S.setGames(games);
 })
-
-declare function jsSetup();
-Template['play'].rendered = () => {
-    var svg = setupGrid();
-    if (!isTouchDevice()) {
-        svgZoomAndPan.setup(svg);
-        jsSetup();
-    } else {
-        document.getElementById('panel').style.display = 'none';
-    }
-}
-
-setupTemplate();
