@@ -68,6 +68,7 @@ class SvgZoomAndPan {
             this.panning = false
         };
         var zoomAndPan = this;
+
         function onMouseWheel(e:MouseWheelEvent):void {
             var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
             if (delta < 0) {
@@ -78,7 +79,6 @@ class SvgZoomAndPan {
             zoomAndPan.updateZoom();
             e.preventDefault();
         }
-        this.root.removeEventListener("mousewheel", onMouseWheel);
         this.root.addEventListener("mousewheel", onMouseWheel, false);
     }
 
@@ -99,6 +99,7 @@ class SvgZoomAndPan {
         viewbox.y = viewbox.y + dy;
     }
 }
+
 this.svgZoomAndPan = function (root) {
     var zoomAndPan = new SvgZoomAndPan(root);
     zoomAndPan.attach();
