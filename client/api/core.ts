@@ -11,13 +11,14 @@ class HTMLCounter implements Counter {
     constructor(node:HTMLImageElement) {
         this.img = node;
     }
+
     getImage():string {
         return this.img.src;
     }
 }
-window['HTMLCounter'] = HTMLCounter;
+this.HTMLCounter = HTMLCounter;
 
 class GameCtx {
-    public selected:Counter;
+    public selected:Counter = null;
 }
 ctx = new GameCtx();

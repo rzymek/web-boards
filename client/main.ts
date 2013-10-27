@@ -7,7 +7,6 @@
 /// <reference path="api/ops.d.ts"/>
 
 var svgns = "http://www.w3.org/2000/svg";
-
 var boardScale = 1;
 
 Session.setDefault('gameInfo', <Module>{
@@ -25,17 +24,10 @@ function hexClicked(e:MouseEvent){
     if(ctx.selected === null)
         return;
     var use = <SVGUseElement>e.currentTarget;
-    var op = new PlaceOperation({image:ctx.selected.getImage(), hexid:use.id});
-    Operations.insert(op.data);
-//    //TODO: create MoveOperation (or PlaceOperation)
-//    var img = <SVGImageElement>document.createElementNS(svgns, 'image');
-//    img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", );
-//    img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'),''));
-//    img.width.baseVal.value = 75;
-//    img.height.baseVal.value = 75;
-//    var svg = <SVGSVGElement><any>document.getElementById('svg');
-//    svg.getElementById('counters').appendChild(img);
-//    console.log(img);
+    if(ctx.selected) {
+        var op = new PlaceOperation({image:ctx.selected.getImage(), hexid:use.id});
+        Operations.insert(op.data);
+    }
 }
 
 declare var setupGrid;
@@ -43,6 +35,7 @@ setupGrid = function () {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var layer = svg.getElementById('hexes');
+    console.log('number of hexes ',layer.childNodes.length);
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
     var board = S.gameInfo().board;
 

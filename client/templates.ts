@@ -41,9 +41,9 @@ play.rendered = () => {
     if(S.gameInfo().board.grid === null){
         return;
     }
-    console.log('rendered', S.gameInfo());
+//    console.log('rendered', S.gameInfo());
     var svg = setupGrid();
-    console.log('grid setup');
+//    console.log('grid setup');
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
         jsSetup();
@@ -65,7 +65,8 @@ controls.events({
         }
     }
 })
-pieces['categories'] = ()=> S.gameInfo().pieces.map((pieces:Pieces) => pieces.category);
+pieces['categories'] = () => [''].concat(S.gameInfo().pieces.map((pieces:Pieces) => pieces.category));
+
 Template['selectedPieces']['pieces'] = () => {
     var g = S.selectedGame();
     var cat = S.piecesCategory();
@@ -73,7 +74,9 @@ Template['selectedPieces']['pieces'] = () => {
             p.category === cat
     );
     if(inCat.length > 0)
-        return inCat[0].list.map((p:Piece)=>p.images[0]).map((name:string)=>'/games/'+g+'/images/'+name);
+        return inCat[0].list
+            .map((p:Piece) => p.images[0])
+            .map((name:string) => '/games/' + g + '/images/' + name);
     else
         return [];
 }

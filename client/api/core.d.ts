@@ -1,4 +1,5 @@
 /// <reference path="core.api.d.ts" />
+
 interface Counter {
     getImage(): string;
 }

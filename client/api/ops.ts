@@ -15,12 +15,12 @@ class PlaceOperation implements Operation {
 
     run():void {
         var svg = <SVGSVGElement><any>document.getElementById('svg');
-        var img = <SVGImageElement>document.createElementNS(svgns, 'image');
-        img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
         var use = svg.getElementById(this.data.hexid);
         if (use === null) {
             console.warn('Hex not found:', this.data.hexid);
         } else {
+            var img = <SVGImageElement>document.createElementNS(svgns, 'image');
+            img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
             img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;

@@ -1,26 +1,27 @@
 /// <reference path="../packages/typescript-libs/lib.d.ts" />
 
-class Point{
+class Point {
     x:number;
     y:number;
-    constructor(x:number=0, y:number=0){
-        this.x=x;
-        this.y=y;
+
+    constructor(x:number = 0, y:number = 0) {
+        this.x = x;
+        this.y = y;
     }
 }
 
 class SvgZoomAndPan {
     KEY_ZOOM_STEP = 1.3;
-    size: Point;
+    size:Point;
     minScale = 0.1;
     scale = 1.0;
-    root: SVGSVGElement;
+    root:SVGSVGElement;
     mouse = new Point();
     offset = new Point();
     mouseDown = false;
     panning = false;
 
-    constructor(root: SVGSVGElement) {
+    constructor(root:SVGSVGElement) {
         this.root = root;
         var viewbox = root.viewBox.baseVal;
         this.size = new Point(viewbox.width, viewbox.height);
@@ -33,6 +34,7 @@ class SvgZoomAndPan {
         this.offset.x = viewbox.x;
         this.offset.y = viewbox.y;
     }
+
     toUsertSpace(x:number, y:number):SVGPoint {
         var ctm = this.root.getScreenCTM();
         var p = this.root.createSVGPoint();
@@ -40,6 +42,7 @@ class SvgZoomAndPan {
         p.y = y;
         return p.matrixTransform(ctm.inverse());
     }
+
     attach():void {
         this.root.onmousedown = (e:MouseEvent) => {
             this.updateMousePosition(e);
@@ -61,26 +64,31 @@ class SvgZoomAndPan {
                 this.updateMousePosition(e);
             }
         }
-        this.root.onclick = (e) => { this.panning = false };
-        this.root.addEventListener("mousewheel", (e:MouseWheelEvent) => {
+        this.root.onclick = (e) => {
+            this.panning = false
+        };
+        var zoomAndPan = this;
+        function onMouseWheel(e:MouseWheelEvent):void {
             var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-            if(delta < 0) {
-                this.scale /= this.KEY_ZOOM_STEP;
-            }else{
-                this.scale *= this.KEY_ZOOM_STEP;
+            if (delta < 0) {
+                zoomAndPan.scale /= zoomAndPan.KEY_ZOOM_STEP;
+            } else {
+                zoomAndPan.scale *= zoomAndPan.KEY_ZOOM_STEP;
             }
-            this.updateZoom();
+            zoomAndPan.updateZoom();
             e.preventDefault();
-        }, false);
+        }
+        this.root.removeEventListener("mousewheel", onMouseWheel);
+        this.root.addEventListener("mousewheel", onMouseWheel, false);
     }
 
-    updateZoom(): void {
-        if(this.scale < this.minScale) {
+    updateZoom():void {
+        if (this.scale < this.minScale) {
             this.scale = this.minScale;
         }
         var x = this.mouse.x;
         var y = this.mouse.y;
-        var before = this.toUsertSpace(x,y);
+        var before = this.toUsertSpace(x, y);
         var viewbox = this.root.viewBox.baseVal;
         viewbox.width = this.size.x / this.scale;
         viewbox.height = this.size.y / this.scale;
@@ -91,7 +99,6 @@ class SvgZoomAndPan {
         viewbox.y = viewbox.y + dy;
     }
 }
-
 this.svgZoomAndPan = function (root) {
     var zoomAndPan = new SvgZoomAndPan(root);
     zoomAndPan.attach();
