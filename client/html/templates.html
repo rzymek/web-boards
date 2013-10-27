@@ -43,10 +43,9 @@
         </div>
         <div class="menu-unfolded">
             <button>Hide</button>
-            <button>Undo</button>
-            <button>Flip</button>
-            <button>Toggle units</button>
-            <button>Mark</button>
+            {{#each menu}}
+                <button>{{.}}</button>
+            {{/each}}
         </div>
     </div>
 </template>

@@ -20,5 +20,6 @@ this.HTMLCounter = HTMLCounter;
 
 class GameCtx {
     public selected:Counter = null;
+    public menu:Object={};
 }
 ctx = new GameCtx();

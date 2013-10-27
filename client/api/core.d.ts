@@ -10,4 +10,5 @@ declare class HTMLCounter implements Counter {
 }
 declare class GameCtx {
     public selected: Counter;
+    public menu:Object;
 }

@@ -9,6 +9,8 @@ class TypedSession {
    setGames(v:string[]) { Session.set('games',v);}
    piecesCategory():string { return Session.get('piecesCategory');}
    setPiecesCategory(v:string) { Session.set('piecesCategory',v);}
+   menuItems():string[] { return Session.get('menuItems');}
+   setMenuItems(v:string[]) { Session.set('menuItems',v);}
 }
 declare var S:TypedSession;
 S = new TypedSession();

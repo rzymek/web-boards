@@ -35,7 +35,9 @@ setupGrid = function () {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');
     var layer = svg.getElementById('hexes');
-    console.log('number of hexes ',layer.childNodes.length);
+    if(layer.childNodes.length > 0) {
+        return svg;
+    }
     var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
     var board = S.gameInfo().board;
 

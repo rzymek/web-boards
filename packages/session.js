@@ -4,6 +4,7 @@ var Session = {
     selectedGame: 'string',
     gameInfo: 'Module',
     games: 'string[]',
-    piecesCategory: 'string'
+    piecesCategory: 'string',
+    menuItems: 'string[]'
 }
 
