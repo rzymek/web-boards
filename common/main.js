@@ -7,6 +7,6 @@ if (Meteor.isClient) {
         }
     });
 }else{
-    Operations.remove({});
+//    Operations.remove({});
 }
 
