@@ -1,12 +1,12 @@
 if (Meteor.isClient) {
     Operations.find().observeChanges({
-        added: function (id, fields) {
-//            console.log("operations added: ",id);
-            var op = new PlaceOperation(fields);
-            op.run();
+            added: function (id, fields) {
+                var op = new PlaceOperation(fields);
+                op.run();
+            }
         }
-    });
-}else{
-//    Operations.remove({});
+    );
+} else {
+    Operations.remove({});
 }
 

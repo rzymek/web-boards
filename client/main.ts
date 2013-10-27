@@ -83,3 +83,18 @@ Meteor.call('games', (err, games:string[]) => {
     else
         S.setGames(games);
 });
+
+Operations.find().observe({
+    'removed': (doc) => {
+        var op = new PlaceOperation(doc);
+        op.undo();
+    }
+});
+
+Deps.autorun(()=>{
+    var status = Meteor.status();
+    console.log(status);
+    if(status.connected) {
+        alert('reconnected');
+    }
+});

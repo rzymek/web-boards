@@ -54,8 +54,7 @@ play.rendered = () => {
     Meteor.subscribe('operations');
     ctx.menu = {
         'Undo': () => {
-
-            console.log('undo');
+            Meteor.call('undo');
         },
         'Toggle units': () => {
             console.log('toggle');
