@@ -1,4 +1,5 @@
 /// <reference path="core.api.d.ts"/>
+/// <reference path="../../packages/typescript-libs/lib.d.ts"/>
 
 interface Counter {
     getImage():string;

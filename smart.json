@@ -4,6 +4,7 @@
     "xml2js": {},
     "jquery-ui": {},
     "bootstrap3-less": {},
-    "fs": {}
+    "fs": {},
+    "typescript-compiler": {}
   }
 }

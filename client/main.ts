@@ -1,6 +1,5 @@
 /// <reference path="../packages/typescript-libs/meteor.d.ts" />
 /// <reference path="../packages/typescript-libs/jquery.d.ts" />
-/// <reference path="svg_zoom_and_pan.d.ts"/>
 /// <reference path="../common/model.d.ts"/>
 /// <reference path="../common/vassal.d.ts"/>
 /// <reference path="TypedSession.api.d.ts"/>
@@ -39,8 +38,7 @@ function hexClicked(e:MouseEvent){
 //    console.log(img);
 }
 
-declare var setupGrid:()=>SVGSVGElement;
-
+declare var setupGrid;
 setupGrid = function () {
     var path = <SVGPathElement><any>document.getElementById('hex');
     var svg = <SVGSVGElement><any>document.getElementById('svg');

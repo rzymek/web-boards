@@ -46,5 +46,4 @@ function process(data) {
     fs.writeFile("client/TypedSession.d.ts", tsd, function (err) {
         if (err) console.log(err);
     });
-//    console.log(tsd);
 }

@@ -2,11 +2,8 @@
 /// <reference path="../packages/typescript-libs/jquery.d.ts" />
 /// <reference path="../common/model.d.ts"/>
 /// <reference path="../common/vassal.d.ts"/>
-/// <reference path="TypedSession.d.ts"/>
-/// <reference path="svg_zoom_and_pan.d.ts"/>
-/// <reference path="main.d.ts"/>
+/// <reference path="TypedSession.api.d.ts"/>
 /// <reference path="api/core.d.ts"/>
-
 
 function isTouchDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
@@ -38,6 +35,7 @@ play['status'] = () => Meteor.status();
 
 declare function jsSetup();
 declare function setupGrid():SVGSVGElement;
+declare var svgZoomAndPan:(e:SVGSVGElement)=>void;
 
 play.rendered = () => {
     if(S.gameInfo().board.grid === null){
@@ -47,7 +45,7 @@ play.rendered = () => {
     var svg = setupGrid();
     console.log('grid setup');
     if (!isTouchDevice()) {
-        svgZoomAndPan.setup(svg);
+        svgZoomAndPan(svg);
         jsSetup();
     } else {
         document.getElementById('panel').style.display = 'none';

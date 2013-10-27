@@ -6,13 +6,14 @@
       "xml2js": {},
       "jquery-ui": {},
       "bootstrap3-less": {},
-      "fs": {}
+      "fs": {},
+      "typescript-compiler": {}
     },
     "packages": {
       "typescript-libs": {
         "git": "https://github.com/orefalo/meteor-typescript-libs.git",
-        "tag": "v0.1.8",
-        "commit": "e02928f6834a2c1310b2aa2fa1c351071069e807"
+        "tag": "v0.1.9",
+        "commit": "33ba54a5a84c4aa84d979b99cb7ec747a8638221"
       },
       "xml2js": {
         "git": "https://github.com/peerlibrary/meteor-xml2js.git",
@@ -33,6 +34,11 @@
         "git": "https://github.com/peerlibrary/meteor-fs.git",
         "tag": "v0.1.2",
         "commit": "069d7fcaeb5df000a57238fde2785faf6dc1c37c"
+      },
+      "typescript-compiler": {
+        "git": "https://github.com/orefalo/meteor-typescript-compiler.git",
+        "tag": "v0.7.7.1",
+        "commit": "325301b9f66d085f873b9a138717d023c6a19bac"
       },
       "blocking": {
         "git": "https://github.com/peerlibrary/meteor-blocking.git",

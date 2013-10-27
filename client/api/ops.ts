@@ -14,7 +14,6 @@ class PlaceOperation implements Operation {
     }
 
     run():void {
-        console.log(this.data);
         var svg = <SVGSVGElement><any>document.getElementById('svg');
         var img = <SVGImageElement>document.createElementNS(svgns, 'image');
         img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
