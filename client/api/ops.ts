@@ -8,6 +8,7 @@ interface PlaceOperationData {
 }
 class PlaceOperation implements Operation {
     data:PlaceOperationData;
+    img:SVGImageElement;
 
     constructor(data:PlaceOperationData) {
         this.data = data;
@@ -25,10 +26,13 @@ class PlaceOperation implements Operation {
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;
             svg.getElementById('counters').appendChild(img);
+            this.img = img;
         }
     }
 
     undo():void {
+        var svg = <SVGSVGElement><any>document.getElementById('svg');
+        svg.getElementById('counters').removeChild(this.img);
     }
 
 }
