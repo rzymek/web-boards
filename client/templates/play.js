@@ -1,5 +1,3 @@
-/// <reference path="../TypedSession.api.d.ts"/>
-/// <reference path="../api/core.d.ts"/>
 function isTouchDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }

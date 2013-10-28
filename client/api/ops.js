@@ -13,10 +13,9 @@ var PlaceOperation = (function () {
         } else {
             var img = document.createElementNS(svgns, 'image');
             img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
-            img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;
-            img.id = "at_"+use.id;
+            img.id = "at_"+use.id+'_'+(new Date()).getTime();
             svg.getElementById('counters').appendChild(img);
             
             var target = ctx.getPlace(this.data.hexid);

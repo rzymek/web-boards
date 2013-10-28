@@ -41,8 +41,12 @@ function bringToTop(e) {
     e.parentElement.appendChild(e);
 }
 
+function copyTransformation(src, dest) {
+    dest.setAttribute('transform', src.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
+}
+
 var STACKS = 'wb-stacks';
-alignStack = function(area, counters) {
+alignStack = function(area/*SVGElement*/, counters/*SVGElement*/) {
     var areaBBox = area.getBBox();
     var spacing = 3;
     var counterDim = {width: 75, height: 75};
@@ -62,6 +66,7 @@ alignStack = function(area, counters) {
         var counter = counters[i];
         var cx = startx + x + stackOffset;
         var cy = starty + y + stackOffset;
+        copyTransformation(area, counter);
         counter.x.baseVal.value = cx;
         counter.y.baseVal.value = cy;
         if (layer > 0) {
@@ -93,18 +98,50 @@ alignStack = function(area, counters) {
 }
 
 sprites = undefined;
-function showStackSelectorNow(hexElement/*SVGUseElement*/, stack/*string[]*/) {
-    var hexBB=hexElement.getBBox();
-    console.log(hexElement, hexBB);
-    selector.attr('x', hexBB.x);
-    selector.attr('y', hexBB.y);
-    svg.getElementById('overlays').appendChild(selector.node)
+function showStackSelectorNow(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
+    var margin = 10;
+    var hexBB = hexElement.getBBox();
+    copyTransformation(hexElement, selector.node);
+    
+    var img = Snap(stack[0]);//open at
+    selector.node.x.baseVal.value = img.node.x.baseVal.value - margin;
+    selector.node.y.baseVal.value = img.node.y.baseVal.value - margin;
+    selector.node.style.visibility='visible';
+    var gstack = stack;
+    //TODO:Collections.reverse(gstack);
+    var size = Math.sqrt(gstack.length);
+    var width = Math.ceil(size);
+    var height = Math.floor(size + 0.5);
+    var maxCounterSize = {width:75, height:75};//TODO::getMaxCounterSize(gstack);
+    width = margin + width * maxCounterSize.width + margin;
+    height = margin + Math.floor(height * maxCounterSize.height) + margin;
+    selector.node.width.baseVal.value = width;
+    selector.node.height.baseVal.value = height;
+    svg.getElementById('overlays').appendChild(selector.node);
+    alignStack(selector.node, gstack);
+    console.log(selector.node);
+    selector.atHex = hexElement;
+    selector.stack = stack;
+//		showingStackSelector = position;
+//		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
+//		updateSelectionRect();
+//		stackSelectorContents = stack;
+//		stackSelectorPosition = position;
 }
-showStackSelector = function(hexElement/*SVGUseElement*/, stack/*string[]*/) {
+
+function getSVGElements(stack/*string[] -ids*/){
+    var e = [];
+    for(var i=0;i<stack.length;i++){
+        e.push(svg.getElementById(stack[i]));
+    }
+    return e;
+}
+
+showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
     if (sprites === undefined) {
         Snap.load('sprites.svg', function(s) {
             sprites = s;
-            selector = sprites.select('#stackSelector');    
+            selector = sprites.select('#stackSelector');
             showStackSelectorNow(hexElement, stack);
         })
     } else {

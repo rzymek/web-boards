@@ -1,10 +1,3 @@
-/// <reference path="../packages/typescript-libs/meteor.d.ts" />
-/// <reference path="../packages/typescript-libs/jquery.d.ts" />
-/// <reference path="../common/model.d.ts"/>
-/// <reference path="../common/vassal.d.ts"/>
-/// <reference path="TypedSession.api.d.ts"/>
-/// <reference path="api/core.d.ts"/>
-/// <reference path="api/ops.d.ts"/>
 var svgns = "http://www.w3.org/2000/svg";
 var boardScale = 1;
 
@@ -20,10 +13,15 @@ Session.setDefault('gameInfo', {
 Session.setDefault('selectedPieces', '');
 
 function hexClicked(e) {
+    if(sprites) {
+        selector.node.style.visibility='hidden';
+        alignStack(selector.atHex, selector.stack);
+        console.log(selector.node);
+    }
     var use = e.currentTarget;
     if (ctx.selected === null) {        
         var stack = ctx.places[use.id];
-        if(stack !== undefined) {
+        if(stack !== undefined && stack.stack.length > 1) {
             showStackSelector(use, stack.stack);
         }
         return;
@@ -31,6 +29,7 @@ function hexClicked(e) {
     if (ctx.selected) {
         var op = new PlaceOperation({ image: ctx.selected.getImage(), hexid: use.id });
         Operations.insert(op.data);
+        ctx.selected = null;
     }
 }
 
@@ -45,12 +44,10 @@ setupGrid = function () {
     var board = S.gameInfo().board;
 
     var A = 2 * 125.29 / Math.sqrt(3);
-    var hexes = [];
     var use;
     var yn = board.height / hex2hex.y;
     var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
-        var s = A / 2;
         for (var x = 0; x < xn; x++) {
             var hx = (80 * boardScale + x * hex2hex.x);
             var hy = (65 * boardScale + y * hex2hex.y);
@@ -74,7 +71,7 @@ Deps.autorun(function () {
     var game = S.selectedGame();
     if (game !== undefined) {
         $.get('/games/' + game + '/game.json', function (data) {
-            data.board.image = 'board-low.jpg';
+            data.board.image = 'javadoc.png'; //TODO: remove
             S.setGameInfo(data);
         });
     }
