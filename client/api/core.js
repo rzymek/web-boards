@@ -42,7 +42,7 @@ function bringToTop(e) {
 }
 
 var STACKS = 'wb-stacks';
-alignStack = function alignStack(area, counters) {
+alignStack = function(area, counters) {
     var areaBBox = area.getBBox();
     var spacing = 3;
     var counterDim = {width: 75, height: 75};
@@ -91,4 +91,23 @@ alignStack = function alignStack(area, counters) {
     }
     area.setAttribute(STACKS, Object.keys(stackRoots).join(' '));
 }
- 
+
+sprites = undefined;
+function showStackSelectorNow(hexElement/*SVGUseElement*/, stack/*string[]*/) {
+    var hexBB=hexElement.getBBox();
+    console.log(hexElement, hexBB);
+    selector.attr('x', hexBB.x);
+    selector.attr('y', hexBB.y);
+    svg.getElementById('overlays').appendChild(selector.node)
+}
+showStackSelector = function(hexElement/*SVGUseElement*/, stack/*string[]*/) {
+    if (sprites === undefined) {
+        Snap.load('sprites.svg', function(s) {
+            sprites = s;
+            selector = sprites.select('#stackSelector');    
+            showStackSelectorNow(hexElement, stack);
+        })
+    } else {
+        showStackSelectorNow(hexElement, stack);
+    }
+}

@@ -4,7 +4,8 @@
     "basePackages": {
       "jquery-ui": {},
       "bootstrap3-less": {},
-      "keybindings": {}
+      "keybindings": {},
+      "snap-svg": {}
     },
     "packages": {
       "jquery-ui": {
@@ -21,6 +22,11 @@
         "git": "https://github.com/matteodem/meteor-keybindings.git",
         "tag": "v0.3.8",
         "commit": "7102c7329453c18c63846d74d0b51ef35a23e945"
+      },
+      "snap-svg": {
+        "git": "https://github.com/10thfloor/meteor-snap-svg.git",
+        "tag": "v0.1.0",
+        "commit": "ec16c1bd55ff6695f1417c4b8ca718624f65efae"
       }
     }
   }

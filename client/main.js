@@ -20,9 +20,14 @@ Session.setDefault('gameInfo', {
 Session.setDefault('selectedPieces', '');
 
 function hexClicked(e) {
-    if (ctx.selected === null)
-        return;
     var use = e.currentTarget;
+    if (ctx.selected === null) {        
+        var stack = ctx.places[use.id];
+        if(stack !== undefined) {
+            showStackSelector(use, stack.stack);
+        }
+        return;
+    }
     if (ctx.selected) {
         var op = new PlaceOperation({ image: ctx.selected.getImage(), hexid: use.id });
         Operations.insert(op.data);

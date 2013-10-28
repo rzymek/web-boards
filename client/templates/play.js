@@ -42,6 +42,7 @@ play.rendered = function() {
     } else {
         document.getElementById('panel').style.display = 'none';
     }
+
     Meteor.subscribe('operations');
     ctx.menu = {
         'Undo': function() {
@@ -78,12 +79,16 @@ play.rendered = function() {
         }
     };
     S.setMenuItems(Object.keys(ctx.menu));
-    
+
     Meteor.Keybindings.removeAll();
     Meteor.Keybindings.add({
         '←': ctx.menu.Back,
         '→': ctx.menu.Fwd,
         'ctrl+z': ctx.menu.Undo,
-        'ctrl+shift+z': function() { alert('redo not implemented yet') }
+        'ctrl+shift+z': function() {
+            alert('redo not implemented yet')
+        }
     });
 };
+
+

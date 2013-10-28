@@ -2,6 +2,8 @@
   "packages": {
     "jquery-ui": {},
     "bootstrap3-less": {},
-    "keybindings": {}
+
+    "keybindings": {},
+    "snap-svg": {}
   }
 }
