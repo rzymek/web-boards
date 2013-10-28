@@ -15,9 +15,19 @@ ctx = {
     selected: null,
     menu: {},
     opBacktrack: null,
-    places: {}
+    places: {},
+    //methods:
+    getPlace: function(hexid) {
+        var target = this.places[hexid];
+        if (!target) {
+            target = {
+                stack: []
+            };
+            this.places[hexid] = target;
+        }
+        return target;
+    }
 };
-
 function getPlacing(counters, counterDim, areaBBox, spacing) {
     var width = areaBBox.width;
     var maxSlots = (areaBBox.height / (counterDim.height + spacing) + 0.5);

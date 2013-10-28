@@ -18,12 +18,8 @@ var PlaceOperation = (function () {
             img.height.baseVal.value = 75;
             img.id = "at_"+use.id;
             svg.getElementById('counters').appendChild(img);
-            var target = ctx.places[this.data.hexid];
-            if(!target) {
-                ctx.places[this.data.hexid] = target={
-                    stack:[]
-                };
-            }
+            
+            var target = ctx.getPlace(this.data.hexid);
             target.stack.push(img);
             alignStack(use, target.stack);
         }
@@ -33,6 +29,12 @@ var PlaceOperation = (function () {
         var svg = document.getElementById('svg');
         var img = svg.getElementById("at_"+this.data.hexid);
         svg.getElementById('counters').removeChild(img);
+        var target = ctx.getPlace(this.data.hexid);
+        target.stack = target.stack.filter(function (it){
+            return it !== img; 
+        });
+        console.log(ctx.places[this.data.hexid]);
+        alignStack(svg.getElementById(this.data.hexid), target.stack);
     };
     return PlaceOperation;
 })();
