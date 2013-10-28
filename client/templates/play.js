@@ -34,7 +34,11 @@ Template.play.rendered = function() {
     var svg = setupGrid();
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
-        jsSetup();
+        $('#panel').draggable({
+            start: function() {
+                panel.height(panel.height());
+            }
+        });
     } else {
         document.getElementById('panel').style.display = 'none';
     }
