@@ -4,9 +4,18 @@ Template.pieces.categories = function() {
     }));
 };
 
-Template.pieces.selected = function() {
-    Session.equals('selectedPiece')
+Template.piece.selected = function() {
+    console.log('isSelected', this.id, Session.equals('selectedPiece', this.id));
+    return Session.equals('selectedPiece', this.id) ? 'pieceSelected' : '';
 };
+Template.piece.events({
+    'click img': function(e) {
+        var img = e.currentTarget;
+        Session.set('selectedPiece', img.id);
+        console.log('selected:', img.id);
+        ctx.selected = new HTMLCounter(img);
+    }
+});
 
 Template.pieces.events({
     'change select': function(e) {
@@ -15,12 +24,6 @@ Template.pieces.events({
         S.setPiecesCategory(category);
         return true;
     },
-    'click img': function(e) {
-        var img = e.currentTarget;
-        $('#panel .panel-body img').removeClass('pieceSelected');
-        $(img).addClass('pieceSelected');
-        ctx.selected = new HTMLCounter(img);
-    }
 });
 
 Template.selectedPieces.pieces = function() {
@@ -35,7 +38,7 @@ Template.selectedPieces.pieces = function() {
         }).map(function(name) {
             return {
                 src: '/games/' + g + '/images/' + name,
-                id: 'panel-'+name.replace(/[^A-Za-z0-9_]/,'')
+                id: 'panel-' + name.replace(/[^A-Za-z0-9_]/, '')
             };
         });
     } else {

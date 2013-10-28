@@ -67,7 +67,11 @@
 <template name="selectedPieces">
     <div class="panel-body">
         {{#each pieces}}
-            <img id="{{id}}" src="{{src}}" width="45" height="45" class="{{selected}}">
+            {{>piece}}
         {{/each}}
     </div>
+</template>
+
+<template name="piece">
+    <img id="{{id}}" src="{{src}}" width="45" height="45" class="{{selected}}">
 </template>
