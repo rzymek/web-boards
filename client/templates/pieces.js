@@ -5,15 +5,12 @@ Template.pieces.categories = function() {
 };
 
 Template.piece.selected = function() {
-    console.log('isSelected', this.id, Session.equals('selectedPiece', this.id));
     return Session.equals('selectedPiece', this.id) ? 'pieceSelected' : '';
 };
 Template.piece.events({
     'click img': function(e) {
         var img = e.currentTarget;
         Session.set('selectedPiece', img.id);
-        console.log('selected:', img.id);
-        ctx.selected = new HTMLCounter(img);
     }
 });
 

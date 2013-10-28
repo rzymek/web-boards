@@ -1,35 +1,33 @@
 function isTouchDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
+if (!isTouchDevice()) {
+    Template.play.svgWidth = '100%';
+    Template.play.svgHeight = '100%';
+} else {
+    Template.play.svgWidth = function() {
+        return S.gameInfo().board.width;
+    };
+    Template.play.svgHeight = function() {
+        return S.gameInfo().board.height;
+    };
+}
 
-var play = Template['play'];
-
-play['board'] = function() {
+Template.play.board = function() {
     var gameInfo = S.gameInfo();
     return {w: gameInfo.board.width, h: gameInfo.board.height};
 };
-play['boardImg'] = function() {
+Template.play.boardImg = function() {
     if (S.selectedGame())
         return '/games/' + S.selectedGame() + '/' + S.gameInfo().board.image;
     else
         return null;
 };
-if (!isTouchDevice()) {
-    play['svgWidth'] = '100%';
-    play['svgHeight'] = '100%';
-} else {
-    play['svgWidth'] = function() {
-        return S.gameInfo().board.width;
-    };
-    play['svgHeight'] = function() {
-        return S.gameInfo().board.height;
-    };
-}
-play['status'] = function() {
+Template.play.status = function() {
     return Meteor.status();
 };
 
-play.rendered = function() {
+Template.play.rendered = function() {
     if (S.gameInfo().board.grid === null) {
         return;
     }
@@ -84,7 +82,7 @@ play.rendered = function() {
         '→': ctx.menu.Fwd,
         'ctrl+z': ctx.menu.Undo,
         'ctrl+shift+z': function() {
-            alert('redo not implemented yet')
+            alert('redo not implemented yet');
         }
     });
 };

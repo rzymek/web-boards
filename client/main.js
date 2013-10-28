@@ -13,34 +13,35 @@ Session.setDefault('gameInfo', {
 Session.setDefault('selectedPieces', '');
 
 function hexClicked(e) {
-    if(sprites) {
-        selector.node.style.visibility='hidden';
+    if (sprites) {
+        selector.node.style.visibility = 'hidden';
         alignStack(selector.atHex, selector.stack);
         console.log(selector.node);
     }
     var use = e.currentTarget;
-    if (ctx.selected === null) {        
+    if (ctx.selected === null) {
         var stack = ctx.places[use.id];
-        if(stack !== undefined && stack.stack.length > 1) {
+        if(stack  === undefined || stack === null)
+            return;
+        if (stack.stack.length > 1) {
             showStackSelector(use, stack.stack);
         }
         return;
     }
     if (ctx.selected) {
-        var op = new PlaceOperation({ image: ctx.selected.getImage(), hexid: use.id });
+        var op = new PlaceOperation({image: ctx.selected.getImage(), hexid: use.id});
         Operations.insert(op.data);
-        ctx.selected = null;
+        Session.set('selectedPiece',null);
     }
 }
 
-setupGrid = function () {
-    var path = document.getElementById('hex');
+setupGrid = function() {
     var svg = document.getElementById('svg');
     var layer = svg.getElementById('hexes');
     if (layer.childNodes.length > 0) {
-        return svg;
+        return svg; //already setup
     }
-    var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale };
+    var hex2hex = {y: 125.29 * boardScale, x: 108.5 * boardScale};
     var board = S.gameInfo().board;
 
     var A = 2 * 125.29 / Math.sqrt(3);
@@ -67,25 +68,25 @@ setupGrid = function () {
     return svg;
 };
 
-Deps.autorun(function () {
+Deps.autorun(function() {
     var game = S.selectedGame();
     if (game !== undefined) {
-        $.get('/games/' + game + '/game.json', function (data) {
+        $.get('/games/' + game + '/game.json', function(data) {
             data.board.image = 'javadoc.png'; //TODO: remove
             S.setGameInfo(data);
         });
     }
 });
 
-Meteor.call('games', function (err, games) {
+Meteor.call('games', function(err, games) {
     if (games.length === 1)
         S.setSelectedGame(games[0]);
-else
+    else
         S.setGames(games);
 });
 
 Operations.find().observe({
-    'removed': function (doc) {
+    'removed': function(doc) {
         var op = new PlaceOperation(doc);
         op.undo();
     }
@@ -98,3 +99,15 @@ Operations.find().observe({
 //         // alert(status.status);
 //     }
 // });
+
+Deps.autorun(function() {
+    var selected = Session.get('selectedPiece');
+    if(selected === null) {
+        ctx.selected = null;
+    }else{
+        var piece = document.getElementById(selected);
+        if(piece !== null)
+            ctx.selected = new HTMLCounter(piece);
+    }
+    console.log("ctx.selected=", selected, ctx.selected, piece);
+});

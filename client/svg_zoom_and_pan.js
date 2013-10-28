@@ -41,7 +41,6 @@ var SvgZoomAndPan = (function () {
     SvgZoomAndPan.prototype.attach = function () {
         var _this = this;
         if (this.root.getAttribute('SvgZoomAndPan')) {
-            console.log('svgZoomAndPan alreay attached');
             return;
         } else {
             this.root.setAttribute('SvgZoomAndPan', 'true');

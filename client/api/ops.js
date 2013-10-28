@@ -1,7 +1,8 @@
 /// <reference path="../../common/model.d.ts"/>
 var svgns = "http://www.w3.org/2000/svg";
 
-var PlaceOperation = (function () {
+
+PlaceOperation = (function () {
     function PlaceOperation(data) {
         this.data = data;
     }
@@ -15,7 +16,7 @@ var PlaceOperation = (function () {
             img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;
-            img.id = "at_"+use.id+'_'+(new Date()).getTime();
+            img.id = "at_"+use.id;
             svg.getElementById('counters').appendChild(img);
             
             var target = ctx.getPlace(this.data.hexid);
@@ -36,4 +37,3 @@ var PlaceOperation = (function () {
     };
     return PlaceOperation;
 })();
-window['PlaceOperation'] = PlaceOperation;
