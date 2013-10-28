@@ -18,6 +18,14 @@ var PlaceOperation = (function () {
             img.height.baseVal.value = 75;
             img.id = "at_"+use.id;
             svg.getElementById('counters').appendChild(img);
+            var target = ctx.places[this.data.hexid];
+            if(!target) {
+                ctx.places[this.data.hexid] = target={
+                    stack:[]
+                };
+            }
+            target.stack.push(img);
+            alignStack(use, target.stack);
         }
     };
 
