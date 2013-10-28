@@ -1,37 +1,31 @@
 /// <reference path="../../common/model.d.ts"/>
-
 var svgns = "http://www.w3.org/2000/svg";
 
-interface PlaceOperationData {
-    image:string;
-    hexid:string;
-}
-class PlaceOperation implements Operation {
-    data:PlaceOperationData;
-
-    constructor(data:PlaceOperationData) {
+var PlaceOperation = (function () {
+    function PlaceOperation(data) {
         this.data = data;
     }
-
-    run():void {
-        var svg = <SVGSVGElement><any>document.getElementById('svg');
+    PlaceOperation.prototype.run = function () {
+        var svg = document.getElementById('svg');
         var use = svg.getElementById(this.data.hexid);
         if (use === null) {
             console.warn('Hex not found:', this.data.hexid);
         } else {
-            var img = <SVGImageElement>document.createElementNS(svgns, 'image');
+            var img = document.createElementNS(svgns, 'image');
             img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.data.image);
             img.setAttribute('transform', use.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;
+            img.id = "at_"+use.id;
             svg.getElementById('counters').appendChild(img);
         }
-    }
+    };
 
-    undo():void {
-        var svg = <SVGSVGElement><any>document.getElementById('svg');
-        console.log('TODO: remove ',this.data);
-    }
-
-}
+    PlaceOperation.prototype.undo = function () {
+        var svg = document.getElementById('svg');
+        var img = svg.getElementById("at_"+this.data.hexid);
+        svg.getElementById('counters').removeChild(img);
+    };
+    return PlaceOperation;
+})();
 window['PlaceOperation'] = PlaceOperation;

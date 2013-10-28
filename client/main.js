@@ -5,11 +5,10 @@
 /// <reference path="TypedSession.api.d.ts"/>
 /// <reference path="api/core.d.ts"/>
 /// <reference path="api/ops.d.ts"/>
-
 var svgns = "http://www.w3.org/2000/svg";
 var boardScale = 1;
 
-Session.setDefault('gameInfo', <Module>{
+Session.setDefault('gameInfo', {
     pieces: [],
     board: {
         image: '',
@@ -18,32 +17,31 @@ Session.setDefault('gameInfo', <Module>{
         grid: null
     }
 });
-Session.setDefault('selectedPieces','');
+Session.setDefault('selectedPieces', '');
 
-function hexClicked(e:MouseEvent){
-    if(ctx.selected === null)
+function hexClicked(e) {
+    if (ctx.selected === null)
         return;
-    var use = <SVGUseElement>e.currentTarget;
-    if(ctx.selected) {
-        var op = new PlaceOperation({image:ctx.selected.getImage(), hexid:use.id});
+    var use = e.currentTarget;
+    if (ctx.selected) {
+        var op = new PlaceOperation({ image: ctx.selected.getImage(), hexid: use.id });
         Operations.insert(op.data);
     }
 }
 
-declare var setupGrid;
 setupGrid = function () {
-    var path = <SVGPathElement><any>document.getElementById('hex');
-    var svg = <SVGSVGElement><any>document.getElementById('svg');
+    var path = document.getElementById('hex');
+    var svg = document.getElementById('svg');
     var layer = svg.getElementById('hexes');
-    if(layer.childNodes.length > 0) {
+    if (layer.childNodes.length > 0) {
         return svg;
     }
-    var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale};
+    var hex2hex = { y: 125.29 * boardScale, x: 108.5 * boardScale };
     var board = S.gameInfo().board;
 
     var A = 2 * 125.29 / Math.sqrt(3);
     var hexes = [];
-    var use:SVGUseElement;
+    var use;
     var yn = board.height / hex2hex.y;
     var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
@@ -55,46 +53,46 @@ setupGrid = function () {
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
-            use = <SVGUseElement>document.createElementNS(svgns, 'use');
+            use = document.createElementNS(svgns, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
-            use.id = 'h'+x+'_'+y;
+            use.id = 'h' + x + '_' + y;
             use.onclick = hexClicked;
             layer.appendChild(use);
         }
     }
     return svg;
-}
+};
 
-Deps.autorun(()=> {
+Deps.autorun(function () {
     var game = S.selectedGame();
     if (game !== undefined) {
-        $.get('/games/' + game + '/game.json', (data:Module) => {
-            data.board.image = 'board-low.jpg'; //TODO: remove
+        $.get('/games/' + game + '/game.json', function (data) {
+            data.board.image = 'board-low.jpg';
             S.setGameInfo(data);
         });
     }
 });
 
-Meteor.call('games', (err, games:string[]) => {
+Meteor.call('games', function (err, games) {
     if (games.length === 1)
         S.setSelectedGame(games[0]);
-    else
+else
         S.setGames(games);
 });
 
 Operations.find().observe({
-    'removed': (doc) => {
+    'removed': function (doc) {
         var op = new PlaceOperation(doc);
         op.undo();
     }
 });
 
-Deps.autorun(()=>{
-    var status = Meteor.status();
-    console.log(status);
-    if(status.connected) {
-        alert('reconnected');
-    }
-});
+// Deps.autorun(function () {
+//     var status = Meteor.status();
+//     console.log(status);
+//     if (status.connected) {
+//         // alert(status.status);
+//     }
+// });

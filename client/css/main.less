@@ -1,3 +1,5 @@
+@import "/packages/bootstrap3-less/bootstrap.lessimport";
+
 @panel-padding: 4px;
 @menu-size: 45px;
 @piece-panel-width: 5 * (@menu-size + @panel-padding) + 1.5*@panel-padding;
@@ -5,7 +7,19 @@
 .hex {
   fill: rgba(0, 0, 0, 0);
   opacity: 0.5;
+}
 
+.menuItem {
+  .btn;
+  //  .btn-sm;
+}
+.menuBtn {
+  .menuItem;
+  .btn-primary;
+}
+.menuToggle{
+  .menuItem;
+  .btn-default;
 }
 
 .hex:hover {

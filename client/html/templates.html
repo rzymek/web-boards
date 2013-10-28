@@ -39,12 +39,12 @@
 <template name="controls">
     <div id="menu">
         <div class="menu-folded">
-            <button>Menu</button>
+            <button class="menuToggle">Menu</button>
         </div>
         <div class="menu-unfolded">
-            <button>Hide</button>
+            <button class="menuToggle">Hide</button>
             {{#each menu}}
-                <button>{{.}}</button>
+                <button class="menuBtn">{{.}}</button>
             {{/each}}
         </div>
     </div>
