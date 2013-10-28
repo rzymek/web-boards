@@ -44,6 +44,12 @@ class SvgZoomAndPan {
     }
 
     attach():void {
+        if(this.root.getAttribute('SvgZoomAndPan')){
+            console.log('svgZoomAndPan alreay attached')
+            return;
+        }else{
+            this.root.setAttribute('SvgZoomAndPan','true');
+        }
         this.root.onmousedown = (e:MouseEvent) => {
             this.updateMousePosition(e);
             this.mouseDown = true;
@@ -67,19 +73,17 @@ class SvgZoomAndPan {
         this.root.onclick = (e) => {
             this.panning = false
         };
-        var zoomAndPan = this;
 
-        function onMouseWheel(e:MouseWheelEvent):void {
+        this.root.addEventListener("mousewheel", (e:MouseWheelEvent) => {
             var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-            if (delta < 0) {
-                zoomAndPan.scale /= zoomAndPan.KEY_ZOOM_STEP;
-            } else {
-                zoomAndPan.scale *= zoomAndPan.KEY_ZOOM_STEP;
+            if(delta < 0) {
+                this.scale /= this.KEY_ZOOM_STEP;
+            }else{
+                this.scale *= this.KEY_ZOOM_STEP;
             }
-            zoomAndPan.updateZoom();
+            this.updateZoom();
             e.preventDefault();
-        }
-        this.root.addEventListener("mousewheel", onMouseWheel, false);
+        }, false);
     }
 
     updateZoom():void {
