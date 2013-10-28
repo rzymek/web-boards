@@ -2,24 +2,11 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "typescript-libs": {},
-      "xml2js": {},
       "jquery-ui": {},
       "bootstrap3-less": {},
-      "fs": {},
-      "typescript-compiler": {}
+      "keybindings": {}
     },
     "packages": {
-      "typescript-libs": {
-        "git": "https://github.com/orefalo/meteor-typescript-libs.git",
-        "tag": "v0.1.9",
-        "commit": "33ba54a5a84c4aa84d979b99cb7ec747a8638221"
-      },
-      "xml2js": {
-        "git": "https://github.com/peerlibrary/meteor-xml2js.git",
-        "tag": "v0.2.8.4",
-        "commit": "98ba391239dd79901a7718593b48c1a7e6b0f7b2"
-      },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
         "tag": "v1.9.2",
@@ -30,25 +17,10 @@
         "tag": "v0.1.4",
         "commit": "23ec918f8377b15b22cba33e13b717214235c88a"
       },
-      "fs": {
-        "git": "https://github.com/peerlibrary/meteor-fs.git",
-        "tag": "v0.1.2",
-        "commit": "069d7fcaeb5df000a57238fde2785faf6dc1c37c"
-      },
-      "typescript-compiler": {
-        "git": "https://github.com/orefalo/meteor-typescript-compiler.git",
-        "tag": "v0.7.7.1",
-        "commit": "325301b9f66d085f873b9a138717d023c6a19bac"
-      },
-      "blocking": {
-        "git": "https://github.com/peerlibrary/meteor-blocking.git",
-        "tag": "v0.4.0",
-        "commit": "e25a0be72e771b317b26d2bb5758c983bdcef23c"
-      },
-      "assert": {
-        "git": "https://github.com/peerlibrary/meteor-assert.git",
-        "tag": "v0.2.2",
-        "commit": "5f87f665ccd6c74322febaf78fe5a24dbfb7949c"
+      "keybindings": {
+        "git": "https://github.com/matteodem/meteor-keybindings.git",
+        "tag": "v0.3.8",
+        "commit": "7102c7329453c18c63846d74d0b51ef35a23e945"
       }
     }
   }

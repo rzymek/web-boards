@@ -1,10 +1,7 @@
 {
   "packages": {
-    "typescript-libs": {},
-    "xml2js": {},
     "jquery-ui": {},
     "bootstrap3-less": {},
-    "fs": {},
-    "typescript-compiler": {}
+    "keybindings": {}
   }
 }

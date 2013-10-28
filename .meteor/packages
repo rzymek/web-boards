@@ -6,9 +6,8 @@
 standard-app-packages
 insecure
 preserve-inputs
-typescript-libs
-xml2js
-jquery-ui
 bootstrap3-less
 less
 fs
+keybindings
+jquery-ui

@@ -33,7 +33,6 @@ var PlaceOperation = (function () {
         target.stack = target.stack.filter(function (it){
             return it !== img; 
         });
-        console.log(ctx.places[this.data.hexid]);
         alignStack(svg.getElementById(this.data.hexid), target.stack);
     };
     return PlaceOperation;
