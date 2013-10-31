@@ -21,7 +21,7 @@ function hexClicked(e) {
     var use = e.currentTarget;
     if (ctx.selected === null) {
         var stack = ctx.places[use.id];
-        if(stack  === undefined || stack === null)
+        if (stack === undefined || stack === null)
             return;
         if (stack.stack.length > 1) {
             showStackSelector(use, stack.stack);
@@ -29,9 +29,9 @@ function hexClicked(e) {
         return;
     }
     if (ctx.selected) {
-        var op = new PlaceOperation({image: ctx.selected.getImage(), hexid: use.id});
-        Operations.insert(op.data);
-        Session.set('selectedPiece',null);
+        var data = {image: ctx.selected.getImage(), hexid: use.id}
+        Operations.insert(data);
+        Session.set('selectedPiece', null);
     }
 }
 
@@ -85,29 +85,26 @@ Meteor.call('games', function(err, games) {
         S.setGames(games);
 });
 
-Operations.find().observe({
-    'removed': function(doc) {
-        var op = new PlaceOperation(doc);
-        op.undo();
-    }
-});
-
-// Deps.autorun(function () {
-//     var status = Meteor.status();
-//     console.log(status);
-//     if (status.connected) {
-//         // alert(status.status);
-//     }
-// });
-
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
-    if(selected === null) {
+    if (selected === null) {
         ctx.selected = null;
-    }else{
+    } else {
         var piece = document.getElementById(selected);
-        if(piece !== null)
+        if (piece !== null)
             ctx.selected = new HTMLCounter(piece);
     }
     console.log("ctx.selected=", selected, ctx.selected, piece);
+});
+
+
+Meteor.startup(function() {
+    Operations.find().observe({
+        added: function(data) {
+            PlaceOperation.run(data);
+        },
+        removed: function(doc) {
+            PlaceOperation.undo(doc);
+        }
+    });
 });

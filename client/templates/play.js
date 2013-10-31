@@ -63,7 +63,7 @@ Template.play.rendered = function() {
             console.log("backing up", ctx.opBacktrack);
             //TODO: optimize
             var data = Operations.find({}).fetch()[ctx.opBacktrack];
-            (new PlaceOperation(data)).undo();
+            PlaceOperation.undo(data);
         },
         'Fwd': function() {
             if (ctx.opBacktrack === null) {
@@ -74,7 +74,7 @@ Template.play.rendered = function() {
                 return;
             }
             var data = Operations.find({}).fetch()[ctx.opBacktrack];
-            (new PlaceOperation(data)).run();
+            PlaceOperation.run(data);
             ctx.opBacktrack++;
         }
     };
