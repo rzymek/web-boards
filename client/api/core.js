@@ -119,7 +119,6 @@ function showStackSelectorNow(hexElement/*SVGUseElement*/, stack/*SVGImageElemen
     selector.node.height.baseVal.value = height;
     svg.getElementById('overlays').appendChild(selector.node);
     alignStack(selector.node, gstack);
-    console.log(selector.node);
     selector.atHex = hexElement;
     selector.stack = stack;
 //		showingStackSelector = position;
