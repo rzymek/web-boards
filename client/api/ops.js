@@ -53,13 +53,13 @@ MoveOp = {
         alignStack(hex, target.stack);
     },
     undo: function(data) {
-
+        
     }
-}
+};
 
 runOp = function(data) {
     this[data.op].run(data);
-}
+};
 undoOp = function(data) {
     this[data.op].run(data);
-}
+};
