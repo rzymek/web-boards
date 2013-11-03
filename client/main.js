@@ -39,7 +39,12 @@ hexClicked = function(e) {
     }
 
     if (ctx.selected) {
-        var data = {op: 'PlaceOp', image: ctx.selected.getImage(), hexid: use.id};
+        var data = null;
+        if(isOnBoard(ctx.selected.img)) {
+            data = {op: 'MoveOp', counter: ctx.selected.img.id, to: use.id};
+        }else{
+            data = {op: 'PlaceOp', image: ctx.selected.getImage(), hexid: use.id};
+        };
         Operations.insert(data);
         Session.set('selectedPiece', null);
     }
