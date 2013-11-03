@@ -1,6 +1,9 @@
 var svgns = "http://www.w3.org/2000/svg";
 
-PlaceOperation = {
+function hrefToId(href) {
+    return '_'+href.substring(href.lastIndexOf('/')+1, href.length);
+}
+PlaceOp = {
     run: function(data) {
         var svg = document.getElementById('svg');
         var use = svg.getElementById(data.hexid);
@@ -10,8 +13,8 @@ PlaceOperation = {
             var img = document.createElementNS(svgns, 'image');
             img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
             img.width.baseVal.value = 75;
-            img.height.baseVal.value = 75;
-            img.id = "at_" + use.id;
+            img.height.baseVal.value = 75;            
+            img.id = hrefToId(data.image);
             svg.getElementById('counters').appendChild(img);
 
             var target = ctx.getPlace(data.hexid);
@@ -21,7 +24,7 @@ PlaceOperation = {
     },
     undo: function(data) {
         var svg = document.getElementById('svg');
-        var img = svg.getElementById("at_" + data.hexid);
+        var img = svg.getElementById(hrefToId(data.image));
         svg.getElementById('counters').removeChild(img);
         var target = ctx.getPlace(data.hexid);
         target.stack = target.stack.filter(function(it) {
@@ -30,3 +33,10 @@ PlaceOperation = {
         alignStack(svg.getElementById(data.hexid), target.stack);
     }
 };
+
+runOp = function (data){
+    this[data.op].run(data);
+}
+undoOp = function (data){
+    this[data.op].run(data);
+}

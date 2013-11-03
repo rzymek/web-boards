@@ -1,6 +1,4 @@
-/// <reference path="core.api.d.ts"/>
-/// <reference path="../../packages/typescript-libs/lib.d.ts"/>
-var HTMLCounter = (function() {
+HTMLCounter = (function() {
     function HTMLCounter(node) {
         this.img = node;
     }
@@ -9,7 +7,15 @@ var HTMLCounter = (function() {
     };
     return HTMLCounter;
 })();
-this.HTMLCounter = HTMLCounter;
+SVGCounter = (function() {
+    function SVGCounter(node) {
+        this.img = node;
+    }
+    SVGCounter.prototype.getImage = function() {
+        return this.href.baseVal;
+    };
+    return SVGCounter;
+})();
 
 ctx = {
     selected: null,

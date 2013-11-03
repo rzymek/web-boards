@@ -10,7 +10,10 @@ Template.piece.selected = function() {
 Template.piece.events({
     'click img': function(e) {
         var img = e.currentTarget;
-        Session.set('selectedPiece', img.id);
+        var val = img.id;
+        if (Session.equals('selectedPiece', val))
+            val = null;
+        Session.set('selectedPiece', val);
     }
 });
 

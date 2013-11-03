@@ -9,7 +9,10 @@
 
 <template name="main">
     {{#if gameSelected }}
-        {{>play}}
+        {{> play}}
+        {{> status}}
+        {{> controls}}
+        {{> pieces}}
     {{else}}
         {{>welcome}}
     {{/if}}
@@ -31,10 +34,12 @@
         <g id="overlays"></g>
         <g id="counters"></g>
     </svg>
+</template>
+
+<template name="status">
     <div id="status">
         Status:{{status.status}}
     </div>
-    {{> controls}}{{> pieces}}
 </template>
 
 <template name="controls">
@@ -53,7 +58,7 @@
 
 <template name="pieces">
     <div id="panel" class="panel panel-primary">
-        <div class="panel-heading">
+        <div id="piecesPanel" class="panel-heading">
             <select>
                 {{#each categories}}
                     <option>{{.}}</option>
@@ -65,7 +70,7 @@
 </template>
 
 <template name="selectedPieces">
-    <div class="panel-body">
+    <div id="piecesPanel" class="panel-body">
         {{#each pieces}}
             {{>piece}}
         {{/each}}
