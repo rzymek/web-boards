@@ -12,12 +12,11 @@ Session.setDefault('selectedPieces', '');
 function byId(id) {
     return document.getElementById(id);
 }
-;
+
 
 function svg() {
     return byId('svg');
 }
-;
 
 hexClicked = function(e) {
     var selector = Snap(svg()).select('#select');
@@ -28,16 +27,17 @@ hexClicked = function(e) {
 
     var use = e.currentTarget;
     if (ctx.selected === null) {
-        var stack = ctx.places[use.id];
-        if (stack === undefined || stack === null)
+        var target = ctx.places[use.id];
+        if (target === undefined || target === null)
             return;
-        if (stack.stack.length > 1) {
-            showStackSelector(use, stack.stack);
-        } else if (stack.stack.length === 1) {
-            stack.stack[0].style.filter = 'url(#select)';
+        if (target.stack.length > 1) {
+            showStackSelector(use, target.stack);
+        } else if (target.stack.length === 1) {
+            Session.set('selectedPiece', target.stack[0].id);
         }
         return;
     }
+
     if (ctx.selected) {
         var data = {op: 'PlaceOp', image: ctx.selected.getImage(), hexid: use.id};
         Operations.insert(data);
@@ -63,20 +63,36 @@ Meteor.call('games', function(err, games) {
         S.setGames(games);
 });
 
+function isOnBoard(piece) {
+    return piece && piece.parentElement && piece.parentElement.id !== 'piecesPanel';
+}
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
-    if (selected === null) {
-        ctx.selected = null;
-    } else {
-        var piece = document.getElementById(selected);
-        if (piece !== null) {
-            console.log(piece.parentElement);
-            if (piece.parentElement.id === 'piecesPanel') {
-                ctx.selected = new HTMLCounter(piece);
-            } else {
-                ctx.selected = new SVGCounter(piece);
-            }
+    console.log('selected:', selected);
+    if (ctx.selected) {
+        var piece = ctx.selected.img;
+        if(isOnBoard(piece)) {
+            //deselect current onboard piece
+            //pieces in panel are deselected reactivly
+            piece.style.filter='';
         }
+    }
+    if (selected) {
+        var piece = document.getElementById(selected);
+        if (!piece) {
+            // svg board is not ready, can happen during code-push
+            ctx.selected = null;
+            return;
+        }
+        console.log('selecting ', selected, piece);
+        if (isOnBoard(piece)) {
+            ctx.selected = new SVGCounter(piece);
+            piece.style.filter='url(#select)';
+        } else {
+            ctx.selected = new HTMLCounter(piece);
+        }
+    } else {
+        ctx.selected = null;
     }
 });
 Meteor.startup(function() {

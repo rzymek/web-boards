@@ -49,12 +49,14 @@ function setupGrid(svg) {
 ;
 
 Template.play.board = function() {
-    var gameInfo = S.gameInfo();
+    var gameInfo = Session.get('gameInfo');
     return {w: gameInfo.board.width, h: gameInfo.board.height};
 };
 Template.play.boardImg = function() {
-    if (S.selectedGame() && S.gameInfo().board.grid)
-        return '/games/' + S.selectedGame() + '/images/' + S.gameInfo().board.image;
+    var selected = Session.get('selectedGame');
+    var info = Session.get('gameInfo');
+    if (selected && info.board.grid)
+        return '/games/' + selected + '/images/' + info.board.image;
     else
         return '/img/loading.gif';
 };
@@ -64,7 +66,8 @@ Template.status.status = function() {
 
 Template.play.rendered = function() {
     console.log('Template.play.rendered');
-    if (S.gameInfo().board.grid === null) {
+    var gameInfo = Session.get('gameInfo');
+    if (gameInfo.board.grid === null) {
         return;
     }
     var svg = document.getElementById('svg');

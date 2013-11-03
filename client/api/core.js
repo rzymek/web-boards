@@ -12,7 +12,7 @@ SVGCounter = (function() {
         this.img = node;
     }
     SVGCounter.prototype.getImage = function() {
-        return this.href.baseVal;
+        return this.img.href.baseVal;
     };
     return SVGCounter;
 })();
