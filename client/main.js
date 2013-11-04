@@ -105,7 +105,7 @@ Meteor.startup(function() {
         added: function(data) {
             runOp(data);
         },
-        removed: function(doc) {
+        removed: function(data) {
             undoOp(data);
         }
     });

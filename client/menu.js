@@ -18,7 +18,7 @@ Meteor.startup(function() {
             console.log("backing up", ctx.opBacktrack);
             //TODO: optimize
             var data = Operations.find({}).fetch()[ctx.opBacktrack];
-            runOp(data);
+            undoOp(data);
         },
         'Fwd': function() {
             if (ctx.opBacktrack === null) {
@@ -29,7 +29,7 @@ Meteor.startup(function() {
                 return;
             }
             var data = Operations.find({}).fetch()[ctx.opBacktrack];
-            undoOp(data);
+            runOp(data);
             ctx.opBacktrack++;
         },
         'Reset': function() {

@@ -52,7 +52,8 @@ function copyTransformation(src, dest) {
 }
 
 var STACKS = 'wb-stacks';
-alignStack = function(area/*SVGElement*/, counters/*SVGElement*/) {
+alignStack = function(area/*SVGElement*/) {
+    var counters = area.stack;
     var areaBBox = area.getBBox();
     var spacing = 3;
     var counterDim = {width: 75, height: 75};
