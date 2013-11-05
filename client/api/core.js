@@ -21,18 +21,6 @@ ctx = {
     selected: null,
     menu: {},
     replayIndex: null,
-    places: {},
-    //methods:
-    getPlace: function(hexid) {
-        var target = this.places[hexid];
-        if (!target) {
-            target = {
-                stack: []
-            };
-            this.places[hexid] = target;
-        }
-        return target;
-    }
 };
 function getPlacing(counters, counterDim, areaBBox, spacing) {
     var width = areaBBox.width;
