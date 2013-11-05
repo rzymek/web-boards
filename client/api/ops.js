@@ -29,7 +29,7 @@ PlaceOp = {
             img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
             img.width.baseVal.value = 75;
             img.height.baseVal.value = 75;
-            img.id = hrefToId(data.image);
+            img.id = data._id;
             svg.getElementById('counters').appendChild(img);
 
             addToStack(hex, img);

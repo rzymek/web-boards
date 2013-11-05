@@ -65,7 +65,6 @@ Template.status.status = function() {
 };
 
 Template.play.rendered = function() {
-    console.log('Template.play.rendered');
     var gameInfo = Session.get('gameInfo');
     if (gameInfo.board.grid === null) {
         return;
@@ -74,7 +73,8 @@ Template.play.rendered = function() {
     setupGrid(svg);
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
-        $('#panel').draggable({
+        var panel = $('#panel');
+        panel.draggable({
             start: function() {
                 panel.height(panel.height());
             }

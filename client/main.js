@@ -27,13 +27,13 @@ hexClicked = function(e) {
 
     var use = e.currentTarget;
     if (ctx.selected === null) {
-        var target = ctx.places[use.id];
-        if (target === undefined || target === null)
+        var stack = use.stack;
+        if (stack === undefined || stack === null)
             return;
-        if (target.stack.length > 1) {
-            showStackSelector(use, target.stack);
-        } else if (target.stack.length === 1) {
-            Session.set('selectedPiece', target.stack[0].id);
+        if (stack.length > 1) {
+            showStackSelector(use, stack);
+        } else if (stack.length === 1) {
+            Session.set('selectedPiece', stack[0].id);
         }
         return;
     }
@@ -73,7 +73,6 @@ function isOnBoard(piece) {
 }
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
-    console.log('selected:', selected);
     if (ctx.selected) {
         var piece = ctx.selected.img;
         if(isOnBoard(piece)) {
@@ -89,7 +88,6 @@ Deps.autorun(function() {
             ctx.selected = null;
             return;
         }
-        console.log('selecting ', selected, piece);
         if (isOnBoard(piece)) {
             ctx.selected = new SVGCounter(piece);
             piece.style.filter='url(#select)';
