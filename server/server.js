@@ -21,6 +21,9 @@ Meteor.methods({
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
         });
+        if(last === undefined) {
+            return;
+        }
         Operations.remove(last._id);
     }
 });
