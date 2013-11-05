@@ -18,9 +18,7 @@ function addToStack(hex, counter) {
         hex.stack = [counter];
 }
 
-var map = {};
 PlaceOp = {
-    counter: null,
     run: function(data) {
         var svg = document.getElementById('svg');
         var hex = svg.getElementById(data.hexid);
@@ -33,23 +31,17 @@ PlaceOp = {
             img.height.baseVal.value = 75;
             img.id = hrefToId(data.image);
             svg.getElementById('counters').appendChild(img);
-            
+
             addToStack(hex, img);
             alignStack(hex);
-            map[this._id] = img;
+            return img;
         }
     },
-    undo: function(data) {
+    undo: function(data, counter) {
         var svg = document.getElementById('svg');
-//        var img = svg.getElementById(hrefToId(data.image));
-        var counter = map[this._id];
-        console.log('undo',counter);
         removeFromStack(counter.position, counter);
         svg.getElementById('counters').removeChild(counter);
         alignStack(counter.position);
-//        var target = ctx.getPlace(data.hexid);
-//        removeFromStack(target, img);
-//        alignStack(svg.getElementById(data.hexid), target.stack);
     }
 };
 
@@ -70,9 +62,13 @@ MoveOp = {
     }
 };
 
+var opResults = {};
 runOp = function(data) {
-    this[data.op].run(data);
+    var result = this[data.op].run(data);
+    if(result !== undefined) {
+        opResults[data._id] = result;
+    }
 };
 undoOp = function(data) {
-    this[data.op].undo(data);
+    this[data.op].undo(data, opResults[data._id]);
 };

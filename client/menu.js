@@ -1,3 +1,10 @@
+function nthOp(n) {
+    return Operations.find({}, {
+        skip: n,
+        limit: 1,
+        reactive: false
+    }).fetch()[0];
+}
 Meteor.startup(function() {
     ctx.menu = {
         'Undo': function() {
@@ -7,30 +14,27 @@ Meteor.startup(function() {
             console.log('toggle');
         },
         'Back': function() {
-            if (ctx.opBacktrack === null) {
-                ctx.opBacktrack = Operations.find({}).count();
+            if (ctx.replayIndex === null) {
+                ctx.replayIndex = Operations.find({}).count() - 1;
             }
-            ctx.opBacktrack--;
-            if (ctx.opBacktrack < 0) {
-                ctx.opBacktrack = 0;
+            if (ctx.replayIndex < 0) {
                 return;
             }
-            console.log("backing up", ctx.opBacktrack);
-            //TODO: optimize
-            var data = Operations.find({}).fetch()[ctx.opBacktrack];
+            var data = nthOp(ctx.replayIndex);
             undoOp(data);
+            ctx.replayIndex--;
         },
         'Fwd': function() {
-            if (ctx.opBacktrack === null) {
+            if (ctx.replayIndex === null) {
                 return;
             }
-            if (ctx.opBacktrack >= Operations.find({}).count()) {
-                ctx.opBacktrack = null;
+            if (ctx.replayIndex >= Operations.find({}).count() - 1) {
+                ctx.replayIndex = null;
                 return;
             }
-            var data = Operations.find({}).fetch()[ctx.opBacktrack];
+            var data = nthOp(ctx.replayIndex + 1);
             runOp(data);
-            ctx.opBacktrack++;
+            ctx.replayIndex++;
         },
         'Reset': function() {
             Meteor.call('reset');

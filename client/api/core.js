@@ -20,7 +20,7 @@ SVGCounter = (function() {
 ctx = {
     selected: null,
     menu: {},
-    opBacktrack: null,
+    replayIndex: null,
     places: {},
     //methods:
     getPlace: function(hexid) {
