@@ -36,6 +36,15 @@ Meteor.startup(function() {
             runOp(data);
             ctx.replayIndex++;
         },
+        'Flip': function() {
+            if (!ctx.selected)
+                return;
+            data = {
+                op: 'FlipOp',
+                counterId: ctx.selected.img.id,
+            };
+            Operations.insert(data);
+        },
         'Reset': function() {
             Meteor.call('reset');
         }

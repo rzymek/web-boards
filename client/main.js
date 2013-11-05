@@ -40,11 +40,16 @@ hexClicked = function(e) {
 
     if (ctx.selected) {
         var data = null;
-        if(isOnBoard(ctx.selected.img)) {
+        if (isOnBoard(ctx.selected.img)) {
             data = {op: 'MoveOp', counter: ctx.selected.img.id, to: use.id};
-        }else{
-            data = {op: 'PlaceOp', image: ctx.selected.getImage(), hexid: use.id};
-        };
+        } else {
+            data = {                
+                op: 'PlaceOp',
+                image: ctx.selected.getImage(),
+                sides: ctx.selected.img.getAttribute('sides').split('|'),
+                hexid: use.id
+            };
+        }
         Operations.insert(data);
         Session.set('selectedPiece', null);
     }
@@ -75,10 +80,10 @@ Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
     if (ctx.selected) {
         var piece = ctx.selected.img;
-        if(isOnBoard(piece)) {
+        if (isOnBoard(piece)) {
             //deselect current onboard piece
             //pieces in panel are deselected reactivly
-            piece.style.filter='';
+            piece.style.filter = '';
         }
     }
     if (selected) {
@@ -90,7 +95,7 @@ Deps.autorun(function() {
         }
         if (isOnBoard(piece)) {
             ctx.selected = new SVGCounter(piece);
-            piece.style.filter='url(#select)';
+            piece.style.filter = 'url(#select)';
         } else {
             ctx.selected = new HTMLCounter(piece);
         }

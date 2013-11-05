@@ -12,6 +12,8 @@ PlaceOp = {
             coutner.width.baseVal.value = 75;
             coutner.height.baseVal.value = 75;
             coutner.id = data._id;
+            coutner.sides = data.sides;
+            coutner.side = 0;
             svg.getElementById('counters').appendChild(coutner);
 
             addToStack(hex, coutner);

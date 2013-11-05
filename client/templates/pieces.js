@@ -7,6 +7,7 @@ Template.pieces.categories = function() {
 Template.piece.selected = function() {
     return Session.equals('selectedPiece', this.id) ? 'pieceSelected' : '';
 };
+
 Template.piece.events({
     'click img': function(e) {
         var img = e.currentTarget;
@@ -34,9 +35,9 @@ Template.selectedPieces.pieces = function() {
     });
     if (inCat.length > 0) {
         return inCat[0].list.map(function(p) {
-            return p.images[0];
-        }).map(function(name) {
+            var name = p.images[0];
             return {
+                sides: p.images.join('|'),
                 src: '/games/' + g + '/images/' + name,
                 id: 'panel-' + name.replace(/[^A-Za-z0-9_]/, '')
             };
