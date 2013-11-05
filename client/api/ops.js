@@ -24,4 +24,5 @@ runOp = function(data) {
 };
 undoOp = function(data) {
     this[data.op].undo(data, opsResults[data._id]);
+    //TODO: remove delete opsResults at data._id
 };
