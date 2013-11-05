@@ -45,27 +45,35 @@ PlaceOp = {
     }
 };
 
+function move(counter, to) {
+    console.log('move',counter, to);
+    removeFromStack(counter.position, counter);
+    alignStack(counter.position);
+    addToStack(to, counter);
+    alignStack(to);
+}
 MoveOp = {
     run: function(data) {
+        console.log(data);
         var svg = document.getElementById('svg');
         var hex = svg.getElementById(data.to);
         var counter = svg.getElementById(data.counter);
-        var target = ctx.getPlace(data.to);
-        removeFromStack(counter.target, counter);
-        target.stack.push(counter);
-        counter.target = target;
-        counter.position = hex;
-        alignStack(hex, target.stack);
+        var context = {
+            counter: counter,
+            from: counter.position
+        };
+        move(context.counter, hex);
+        return context;
     },
-    undo: function(data) {
-
+    undo: function(data, context) {
+        move(context.counter, context.from);
     }
 };
 
 var opResults = {};
 runOp = function(data) {
     var result = this[data.op].run(data);
-    if(result !== undefined) {
+    if (result !== undefined) {
         opResults[data._id] = result;
     }
 };
