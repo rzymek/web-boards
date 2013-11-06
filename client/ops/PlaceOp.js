@@ -1,5 +1,3 @@
-var svgns = "http://www.w3.org/2000/svg";
-
 PlaceOp = {
     run: function(data) {
         var svg = document.getElementById('svg');
@@ -7,7 +5,7 @@ PlaceOp = {
         if (hex === null) {
             console.warn('Hex not found:', data.hexid);
         } else {
-            var counter = document.createElementNS(svgns, 'image');
+            var counter = document.createElementNS(SVGNS, 'image');
 //            counter.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
             counter.width.baseVal.value = 75;
             counter.height.baseVal.value = 75;

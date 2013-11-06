@@ -84,13 +84,14 @@ Template.play.rendered = function() {
     }
 
     Meteor.Keybindings.removeAll();
-    Meteor.Keybindings.add({
+    Meteor.Keybindings.add({ 
         '←': ctx.menu.Back,
         '→': ctx.menu.Fwd,
         'ctrl+z': ctx.menu.Undo,
         'ctrl+shift+z': function() {
             alert('redo not implemented yet');
-        }
+        },
+        'F': ctx.menu.Flip
     });
 
     Meteor.subscribe('operations');
@@ -103,6 +104,9 @@ Template.play.rendered = function() {
                 continue;
             dest.appendChild(defs[i]);
         }
+        var tmpl = data.getElementById('tmpl');
+        tmpl.style.display = 'none';
+        svg.appendChild(tmpl);
     });
 };
 

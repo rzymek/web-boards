@@ -13,8 +13,8 @@ addToStack = function(hex, counter) {
         hex.stack = [counter];
 };
 
-// Op.run results associated with Op data (from Mongo)
-// Op._id are the keys.
+/* Op.run results associated with Op data (from Mongo)
+ * Op._id are the keys. */
 var opsResults = {};
 runOp = function(data) {
     var result = this[data.op].run(data);
@@ -24,5 +24,5 @@ runOp = function(data) {
 };
 undoOp = function(data) {
     this[data.op].undo(data, opsResults[data._id]);
-    //TODO: remove delete opsResults at data._id
+    delete opsResults[data._id];
 };

@@ -19,10 +19,10 @@ function svg() {
 }
 
 hexClicked = function(e) {
-    var selector = Snap(svg()).select('#select');
-    selector.node.style.visibility = 'hidden';
+    var selector = byId('stackSelector');
+    selector.style.visibility = 'hidden';
     if (selector.atHex) {
-        alignStack(selector.atHex, selector.stack);
+        alignStack(selector.atHex);
     }
 
     var use = e.currentTarget;

@@ -4,7 +4,9 @@ Meteor.publish('gamesSub', function() {
 });
 
 Meteor.publish('operations', function() {
-    return Operations.find();
+    return Operations.find({}, {
+        sort: {'createdAt': 1}
+    });
 });
 
 Meteor.methods({
@@ -21,7 +23,7 @@ Meteor.methods({
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
         });
-        if(last === undefined) {
+        if (last === undefined) {
             return;
         }
         Operations.remove(last._id);

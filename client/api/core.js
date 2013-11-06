@@ -92,53 +92,41 @@ alignStack = function(area/*SVGElement*/) {
     area.setAttribute(STACKS, Object.keys(stackRoots).join(' '));
 }
 
-sprites = undefined;
-function showStackSelectorNow(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
-    var margin = 10;
-    var hexBB = hexElement.getBBox();
-    copyTransformation(hexElement, selector.node);
-    
-    var img = Snap(stack[0]);//open at
-    selector.node.x.baseVal.value = img.node.x.baseVal.value - margin;
-    selector.node.y.baseVal.value = img.node.y.baseVal.value - margin;
-    selector.node.style.visibility='visible';
-    var gstack = stack;
-    //TODO:Collections.reverse(gstack);
-    var size = Math.sqrt(gstack.length);
-    var width = Math.ceil(size);
-    var height = Math.floor(size + 0.5);
-    var maxCounterSize = {width:75, height:75};//TODO::getMaxCounterSize(gstack);
-    width = margin + width * maxCounterSize.width + margin;
-    height = margin + Math.floor(height * maxCounterSize.height) + margin;
-    selector.node.width.baseVal.value = width;
-    selector.node.height.baseVal.value = height;
-    svg.getElementById('overlays').appendChild(selector.node);
-    alignStack(selector.node, gstack);
-    selector.atHex = hexElement;
-    selector.stack = stack;
-//		showingStackSelector = position;
-//		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
-//		updateSelectionRect();
-//		stackSelectorContents = stack;
-//		stackSelectorPosition = position;
-}
-
-function getSVGElements(stack/*string[] -ids*/){
+function getSVGElements(stack/*string[] -ids*/) {
     var e = [];
-    for(var i=0;i<stack.length;i++){
+    for (var i = 0; i < stack.length; i++) {
         e.push(svg.getElementById(stack[i]));
     }
     return e;
 }
 
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
-    if (sprites === undefined) {
-        Snap.load('sprites.svg', function(s) {
-            sprites = s;
-            selector = sprites.select('#stackSelector');
-            showStackSelectorNow(hexElement, stack);
-        })
-    } else {
-        showStackSelectorNow(hexElement, stack);
-    }
-}
+    var margin = 10;
+    var hexBB = hexElement.getBBox();
+    var selector = svg.getElementById('stackSelector');
+    copyTransformation(hexElement, selector);
+
+    var img = stack[0];//open at
+    selector.x.baseVal.value = img.x.baseVal.value - margin;
+    selector.y.baseVal.value = img.y.baseVal.value - margin;
+    selector.style.visibility = 'visible';
+    var gstack = stack.concat().reverse();
+    var size = Math.sqrt(gstack.length);
+    var width = Math.ceil(size);
+    var height = Math.floor(size + 0.5);
+    var maxCounterSize = {width: 75, height: 75};//TODO::getMaxCounterSize(gstack);
+    width = margin + width * maxCounterSize.width + margin;
+    height = margin + Math.floor(height * maxCounterSize.height) + margin;
+    selector.width.baseVal.value = width;
+    selector.height.baseVal.value = height;
+    svg.getElementById('overlays').appendChild(selector);
+    selector.stack = gstack;
+    alignStack(selector);
+    selector.atHex = hexElement;
+    //selector.style.display = '';
+//		showingStackSelector = position;
+//		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
+//		updateSelectionRect();
+//		stackSelectorContents = stack;
+//		stackSelectorPosition = position;
+};

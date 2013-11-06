@@ -5,9 +5,9 @@ FlipOp = {
         var svg = document.getElementById('svg');
         var counter = svg.getElementById(data.counterId);
         var oldCounterSide = counter.side;
-        var newSideIdx = (counter.side+1) % counter.sides.length;
+        var newSideIdx = (counter.side + 1) % counter.sides.length;
         var newSide = counter.sides[newSideIdx];
-        counter.href.baseVal.replace(/([^/])*$/, newSide);
+        counter.href.baseVal = counter.href.baseVal.replace(/([^/])*$/, newSide);
         counter.side = newSideIdx;
         return {
             counter: counter,

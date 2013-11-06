@@ -1,5 +1,6 @@
 function nthOp(n) {
     return Operations.find({}, {
+        sort: {'createdAt': -1},
         skip: n,
         limit: 1,
         reactive: false
@@ -37,6 +38,7 @@ Meteor.startup(function() {
             ctx.replayIndex++;
         },
         'Flip': function() {
+            console.log('flip', ctx.selected);
             if (!ctx.selected)
                 return;
             data = {
