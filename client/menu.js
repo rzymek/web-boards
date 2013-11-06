@@ -17,12 +17,15 @@ Meteor.startup(function() {
         'Back': function() {
             if (ctx.replayIndex === null) {
                 ctx.replayIndex = Operations.find({}).count() - 1;
+                NProgress.start();
             }
             if (ctx.replayIndex < 0) {
                 return;
             }
             var data = nthOp(ctx.replayIndex);
             undoOp(data);
+            document.title=ctx.replayIndex;
+            NProgress.set(ctx.replayIndex / Operations.find({}).count());
             ctx.replayIndex--;
         },
         'Fwd': function() {
@@ -36,6 +39,8 @@ Meteor.startup(function() {
             var data = nthOp(ctx.replayIndex + 1);
             runOp(data);
             ctx.replayIndex++;
+            document.title=ctx.replayIndex;
+            NProgress.set((ctx.replayIndex+1) / Operations.find({}).count());
         },
         'Flip': function() {
             console.log('flip', ctx.selected);

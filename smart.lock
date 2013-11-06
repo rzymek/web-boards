@@ -5,7 +5,8 @@
       "jquery-ui": {},
       "bootstrap3-less": {},
       "keybindings": {},
-      "snap-svg": {}
+      "snap-svg": {},
+      "nprogress": {}
     },
     "packages": {
       "jquery-ui": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/10thfloor/meteor-snap-svg.git",
         "tag": "v0.1.0",
         "commit": "ec16c1bd55ff6695f1417c4b8ca718624f65efae"
+      },
+      "nprogress": {
+        "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
+        "tag": "v0.0.3",
+        "commit": "ffd1c5dd400af64121197f4e637a215c4b6b1fc7"
       }
     }
   }
