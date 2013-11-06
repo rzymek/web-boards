@@ -117,6 +117,7 @@ Meteor.startup(function() {
     });
 
     NProgress.configure({
-        trickle: false
+        trickle: false,
+        speed: 100
     });
 });

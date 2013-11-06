@@ -15,6 +15,11 @@ MoveOp = {
             from: counter.position
         };
         move(context.counter, hex);
+//        var trace = svg.getElementById('trace');
+//        var from = trace.pathSegList.getItem(0);
+//        var to = trace.pathSegList.getItem(1);
+//        from.x = context.from.x.baseVal
+//        svg.getElementById('traces')
         return context;
     },
     undo: function(data, context) {
