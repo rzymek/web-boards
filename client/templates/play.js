@@ -91,6 +91,7 @@ Template.play.rendered = function() {
         'ctrl+shift+z': function() {
             alert('redo not implemented yet');
         },
+        'del': ctx.menu.Remove,
         'F': ctx.menu.Flip
     });
 

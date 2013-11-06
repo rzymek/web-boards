@@ -1,6 +1,6 @@
 function nthOp(n) {
     return Operations.find({}, {
-        sort: {'createdAt': -1},
+        sort: {'createdAt': 1},
         skip: n,
         limit: 1,
         reactive: false
@@ -41,11 +41,17 @@ Meteor.startup(function() {
             console.log('flip', ctx.selected);
             if (!ctx.selected)
                 return;
-            data = {
+            Operations.insert({
                 op: 'FlipOp',
                 counterId: ctx.selected.img.id,
-            };
-            Operations.insert(data);
+            });
+        },
+        'Remove':function (){
+            if(!ctx.selected)return;
+            Operations.insert({
+                op: 'DropOp',
+                counterId: ctx.selected.img.id,
+            });
         },
         'Reset': function() {
             Meteor.call('reset');
