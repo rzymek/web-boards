@@ -90,7 +90,7 @@ alignStack = function(area/*SVGElement*/) {
         }
     }
     area.setAttribute(STACKS, Object.keys(stackRoots).join(' '));
-}
+};
 
 function getSVGElements(stack/*string[] -ids*/) {
     var e = [];
@@ -123,6 +123,15 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     selector.stack = gstack;
     alignStack(selector);
     selector.atHex = hexElement;
+    stack.forEach(function(it){
+       it.style.pointerEvents='auto'; 
+       it.onclick = function(evt) {
+           var val = evt.target.id;
+           if(Session.equals('selectedPiece', val))
+               val = null;
+           Session.set('selectedPiece', val);
+       };
+    });
     //selector.style.display = '';
 //		showingStackSelector = position;
 //		getSVGElement(position.getSVGId()).removeAttribute(STACKS);

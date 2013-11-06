@@ -22,6 +22,10 @@ hexClicked = function(e) {
     var selector = byId('stackSelector');
     selector.style.visibility = 'hidden';
     if (selector.atHex) {
+        selector.stack.forEach(function(it){
+           it.style.pointerEvents='';
+           it.onclick = undefined;
+        });
         alignStack(selector.atHex);
     }
 
