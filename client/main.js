@@ -9,10 +9,9 @@ Session.setDefault('gameInfo', {
 });
 Session.setDefault('selectedPieces', '');
 
-function byId(id) {
+byId = function(id) {
     return document.getElementById(id);
-}
-
+};
 
 function svg() {
     return byId('svg');
@@ -22,9 +21,9 @@ hexClicked = function(e) {
     var selector = byId('stackSelector');
     selector.style.visibility = 'hidden';
     if (selector.atHex) {
-        selector.stack.forEach(function(it){
-           it.style.pointerEvents='';
-           it.onclick = undefined;
+        selector.stack.forEach(function(it) {
+            it.style.pointerEvents = '';
+            it.onclick = undefined;
         });
         alignStack(selector.atHex);
     }
@@ -47,9 +46,9 @@ hexClicked = function(e) {
         if (isOnBoard(ctx.selected.img)) {
             data = {op: 'MoveOp', counter: ctx.selected.img.id, to: use.id};
         } else {
-            data = {                
+            data = {
                 op: 'PlaceOp',
-                imageBase: '/games/'+Session.get('selectedGame')+'/images/',
+                imageBase: '/games/' + Session.get('selectedGame') + '/images/',
                 sides: ctx.selected.img.getAttribute('sides').split('|'),
                 hexid: use.id
             };

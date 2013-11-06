@@ -103,6 +103,7 @@ function getSVGElements(stack/*string[] -ids*/) {
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
     var margin = 10;
     var hexBB = hexElement.getBBox();
+    var svg = byId('svg');
     var selector = svg.getElementById('stackSelector');
     copyTransformation(hexElement, selector);
 
@@ -132,10 +133,4 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
            Session.set('selectedPiece', val);
        };
     });
-    //selector.style.display = '';
-//		showingStackSelector = position;
-//		getSVGElement(position.getSVGId()).removeAttribute(STACKS);
-//		updateSelectionRect();
-//		stackSelectorContents = stack;
-//		stackSelectorPosition = position;
 };
