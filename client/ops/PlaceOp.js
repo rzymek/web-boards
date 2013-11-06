@@ -7,18 +7,19 @@ PlaceOp = {
         if (hex === null) {
             console.warn('Hex not found:', data.hexid);
         } else {
-            var coutner = document.createElementNS(svgns, 'image');
-            coutner.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
-            coutner.width.baseVal.value = 75;
-            coutner.height.baseVal.value = 75;
-            coutner.id = data._id;
-            coutner.sides = data.sides;
-            coutner.side = 0;
-            svg.getElementById('counters').appendChild(coutner);
+            var counter = document.createElementNS(svgns, 'image');
+//            counter.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
+            counter.width.baseVal.value = 75;
+            counter.height.baseVal.value = 75;
+            counter.id = data._id;
+            counter.sides = data.sides;
+            counter.side = 0;
+            counter.href.baseVal = data.imageBase + data.sides[0];
+            svg.getElementById('counters').appendChild(counter);
 
-            addToStack(hex, coutner);
+            addToStack(hex, counter);
             alignStack(hex);
-            return coutner;
+            return counter;
         }
     },
     undo: function(data, counter) {

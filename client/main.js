@@ -45,7 +45,7 @@ hexClicked = function(e) {
         } else {
             data = {                
                 op: 'PlaceOp',
-                image: ctx.selected.getImage(),
+                imageBase: '/games/'+Session.get('selectedGame')+'/images/',
                 sides: ctx.selected.img.getAttribute('sides').split('|'),
                 hexid: use.id
             };
