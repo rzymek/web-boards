@@ -17,6 +17,12 @@ addToStack = function(hex, counter) {
  * Op._id are the keys. */
 var opsResults = {};
 runOp = function(data) {
+    (function() {
+        var traces = document.getElementById('traces');
+        while (traces.firstChild) {
+            traces.removeChild(traces.firstChild);
+        }
+    })();
     Session.set('selectedPiece',null);
     console.log('run',data);
     var result = this[data.op].run(data);

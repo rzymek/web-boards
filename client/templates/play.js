@@ -41,6 +41,8 @@ function setupGrid(svg) {
             use.setAttribute('class', 'hex');
             use.id = 'h' + x + '_' + y;
             use.onclick = hexClicked;
+            use.rx = hx;
+            use.ry = hy;
             layer.appendChild(use);
         }
     }
@@ -95,8 +97,6 @@ Template.play.rendered = function() {
         'F': ctx.menu.Flip
     });
 
-    Meteor.subscribe('operations');
-
     $.get('/sprites.svg', function(data) {
         var dest = svg.getElementsByTagName('defs')[0];
         var defs = data.getElementsByTagName('defs')[0].childNodes;
@@ -108,6 +108,8 @@ Template.play.rendered = function() {
         var tmpl = data.getElementById('tmpl');
         tmpl.style.display = 'none';
         svg.appendChild(tmpl);
+        
+        Meteor.subscribe('operations');
     });
 };
 

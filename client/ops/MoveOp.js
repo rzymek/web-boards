@@ -10,19 +10,28 @@ MoveOp = {
         var svg = document.getElementById('svg');
         var hex = svg.getElementById(data.to);
         var counter = svg.getElementById(data.counter);
-        var context = {
+        var trace = svg.getElementById('trace').cloneNode();
+        var from = counter.position;
+        move(counter, hex);
+
+        var start = trace.pathSegList.getItem(0);
+        var to = trace.pathSegList.getItem(1);
+        start.x = from.rx;
+        start.y = from.ry;
+        to.x = counter.position.rx - start.x;
+        to.y = counter.position.ry - start.y;
+        svg.getElementById('traces').appendChild(trace);
+
+        return {
             counter: counter,
-            from: counter.position
+            from: from,
+            trace:trace
         };
-        move(context.counter, hex);
-//        var trace = svg.getElementById('trace');
-//        var from = trace.pathSegList.getItem(0);
-//        var to = trace.pathSegList.getItem(1);
-//        from.x = context.from.x.baseVal
-//        svg.getElementById('traces')
-        return context;
     },
     undo: function(data, context) {
         move(context.counter, context.from);
+        if(context.trace.parentElement) {
+            context.trace.parentElement.removeChild(context.trace);
+        }
     }
 };
