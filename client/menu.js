@@ -61,7 +61,7 @@ Meteor.startup(function() {
         },
         '1d6': function() {
             Operations.insert({
-                op: 'NoOp',
+                op: 'RollOp',
                 server: {
                     roll: '1d6'
                 }
