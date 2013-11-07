@@ -37,10 +37,10 @@ function setupGrid(svg) {
             }
             use = document.createElementNS(svgns, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
-//            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
-            use.setAttribute('transform', 'scale(' + hscale + ')');
-            use.x.baseVal.value = hx/hscale;
-            use.y.baseVal.value = hy/hscale;            
+            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
+//            use.setAttribute('transform', 'scale(' + hscale + ')');
+//            use.x.baseVal.value = hx/hscale;
+//            use.y.baseVal.value = hy/hscale;            
             
             use.setAttribute('class', 'hex');
             use.id = 'h' + x + '_' + y;
