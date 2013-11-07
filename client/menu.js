@@ -17,9 +17,9 @@ Meteor.startup(function() {
         'Back': function() {
             if (ctx.replayIndex === null) {
                 ctx.replayIndex = Operations.find({}).count() - 1;
-                NProgress.configure({speed:0});
-            }else{
-                NProgress.configure({speed:200});
+                NProgress.configure({speed: 0});
+            } else {
+                NProgress.configure({speed: 200});
             }
             if (ctx.replayIndex < 0) {
                 return;
@@ -40,7 +40,7 @@ Meteor.startup(function() {
             var data = nthOp(ctx.replayIndex + 1);
             runOp(data);
             ctx.replayIndex++;
-            NProgress.set((ctx.replayIndex+1) / Operations.find({}).count());
+            NProgress.set((ctx.replayIndex + 1) / Operations.find({}).count());
         },
         'Flip': function() {
             console.log('flip', ctx.selected);
@@ -51,11 +51,20 @@ Meteor.startup(function() {
                 counterId: ctx.selected.img.id,
             });
         },
-        'Remove':function (){
-            if(!ctx.selected)return;
+        'Remove': function() {
+            if (!ctx.selected)
+                return;
             Operations.insert({
                 op: 'DropOp',
                 counterId: ctx.selected.img.id,
+            });
+        },
+        '1d6': function() {
+            Operations.insert({
+                op: 'NoOp',
+                server: {
+                    roll: '1d6'
+                }
             });
         },
         'Reset': function() {

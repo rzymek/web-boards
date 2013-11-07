@@ -42,13 +42,25 @@ Operations.allow({
 Operations.deny({
     insert: function(userId, doc) {
         doc.createdAt = new Date().valueOf();
-        return false;
-    },
-    update: function(userId, doc, fieldNames, modifier) {
-        if (modifier.$set) {
-            modifier.$set.updated = new Date();
+        if(doc.result !== undefined) {
+            console.warn('trying to insert doc with result');
+            return true;
+        }
+        if (doc.server !== undefined) {
+            //TODO: parse the actual request in doc.server
+            doc.result = {
+                roll:1 + Math.floor(Math.random() * 6)
+            };
+            delete doc['server'];
+            console.log('rolled', doc.roll);
         }
         return false;
-    }
+    },
+//    update: function(userId, doc, fieldNames, modifier) {
+//        if (modifier.$set) {
+//            modifier.$set.updated = new Date();
+//        }
+//        return false;
+//    }
 });
 

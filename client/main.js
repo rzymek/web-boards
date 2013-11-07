@@ -109,7 +109,14 @@ Deps.autorun(function() {
 Meteor.startup(function() {
     Operations.find().observe({
         added: function(data) {
-            runOp(data);
+            if(data.server === undefined) {
+                runOp(data);
+            }
+        },
+        changed: function(data) {
+            if(data.result !== undefined) {
+                runOp(data);
+            }
         },
         removed: function(data) {
             undoOp(data);
