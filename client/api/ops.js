@@ -12,7 +12,10 @@ addToStack = function(hex, counter) {
     else
         hex.stack = [counter];
 };
-
+NoOp = {
+    run: function () {},
+    undo: function () {}
+};
 /* Op.run results associated with Op data (from Mongo)
  * Op._id are the keys. */
 var opsResults = {};
