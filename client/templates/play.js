@@ -52,7 +52,7 @@ function setupGrid(svg) {
     }
     return svg;
 }
-;
+
 
 Template.play.board = function() {
     var gameInfo = Session.get('gameInfo');
