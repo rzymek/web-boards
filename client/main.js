@@ -68,7 +68,7 @@ Deps.autorun(function() {
         return;
     $.get('/games/' + game + '/game.json', function(data) {
         data.board.image = '../javadoc.png'; //TODO: remove
-//        data.board.image = '../board-low.jpg'; //TODO: remove
+        data.board.image = '../board-low.jpg'; //TODO: remove
         S.setGameInfo(data);
     });
 });
