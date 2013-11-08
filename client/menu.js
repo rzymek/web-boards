@@ -7,7 +7,7 @@ function nthOp(n) {
     }).fetch()[0];
 }
 opRange = function opRange(first, last) {
-    if(first > last) {
+    if (first > last) {
         var tmp = first;
         first = last;
         last = tmp;
@@ -22,33 +22,9 @@ opRange = function opRange(first, last) {
         skip: first,
         limit: limit,
         reactive: false
-    });
+    }).fetch();
 }
-normalizeRangeTest = function() {
-    //  [1] [2] [3] [4] [5] 
-    // ^   ^   ^   ^   ^   ^ 
-    // 0   1   2   3   4   5      
-    //     <-----------|
-    // 
-    //  [5] [4] [3] [2] [1] 
-    // ^   ^   ^   ^   ^   ^ 
-    // 0   1   2   3   4   5      
-    //     |----------->
-    var count = 5;
-    [
-        {a: 5, b: 0, exp: [0, 5, -1]},
-        {a: 0, b: 5, exp: [0, 4, 1]},
-        {a: 2, b: 4, exp: [2, 3, 1]},
-        {a: 1, b: 4, exp: [1, 3, 1]},
-        {a: 4, b: 1, exp: [1, 3, -1]},
-        {a: 3, b: null, exp: [4, 4, -1]},
-        {a: 5, b: 3, exp: [4, 5, 1]},
-        {a: 3, b: null, exp: [4, 5, -1]},
-    ].forEach(function(test) {
-        var result = normalizeRange(test.a, test.b, count);
-        console.log(test.exp.join(',') === result.join(','), 'a=' + test.a + ' b=' + test.b, test.exp, result);
-    });
-}
+
 
 normalizeRange = function(a, b, count) {
     return [4, 5, -1];
@@ -57,27 +33,31 @@ normalizeRange = function(a, b, count) {
 lastReplayIndex = null;
 Meteor.startup(function() {
     Session.set('replayIndex', null);
+    NProgress.configure({speed: 0});
     Deps.autorun(function() {
-        var idx = Session.get('replayIndex');
-        var last = lastReplayIndex;
-        if (idx === null && lastReplayIndex === null) {
+        var to = Session.get('replayIndex');
+        if (to === null && lastReplayIndex === null) {
             return;
         }
+        var current = lastReplayIndex;
         var count = Operations.find({}).count();
-        if (last === null) {
-            last = count;
+        if (to === null)
+            to = count;
+        if (current === null)
+            current = count;
+        var ops = opRange(current, to);
+        console.log('replaying', to, current, ops.length);
+        if (current <= to) {
+            for (var i = 0; i < ops.length; i++) {
+                runOp(ops[i]);
+            }
+        } else {
+            for (var i = ops.length - 1; i >= 0; i--) {
+                undoOp(ops[i]);
+            }
         }
-        var start = Math.min(idx, last) + 1;
-        var end = Math.max(idx, last);
-        if (start < 0)
-            start = 0;
-        if (end > count - 1)
-            end = count - 1;
-        var op = 'runOp';
-        if (idx < last)
-            op = 'undoOp';
-        lastReplayIndex = idx;
-        console.log(start, '..', end, op, ' lRI=', lastReplayIndex);
+        NProgress.set(to / count);
+        lastReplayIndex = to;
     });
 });
 Meteor.startup(function() {
@@ -90,32 +70,21 @@ Meteor.startup(function() {
         },
         'Back': function() {
             var idx = Session.get('replayIndex');
-            if (idx === undefined) {
-                idx = Operations.find({}).count() - 1;
-                NProgress.configure({speed: 0});
-            } else {
-                NProgress.configure({speed: 200});
-            }
-            if (idx < 0) {
-            }
-            var data = nthOp(idx);
-            undoOp(data);
-            NProgress.set(idx / Operations.find({}).count());
+            if (idx === null)
+                idx = Operations.find({}).count();
             idx--;
+            if (idx < 0)
+                return;
             Session.set('replayIndex', idx);
         },
         'Fwd': function() {
-            if (ctx.replayIndex === null) {
+            var idx = Session.get('replayIndex');
+            if (idx === null)
                 return;
-            }
-            if (ctx.replayIndex >= Operations.find({}).count() - 1) {
-                ctx.replayIndex = null;
+            idx++;
+            if (idx > Operations.find({}).count())
                 return;
-            }
-            var data = nthOp(ctx.replayIndex + 1);
-            runOp(data);
-            ctx.replayIndex++;
-            NProgress.set((ctx.replayIndex + 1) / Operations.find({}).count());
+            Session.set('replayIndex', idx);
         },
         'Flip': function() {
             console.log('flip', ctx.selected);

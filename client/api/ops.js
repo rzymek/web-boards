@@ -12,9 +12,17 @@ addToStack = function(hex, counter) {
     else
         hex.stack = [counter];
 };
+
+function sleep( sleepDuration ){
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + sleepDuration){ /* do nothing */ } 
+}
+
 NoOp = {
-    run: function () {},
-    undo: function () {}
+    run: function () {
+    },
+    undo: function () {
+    }
 };
 /* Op.run results associated with Op data (from Mongo)
  * Op._id are the keys. */
@@ -26,7 +34,7 @@ runOp = function(data) {
             traces.removeChild(traces.firstChild);
         }
     })();
-    Session.set('selectedPiece',null);
+//    Session.set('selectedPiece',null);
     console.log('run',data);
     var result = this[data.op].run(data);
     if (result !== undefined) {

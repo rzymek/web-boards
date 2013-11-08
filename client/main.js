@@ -54,7 +54,6 @@ hexClicked = function(e) {
             };
         }
         Operations.insert(data);
-        Session.set('selectedPiece', null);
     }
 };
 
