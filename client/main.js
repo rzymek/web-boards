@@ -7,8 +7,6 @@ Session.setDefault('gameInfo', {
         grid: null
     }
 });
-Session.setDefault('selectedPieces', '');
-
 byId = function(id) {
     return document.getElementById(id);
 };
@@ -39,6 +37,13 @@ hexClicked = function(e) {
             Session.set('selectedPiece', stack[0].id);
         }
         return;
+    }
+    var s = Session.get('selectedPiece');
+    if(s !== null) {        
+        if(document.getElementById(s).position.id === use.id){
+            Session.set('selectedPiece', null);
+            return;
+        }
     }
 
     if (ctx.selected) {
@@ -80,6 +85,7 @@ function isOnBoard(piece) {
 }
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
+    console.log('selected',selected);
     if (ctx.selected) {
         var piece = ctx.selected.img;
         if (isOnBoard(piece)) {
@@ -126,4 +132,6 @@ Meteor.startup(function() {
         trickle: false,
         speed: 100
     });
+    
+    Session.set('selectedPiece', null);
 });

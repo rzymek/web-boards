@@ -33,7 +33,6 @@ normalizeRange = function(a, b, count) {
 lastReplayIndex = null;
 Meteor.startup(function() {
     Session.set('replayIndex', null);
-    NProgress.configure({speed: 0});
     Deps.autorun(function() {
         var to = Session.get('replayIndex');
         if (to === null && lastReplayIndex === null) {
