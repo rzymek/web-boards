@@ -14,7 +14,7 @@ Template.controls.events({
             $('div.menu-folded').show();
             $('div.menu-unfolded').hide();
         } else {
-            ctx.menu[txt]();
+            menu[txt]();
         }
     }
 });

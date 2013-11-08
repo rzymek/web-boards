@@ -61,7 +61,7 @@ Meteor.startup(function() {
     });
 });
 Meteor.startup(function() {
-    ctx.menu = {
+    menu = {
         'Undo': function() {
             Meteor.call('undo');
         },
@@ -87,20 +87,21 @@ Meteor.startup(function() {
             Session.set('replayIndex', idx);
         },
         'Flip': function() {
-            console.log('flip', ctx.selected);
-            if (!ctx.selected)
+            var selected = Session.get('selectedPiece');
+            if (!selected)
                 return;
             Operations.insert({
                 op: 'FlipOp',
-                counterId: ctx.selected.img.id,
+                counterId: selected,
             });
         },
         'Remove': function() {
-            if (!ctx.selected)
+            var selected = Session.get('selectedPiece');
+            if (!selected)
                 return;
             Operations.insert({
                 op: 'DropOp',
-                counterId: ctx.selected.img.id,
+                counterId: selected,
             });
         },
         'Test': function() {
@@ -120,5 +121,5 @@ Meteor.startup(function() {
             Meteor.call('reset');
         }
     };
-    S.setMenuItems(Object.keys(ctx.menu));
+    S.setMenuItems(Object.keys(menu));
 });

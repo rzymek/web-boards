@@ -18,9 +18,7 @@ SVGCounter = (function() {
 })();
 
 ctx = {
-    selected: null,
-    menu: {},
-    replayIndex: null,
+    selected: null
 };
 function getPlacing(counters, counterDim, areaBBox, spacing) {
     var width = areaBBox.width;

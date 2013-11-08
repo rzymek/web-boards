@@ -37,7 +37,7 @@ function setupGrid(svg) {
             }
             use = document.createElementNS(svgns, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
-            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');            
+            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
             use.id = 'h' + x + '_' + y;
             use.onclick = hexClicked;
@@ -86,15 +86,15 @@ Template.play.rendered = function() {
     }
 
     Meteor.Keybindings.removeAll();
-    Meteor.Keybindings.add({ 
-        '←': ctx.menu.Back,
-        '→': ctx.menu.Fwd,
-        'ctrl+z': ctx.menu.Undo,
+    Meteor.Keybindings.add({
+        '←': menu.Back,
+        '→': menu.Fwd,
+        'ctrl+z': menu.Undo,
         'ctrl+shift+z': function() {
             alert('redo not implemented yet');
         },
-        'del': ctx.menu.Remove,
-        'F': ctx.menu.Flip
+        'del': menu.Remove,
+        'F': menu.Flip
     });
 
     $.get('/sprites.svg', function(data) {
@@ -108,7 +108,7 @@ Template.play.rendered = function() {
         var tmpl = data.getElementById('tmpl');
         tmpl.style.display = 'none';
         svg.appendChild(tmpl);
-        
+
         Meteor.subscribe('operations');
     });
 };
