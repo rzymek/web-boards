@@ -39,7 +39,7 @@ Meteor.startup(function() {
             return;
         }
         var current = lastReplayIndex;
-        var count = Operations.find({}).count();
+        var count = Operations.find({}, {reactive:false}).count();
         if (to === null)
             to = count;
         if (current === null)
@@ -82,7 +82,7 @@ Meteor.startup(function() {
                 return;
             idx++;
             if (idx > Operations.find({}).count())
-                return;
+                idx = null;
             Session.set('replayIndex', idx);
         },
         'Flip': function() {
