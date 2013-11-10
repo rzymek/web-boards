@@ -6,3 +6,15 @@
 <body>
     {{> main}}
 </body>
+
+
+<template name="main">
+    {{#if gameSelected }}
+        {{> play}}
+        {{> status}}
+        {{> controls}}
+        {{> pieces}}
+    {{else}}
+        {{>welcome}}
+    {{/if}}
+</template>

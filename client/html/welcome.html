@@ -1,0 +1,8 @@
+<template name="welcome">
+    <div class="welcome">
+        <h1>Welcome</h1>
+        {{#each games}}
+            <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
+        {{/each}}
+    </div>
+</template>

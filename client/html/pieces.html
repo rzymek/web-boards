@@ -1,0 +1,24 @@
+<template name="pieces">
+    <div id="panel" class="panel panel-primary">
+        <div id="piecesPanel" class="panel-heading">
+            <select>
+                {{#each categories}}
+                    <option>{{.}}</option>
+                {{/each}}
+            </select>
+        </div>
+        {{> selectedPieces}}
+    </div>
+</template>
+
+<template name="selectedPieces">
+    <div id="piecesPanel" class="panel-body">
+        {{#each pieces}}
+            {{>piece}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="piece">
+    <img id="{{id}}" src="{{src}}" width="45" height="45" class="{{selected}}" sides="{{sides}}">
+</template>
