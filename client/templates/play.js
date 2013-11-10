@@ -20,21 +20,28 @@ function setupGrid(svg) {
     if (layer.childNodes.length > 0) {
         return svg; //already setup
     }
-    var hex2hex = {y: 125.29 * boardScale, x: 108.5 * boardScale};
-    var board = S.gameInfo().board;
+    var board = Session.get('gameInfo').board;
+    var scaling = getBoardScaling();
+    var hex2hex = {
+        x: board.grid.hexWidth * boardScale,
+        y: board.grid.hexSize * boardScale
+    };
 
-    var A = 2 * 125.29 / Math.sqrt(3);
+    var A = 2 * board.grid.hexSize / Math.sqrt(3);
     var use;
     var yn = board.height / hex2hex.y;
     var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
         for (var x = 0; x < xn; x++) {
-            var hx = (80 * boardScale + x * hex2hex.x);
-            var hy = (65 * boardScale + y * hex2hex.y);
+            var hx = (board.grid.originX * boardScale + x * hex2hex.x);
+            var hy = (board.grid.originY * boardScale + y * hex2hex.y);
             var hscale = A / 100 * boardScale;
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
+            hx /= scaling;
+            hy /= scaling;
+            hscale /= scaling;
             use = document.createElementNS(svgns, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
@@ -49,10 +56,24 @@ function setupGrid(svg) {
     return svg;
 }
 
+function getBoardScaling() {
+    if (isTouchDevice()) {
+        var MAX_BOARD_WIDTH = 3000;
+        var gameInfo = Session.get('gameInfo');
+        return gameInfo.board.width / MAX_BOARD_WIDTH;
+    } else {
+        return 1;
+    }
+}
+
 
 Template.play.board = function() {
     var gameInfo = Session.get('gameInfo');
-    return {w: gameInfo.board.width, h: gameInfo.board.height};
+    var scaling = getBoardScaling();
+    return {
+        w: gameInfo.board.width / scaling,
+        h: gameInfo.board.height / scaling
+    };
 };
 Template.play.boardImg = function() {
     var selected = Session.get('selectedGame');
@@ -76,7 +97,7 @@ Template.play.rendered = function() {
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
         $('#menu').addClass('touch');
-    }else{
+    } else {
         $('#menu').addClass('mouse');
     }
 
