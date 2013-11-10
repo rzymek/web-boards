@@ -1,7 +1,7 @@
 Template.pieces.categories = function() {
-    return [''].concat(S.gameInfo().pieces.map(function(pieces) {
+    return Session.get('gameInfo').pieces.map(function(pieces) {
         return pieces.category;
-    }));
+    });
 };
 
 Template.piece.selected = function() {
