@@ -22,8 +22,9 @@ hexClicked = function(e) {
         return;
     }
     var s = Session.get('selectedPiece');
-    if(s !== null) {        
-        if(document.getElementById(s).position.id === use.id){
+    if(s !== null) {
+        var elem = document.getElementById(s);
+        if(elem.position && elem.position.id === use.id){
             Session.set('selectedPiece', null);
             return;
         }
