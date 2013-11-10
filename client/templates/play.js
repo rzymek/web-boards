@@ -1,6 +1,3 @@
-function isTouchDevice() {
-    return 'ontouchstart' in window || 'onmsgesturechange' in window;
-}
 if (!isTouchDevice()) {
     Template.play.svgWidth = '100%';
     Template.play.svgHeight = '100%';
@@ -56,15 +53,9 @@ function setupGrid(svg) {
     return svg;
 }
 
-function getBoardScaling() {
-    if (isTouchDevice()) {
-        var MAX_BOARD_WIDTH = 3000;
-        var gameInfo = Session.get('gameInfo');
-        return gameInfo.board.width / MAX_BOARD_WIDTH;
-    } else {
-        return 1;
-    }
-}
+Deps.autorun(function (){
+    console.log('board scaling: '+getBoardScaling());
+});
 
 
 Template.play.board = function() {

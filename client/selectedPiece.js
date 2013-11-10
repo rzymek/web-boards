@@ -1,28 +1,21 @@
+var selectedPiece = null;
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
-    console.log('selected',selected);
-    if (ctx.selected) {
-        var piece = ctx.selected.img;
-        if (isOnBoard(piece)) {
+    if (selectedPiece) {
+        if (selectedPiece.style.filter !== undefined) {
             //deselect current onboard piece
             //pieces in panel are deselected reactivly
-            piece.style.filter = '';
+            selectedPiece.style.filter = '';
         }
     }
     if (selected) {
-        var piece = document.getElementById(selected);
-        if (!piece) {
+        selectedPiece = document.getElementById(selected);
+        if (!selectedPiece) {
             // svg board is not ready, can happen during code-push
-            ctx.selected = null;
             return;
         }
-        if (isOnBoard(piece)) {
-            ctx.selected = new SVGCounter(piece);
-            piece.style.filter = 'url(#select)';
-        } else {
-            ctx.selected = new HTMLCounter(piece);
+        if (selectedPiece.style.filter !== undefined) {
+            selectedPiece.style.filter = 'url(#select)';
         }
-    } else {
-        ctx.selected = null;
     }
 });

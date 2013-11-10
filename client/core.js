@@ -1,25 +1,3 @@
-HTMLCounter = (function() {
-    function HTMLCounter(node) {
-        this.img = node;
-    }
-    HTMLCounter.prototype.getImage = function() {
-        return this.img.src;
-    };
-    return HTMLCounter;
-})();
-SVGCounter = (function() {
-    function SVGCounter(node) {
-        this.img = node;
-    }
-    SVGCounter.prototype.getImage = function() {
-        return this.img.href.baseVal;
-    };
-    return SVGCounter;
-})();
-
-ctx = {
-    selected: null
-};
 function getPlacing(counters, counterDim, areaBBox, spacing) {
     var width = areaBBox.width;
     var maxSlots = (areaBBox.height / (counterDim.height + spacing) + 0.5);
@@ -42,13 +20,20 @@ alignStack = function(area/*SVGElement*/) {
     var counters = area.stack;
     var areaBBox = area.getBBox();
     var spacing = 3;
-    var counterDim = {width: 75, height: 75};
+
+    if(counters === undefined || counters.length === 0) {
+        return;
+    }
+    var counterDim = { //TODO: get max dim
+        width: counters[0].width.baseVal.value,
+        height: counters[0].height.baseVal.value
+    };
     var placing = getPlacing(counters, counterDim, areaBBox, spacing)
     var startx = (areaBBox.width - (placing.width * (counterDim.width + spacing))) / 2;
     var starty = (areaBBox.height - (placing.height * (counterDim.height + spacing))) / 2;
 
-    startx += areaBBox.x;
-    starty += areaBBox.y;
+    startx += area.rx;
+    starty += area.ry;
     var x = 0;
     var y = 0;
     var stackOffset = 0;
@@ -57,11 +42,11 @@ alignStack = function(area/*SVGElement*/) {
     stackRoots = {};
     for (var i = 0; i < counters.length; i++) {
         var counter = counters[i];
-        var cx = startx + x + stackOffset;
-        var cy = starty + y + stackOffset;
+        var cx = x + stackOffset;
+        var cy = y + stackOffset;
         copyTransformation(area, counter);
-        counter.x.baseVal.value = cx;
-        counter.y.baseVal.value = cy;
+        counter.x.baseVal.value = -counter.width.baseVal.value / 2;
+        counter.y.baseVal.value = -counter.height.baseVal.value / 2;
         if (layer > 0) {
             var id = counter.id;
             var stacksWith = counters[i - countersOnLayer].id;
@@ -113,7 +98,11 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     var size = Math.sqrt(gstack.length);
     var width = Math.ceil(size);
     var height = Math.floor(size + 0.5);
-    var maxCounterSize = {width: 75, height: 75};//TODO::getMaxCounterSize(gstack);
+    //TODO::getMaxCounterSize(gstack);
+    var maxCounterSize = {
+        width: gstack[0].width.baseVal.value, 
+        height: gstack[0].height.baseVal.value
+    };
     width = margin + width * maxCounterSize.width + margin;
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
@@ -122,13 +111,13 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     selector.stack = gstack;
     alignStack(selector);
     selector.atHex = hexElement;
-    stack.forEach(function(it){
-       it.style.pointerEvents='auto'; 
-       it.onclick = function(evt) {
-           var val = evt.target.id;
-           if(Session.equals('selectedPiece', val))
-               val = null;
-           Session.set('selectedPiece', val);
-       };
+    stack.forEach(function(it) {
+        it.style.pointerEvents = 'auto';
+        it.onclick = function(evt) {
+            var val = evt.target.id;
+            if (Session.equals('selectedPiece', val))
+                val = null;
+            Session.set('selectedPiece', val);
+        };
     });
 };

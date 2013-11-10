@@ -10,7 +10,9 @@ hexClicked = function(e) {
     }
 
     var use = e.currentTarget;
-    if (ctx.selected === null) {
+    var selectedId = Session.get('selectedPiece');
+    if (selectedId === null) {
+        //selecting a piece
         var stack = use.stack;
         if (stack === undefined || stack === null)
             return;
@@ -20,25 +22,26 @@ hexClicked = function(e) {
             Session.set('selectedPiece', stack[0].id);
         }
         return;
-    }
-    var s = Session.get('selectedPiece');
-    if(s !== null) {
-        var elem = document.getElementById(s);
-        if(elem.position && elem.position.id === use.id){
+    }else{
+        //clicked on a selected piece -> deselect
+        var img = byId(selectedId);
+        if(img.position && img.position.id === use.id){
             Session.set('selectedPiece', null);
             return;
-        }
+        }        
     }
 
-    if (ctx.selected) {
+    if (selectedId) {
         var data = null;
-        if (isOnBoard(ctx.selected.img)) {
-            data = {op: 'MoveOp', counter: ctx.selected.img.id, to: use.id};
-        } else {
+        var img = byId(selectedId);
+        if (isOnBoard(img)) {
+            data = {op: 'MoveOp', counter: img.id, to: use.id};
+        } else {         
             data = {
                 op: 'PlaceOp',
                 imageBase: '/games/' + Session.get('selectedGame') + '/images/',
-                sides: ctx.selected.img.getAttribute('sides').split('|'),
+                sides: img.getAttribute('sides').split('|'),
+                size: getNatural(img),
                 hexid: use.id
             };
         }
