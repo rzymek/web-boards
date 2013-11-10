@@ -1,7 +1,7 @@
 @import "/packages/bootstrap3-less/bootstrap.lessimport";
 
 @panel-padding: 4px;
-@menu-size: 45px;
+@menu-size: 50px;
 @piece-panel-width: 5 * (@menu-size + @panel-padding) + 1.5*@panel-padding;
 
 .hex {
@@ -41,17 +41,29 @@
   padding-right: 1px;
 }
 
+#menu.touch {
+  button {
+    width: @menu-size*2;
+    height: @menu-size/2;
+  }    
+}
+
+#menu.mouse {
+  button {
+    width: @menu-size;
+    height: @menu-size;
+  }    
+}
+
 #menu {
   position: fixed;
   right: 0;
   top: 0;
-  width: @menu-size;
   text-align: right;
+  padding:0;
   button {
-    width: @menu-size;
-    height: @menu-size;
     text-align: center;
-    padding: 0px;
+    padding: 0;
   }
   .menu-unfolded {
     display: none;

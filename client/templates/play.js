@@ -75,6 +75,9 @@ Template.play.rendered = function() {
     setupGrid(svg);
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
+        $('#menu').addClass('touch');
+    }else{
+        $('#menu').addClass('mouse');
     }
 
     Meteor.Keybindings.removeAll();
