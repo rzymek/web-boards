@@ -75,14 +75,6 @@ Template.play.rendered = function() {
     setupGrid(svg);
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
-        var panel = $('#panel');
-        panel.draggable({
-            start: function() {
-                panel.height(panel.height());
-            }
-        });
-    } else {
-        $('#panel').hide();
     }
 
     Meteor.Keybindings.removeAll();

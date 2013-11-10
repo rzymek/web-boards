@@ -12,6 +12,9 @@ Meteor.startup(function() {
                 return;
             Session.set('replayIndex', idx);
         },
+        'Pieces': function() {
+            $('#panel').fadeToggle();
+        },
         'Fwd': function() {
             var idx = Session.get('replayIndex');
             if (idx === null)
