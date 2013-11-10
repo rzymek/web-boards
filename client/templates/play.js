@@ -2,11 +2,11 @@ if (!isTouchDevice()) {
     Template.play.svgWidth = '100%';
     Template.play.svgHeight = '100%';
 } else {
-    Template.play.svgWidth = function() {
-        return S.gameInfo().board.width;
+    Template.play.svgWidth = function() {        
+        return Template.play.board().w;
     };
     Template.play.svgHeight = function() {
-        return S.gameInfo().board.height;
+        return Template.play.board().h;
     };
 }
 
