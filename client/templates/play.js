@@ -2,12 +2,12 @@ if (!isTouchDevice()) {
     Template.play.svgWidth = '100%';
     Template.play.svgHeight = '100%';
 } else {
-    Template.play.svgWidth = function() {        
-        return Template.play.board().w;
-    };
-    Template.play.svgHeight = function() {
-        return Template.play.board().h;
-    };
+    Template.play.svgWidth = 3000;//function() {        
+//        return Template.play.board().w;
+//    };
+    Template.play.svgHeight = 1941;//function() {
+//        return Template.play.board().h;
+//    };
 }
 
 function setupGrid(svg) {
@@ -78,12 +78,13 @@ Template.status.status = function() {
     return Meteor.status();
 };
 
-Template.play.rendered = function() {
+var setup = function () {
     var gameInfo = Session.get('gameInfo');
-    if (gameInfo.board.grid === null) {
+    var svg = document.getElementById('svg');
+    console.log('play rendered', gameInfo, svg);
+    if (gameInfo.board.grid === null || svg === null) {
         return;
     }
-    var svg = document.getElementById('svg');
     setupGrid(svg);
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
@@ -91,7 +92,7 @@ Template.play.rendered = function() {
     } else {
         $('#menu').addClass('mouse');
     }
-
+/*
     Meteor.Keybindings.removeAll();
     Meteor.Keybindings.add({
         '←': menu.Back,
@@ -103,7 +104,7 @@ Template.play.rendered = function() {
         'del': menu.Remove,
         'F': menu.Flip
     });
-
+*/
     $.get('/sprites.svg', function(data) {
         var dest = svg.getElementsByTagName('defs')[0];
         var defs = data.getElementsByTagName('defs')[0].childNodes;
@@ -120,4 +121,5 @@ Template.play.rendered = function() {
     });
 };
 
-
+Deps.autorun(setup);
+Template.play.rendered = setup;
