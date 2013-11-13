@@ -17,7 +17,8 @@ getNatural = function (e) {
 };
 
 isTouchDevice = function () {
-//    return true;
+    if(location.search.indexOf('mobile') > 0)
+        return true;
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
 getBoardScaling = function () {

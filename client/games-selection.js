@@ -4,8 +4,11 @@ Deps.autorun(function() {
     if (game === undefined)
         return;
     $.get('/games/' + game + '/game.json', function(data) {
-        data.board.image = '../javadoc.png'; //TODO: remove
-        data.board.image = '../board-low.jpg'; //TODO: remove
+        if(location.search.indexOf('sfw') > 0) {
+            data.board.image = '../javadoc.png'; //TODO: remove
+        }else if(!location.search.indexOf('hires') > 0){
+            data.board.image = '../board-low.jpg'; //TODO: remove
+        }
         Session.set('gameInfo', data);
     });
 });
