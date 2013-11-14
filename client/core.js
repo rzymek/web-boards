@@ -45,8 +45,8 @@ alignStack = function(area/*SVGElement*/) {
         var cx = x + stackOffset;
         var cy = y + stackOffset;
         copyTransformation(area, counter);
-        counter.x.baseVal.value = -counter.width.baseVal.value / 2;
-        counter.y.baseVal.value = -counter.height.baseVal.value / 2;
+        counter.x.baseVal.value = -counter.width.baseVal.value / 2 + cx;
+        counter.y.baseVal.value = -counter.height.baseVal.value / 2 + cy;
         if (layer > 0) {
             var id = counter.id;
             var stacksWith = counters[i - countersOnLayer].id;
