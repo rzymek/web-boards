@@ -22,15 +22,15 @@ Template.pieces.events({
     'change select': function(e) {
         var combo = e.target;
         var category = combo.options[combo.selectedIndex].value;
-        S.setPiecesCategory(category);
+        Session.set('piecesCategory', category);
         return true;
     },
 });
 
 Template.selectedPieces.pieces = function() {
-    var g = S.selectedGame();
-    var cat = S.piecesCategory();
-    var inCat = S.gameInfo().pieces.filter(function(p) {
+    var g = Session.get('selectedGame');
+    var cat = Session.get('piecesCategory');
+    var inCat = Session.get('gameInfo').pieces.filter(function(p) {
         return p.category === cat;
     });
     if (inCat.length > 0) {

@@ -1,12 +1,11 @@
-/// <reference path="../TypedSession.api.d.ts"/>
 var welcome = Template['welcome'];
 
-welcome['games'] = function () {
-    return S.games();
+welcome['games'] = function() {
+    return Session.get('games');
 };
 welcome.events({
-    'click button': function (e) {
+    'click button': function(e) {
         var t = e.currentTarget;
-        S.setSelectedGame(t.value);
+        Session.set('selectedGame', t.value);
     }
 });

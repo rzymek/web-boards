@@ -1,6 +1,6 @@
 
 Template.controls.menu = function () {
-    return S.menuItems();
+    return Session.get('menuItems');
 };
 
 Template.controls.events({

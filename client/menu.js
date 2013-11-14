@@ -59,5 +59,5 @@ Meteor.startup(function() {
             Meteor.call('reset');
         }
     };
-    S.setMenuItems(Object.keys(menu));
+    Session.set('menuItems',Object.keys(menu));
 });

@@ -1,18 +1,18 @@
 
 Deps.autorun(function() {
-    var game = S.selectedGame();
+    var game = Session.get('selectedGame');
     if (game === undefined)
         return;
     $.get('/games/' + game + '/game.json', function(data) {
         data.board.image = '../javadoc.png'; //TODO: remove
         data.board.image = '../board-low.jpg'; //TODO: remove
-        S.setGameInfo(data);
+        Session.set('gameInfo', data);
     });
 });
 
 Meteor.call('games', function(err, games) {
     if (games.length === 1)
-        S.setSelectedGame(games[0]);
+        Session.set('selectedGame', games[0]);
     else
-        S.setGames(games);
+        Session.set('games', games);
 });
