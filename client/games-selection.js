@@ -6,7 +6,7 @@ Deps.autorun(function() {
     $.get('/games/' + game + '/game.json', function(data) {
         if(location.search.indexOf('sfw') > 0) {
             data.board.image = '../javadoc.png'; //TODO: remove
-        }else if(!location.search.indexOf('hires') > 0){
+        }else if(location.search.indexOf('hires') < 0){
             data.board.image = '../board-low.jpg'; //TODO: remove
         }
         Session.set('gameInfo', data);

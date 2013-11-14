@@ -43,9 +43,12 @@ Meteor.startup(function() {
             });
         },
         'Test': function() {
-            for (var i = 1; i <= 5; i++) {
-                Operations.insert({op: 'NoOp', info: i});
-            }
+            var meta = document.getElementsByTagName('meta')[0];
+            if(meta.content ==='')
+                meta.content = "initial-scale=1.0, user-scalable=no";
+            else
+                meta.content = '';
+            alert(meta.content);
         },
         '1d6': function() {
             Operations.insert({
