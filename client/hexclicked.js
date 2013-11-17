@@ -11,11 +11,10 @@ pieceMenu = {
 };
 
 function showPieceMenu(img) {
-    console.log(img);
     var menuItem = byId('menuItem');
     var x = img.position.rx + img.width.baseVal.value / 2;
     var y = img.position.ry - img.height.baseVal.value / 2;
-    menuItem.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
+    menuItem.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale('+(1/getBoardScaling())+')');
     menuItem.style.visibility = 'visible';
     byId('pieceMenuLayer').appendChild(menuItem);
 }
