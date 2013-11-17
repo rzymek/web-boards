@@ -1,21 +1,22 @@
-var selectedPiece = null;
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
-    if (selectedPiece) {
-        if (selectedPiece.style.filter !== undefined) {
-            //deselect current onboard piece
-            //pieces in panel are deselected reactivly
-            selectedPiece.style.filter = '';
-        }
+    var rect = byId('selection');
+    if (!rect) {
+        // svg board is not ready, can happen during code-push
+        return;
     }
     if (selected) {
-        selectedPiece = document.getElementById(selected);
-        if (!selectedPiece) {
-            // svg board is not ready, can happen during code-push
-            return;
-        }
-        if (selectedPiece.style.filter !== undefined) {
-            selectedPiece.style.filter = 'url(#select)';
-        }
+        var selectedPiece = byId(selected);
+        var w = selectedPiece.width.baseVal.value;
+        var h = selectedPiece.height.baseVal.value;
+        rect.width.baseVal.value = w;
+        rect.height.baseVal.value = h;
+        rect.x.baseVal.value = -w / 2;
+        rect.y.baseVal.value = -h / 2;
+        copyTransformation(selectedPiece, rect);
+        byId('overlays').appendChild(rect);
+        rect.style.visibility = 'visible';
+    } else {
+        rect.style.visibility = 'hidden';
     }
 });

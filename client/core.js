@@ -11,9 +11,9 @@ function bringToTop(e) {
     e.parentElement.appendChild(e);
 }
 
-function copyTransformation(src, dest) {
+copyTransformation = function(src, dest) {
     dest.setAttribute('transform', src.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
-}
+};
 
 var STACKS = 'wb-stacks';
 alignStack = function(area/*SVGElement*/) {

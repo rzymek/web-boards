@@ -6,7 +6,10 @@ pieceMenu = {
         });
     },
     'Mark': function(piece) {
-        console.log('mark', piece);
+        Operations.insert({
+            op: 'MarkOp',
+            counterId: piece.id,
+        });
     }
 };
 
@@ -34,9 +37,15 @@ function showPieceMenu(img) {
         item.removeAttribute('id');
         item.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1 / scale) + ')');
         item.style.visibility = 'visible';
+        
         $(item).find('tspan').text(entry);
+        item.onclick = (function(name){
+            return function() {
+                pieceMenu[name](img);
+            };
+        })(entry);
+        
         layer.appendChild(item);
-        console.log(item);
         dy += item.getBBox().height / scale;
     }
 }
@@ -81,7 +90,7 @@ hexClicked = function(e) {
 
     if (selectedId) {
         hidePieceMenu();
-        
+
         var data = null;
         var img = byId(selectedId);
         if (isOnBoard(img)) {

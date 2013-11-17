@@ -12,7 +12,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.4 r9939"
    preserveAspectRatio="xMinYMin meet"
    width="3000"
    height="1990.87"
@@ -212,6 +212,26 @@
          in="result3"
          result="result4" />
     </filter>
+    <filter
+       id="invertColor"
+       inkscape:label="Invert"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       inkscape:menu="Color"
+       inkscape:menu-tooltip="Invert colors"
+       color-interpolation-filters="sRGB">
+      <feColorMatrix
+         id="feColorMatrix3142"
+         type="saturate"
+         values="1"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="feColorMatrix3144"
+         in="fbSourceGraphic"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 " />
+    </filter>
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -222,15 +242,15 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="998"
+     inkscape:window-width="1280"
+     inkscape:window-height="975"
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.9070917"
      inkscape:cx="108.22717"
      inkscape:cy="1942.4759"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="tmpl"
      showguides="true"
@@ -258,19 +278,19 @@
        id="selection"
        width="40"
        height="40"
-       x="-27.70993"
-       y="-86.663177"
+       x="168.92456"
+       y="26.073933"
        ry="2.5394881" />
     <image
        sodipodi:absref="/home/rzymek/devel/github/mboards/public/img/loading.gif"
        xlink:href="img/loading.gif"
-       class="c"
-       width="40"
-       height="40"
-       id="counter"
-       x="-27.65992"
+       style="display:inline;filter:url(#select)"
        y="-86.663177"
-       style="display:inline;filter:url(#select)" />
+       x="-27.65992"
+       id="counter"
+       height="40"
+       width="40"
+       class="c" />
     <path
        style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline"
        d="M 59.434886,-35.288766 98.177005,-76.021414"
