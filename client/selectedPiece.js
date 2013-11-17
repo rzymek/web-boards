@@ -1,6 +1,7 @@
 updateSelection = function() {
     var rect = byId('selection');
-    copyTransformation(rect.target, rect);
+    if(rect.target)
+        copyTransformation(rect.target, rect);
 }
 
 Deps.autorun(function() {
