@@ -1,3 +1,8 @@
+updateSelection = function() {
+    var rect = byId('selection');
+    copyTransformation(rect.target, rect);
+}
+
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
     var rect = byId('selection');
@@ -6,14 +11,14 @@ Deps.autorun(function() {
         return;
     }
     if (selected) {
-        var selectedPiece = byId(selected);
-        var w = selectedPiece.width.baseVal.value;
-        var h = selectedPiece.height.baseVal.value;
+        rect.target = byId(selected);
+        var w = rect.target.width.baseVal.value;
+        var h = rect.target.height.baseVal.value;
         rect.width.baseVal.value = w;
         rect.height.baseVal.value = h;
         rect.x.baseVal.value = -w / 2;
         rect.y.baseVal.value = -h / 2;
-        copyTransformation(selectedPiece, rect);
+        updateSelection();
         byId('overlays').appendChild(rect);
         rect.style.visibility = 'visible';
     } else {

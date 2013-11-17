@@ -73,6 +73,7 @@ alignStack = function(area/*SVGElement*/) {
         }
     }
     area.setAttribute(STACKS, Object.keys(stackRoots).join(' '));
+    updateSelection();
 };
 
 function getSVGElements(stack/*string[] -ids*/) {
