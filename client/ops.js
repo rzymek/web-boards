@@ -35,7 +35,7 @@ runOp = function(data) {
         }
     })();
 //    Session.set('selectedPiece',null);
-    console.log('run',data);
+//    console.log('run',data);
     var result = this[data.op].run(data);
     if (result !== undefined) {
         opsResults[data._id] = result;
@@ -43,7 +43,7 @@ runOp = function(data) {
 };
 undoOp = function(data) {
     Session.set('selectedPiece',null);
-    console.log('undo',data);
+//    console.log('undo',data);
     this[data.op].undo(data, opsResults[data._id]);
     delete opsResults[data._id];
 };
