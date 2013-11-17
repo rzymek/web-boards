@@ -385,7 +385,7 @@
            y="30.222656"
            x="51.066406"
            id="tspan3811"
-           sodipodi:role="line">Flip</tspan></text>
+           sodipodi:role="line">${text}</tspan></text>
     </g>
   </g>
 </svg>

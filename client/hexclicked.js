@@ -10,13 +10,35 @@ pieceMenu = {
     }
 };
 
+function removeChildren(node) {
+    while (node.firstChild)
+        node.removeChild(node.firstChild);
+}
+function showingPieceMenu() {
+    return byId('pieceMenuLayer').childElementCount !== 0;
+}
+
+function hidePieceMenu() {
+    $('#pieceMenuLayer').empty();
+}
+
 function showPieceMenu(img) {
     var menuItem = byId('menuItem');
-    var x = img.position.rx + img.width.baseVal.value / 2;
-    var y = img.position.ry - img.height.baseVal.value / 2;
-    menuItem.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale('+(1/getBoardScaling())+')');
-    menuItem.style.visibility = 'visible';
-    byId('pieceMenuLayer').appendChild(menuItem);
+    var layer = byId('pieceMenuLayer');
+    var scale = getBoardScaling();
+    var dy = 0;
+    for (var entry in pieceMenu) {
+        var x = img.position.rx + img.width.baseVal.value / 2;
+        var y = img.position.ry - img.height.baseVal.value / 2 + dy;
+        var item = menuItem.cloneNode();
+        item.removeAttribute('id');
+        item.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1 / scale) + ')');
+        item.style.visibility = 'visible';
+        $(item).find('tspan').text(entry);
+        layer.appendChild(item);
+        console.log(item);
+        dy += item.getBBox().height / scale;
+    }
 }
 
 hexClicked = function(e) {
@@ -47,8 +69,8 @@ hexClicked = function(e) {
         var img = byId(selectedId);
         if (img.position && img.position.id === use.id) {
             //clicked on a selected piece -> deselect
-            if (byId('menuItem').style.visibility === 'visible') {
-                byId('menuItem').style.visibility = 'hidden';
+            if (showingPieceMenu()) {
+                hidePieceMenu();
                 Session.set('selectedPiece', null);
             } else {
                 showPieceMenu(img);
@@ -58,7 +80,7 @@ hexClicked = function(e) {
     }
 
     if (selectedId) {
-        byId('menuItem').style.visibility = 'hidden';
+        hidePieceMenu();
         
         var data = null;
         var img = byId(selectedId);
