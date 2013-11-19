@@ -16,10 +16,12 @@ MoveOp = {
 
         var start = trace.pathSegList.getItem(0);
         var to = trace.pathSegList.getItem(1);
+        start.pathSegTypeAsLetter = 'M';
         start.x = from.rx;
         start.y = from.ry;
-        to.x = counter.position.rx - start.x;
-        to.y = counter.position.ry - start.y;
+        to.pathSegTypeAsLetter = 'L';
+        to.x = counter.position.rx;
+        to.y = counter.position.ry;
         svg.getElementById('traces').appendChild(trace);
 
         return {
