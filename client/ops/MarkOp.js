@@ -36,7 +36,7 @@ MarkOp = {
         var counter = byId(data.counterId);
         var style = counter.style;
         var initial = style.filter;
-        style.filter = (initial ==='') ? 'url(#invertColor)' : '';
+        style.filter = (initial ==='') ? 'url(#mark)' : '';
         return {
             run: function() {
                 style.filter = initial;
