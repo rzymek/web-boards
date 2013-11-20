@@ -12,7 +12,9 @@ function bringToTop(e) {
 }
 
 copyTransformation = function(src, dest) {
-    dest.setAttribute('transform', src.getAttribute('transform').replace(new RegExp('scale\(.*\)'), ''));
+    var t =  src.getAttribute('transform');
+    if(t !== null)
+        dest.setAttribute('transform', t.replace(new RegExp('scale\(.*\)'), ''));
 };
 
 var STACKS = 'wb-stacks';
@@ -108,7 +110,7 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
     selector.height.baseVal.value = height;
-    svg.getElementById('overlays').appendChild(selector);
+    svg.getElementById('stackSelectorLayer').appendChild(selector);
     selector.stack = gstack;
     alignStack(selector);
     selector.atHex = hexElement;
