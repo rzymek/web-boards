@@ -14,6 +14,12 @@ Meteor.startup(function() {
         },
         'Pieces': function() {
             $('#panel').fadeToggle();
+            var p = byId('game-pieces');
+            p.x.baseVal.value = 100;
+            p.y.baseVal.value = 100;
+            p.width.baseVal.value = 300;
+            p.height.baseVal.value = 300;
+            byId('pieceMenuLayer').appendChild(p);
         },
         'Fwd': function() {
             var idx = Session.get('replayIndex');
