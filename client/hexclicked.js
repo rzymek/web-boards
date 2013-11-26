@@ -75,6 +75,8 @@ function showMenu(hex) {
 }
 
 hexClicked = function(e) {
+    if(byId('svg').panning)
+        return;
     var selector = byId('stackSelector');
     selector.style.visibility = 'hidden';
     

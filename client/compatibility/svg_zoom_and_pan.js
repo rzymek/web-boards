@@ -37,7 +37,7 @@ function svgZoomAndPan(root) {
     var mouse = {x: 0, y: 0};
     var offset = {x: 0, y: 0};
     var mouseDown = false;
-    var panning = false;
+    root.panning = false;
     var viewbox = root.viewBox.baseVal;
     var size = {x: viewbox.width, y: viewbox.height};
 
@@ -51,11 +51,11 @@ function svgZoomAndPan(root) {
         mouseDown = true;
     };
     root.onmouseup = function(e) {
-        return mouseDown = false;
+        mouseDown = false;
     };
     root.onmousemove = function(e) {
         if (mouseDown) {
-            panning = true;
+            root.panning = true;
             var x = mouse.x;
             var y = mouse.y;
             var start = toUsertSpace(x, y);
@@ -64,12 +64,12 @@ function svgZoomAndPan(root) {
             viewBox.x = offset.x + (start.x - pos.x);
             viewBox.y = offset.y + (start.y - pos.y);
         } else {
-            panning = false;
+            root.panning = false;
             updateMousePosition(e);
         }
     };
     root.onclick = function(e) {
-        panning = false;
+        root.panning = false;
     };
 
     root.addEventListener("mousewheel", function(e) {
