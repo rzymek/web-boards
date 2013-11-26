@@ -1,7 +1,8 @@
 Template.pieces.categories = function() {
-    return Session.get('gameInfo').pieces.map(function(pieces) {
+    var categories = Session.get('gameInfo').pieces.map(function(pieces) {
         return pieces.category;
     });
+    return ["Special"].concat(categories);
 };
 
 Template.piece.selected = function() {
@@ -30,6 +31,13 @@ Template.pieces.events({
 Template.selectedPieces.pieces = function() {
     var g = Session.get('selectedGame');
     var cat = Session.get('piecesCategory');
+    if (cat === "Special") {
+        return [{//http://code.dylanmtaylor.com/dice/
+                sides: '/img/d6.svg',
+                src: '/img/d6.svg',
+                id: 'special-d6'
+            }];
+    }
     var inCat = Session.get('gameInfo').pieces.filter(function(p) {
         return p.category === cat;
     });
