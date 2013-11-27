@@ -6,7 +6,8 @@
       "bootstrap3-less": {},
       "keybindings": {},
       "snap-svg": {},
-      "nprogress": {}
+      "nprogress": {},
+      "jquery-mousewheel": {}
     },
     "packages": {
       "jquery-ui": {
@@ -33,6 +34,11 @@
         "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
         "tag": "v0.0.3",
         "commit": "ffd1c5dd400af64121197f4e637a215c4b6b1fc7"
+      },
+      "jquery-mousewheel": {
+        "git": "https://github.com/sslotsky/meteor-jquery-mousewheel.git",
+        "tag": "v0.1.0",
+        "commit": "357e12cbe3bdcec1c3d1bff4b13b191d75acc973"
       }
     }
   }

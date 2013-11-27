@@ -4,6 +4,7 @@
     "bootstrap3-less": {},
     "keybindings": {},
     "snap-svg": {},
-    "nprogress": {}
+    "nprogress": {},
+    "jquery-mousewheel": {}
   }
 }

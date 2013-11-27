@@ -72,8 +72,8 @@ function svgZoomAndPan(root) {
         root.panning = false;
     };
 
-    root.addEventListener("mousewheel", function(e) {
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    //require: jquery-mousewheel
+    $(root).mousewheel(function(e, delta) {
         if (delta < 0) {
             scale /= KEY_ZOOM_STEP;
         } else {
@@ -81,5 +81,5 @@ function svgZoomAndPan(root) {
         }
         updateZoom();
         e.preventDefault();
-    }, false);
+    });
 };
