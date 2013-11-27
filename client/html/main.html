@@ -5,10 +5,13 @@
 
 <body>
     {{> main}}
+    <div style="z-index: 100; right:0; top:0; position:absolute">
+       {{loginButtons align="right"}}
+    </div>    
 </body>
 
 
-<template name="main">
+<template name="main">    
     {{#if gameSelected }}
         {{> play}}
         {{> status}}
