@@ -13,10 +13,6 @@ pieceMenu = {
     }
 };
 
-function removeChildren(node) {
-    while (node.firstChild)
-        node.removeChild(node.firstChild);
-}
 function showingPieceMenu() {
     return byId('pieceMenuLayer').childElementCount !== 0;
 }

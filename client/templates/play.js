@@ -118,7 +118,8 @@ Template.play.rendered = function() {
         svg.appendChild(tmpl);
 
         sprites = {
-            selection: svg.getElementById('selection')
+            selection: svg.getElementById('selection'),
+            traces: svg.getElementById('traces')
         };
 
         Meteor.subscribe('operations');
