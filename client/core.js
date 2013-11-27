@@ -5,7 +5,7 @@ function getPlacing(counters, counterDim, areaBBox, spacing) {
     return {
         width: Math.floor(width / (counterDim.width + spacing)),
         height: Math.floor(Math.min(maxSlots, rows))
-    }
+    };
 }
 function bringToTop(e) {
     e.parentElement.appendChild(e);
@@ -30,7 +30,7 @@ alignStack = function(area/*SVGElement*/) {
         width: counters[0].width.baseVal.value,
         height: counters[0].height.baseVal.value
     };
-    var placing = getPlacing(counters, counterDim, areaBBox, spacing)
+    var placing = getPlacing(counters, counterDim, areaBBox, spacing);
     var startx = (areaBBox.width - (placing.width * (counterDim.width + spacing))) / 2;
     var starty = (areaBBox.height - (placing.height * (counterDim.height + spacing))) / 2;
 

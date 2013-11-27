@@ -36,7 +36,7 @@ Meteor.startup(function() {
                 return;
             Operations.insert({
                 op: 'FlipOp',
-                counterId: selected,
+                counterId: selected
             });
         },
         'Remove': function() {
@@ -45,7 +45,7 @@ Meteor.startup(function() {
                 return;
             Operations.insert({
                 op: 'DropOp',
-                counterId: selected,
+                counterId: selected
             });
         },
         'Test': function() {

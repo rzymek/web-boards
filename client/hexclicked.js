@@ -2,13 +2,13 @@ pieceMenu = {
     'Flip': function(piece) {
         Operations.insert({
             op: 'FlipOp',
-            counterId: piece.id,
+            counterId: piece.id
         });
     },
     'Mark': function(piece) {
         Operations.insert({
             op: 'MarkOp',
-            counterId: piece.id,
+            counterId: piece.id
         });
     }
 };
