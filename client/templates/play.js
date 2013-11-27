@@ -2,7 +2,7 @@ if (!isTouchDevice()) {
     Template.play.svgWidth = '100%';
     Template.play.svgHeight = '100%';
 } else {
-    Template.play.svgWidth = function() {        
+    Template.play.svgWidth = function() {
         return Template.play.board().w;
     };
     Template.play.svgHeight = function() {
@@ -53,8 +53,8 @@ function setupGrid(svg) {
     return svg;
 }
 
-Deps.autorun(function (){
-    console.log('board scaling: '+getBoardScaling());
+Deps.autorun(function() {
+    console.log('board scaling: ' + getBoardScaling());
 });
 
 
@@ -78,6 +78,7 @@ Template.status.status = function() {
     return Meteor.status();
 };
 
+sprites = null;
 Template.play.rendered = function() {
     var gameInfo = Session.get('gameInfo');
     if (gameInfo.board.grid === null) {
@@ -115,6 +116,10 @@ Template.play.rendered = function() {
         var tmpl = data.getElementById('tmpl');
         tmpl.style.display = 'none';
         svg.appendChild(tmpl);
+
+        sprites = {
+            selection: svg.getElementById('selection')
+        };
 
         Meteor.subscribe('operations');
     });
