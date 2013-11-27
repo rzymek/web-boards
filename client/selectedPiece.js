@@ -2,7 +2,7 @@ updateSelection = function() {
     var rect = byId('selection');
     if(rect.target)
         copyTransformation(rect.target, rect);
-}
+};
 
 Deps.autorun(function() {
     var selected = Session.get('selectedPiece');
