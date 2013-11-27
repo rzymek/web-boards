@@ -14,7 +14,7 @@ Meteor.startup(function() {
         },
         'Pieces': function() {
             $('#panel').fadeToggle();
-            var p = byId('game-pieces');
+            var p = byId('game-pieces').cloneNode();
             p.x.baseVal.value = 100;
             p.y.baseVal.value = 100;
             p.width.baseVal.value = 300;
