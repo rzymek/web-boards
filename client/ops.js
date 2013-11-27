@@ -1,29 +1,3 @@
-
-removeFromStack = function(target, img) {
-    target.stack = target.stack.filter(function(it) {
-        return it !== img;
-    });
-};
-
-addToStack = function(hex, counter) {
-    counter.position = hex;
-    if (hex.stack)
-        hex.stack.push(counter);
-    else
-        hex.stack = [counter];
-};
-
-function sleep( sleepDuration ){
-    var now = new Date().getTime();
-    while(new Date().getTime() < now + sleepDuration){ /* do nothing */ } 
-}
-
-NoOp = {
-    run: function () {
-    },
-    undo: function () {
-    }
-};
 /* Op.run results associated with Op data (from Mongo)
  * Op._id are the keys. */
 var opsResults = {};
