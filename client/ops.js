@@ -8,7 +8,7 @@ runOp = function(data) {
 };
 
 undoOp = function(data) {
-    Session.set('selectedPiece',null);
+    selectById(null);
     var undo = undoFunctions[data._id];
     if(undo !== undefined) 
         undo();

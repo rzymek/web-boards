@@ -4,7 +4,7 @@ updateSelection = function() {
         copyTransformation(rect.target, rect);
 };
 
-select = function(selected) {
+drawSelection = function(selected) {
     var rect = sprites.selection;
     if (selected) {
         rect.target = byId(selected);

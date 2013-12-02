@@ -7,3 +7,5 @@ Session.setDefault('gameInfo', {
         grid: null
     }
 });
+
+sprites = null; 

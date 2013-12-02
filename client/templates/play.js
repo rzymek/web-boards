@@ -78,7 +78,6 @@ Template.status.status = function() {
     return Meteor.status();
 };
 
-sprites = null;
 Template.play.rendered = function() {
     var gameInfo = Session.get('gameInfo');
     if (gameInfo.board.grid === null) {

@@ -20,5 +20,5 @@ Meteor.startup(function() {
         speed: 100
     });
 
-    Session.set('selectedPiece', null);
+    selectById(null);
 });

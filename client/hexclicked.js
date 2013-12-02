@@ -85,7 +85,7 @@ hexClicked = function(e) {
     }
 
     var use = e.currentTarget;
-    var selectedId = Session.get('selectedPiece');
+    var selectedId = getSelectedId();
     if (selectedId === null) {
         if(showingPieceMenu()) {
             hidePieceMenu();
@@ -100,7 +100,7 @@ hexClicked = function(e) {
         if (stack.length > 1) {
             showStackSelector(use, stack);
         } else if (stack.length === 1) {
-            Session.set('selectedPiece', stack[0].id);
+            selectById(stack[0].id);
         }
         return;
     } else {
@@ -109,7 +109,7 @@ hexClicked = function(e) {
             //clicked on a selected piece -> deselect
             if (showingPieceMenu()) {
                 hidePieceMenu();
-                Session.set('selectedPiece', null);
+                selectById(null);
             } else {
                 hidePieceMenu();
                 showPieceMenu(img);

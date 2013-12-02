@@ -31,7 +31,7 @@ Meteor.startup(function() {
             Session.set('replayIndex', idx);
         },
         'Flip': function() {
-            var selected = Session.get('selectedPiece');
+            var selected = getSelectedId();
             if (!selected)
                 return;
             Operations.insert({
@@ -40,7 +40,7 @@ Meteor.startup(function() {
             });
         },
         'Remove': function() {
-            var selected = Session.get('selectedPiece');
+            var selected = getSelectedId();
             if (!selected)
                 return;
             Operations.insert({

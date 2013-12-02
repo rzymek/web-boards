@@ -114,9 +114,9 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
         it.style.pointerEvents = 'auto';
         it.onclick = function(evt) {
             var val = evt.target.id;
-            if (Session.equals('selectedPiece', val))
+            if (getSelectedId() === val)
                 val = null;
-            Session.set('selectedPiece', val);
+            selectById(val);
         };
     });
 };
