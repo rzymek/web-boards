@@ -23,3 +23,9 @@ removeChildren = function(node) {
         node.removeChild(node.firstChild);
     }
 };
+
+copyTransformation = function(src, dest) {
+    var t =  src.getAttribute('transform');
+    if(t !== null)
+        dest.setAttribute('transform', t.replace(new RegExp('scale\(.*\)'), ''));
+};
