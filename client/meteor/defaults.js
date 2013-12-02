@@ -8,4 +8,6 @@ Session.setDefault('gameInfo', {
     }
 });
 
-sprites = null; 
+Session.setDefault('selectedGame', null);
+
+sprites = null;
