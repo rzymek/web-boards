@@ -18,12 +18,15 @@ function showingPieceMenu() {
 }
 
 function hidePieceMenu() {
-    $('#pieceMenuLayer').empty();
+    var layer = $('#pieceMenuLayer');
+    layer.empty();
+    layer[0].style.pointerEvents='none';
 }
 
 function showPieceMenu(img) {
     var menuItem = byId('menuItem');
     var layer = byId('pieceMenuLayer');
+    
     var scale = getBoardScaling();
     var dy = 0;
     for (var entry in pieceMenu) {
@@ -46,16 +49,24 @@ function showPieceMenu(img) {
     }
 }
 
-function showMenu(hex) {
+function showMenu(hex, event) {
     var layer = byId('pieceMenuLayer');
-    var scale = getBoardScaling();
+    layer.style.pointerEvents='auto';
     var dy = 0;
+    
+    var p = layer.createSVGPoint();
+    p.x = event.clientX;
+    p.y = event.clientY;
+    p = p.matrixTransform(layer.getScreenCTM().inverse());
+    var rx = p.x;
+    var ry = p.y;
+    
     for (var entry in menu) {
-        var x = hex.rx;
-        var y = hex.ry + dy;
+        var x = rx;
+        var y = ry + dy;
         var item = menuItem.cloneNode();
         item.removeAttribute('id');
-        item.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1 / scale) + ')');
+        item.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
         item.style.visibility = 'visible';
 
         $(item).find('tspan').text(entry);
@@ -66,7 +77,7 @@ function showMenu(hex) {
         })(entry);
 
         layer.appendChild(item);
-        dy += item.getBBox().height / scale;
+        dy += item.getBBox().height;
     }
 }
 
@@ -94,7 +105,7 @@ hexClicked = function(e) {
         //selecting a piece
         var stack = use.stack;
         if (stack === undefined || stack === null || stack.length === 0) {
-            showMenu(use);
+            showMenu(use, e);
             return;
         }
         if (stack.length > 1) {
