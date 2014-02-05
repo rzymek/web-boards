@@ -1,8 +1,17 @@
 <template name="welcome">
     <div class="welcome">
         <h1>Welcome</h1>
+        <h4>Start new game:</h4>
         {{#each games}}
             <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
         {{/each}}
+        <h4>Your games</h4>
+        <ul class="list-group">
+            {{#each tables}}
+            <li class="list-group-item">
+                {{game}}. Turn: {{turn}}. {{players.US}}. Current turn: {{current}}
+            </li>
+            {{/each}}
+        </ul>        
     </div>
 </template>

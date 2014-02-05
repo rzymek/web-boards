@@ -1,13 +1,21 @@
-Meteor.publish('gamesSub', function() {
-    this.added('games', 'theid', {games: games});
-    this.ready();
-});
 
-Meteor.publish('operations', function() {
-    return Operations.find({}, {
-        sort: {'createdAt': 1}
+Meteor.startup(function() {
+    Meteor.publish('gamesSub', function() {
+        this.added('games', 'theid', {games: games});
+        this.ready();
     });
-});
+
+    Meteor.publish('operations', function() {
+        return Operations.find({}, {
+            sort: {'createdAt': 1}
+        });
+    });
+
+    Meteor.publish('tables', function() {
+        return Tables.find({});
+    });
+    
+})
 
 Meteor.methods({
     games: function() {
@@ -18,6 +26,7 @@ Meteor.methods({
     reset: function() {
         console.log('removed all operations');
         Operations.remove({});
+        Tables.remove({});
     },
     undo: function() {
         var last = Operations.findOne({}, {
@@ -28,6 +37,13 @@ Meteor.methods({
         }
         Operations.remove(last._id);
     }
+});
+
+Tables.allow({
+    insert: function(userId, doc) {
+        doc.started = new Date().valueOf();
+        return true;
+    },
 });
 
 Operations.allow({
@@ -42,14 +58,14 @@ Operations.allow({
 Operations.deny({
     insert: function(userId, doc) {
         doc.createdAt = new Date().valueOf();
-        if(doc.result !== undefined) {
+        if (doc.result !== undefined) {
             console.warn('trying to insert doc with result');
             return true;
         }
         if (doc.server !== undefined) {
             //TODO: parse the actual request in doc.server
             doc.result = {
-                roll:1 + Math.floor(Math.random() * 6)
+                roll: 1 + Math.floor(Math.random() * 6)
             };
             delete doc['server'];
             console.log('rolled', doc.roll);
