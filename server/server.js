@@ -50,9 +50,6 @@ Operations.allow({
     insert: function() {
         return true;
     },
-    update: function() {
-        return true;
-    }
 });
 
 Operations.deny({
@@ -72,6 +69,12 @@ Operations.deny({
         }
         return false;
     },
+    update: function() {
+        return true;
+    },
+    remove: function() {
+        return true;
+    }    
 //    update: function(userId, doc, fieldNames, modifier) {
 //        if (modifier.$set) {
 //            modifier.$set.updated = new Date();
