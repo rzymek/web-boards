@@ -120,8 +120,7 @@ Template.play.rendered = function() {
             selection: svg.getElementById('selection'),
             traces: svg.getElementById('traces')
         };
-
-        Meteor.subscribe('operations');
+        Session.set('boardReady',true);
     });
 };
 

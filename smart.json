@@ -5,6 +5,7 @@
     "keybindings": {},
     "snap-svg": {},
     "nprogress": {},
-    "jquery-mousewheel": {}
+    "jquery-mousewheel": {},
+    "collection-hooks": {}
   }
 }

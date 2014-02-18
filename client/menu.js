@@ -64,6 +64,9 @@ Meteor.startup(function() {
                 }
             });
         },
+        'Leave': function(){
+            Session.set('selectedGame',null);
+        },
         'Reset': function() {
             Meteor.call('reset');
         }

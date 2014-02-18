@@ -2,8 +2,12 @@
 Deps.autorun(function() {
     var game = Session.get('selectedGame');
     console.log("selectedGame",game);
-    if (game === undefined || game === null)
+    if (game === undefined || game === null) {
+        Session.set('gameInfo', defaultGameInfo);
+        Session.set('tableId', null);
+        Session.set('boardReady', false);
         return;
+    }
     $.get('/games/' + game + '/game.json', function(data) {
         if (location.search.indexOf('sfw') >= 0) {
             data.board.image = '../javadoc.png'; //TODO: remove
