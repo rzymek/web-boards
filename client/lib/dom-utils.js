@@ -13,7 +13,7 @@ getNatural = function(e) {
 };
 
 isTouchDevice = function() {
-    if (location.search.indexOf('mobile') > 0)
+    if (Session.get('config').indexOf('mobile') > 0)
         return true;
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 };

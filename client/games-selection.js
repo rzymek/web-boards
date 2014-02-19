@@ -1,5 +1,6 @@
 
 Deps.autorun(function() {
+    
     var game = Session.get('selectedGame');
     console.log("selectedGame",game);
     if (game === undefined || game === null) {
@@ -9,11 +10,12 @@ Deps.autorun(function() {
         return;
     }
     $.get('/games/' + game + '/game.json', function(data) {
-        if (location.search.indexOf('sfw') >= 0) {
+        var config = Session.get('config');
+        if (config.indexOf('sfw') >= 0) {
             data.board.image = '../javadoc.png'; //TODO: remove
-        } else if (location.search.indexOf('empty') >= 0) {
+        } else if (config.indexOf('empty') >= 0) {
             data.board.image = '../../../empty.png'; //TODO: remove
-        } else if (location.search.indexOf('hires') < 0) {
+        } else if (config.indexOf('hires') < 0) {
             data.board.image = '../board-low.jpg'; //TODO: remove
         }
         Session.set('gameInfo', data);
