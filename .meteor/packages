@@ -16,3 +16,4 @@ accounts-ui
 accounts-password
 jquery-mousewheel
 collection-hooks
+iron-router

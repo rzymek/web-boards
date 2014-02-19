@@ -15,14 +15,8 @@ welcome.events({
             'current': 'US',
             game: t.value
         });
-        Session.set('tableId', tableId);
-        Session.set('selectedGame', t.value);
+        Router.go('play', {_id: tableId});
     },
-    'click .table' : function(e) {
-        var t = e.currentTarget;
-        Session.set('tableId', t.getAttribute('tableId'));
-        Session.set('selectedGame', t.getAttribute('game'));
-    }
 });
 
 welcome.tables = function() {
@@ -32,3 +26,12 @@ welcome.tables = function() {
 function getUsername() {
     return Meteor.user().emails[0].address;
 }
+
+Deps.autorun(function(){
+    var tableId = Session.get('tableId');
+    if(tableId !== null) {
+        Session.set('selectedGame', Tables.findOne(tableId).game);
+    }else{
+        Session.set('selectedGame', null);
+    }
+});

@@ -8,7 +8,8 @@
       "snap-svg": {},
       "nprogress": {},
       "jquery-mousewheel": {},
-      "collection-hooks": {}
+      "collection-hooks": {},
+      "iron-router": {}
     },
     "packages": {
       "jquery-ui": {
@@ -45,6 +46,11 @@
         "git": "https://github.com/matb33/meteor-collection-hooks.git",
         "tag": "v0.6.2",
         "commit": "29484b2110206be93b01c6d11ce06ec9208de7bd"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.6.2",
+        "commit": "ce56e58b45624dce992490f3a1c10f10d3948bae"
       }
     }
   }
