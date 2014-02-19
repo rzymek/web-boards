@@ -9,24 +9,26 @@ Meteor.startup(function() {
     });
 
     selectById(null);
+
+    Deps.autorun(function() {
+        if (Session.equals('boardReady', true)) {
+            console.log('Operations.observe', Session.get('boardReady'));
+            Operations.find().observe({
+                added: function(data) {
+                    if (data.server === undefined) {
+                        runOp(data);
+                    }
+                },
+                changed: function(data) {
+                    if (data.result !== undefined) {
+                        runOp(data);
+                    }
+                },
+                removed: function(data) {
+                    undoOp(data);
+                }
+            });
+        }
+    });
 });
 
-Deps.autorun(function() {
-    if (Session.equals('boardReady', true)) {
-        Operations.find().observe({
-            added: function(data) {
-                if (data.server === undefined) {
-                    runOp(data);
-                }
-            },
-            changed: function(data) {
-                if (data.result !== undefined) {
-                    runOp(data);
-                }
-            },
-            removed: function(data) {
-                undoOp(data);
-            }
-        });
-    }
-});

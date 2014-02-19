@@ -120,7 +120,8 @@ Template.play.rendered = function() {
             selection: svg.getElementById('selection'),
             traces: svg.getElementById('traces')
         };
-        Session.set('boardReady',true);
+        console.log('sprites loaded', sprites);
+        Session.set('boardReady', true);
     });
 };
 

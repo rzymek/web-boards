@@ -9,8 +9,8 @@ defaultGameInfo = {
 }
 
 Session.setDefault('gameInfo', defaultGameInfo);
-
 Session.setDefault('selectedGame', null);
 Session.setDefault('tableId', null);
+Session.setDefault('boardReady', false);
 
 sprites = null;

@@ -8,6 +8,8 @@ drawSelection = function(selected) {
     var rect = sprites.selection;
     if (selected) {
         rect.target = byId(selected);
+        if(rect.target.width.baseVal === undefined)
+            return;
         var w = rect.target.width.baseVal.value;
         var h = rect.target.height.baseVal.value;
         rect.width.baseVal.value = w;
