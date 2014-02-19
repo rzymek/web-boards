@@ -1,9 +1,7 @@
-var welcome = Template['welcome'];
-
-welcome.games = function() {
+Template.welcome.games = function() {
     return Session.get('games');
 };
-welcome.events({
+Template.welcome.events({
     'click button': function(e) {
         var t = e.currentTarget;
         var tableId = Tables.insert({
@@ -16,7 +14,7 @@ welcome.events({
     },
 });
 
-welcome.tables = function() {
+Template.welcome.tables = function() {
     return Tables.find({});
 };
 
