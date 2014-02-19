@@ -6,11 +6,13 @@
             <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
         {{/each}}
         <h4>Your games</h4>
+        <ul>
         {{#each tables}}
-            <a href="{{pathFor 'play'}}">
+            <li><a href="{{pathFor 'play'}}">
                 {{game}}. Turn: {{turn}}. {{players.US}}. 
                 Current turn: {{current}} <i>({{_id}})</i></a>,
-            <br>
+            </li>
         {{/each}}
+        </ul>
     </div>
 </template>

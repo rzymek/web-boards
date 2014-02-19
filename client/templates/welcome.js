@@ -7,10 +7,7 @@ welcome.events({
     'click button': function(e) {
         var t = e.currentTarget;
         var tableId = Tables.insert({
-            players: {
-                'US':getUsername(),
-                'GE':null
-            },
+            players: [Meteor.userId()],
             turn:1,
             'current': 'US',
             game: t.value
@@ -30,7 +27,16 @@ function getUsername() {
 Deps.autorun(function(){
     var tableId = Session.get('tableId');
     if(tableId !== null) {
-        Session.set('selectedGame', Tables.findOne(tableId).game);
+        var table = Tables.findOne(tableId);    
+        if (!table) {
+            if (window.confirm('Do you want to join this game?')) {
+                Meteor.call('join', tableId);
+            }else{
+                Router.go('welcome');
+            }
+        }else{
+            Session.set('selectedGame', table.game);            
+        }        
     }else{
         Session.set('selectedGame', null);
     }

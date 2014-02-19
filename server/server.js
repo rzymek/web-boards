@@ -13,16 +13,20 @@ Meteor.startup(function() {
     });
 
     Meteor.publish('tables', function() {
-        return Tables.find({});
+        return Tables.find({players: this.userId});
     });
     
-})
+});
 
 Meteor.methods({
     games: function() {
         var games = fs.readdirSync('../client/app/games');
         console.log('avaiable games', games);
         return games;
+    },
+    join: function(tableId) {
+        console.log(this.userId, ' joining ', tableId);
+        Tables.update(tableId, {$push: {players: this.userId}});
     },
     reset: function() {
         console.log('removed all operations');
@@ -76,11 +80,5 @@ Operations.deny({
     remove: function() {
         return true;
     }    
-//    update: function(userId, doc, fieldNames, modifier) {
-//        if (modifier.$set) {
-//            modifier.$set.updated = new Date();
-//        }
-//        return false;
-//    }
 });
 
