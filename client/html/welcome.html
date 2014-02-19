@@ -1,6 +1,7 @@
 <template name="welcome">
     <div class="welcome">
         <h1>Welcome</h1>
+        <div style="padding:5px">{{loginButtons}}</div>
         <h4>Start new game:</h4>
         {{#each games}}
             <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
