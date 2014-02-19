@@ -5,8 +5,9 @@ Meteor.startup(function() {
         this.ready();
     });
 
-    Meteor.publish('operations', function() {
-        return Operations.find({}, {
+    Meteor.publish('operations', function(tableId) {
+        console.log("ops subscribe "+tableId);
+        return Operations.find({'tableId': tableId}, {
             sort: {'createdAt': 1}
         });
     });

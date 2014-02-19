@@ -8,7 +8,7 @@
         <h4>Your games</h4>
         <ul class="list-group">
             {{#each tables}}
-            <li class="list-group-item">
+            <li class="list-group-item table" tableId="{{_id}}" game="{{game}}">
                 {{game}}. Turn: {{turn}}. {{players.US}}. Current turn: {{current}}
             </li>
             {{/each}}

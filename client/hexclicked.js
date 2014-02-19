@@ -18,15 +18,12 @@ function showingPieceMenu() {
 }
 
 function hidePieceMenu() {
-    var layer = $('#pieceMenuLayer');
-    layer.empty();
-    layer[0].style.pointerEvents='none';
+    $('#pieceMenuLayer').empty();
 }
 
 function showPieceMenu(img) {
     var menuItem = byId('menuItem');
     var layer = byId('pieceMenuLayer');
-    
     var scale = getBoardScaling();
     var dy = 0;
     for (var entry in pieceMenu) {
@@ -49,24 +46,17 @@ function showPieceMenu(img) {
     }
 }
 
-function showMenu(hex, event) {
+function showMenu(hex) {
+    var menuItem = byId('menuItem');
     var layer = byId('pieceMenuLayer');
-    layer.style.pointerEvents='auto';
+    var scale = getBoardScaling();
     var dy = 0;
-    
-    var p = layer.createSVGPoint();
-    p.x = event.clientX;
-    p.y = event.clientY;
-    p = p.matrixTransform(layer.getScreenCTM().inverse());
-    var rx = p.x;
-    var ry = p.y;
-    
     for (var entry in menu) {
-        var x = rx;
-        var y = ry + dy;
-        var item = menuItem.cloneNode();
+        var x = hex.rx;
+        var y = hex.ry + dy;
+        var item = menuItem.cloneNode(true);
         item.removeAttribute('id');
-        item.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
+        item.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1 / scale) + ')');
         item.style.visibility = 'visible';
 
         $(item).find('tspan').text(entry);
@@ -77,7 +67,7 @@ function showMenu(hex, event) {
         })(entry);
 
         layer.appendChild(item);
-        dy += item.getBBox().height;
+        dy += item.getBBox().height / scale;
     }
 }
 
@@ -105,7 +95,7 @@ hexClicked = function(e) {
         //selecting a piece
         var stack = use.stack;
         if (stack === undefined || stack === null || stack.length === 0) {
-            showMenu(use, e);
+            showMenu(use);
             return;
         }
         if (stack.length > 1) {

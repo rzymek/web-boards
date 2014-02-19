@@ -1,4 +1,4 @@
-Session.setDefault('gameInfo', {
+defaultGameInfo = {
     pieces: [],
     board: {
         image: '',
@@ -6,8 +6,11 @@ Session.setDefault('gameInfo', {
         height: 1,
         grid: null
     }
-});
+}
+
+Session.setDefault('gameInfo', defaultGameInfo);
 
 Session.setDefault('selectedGame', null);
+Session.setDefault('tableId', null);
 
 sprites = null;

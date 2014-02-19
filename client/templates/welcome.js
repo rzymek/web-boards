@@ -1,6 +1,6 @@
 var welcome = Template['welcome'];
 
-welcome['games'] = function() {
+welcome.games = function() {
     return Session.get('games');
 };
 welcome.events({
@@ -15,15 +15,19 @@ welcome.events({
             'current': 'US',
             game: t.value
         });
-        console.log(tableId);
+        Session.set('tableId', tableId);
         Session.set('selectedGame', t.value);
+    },
+    'click .table' : function(e) {
+        var t = e.currentTarget;
+        Session.set('tableId', t.getAttribute('tableId'));
+        Session.set('selectedGame', t.getAttribute('game'));
     }
 });
 
 welcome.tables = function() {
     return Tables.find({});
-}
-
+};
 
 function getUsername() {
     return Meteor.user().emails[0].address;
