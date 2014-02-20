@@ -1,15 +1,15 @@
-
-Deps.autorun(function() {
-    
-    var game = Session.get('selectedGame');
-    console.log("selectedGame",game);
-    if (game === undefined || game === null) {
-        Session.set('gameInfo', defaultGameInfo);
-        Session.set('tableId', null);
+Deps.autorun(function() {   
+    var tableId = Session.get('tableId');
+    if(tableId === null) {
         Session.set('boardReady', false);
         return;
     }
-    $.get('/games/' + game + '/game.json', function(data) {
+    var table = Tables.findOne(tableId);
+    if(table === null){
+        Session.set('gameInfo', defaultGameInfo);
+        return;
+    }    
+    $.get('/games/' + table.game + '/game.json', function(data) {
         var config = Session.get('config');
         if (config.indexOf('sfw') >= 0) {
             data.board.image = '../javadoc.png'; //TODO: remove
@@ -19,14 +19,5 @@ Deps.autorun(function() {
             data.board.image = '../board-low.jpg'; //TODO: remove
         }
         Session.set('gameInfo', data);
-    });
-});
-
-Meteor.startup(function() {
-    Meteor.call('games', function(err, games) {
-//    if (games.length === 1)
-//        Session.set('selectedGame', games[0]);
-//    else
-        Session.set('games', games);
     });
 });

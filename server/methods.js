@@ -6,7 +6,8 @@ Meteor.methods({
     },
     join: function(tableId) {
         console.log(this.userId, ' joining ', tableId);
-        Tables.update(tableId, {$push: {players: this.userId}});
+        var changed = Tables.update(tableId, {$push: {players: this.userId}});
+        return changed === 1;
     },
     reset: function() {
         console.log('removed all operations');

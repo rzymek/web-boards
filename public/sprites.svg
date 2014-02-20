@@ -395,8 +395,8 @@
             style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
             inkscape:label="#rect15007" />
         <image
-            sodipodi:absref="/home/rzymek/devel/github/mboards/public/img/loading.gif"
-            xlink:href="/home/rzymek/devel/github/mboards/public/img/loading.gif"
+            sodipodi:absref="img/loading.gif"
+            xlink:href="/img/loading.gif"
             style="display:inline;filter:url(#select-5)"
             y="107.73926"
             x="243.57727"
