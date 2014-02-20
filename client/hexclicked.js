@@ -29,7 +29,7 @@ function showPieceMenu(img) {
     for (var entry in pieceMenu) {
         var x = img.position.rx + img.width.baseVal.value / 2;
         var y = img.position.ry - img.height.baseVal.value / 2 + dy;
-        var item = menuItem.cloneNode();
+        var item = menuItem.cloneNode(true);
         item.removeAttribute('id');
         item.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1 / scale) + ')');
         item.style.visibility = 'visible';
