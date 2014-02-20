@@ -2,19 +2,21 @@
     <div class="welcome">
         <h1>Welcome</h1>
         <div style="padding:5px">{{loginButtons}}</div>
-        <h4>Start new game:</h4>
-        {{#each games}}
-            <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
-        {{/each}}
-        <h4>Your games</h4>
-        <ul>
-        {{#each tables}}
-            <li><a href="{{pathFor 'play'}}">
-                {{game}}. Turn: {{turn}}. {{players.US}}. 
-                Current turn: {{current}} <i>({{_id}})</i></a>,
-            </li>
-        {{/each}}
-        </ul>
+        {{#if loggedIn}}
+            <h4>Start new game:</h4>
+            {{#each games}}
+                <button type="button" class="btn btn-default" value="{{.}}">{{.}}</button>
+            {{/each}}
+            <h4>Your games</h4>
+            <ul>
+            {{#each tables}}
+                <li><a href="{{pathFor 'play'}}">
+                    {{game}}. Turn: {{turn}}. {{players.US}}. 
+                    Current turn: {{current}} <i>({{_id}})</i></a>,
+                </li>
+            {{/each}}
+            </ul>
+        {{/if}}
         <div id="config" style="background-color: white; position: absolute; bottom:0; left:0; min-width:20px;min-height:20px">
             {{config}}
         </div>

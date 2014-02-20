@@ -1,6 +1,15 @@
 Template.welcome.games = function() {
-    return Session.get('games');
+    return Session.get('__games');
 };
+
+Meteor.startup(function() {
+    Meteor.call('games', function(err, games) {
+        Session.set('__games', games);
+    });
+});
+Template.welcome.loggedIn = function() {
+    return Meteor.userId() !== null;
+}
 Template.welcome.events({
     'click button': function(e) {
         var t = e.currentTarget;
