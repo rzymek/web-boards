@@ -86,7 +86,7 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     var margin = 10;
     var hexBB = hexElement.getBBox();
     var svg = byId('svg');
-    var selector = svg.getElementById('stackSelector');
+    var selector = sprites.stackSelector;
     copyTransformation(hexElement, selector);
 
     var img = stack[0];//open at

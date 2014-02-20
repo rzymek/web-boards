@@ -1,34 +1,26 @@
-Meteor.startup(function() {
-    Operations.before.insert(function(userId, doc) {
-        doc.tableId = Session.get('tableId');
-    });
 
-    NProgress.configure({
-        trickle: false,
-        speed: 100
-    });
+Operations.before.insert(function(userId, doc) {
+    doc.tableId = Session.get('tableId');
+});
 
-    selectById(null);
-
-    Deps.autorun(function() {
-        if (Session.equals('boardReady', true)) {
-            console.log('Operations.observe', Session.get('boardReady'));
-            Operations.find().observe({
-                added: function(data) {
-                    if (data.server === undefined) {
-                        runOp(data);
-                    }
-                },
-                changed: function(data) {
-                    if (data.result !== undefined) {
-                        runOp(data);
-                    }
-                },
-                removed: function(data) {
-                    undoOp(data);
-                }
-            });
+Deps.autorun(function() {
+    if (!is('sprites.ready', 'board.ready'))
+        return;
+    Operations.find().observe({
+        added: function(data) {
+            if (data.server === undefined) {
+                runOp(data);
+            }
+        },
+        changed: function(data) {
+            if (data.result !== undefined) {
+                runOp(data);
+            }
+        },
+        removed: function(data) {
+            undoOp(data);
         }
     });
 });
+
 

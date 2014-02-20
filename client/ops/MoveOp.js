@@ -9,7 +9,7 @@ MoveOp = function(data) {
     var svg = document.getElementById('svg');
     var hex = svg.getElementById(data.to);
     var counter = svg.getElementById(data.counter);
-    var trace = svg.getElementById('trace').cloneNode();
+    var trace = sprites.trace.cloneNode(true);
     var from = counter.position;
     move(counter, hex);
 

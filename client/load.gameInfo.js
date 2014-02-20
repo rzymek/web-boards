@@ -1,11 +1,11 @@
 Deps.autorun(function() {   
     var tableId = Session.get('tableId');
     if(tableId === null) {
-        Session.set('boardReady', false);
+        Session.set('board.ready', false);
         return;
     }
     var table = Tables.findOne(tableId);
-    if(table === null){
+    if(!table){
         Session.set('gameInfo', defaultGameInfo);
         return;
     }    

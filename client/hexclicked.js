@@ -22,7 +22,7 @@ function hidePieceMenu() {
 }
 
 function showPieceMenu(img) {
-    var menuItem = byId('menuItem');
+    var menuItem = sprites.menuItem;
     var layer = byId('pieceMenuLayer');
     var scale = getBoardScaling();
     var dy = 0;
@@ -47,7 +47,7 @@ function showPieceMenu(img) {
 }
 
 function showMenu(hex) {
-    var menuItem = byId('menuItem');
+    var menuItem = sprites.menuItem;
     var layer = byId('pieceMenuLayer');
     var scale = getBoardScaling();
     var dy = 0;
@@ -74,7 +74,7 @@ function showMenu(hex) {
 hexClicked = function(e) {
     if(byId('svg').panning)
         return;
-    var selector = byId('stackSelector');
+    var selector = sprites.stackSelector;
     selector.style.visibility = 'hidden';
     
     if (selector.atHex) {

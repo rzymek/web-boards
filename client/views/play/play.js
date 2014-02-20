@@ -74,6 +74,7 @@ Template.play.boardImg = function() {
     else
         return '/img/loading.gif';
 };
+
 Template.status.status = function() {
     return Meteor.status();
 };
@@ -103,26 +104,9 @@ Template.play.rendered = function() {
         'del': menu.Remove,
         'F': menu.Flip
     });
-
-    $.get('/sprites.svg', function(data) {
-        var dest = svg.getElementsByTagName('defs')[0];
-        var defs = data.getElementsByTagName('defs')[0].childNodes;
-        for (var i = 0; i < defs.length; i++) {
-            if (defs[i].nodeType !== Element.ELEMENT_NODE)
-                continue;
-            dest.appendChild(defs[i]);
-        }
-        var tmpl = data.getElementById('tmpl');
-        tmpl.style.display = 'none';
-        svg.appendChild(tmpl);
-
-        sprites = {
-            selection: svg.getElementById('selection'),
-            traces: svg.getElementById('traces')
-        };
-        console.log('sprites loaded', sprites);
-        Session.set('boardReady', true);
-    });
+    sprites.traces = svg.getElementById('traces');
+    selectById(null);
+    Session.set('board.ready', true);
 };
 
 
