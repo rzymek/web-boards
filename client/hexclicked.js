@@ -1,17 +1,3 @@
-pieceMenu = {
-    'Flip': function(piece) {
-        Operations.insert({
-            op: 'FlipOp',
-            counterId: piece.id
-        });
-    },
-    'Mark': function(piece) {
-        Operations.insert({
-            op: 'MarkOp',
-            counterId: piece.id
-        });
-    }
-};
 
 function showingPieceMenu() {
     return byId('pieceMenuLayer').childElementCount !== 0;
