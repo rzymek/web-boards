@@ -527,7 +527,7 @@
             style="opacity:0.58333332999999998;fill:#000300;fill-opacity:1;stroke:#000090;stroke-width:2.41677689999999989;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
         <rect
             style="opacity:0.84482757;fill:#b6b0ff;fill-opacity:1;fill-rule:nonzero;stroke:#0c004f;stroke-width:3;stroke-miterlimit:4;stroke-opacity:0.67579908;stroke-dasharray:none;display:inline"
-            id="game-pieces"
+            id="gamePieces"
             width="57.219021"
             height="52.768597"
             x="196.21265"
