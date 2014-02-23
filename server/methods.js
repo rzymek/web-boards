@@ -18,6 +18,10 @@ Meteor.methods({
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
         });
+        if(last.result !== undefined) {
+             //'Undo not allowed for '+last.op;
+            return;
+        }
         if (last === undefined) {
             return;
         }
