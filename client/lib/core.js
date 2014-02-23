@@ -7,11 +7,10 @@ function getPlacing(counters, counterDim, areaBBox, spacing) {
         height: Math.floor(Math.min(maxSlots, rows))
     };
 }
+
 function bringToTop(e) {
     e.parentElement.appendChild(e);
 }
-
-
 
 var STACKS = 'wb-stacks';
 alignStack = function(area/*SVGElement*/) {
