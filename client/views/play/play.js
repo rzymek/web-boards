@@ -86,8 +86,9 @@ Template.play.rendered = function() {
     }
     var svg = document.getElementById('svg');
     setupGrid(svg);
+    var svgZoom = function(){};
     if (!isTouchDevice()) {
-        svgZoomAndPan(svg);
+        svgZoom = svgZoomAndPan(svg);
         $('#menu').addClass('touch');
     } else {
         $('#menu').addClass('mouse');
@@ -102,7 +103,9 @@ Template.play.rendered = function() {
             alert('redo not implemented yet');
         },
         'del': menu.Remove,
-        'F': menu.Flip
+        'F': menu.Flip,
+        'Q': function() { svgZoom(+1) },
+        'W': function() { svgZoom(-1) }
     });
     sprites.traces = svg.getElementById('traces');
     selectById(null);

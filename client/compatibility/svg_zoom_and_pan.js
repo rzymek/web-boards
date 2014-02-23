@@ -31,6 +31,16 @@ function svgZoomAndPan(root) {
         viewbox.x = viewbox.x + dx;
         viewbox.y = viewbox.y + dy;
     }
+
+    function svgZoom(delta) {
+        if (delta < 0) {
+            scale /= KEY_ZOOM_STEP;
+        } else {
+            scale *= KEY_ZOOM_STEP;
+        }
+        updateZoom();
+    }
+
     var KEY_ZOOM_STEP = 1.3;
     var minScale = 0.1;
     var scale = 1.0;
@@ -74,12 +84,11 @@ function svgZoomAndPan(root) {
 
     //require: jquery-mousewheel
     $(root).mousewheel(function(e, delta) {
-        if (delta < 0) {
-            scale /= KEY_ZOOM_STEP;
-        } else {
-            scale *= KEY_ZOOM_STEP;
-        }
-        updateZoom();
+        svgZoom(delta);
         e.preventDefault();
     });
-};
+
+    return svgZoom;
+}
+
+
