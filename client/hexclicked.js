@@ -88,6 +88,7 @@ hexClicked = function(e) {
             showStackSelector(use, stack);
         } else if (stack.length === 1) {
             selectById(stack[0].id);
+            showPieceMenu(byId(stack[0].id));
         }
         return;
     } else {
