@@ -114,13 +114,24 @@ hexClicked = function(e) {
         if (isOnBoard(img)) {
             data = {op: 'MoveOp', counter: img.id, to: use.id};
         } else {
-            data = {
-                op: 'PlaceOp',
-                imageBase: '/games/' + Session.get('selectedGame') + '/images/',
-                sides: img.getAttribute('sides').split('|'),
-                size: getNatural(img),
-                hexid: use.id
-            };
+            if(img.id === 'special-d6') {
+                data = {
+                    op: 'RollOp',
+                    size: getNatural(img),
+                    hexid: use.id,
+                    server: {
+                        roll: '1d6'
+                    }
+                };
+            }else{ 
+                data = {
+                    op: 'PlaceOp',
+                    imageBase: '/games/' + Session.get('selectedGame') + '/images/',
+                    sides: img.getAttribute('sides').split('|'),
+                    size: getNatural(img),
+                    hexid: use.id
+                };
+            }
         }
         Operations.insert(data);
     }

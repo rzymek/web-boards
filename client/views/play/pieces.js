@@ -33,8 +33,8 @@ Template.selectedPieces.pieces = function() {
     var cat = Session.get('piecesCategory');
     if (cat === "Special") {
         return [{//http://code.dylanmtaylor.com/dice/
-                sides: '/img/d6.svg',
-                src: '/img/d6.svg',
+                sides: '/img/dic6.svg',
+                src: '/img/dice.svg',
                 id: 'special-d6'
             }];
     }
