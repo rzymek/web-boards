@@ -55,14 +55,6 @@ menu = {
             meta.content = '';
         alert(meta.content);
     },
-    '1d6': function() {
-        Operations.insert({
-            op: 'RollOp',
-            server: {
-                roll: '1d6'
-            }
-        });
-    },
     'Reset': function() {
         Meteor.call('reset');
     }
