@@ -11,7 +11,7 @@ Template.welcome.loggedIn = function() {
     return Meteor.userId() !== null;
 }
 Template.welcome.events({
-    'click button': function(e) {
+    'click button.start-game': function(e) {
         var t = e.currentTarget;
         var tableId = Tables.insert({
             players: [Meteor.userId()],

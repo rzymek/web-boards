@@ -71,9 +71,11 @@
             </div>
             <div class="col-md-2">
                 <h3>Start new game:</h3>
+                <div class="btn-group-vertical">
                 {{#each games}}
-                    <button type="button" class="btn btn-default" value="{{.}}" style="margin: 5px">{{.}}</button>
+                    <button type="button" class="start-game btn btn-default" value="{{.}}">{{.}}</button>
                 {{/each}}
+                </div>
             </div>
         </div>
         {{else}}       
