@@ -11,7 +11,7 @@ defaultGameInfo = {
 Session.setDefault('gameInfo', defaultGameInfo);
 Session.setDefault('tableId', null);
 Session.setDefault('selectedGame', null);
-Session.setDefault('config', '');
+Session.setDefault('config', 'hires');
 
 Session.set('board.ready', false);
 Session.set('sprites.ready', false);

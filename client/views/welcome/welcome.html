@@ -71,7 +71,9 @@
             </div>
             <div class="col-md-2">
                 <h3>Start new game:</h3>
-                <a href="/start/bastogne"><img src="http://cf.geekdo-images.com/images/pic325121_t.jpg" alt="Bastogne"></a>
+                {{#each games}}
+                    <button type="button" class="btn btn-default" value="{{.}}" style="margin: 5px">{{.}}</button>
+                {{/each}}
             </div>
         </div>
         {{else}}       
