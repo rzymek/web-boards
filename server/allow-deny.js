@@ -3,12 +3,21 @@ Tables.allow({
         doc.started = new Date().valueOf();
         return true;
     },
+    update: function(userId, doc) {
+        return doc.players.indexOf(userId) !== -1;
+    }
+});
+
+Operations.after.insert(function(userId, doc) {
+    Tables.update(doc.tableId, {
+        $set: {ops: Operations.find().count()}
+    });
 });
 
 Operations.allow({
     insert: function() {
         return true;
-    },
+    }
 });
 
 Operations.deny({

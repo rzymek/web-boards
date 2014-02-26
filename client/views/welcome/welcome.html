@@ -39,8 +39,7 @@
                         <tr>
                             <th></th>
                             <th>Game</th>
-                            <th>Playing</th>
-                            <th>Turn</th>
+                            <th>Started</th>
                             <th>Ops</th>
                             <th>ID</th>
                             <th></th>
@@ -55,14 +54,13 @@
                                 </a>
                             </th>
                             <td>{{game}}</td>
-                            <td>{{turn}}</td>
-                            <td>{{current}}</td>
+                            <td>{{fmtDate started}}</td>
                             <td>{{ops}}</td>
                             <td>{{_id}}</td>
                             <th>
-                                <a href="#" class="btn btn-default">
+                                <button class="leave-game btn btn-default" value="{{_id}}">
                                     <span class="glyphicon glyphicon-remove"></span>
-                                </a>
+                                </button>
                             </th>
                         </tr>
                         {{/each}}

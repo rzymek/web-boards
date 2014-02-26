@@ -80,6 +80,8 @@ Template.status.status = function() {
 };
 
 Template.play.rendered = function() {
+    if(is('board.ready'))
+        return;
     var gameInfo = Session.get('gameInfo');
     if (gameInfo.board.grid === null) {
         return;
