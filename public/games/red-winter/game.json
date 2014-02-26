@@ -1,0 +1,104 @@
+{
+  "board": {
+    "image": "Red_Winter_Map-150.jpg",
+    "width": 3300,
+    "height": 5100,
+    "grid": {
+      "hexSize": 138.40000000000134,
+      "hexWidth": 119.80000000000007,
+      "originX": 33,
+      "originY": -13
+    }
+  },
+  "pieces": [
+    {
+      "category": "Finnish",
+      "list": [
+        {
+          "name": "Suppressed",
+          "images": [
+            "Finnish_Supressed.gif"
+          ]
+        },
+        {
+          "name": "Night Raid",
+          "images": [
+            "Night_Raid.gif"
+          ]
+        },
+        {
+          "name": "SZLT",
+          "images": [
+            "SZLT.gif"
+          ]
+        },
+        {
+          "name": "Finnish Control",
+          "images": [
+            "Finnish_Control.gif"
+          ]
+        },
+        {
+          "name": "Finnish Morale Bonus",
+          "images": [
+            "Finnish_Morale_Bonus.gif",
+            "Finnish_Morale_Bonus.gif",
+            "Soviet_Morale_Bonus.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet",
+      "list": [
+        {
+          "name": "Suppressed",
+          "images": [
+            "Soviet_Surpressed.gif"
+          ]
+        },
+        {
+          "name": "Soviet Control",
+          "images": [
+            "Soviet_Control.gif"
+          ]
+        },
+        {
+          "name": "Bonfire",
+          "images": [
+            "Bonfire.gif"
+          ]
+        },
+        {
+          "name": "Soviets - Player One",
+          "images": [
+            "Soviet_Player_One.gif",
+            "Finnish_Player_One.gif"
+          ]
+        },
+        {
+          "name": "MPs Remaining",
+          "images": [
+            "MP_Remaining.gif"
+          ]
+        },
+        {
+          "name": "Soviet Morale Collapse",
+          "images": [
+            "Soviet_Morale_Collapse.gif",
+            "Soviet_Morale_Collapse.gif",
+            "Soviet_Morale_Collapse_Back.gif"
+          ]
+        },
+        {
+          "name": "Soviet Morale Bonus",
+          "images": [
+            "Soviet_Morale_Bonus.gif",
+            "Soviet_Morale_Bonus.gif",
+            "Finnish_Morale_Bonus.gif"
+          ]
+        }
+      ]
+    }
+  ]
+}
