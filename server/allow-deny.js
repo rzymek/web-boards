@@ -1,10 +1,21 @@
 Tables.allow({
-    insert: function(userId, doc) {
-        doc.started = new Date().valueOf();
+    insert: function(userId, table) {
+        console.log('table insert', userId);
+        if(userId === null) {
+            return false;
+        }
+        check(table.game, String);
+        check(table.players, Match.Where(function(arr){
+            return arr != null && arr.length > 0 && arr.indexOf(userId) !== -1;
+        }));
+        table.started = new Date().valueOf();
         return true;
     },
-    update: function(userId, doc) {
-        return doc.players.indexOf(userId) !== -1;
+    update: function(userId, doc, fields, mods) {
+        //allow only:  { '$pull': { players: userId } }
+        return (fields.length === 1 && fields[0] === 'players') &&  
+            (mods.$pull !== undefined) && 
+            (mods.$pull.players === userId); 
     }
 });
 

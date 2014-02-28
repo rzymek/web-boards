@@ -29,8 +29,6 @@ Template.welcome.events({
         var t = e.currentTarget;
         var tableId = Tables.insert({
             players: [Meteor.userId()],
-            turn: 1,
-            'current': 'US',
             game: t.value
         });
         Router.go('play', {_id: tableId});
