@@ -1,2 +1,2 @@
-#echo $* | meteor deploy web-boards.meteor.com
-echo $* | meteor deploy wb.meteor.com
+#meteor deploy web-boards.meteor.com
+meteor deploy wb.meteor.com
