@@ -1,21 +1,23 @@
 Tables.allow({
     insert: function(userId, table) {
-        console.log('table insert', userId);
-        if(userId === null) {
+        try {
+            check(userId, String);
+            check(table.game, String);
+            check(table.players, Match.Where(function(arr) {
+                return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
+            }));
+            table.started = new Date().valueOf();
+            return true;
+        } catch (err) {
+            console.error(err.stack);
             return false;
         }
-        check(table.game, String);
-        check(table.players, Match.Where(function(arr){
-            return arr != null && arr.length > 0 && arr.indexOf(userId) !== -1;
-        }));
-        table.started = new Date().valueOf();
-        return true;
     },
     update: function(userId, doc, fields, mods) {
         //allow only:  { '$pull': { players: userId } }
-        return (fields.length === 1 && fields[0] === 'players') &&  
-            (mods.$pull !== undefined) && 
-            (mods.$pull.players === userId); 
+        return (fields.length === 1 && fields[0] === 'players') &&
+                (mods.$pull !== undefined) &&
+                (mods.$pull.players === userId);
     }
 });
 
@@ -26,33 +28,29 @@ Operations.after.insert(function(userId, doc) {
 });
 
 Operations.allow({
-    insert: function() {
-        return true;
+    insert: function(userId, op) {
+        try {
+            check(userId, String);
+            check(op.op, String);
+            check(op.result, undefined);
+            check(op.tableId, String);
+            check(op.tableId, Match.Where(function(tableId) {
+                var table = Tables.findOne(tableId);
+                return table !== null && table.players.indexOf(userId) !== -1;
+            }));
+            if (op.server !== undefined) {
+                //TODO: parse the actual request in doc.server
+                op.result = {
+                    roll: 1 + Math.floor(Math.random() * 6)
+                };
+                delete op['server'];
+                console.log('rolled', op.roll);
+            }
+            op.createdAt = new Date().valueOf();
+            return true;
+        } catch (err) {
+            console.error(err.stack);
+            return false;
+        }
     }
 });
-
-Operations.deny({
-    insert: function(userId, doc) {
-        doc.createdAt = new Date().valueOf();
-        if (doc.result !== undefined) {
-            console.warn('trying to insert doc with result');
-            return true;
-        }
-        if (doc.server !== undefined) {
-            //TODO: parse the actual request in doc.server
-            doc.result = {
-                roll: 1 + Math.floor(Math.random() * 6)
-            };
-            delete doc['server'];
-            console.log('rolled', doc.roll);
-        }
-        return false;
-    },
-    update: function() {
-        return true;
-    },
-    remove: function() {
-        return true;
-    }    
-});
-

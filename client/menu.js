@@ -54,9 +54,6 @@ menu = {
         else
             meta.content = '';
         alert(meta.content);
-    },
-    'Reset': function() {
-        Meteor.call('reset');
     }
 };
 
