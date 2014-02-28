@@ -56,14 +56,14 @@ function svgZoomAndPan(root) {
     } else {
         root.setAttribute('SvgZoomAndPan', 'true');
     }
-    root.onmousedown = function(e) {
+    $(root).mousedown(function(e) {
         updateMousePosition(e);
         mouseDown = true;
-    };
-    root.onmouseup = function(e) {
+    });
+    $(root).mouseup(function() {
         mouseDown = false;
-    };
-    root.onmousemove = function(e) {
+    });
+    $(root).mousemove(function(e){
         if (mouseDown) {
             root.panning = true;
             var x = mouse.x;
@@ -76,12 +76,11 @@ function svgZoomAndPan(root) {
         } else {
             root.panning = false;
             updateMousePosition(e);
-        }
-    };
-    root.onclick = function(e) {
+        }        
+    });
+    $(root).click(function(e) {
         root.panning = false;
-    };
-
+    });
     //require: jquery-mousewheel
     $(root).mousewheel(function(e, delta) {
         svgZoom(delta);
