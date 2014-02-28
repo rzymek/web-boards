@@ -1,8 +1,11 @@
 Deps.autorun(function() {
+    if(!is('tables.ready'))
+        return; 
     var tableId = Session.get('tableId');
     if (tableId !== null) {
         var table = Tables.findOne(tableId);
-        if (!table) {
+        console.log(tableId + ' -> ' + table);
+        if (!table) {            
             Session.set('selectedGame', null);
             if (window.confirm('Do you want to join this game?')) {
                 Meteor.call('join', tableId, function(error, result) {

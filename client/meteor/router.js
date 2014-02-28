@@ -2,13 +2,13 @@ Router.map(function() {
     this.route('play', {
         path: '/play/:_id',
         template: 'board',
-        action: function() {
-            if(Meteor.userId() === null) {
-                this.redirect('welcome');
-            }else{
-                Session.set('tableId', this.params._id);
-                this.render();
-            }            
+        before: function() {
+            if (Meteor.userId() === null) {
+                this.redirect('/?msg=Login to join game '+this.params._id);
+            }
+        },
+        after: function() {
+            Session.set('tableId', this.params._id);
         }
     });
     this.route('welcome', {
@@ -16,6 +16,11 @@ Router.map(function() {
         template: 'welcome',
         before: function() {
             Session.set('tableId', null);
+        },
+        data: function() {
+            return {
+                msg: this.params.msg
+            };
         }
     })
 });

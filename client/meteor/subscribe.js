@@ -1,4 +1,8 @@
-Meteor.subscribe('tables');
+Meteor.subscribe('tables', {
+    onReady: function() {
+        Session.set('tables.ready', true);
+    }
+});
 
 Deps.autorun(function() {
     var tableId = Session.get('tableId');
