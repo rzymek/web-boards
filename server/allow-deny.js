@@ -21,12 +21,6 @@ Tables.allow({
     }
 });
 
-Operations.after.insert(function(userId, doc) {
-    Tables.update(doc.tableId, {
-        $set: {ops: Operations.find().count()}
-    });
-});
-
 Operations.allow({
     insert: function(userId, op) {
         try {
