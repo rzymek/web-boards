@@ -122,11 +122,17 @@ hexClicked = function(e) {
                     }
                 };
             }else{ 
+                function scale(dim, scale){
+                    return (scale === undefined) ? dim : {
+                        width: dim.width * scale,
+                        height: dim.height * scale
+                    };             
+                };
                 data = {
                     op: 'PlaceOp',
                     imageBase: '/games/' + Session.get('selectedGame') + '/images/',
                     sides: img.getAttribute('sides').split('|'),
-                    size: getNatural(img),
+                    size: scale(getNatural(img), Session.get('gameInfo').counterScale),
                     hexid: use.id
                 };
             }
