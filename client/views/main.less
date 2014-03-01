@@ -6,17 +6,20 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
-  padding-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
+.navbar-header{
+    width:100%;
+}
 .login-link-text{
     .btn;
     .btn-success;
 }
 .hex {
-  fill: rgba(0, 0, 0, 0);
-  opacity: 0.5;
+    fill: rgba(0, 0, 0, 0);
+    opacity: 0.5;
 }
 
 #pieceMenuLayer{
@@ -36,116 +39,116 @@ body {
 }
 
 .menuItem {
-  .btn;
-  .btn-default;
-  //  .btn-sm;
+    .btn;
+    .btn-default;
+    //  .btn-sm;
 }
 .menuBtn {
-  .menuItem;
+    .menuItem;
 }
 .menuToggle{
-  .menuItem;
+    .menuItem;
 }
 
 .hex:hover {
-  fill: lightblue;
-  opacity: 1;
+    fill: lightblue;
+    opacity: 1;
 }
 #counters image {
     pointer-events: none;
 }
 
 #status {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: lightgray;
-  //color:white;
-  border-top: solid 1px black;
-  border-right: solid 1px black;
-  padding-top: 1px;
-  padding-right: 1px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: lightgray;
+    //color:white;
+    border-top: solid 1px black;
+    border-right: solid 1px black;
+    padding-top: 1px;
+    padding-right: 1px;
 }
 
 #menu.touch {
-  button {
-    width: @menu-size*2;
-    height: @menu-size/2;
-  }    
+    button {
+        width: @menu-size*2;
+        height: @menu-size/2;
+    }    
 }
 
 #menu.mouse {
-  button {
-    width: @menu-size;
-    height: @menu-size;
-  }    
+    button {
+        width: @menu-size;
+        height: @menu-size;
+    }    
 }
 
 #menu {
-  position: fixed;
-  right: 0;
-  top: 0;
-  text-align: right;
-  padding:0;
-  button {
-    text-align: center;
-    padding: 0;
-  }
-  .menu-unfolded {
-    display: none;
-  }
+    position: fixed;
+    right: 0;
+    top: 0;
+    text-align: right;
+    padding:0;
+    button {
+        text-align: center;
+        padding: 0;
+    }
+    .menu-unfolded {
+        display: none;
+    }
 }
 
 #panel {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  max-width: @piece-panel-width;
-  display:none;
-  img {
-    width: @menu-size;
-    height: auto;
-    margin-bottom: @panel-padding;
-  }
-  .panel-heading {
-    padding: @panel-padding;
-    select {
-      width: 100%;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    max-width: @piece-panel-width;
+    display:none;
+    img {
+        width: @menu-size;
+        height: auto;
+        margin-bottom: @panel-padding;
     }
-  }
-  .panel-body {
-    padding: @panel-padding;
-    .pieceSelected {
-      border: solid 3px red;
+    .panel-heading {
+        padding: @panel-padding;
+        select {
+            width: 100%;
+        }
     }
-  }
+    .panel-body {
+        padding: @panel-padding;
+        .pieceSelected {
+            border: solid 3px red;
+        }
+    }
 }
 
 #menu table {
-  border-spacing: 0;
-  border-collapse: collapse;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 #controls {
-  position: fixed;
-  left: 0px;
-  top: 0;
-  width: 120px;
-  button {
-    width: 40px;
-    height: 20px;
-    text-align: center;
-    padding: 0px;
-  }
+    position: fixed;
+    left: 0px;
+    top: 0;
+    width: 120px;
+    button {
+        width: 40px;
+        height: 20px;
+        text-align: center;
+        padding: 0px;
+    }
 }
 
 #ajax {
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-  visibility: hidden;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    visibility: hidden;
 }
 
 .welcome {
-  margin: 10px;
+    margin: 10px;
 }
