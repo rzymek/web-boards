@@ -53,7 +53,9 @@ Template.welcome.config = function() {
 };
 
 Template.welcome.tables = function() {
-    return Tables.find({});
+    return Tables.find({}, {
+        sort: ['started', 'asc']
+    });
 };
 
 function getUsername() {

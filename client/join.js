@@ -3,7 +3,7 @@ Deps.autorun(function() {
         return; 
     var tableId = Session.get('tableId');
     if (tableId !== null) {
-        var table = Tables.findOne(tableId);
+        var table = Tables.findOne(tableId, {fields: {game: 1}});
         console.log(tableId + ' -> ' + table);
         if (!table) {            
             Session.set('selectedGame', null);
