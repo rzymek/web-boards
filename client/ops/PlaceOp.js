@@ -5,9 +5,8 @@ PlaceOp = function(data) {
         console.warn('Hex not found:', data.hexid);
     } else {
         var counter = document.createElementNS(SVGNS, 'image');
-        var boardScaling = getBoardScaling();
-        counter.width.baseVal.value = data.size.width / boardScaling;
-        counter.height.baseVal.value = data.size.height / boardScaling;
+        counter.width.baseVal.value = data.size.width;
+        counter.height.baseVal.value = data.size.height;
         counter.id = data._id;
         counter.sides = data.sides;
         counter.side = 0;

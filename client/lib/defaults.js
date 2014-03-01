@@ -26,4 +26,4 @@ is = function() {
         }
     }
     return true;
-}
+};

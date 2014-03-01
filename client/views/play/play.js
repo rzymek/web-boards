@@ -11,17 +11,14 @@ if (!isTouchDevice()) {
 }
 
 function setupGrid(svg) {
-    var svgns = "http://www.w3.org/2000/svg";
-    var boardScale = 1;
     var layer = svg.getElementById('hexes');
     if (layer.childNodes.length > 0) {
         return svg; //already setup
     }
     var board = Session.get('gameInfo').board;
-    var scaling = getBoardScaling();
     var hex2hex = {
-        x: board.grid.hexWidth * boardScale,
-        y: board.grid.hexSize * boardScale
+        x: board.grid.hexWidth,
+        y: board.grid.hexSize
     };
 
     var A = 2 * board.grid.hexSize / Math.sqrt(3);
@@ -30,16 +27,13 @@ function setupGrid(svg) {
     var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
         for (var x = 0; x < xn; x++) {
-            var hx = (board.grid.originX * boardScale + x * hex2hex.x);
-            var hy = (board.grid.originY * boardScale + y * hex2hex.y);
-            var hscale = A / 100 * boardScale;
+            var hx = (board.grid.originX + x * hex2hex.x);
+            var hy = (board.grid.originY + y * hex2hex.y);
+            var hscale = A / 100;
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
-            hx /= scaling;
-            hy /= scaling;
-            hscale /= scaling;
-            use = document.createElementNS(svgns, 'use');
+            use = document.createElementNS(SVGNS, 'use');
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
@@ -53,17 +47,11 @@ function setupGrid(svg) {
     return svg;
 }
 
-Deps.autorun(function() {
-    console.log('board scaling: ' + getBoardScaling());
-});
-
-
 Template.play.board = function() {
     var gameInfo = Session.get('gameInfo');
-    var scaling = getBoardScaling();
     return {
-        w: gameInfo.board.width / scaling,
-        h: gameInfo.board.height / scaling
+        w: gameInfo.board.width,
+        h: gameInfo.board.height
     };
 };
 Template.play.boardImg = function() {
