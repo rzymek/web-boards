@@ -98,7 +98,7 @@ Template.play.rendered = function() {
         'W': function() { svgZoom(-1) }
     });
     sprites.traces = svg.getElementById('traces');
-    selectById(null);
+    Session.set('selectedPiece',null);
     Session.set('board.ready', true);
 };
 
