@@ -24,6 +24,7 @@ Meteor.startup(function() {
             }
         }
         NProgress.set(to / count);
+        byId('svg').style.filter = (to === count ? '' : 'url(#mark)');
         lastReplayIndex = to;
     });
 });
