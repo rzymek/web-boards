@@ -83,7 +83,6 @@ function getSVGElements(stack/*string[] -ids*/) {
 
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
     var margin = 10;
-    var hexBB = hexElement.getBBox();
     var svg = byId('svg');
     var selector = sprites.stackSelector;
     copyTransformation(hexElement, selector);
@@ -112,10 +111,12 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     stack.forEach(function(it) {
         it.style.pointerEvents = 'auto';
         it.onclick = function(evt) {
+            console.log('stack click',evt);
             var val = evt.target.id;
             if (getSelectedId() === val)
                 val = null;
             selectById(val);
+            evt.stopPropagation();            
         };
     });
 };
