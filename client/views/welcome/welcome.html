@@ -13,6 +13,9 @@
         <div class="container">
             <p>Web Boards is a web application for playing online adaptation of board games. 
                 You can play online with instant updates or do your moves without the opponent being connected.</p>
+            {{#unless loggedIn}}
+            Please log in/sign up using the link in the upper right corner.
+            {{/unless}}
         </div>
     </div>
 
@@ -65,7 +68,11 @@
         </div>
         {{else}}       
         <h3>Available games:</h3>
-        <img src="http://cf.geekdo-images.com/images/pic325121_t.jpg" alt="Bastogne"><br>
+        <ul>
+            {{#each games}}
+            <li><h4>{{.}}</h4></li>
+            {{/each}}
+        </ul>
         {{/if}}
 
         <div id="config" style="background-color: gray; position: absolute; bottom:0; left:0; min-width:20px;min-height:20px">
