@@ -16,7 +16,7 @@ Session.setDefault('config', 'hires');
 Session.set('board.ready', false);
 Session.set('sprites.ready', false);
 
-sprites = null;
+sprites = {};
 
 is = function() {
     for (var i = 0; i < arguments.length; i++) {
