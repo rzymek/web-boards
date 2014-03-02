@@ -3,9 +3,9 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <a class="navbar-brand" href="/">Web Boards</a>
-            <div class="navbar-btn" style="float:right">
-                {{loginButtons align="right"}}
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {{ loginButtons }} 
+            </ul>
         </div>
     </div>
 
@@ -13,10 +13,6 @@
         <div class="container">
             <p>Web Boards is a web application for playing online adaptation of board games. 
                 You can play online with instant updates or do your moves without the opponent being connected.</p>
-            {{#unless loggedIn}}
-            <p><a href="#" onclick="document.getElementById('login-sign-in-link').click()">Login to start or join a game</a>.</p>
-            {{/unless}}
-            {{msg}}
         </div>
     </div>
 

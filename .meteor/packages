@@ -11,8 +11,8 @@ fs
 keybindings
 jquery-ui
 nprogress
-accounts-ui
 accounts-password
 jquery-mousewheel
 collection-hooks
 iron-router
+accounts-ui-bootstrap-3

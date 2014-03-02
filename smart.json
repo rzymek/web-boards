@@ -6,6 +6,7 @@
     "nprogress": {},
     "jquery-mousewheel": {},
     "collection-hooks": {},
-    "iron-router": {}
+    "iron-router": {},
+    "accounts-ui-bootstrap-3": {}
   }
 }
