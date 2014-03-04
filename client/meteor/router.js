@@ -22,5 +22,5 @@ Router.map(function() {
                 msg: this.params.msg
             };
         }
-    })
+    });
 });
