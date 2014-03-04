@@ -7,8 +7,22 @@ removeFromStack = function(target, img) {
 
 addToStack = function(hex, counter) {
     counter.position = hex;
+    hex.stack = addTo(hex.stack, counter);
     if (hex.stack)
         hex.stack.push(counter);
     else
         hex.stack = [counter];
+};
+
+addOverlay = function(hex, overlay) {
+    hex.overlays = addTo(hex.overlays, overlay);
+};
+
+addTo = function(list, element) {
+    if (list) {
+        list.push(element);
+    } else {
+        list = [element];
+    }
+    return list;
 };

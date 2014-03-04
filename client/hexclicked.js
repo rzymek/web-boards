@@ -70,40 +70,53 @@ hexClicked = function(e) {
     }
 
     var use = e.currentTarget;
+    
+    if(use.overlays) {
+        Operations.insert({
+            op: 'AckOverlay',
+            hexid: use.id
+        });
+        return;
+    }
+    
     var selectedId = getSelectedId();
-    if (selectedId === null) {
+    if (selectedId === null) {        
+        //nothing is currently selected
         if(showingPieceMenu()) {
             hidePieceMenu();
             return;
         }
-        //selecting a piece
         var stack = use.stack;
         if (stack === undefined || stack === null || stack.length === 0) {
+            //empty hex -> show global menu
             showMenu(use);
             return;
         }
         if (stack.length > 1) {
+            //there's a stack, show stack selector
             showStackSelector(use, stack);
         } else if (stack.length === 1) {
+            //single counter in hex -> select it
             selectById(stack[0].id);
         }
         return;
     } else {
+        // there's was a counter selected before this click
         var img = byId(selectedId);
         if (img.position && img.position.id === use.id) {
-            //clicked on a selected piece -> deselect
-            if (showingPieceMenu()) {
-                hidePieceMenu();
-                selectById(null);
-            } else {
+            //clicked on a selected counter
+            if (!showingPieceMenu()) {
+                //first click on a selected counter -> show counter menu here
                 hidePieceMenu();
                 showPieceMenu(img);
+            } else {
+                //second click on a selected counter -> deselect it
+                hidePieceMenu();
+                selectById(null);
             }
             return;
         }
-    }
-
-    if (selectedId) {
+        
         hidePieceMenu();
 
         var data = null;
@@ -137,6 +150,7 @@ hexClicked = function(e) {
             }
         }
         Operations.insert(data);
+        //deselect counter after action:
         selectById(null);
     }
 };
