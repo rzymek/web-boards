@@ -4,7 +4,7 @@ Router.map(function() {
         template: 'board',
         before: function() {
             if (Meteor.userId() === null) {
-                this.redirect('/?msg=Login to join game '+this.params._id);
+                this.redirect('welcome');
             }
         },
         after: function() {
