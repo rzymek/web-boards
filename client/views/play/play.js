@@ -55,10 +55,9 @@ Template.play.board = function() {
     };
 };
 Template.play.boardImg = function() {
-    var selected = Session.get('selectedGame');
     var info = Session.get('gameInfo');
-    if (selected && info.board.grid)
-        return '/games/' + selected + '/images/' + info.board.image;
+    if (info.board.grid)
+        return '/games/' + info.table.game + '/images/' + info.board.image;
     else
         return '/img/loading.gif';
 };
@@ -68,6 +67,7 @@ Template.status.status = function() {
 };
 
 Template.play.rendered = function() {
+    console.log('play rendered');
     if(is('board.ready'))
         return;
     var gameInfo = Session.get('gameInfo');

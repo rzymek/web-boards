@@ -25,6 +25,6 @@ On /play:tableId
 2) find out what game this is: Tables.findOne(tableId).game
 3) render appropriate board: /games/{game}/images/{board.image}
     a) attach sprites to board
-4) execute Operations
+4) execute Operations (observe)
 5) check if user is in Table(tableId).players
     a) if not, ask if what to join -> Meteor.call('join', tableId)

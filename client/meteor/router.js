@@ -2,12 +2,27 @@ Router.map(function() {
     this.route('play', {
         path: '/play/:_id',
         template: 'board',
-        before: function() {
-            if (Meteor.userId() === null) {
-                this.redirect('welcome');
-            }
+        action: function() {
+            this.render('loading-board');
+            var router = this;
+            var tableId = this.params._id;
+            Meteor.subscribe('operations', tableId);
+            Meteor.call('getTableInfo', tableId, function(error, table) {
+                if (table) {
+                    $.get('/games/' + table.game + '/game.json', function(data) {
+                        data.table = table;
+                        Session.set('gameInfo', data);
+                        console.log('render play ');
+                        router.render();
+                    });
+                } else {
+                    window.alert('Invalid table id: ' + tableId);
+                    this.redirect('welcome');
+                }
+            });
         },
         after: function() {
+            console.log('after');
             Session.set('tableId', this.params._id);
         }
     });

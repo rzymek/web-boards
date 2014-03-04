@@ -14,7 +14,9 @@ Tables.allow({
         }
     },
     update: function(userId, doc, fields, mods) {
-        //allow only:  { '$pull': { players: userId } }
+        check(table.players, Match.Where(function(arr) {
+            return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
+        }));
         return (fields.length === 1 && fields[0] === 'players') &&
                 (mods.$pull !== undefined) &&
                 (mods.$pull.players === userId);

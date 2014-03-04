@@ -4,6 +4,16 @@ Meteor.methods({
         console.log('avaiable games', games);
         return games;
     },
+    getTableInfo: function(tableId) {
+        var table = Tables.findOne(tableId, {reactive:false});
+        console.log('getTableInfo', table);
+        if (table) {            
+            table.playersInfo = table.players.map(function(it){
+                return Meteor.users.findOne(it).emails[0].address;
+            })
+        }
+        return table;
+    },
     join: function(tableId) {
         console.log(this.userId, ' joining ', tableId);
         var changed = Tables.update(tableId, {$addToSet: {players: this.userId}});
@@ -18,8 +28,8 @@ Meteor.methods({
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
         });
-        if(last.result !== undefined) {
-             //'Undo not allowed for '+last.op;
+        if (last.result !== undefined) {
+            //'Undo not allowed for '+last.op;
             return;
         }
         if (last === undefined) {
