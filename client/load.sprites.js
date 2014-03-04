@@ -10,7 +10,7 @@ $.get('/sprites.svg', function(data) {
     Session.set('sprites.ready', true);
 });
 
-Deps.autorun(function() {
+Deps.autorun(function attachSprites() {
     if (!is('sprites.ready', 'board.ready'))
         return;
     var dest = svg.getElementsByTagName('defs')[0];

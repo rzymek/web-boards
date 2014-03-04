@@ -4,8 +4,12 @@ Operations.before.insert(function(userId, doc) {
 });
 
 Deps.autorun(function() {
+    /* The board need to be fully ready before any Ops are executed */
     if (!is('sprites.ready', 'board.ready'))
         return;
+    /* Ops with `server` request are executed after the server
+     * updates the Op with `result`
+     */
     Operations.find().observe({
         added: function(data) {
             if (data.server === undefined) {
