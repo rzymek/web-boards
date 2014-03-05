@@ -27,6 +27,18 @@ Meteor.methods({
         var changed = Tables.update(tableId, {$set: action});
         return changed === 1;
     },
+    leave: function(tableId) {
+        var unset = {};
+        unset['players.'+Meteor.userId()] = "";
+        Tables.update(tableId, {
+            $unset: unset
+        });
+        var table = Tables.findOne(tableId);
+        if(Object.keys(table.players).length === 0 && !table.ops) {
+            console.log('deleteing empty table', tableId);
+            Tables.remove(tableId);
+        }
+    },
     reset: function() {
         console.log('FULL RESET');
         Operations.remove({});

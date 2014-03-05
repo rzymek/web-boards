@@ -12,6 +12,17 @@ Template.welcome.loggedIn = function() {
     return Meteor.userId() !== null;
 };
 
+Template.welcome.listPlayers = function(table) {
+    var players = [];
+    for (var id in table.players) {
+        if (id !== Meteor.userId()) {
+            players.push(table.players[id]);
+        }
+    }
+    ;
+    return players;
+};
+
 Template.welcome.fmtDate = function(millis) {
     function fmt(c, s) {
         while (s.toString().length < c) {
@@ -35,7 +46,10 @@ Template.welcome.events({
     'click .leave-game': function(e) {
         var id = e.currentTarget.value;
         if (window.confirm('Leave game ' + id + '?')) {
-            Meteor.call('leave', id);
+            Meteor.call('leave', id, function(err) {
+                if (err)
+                    window.alert(err);
+            });
         }
     },
     'click #config': function(e) {

@@ -11,14 +11,6 @@ Tables.allow({
             console.error(err.stack);
             return false;
         }
-    },
-    update: function(userId, doc, fields, mods) {
-        check(table.players, Match.Where(function(arr) {
-            return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
-        }));
-        return (fields.length === 1 && fields[0] === 'players') &&
-                (mods.$pull !== undefined) &&
-                (mods.$pull.players === userId);
     }
 });
 
