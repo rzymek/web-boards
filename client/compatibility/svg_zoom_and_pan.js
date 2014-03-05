@@ -51,10 +51,10 @@ function svgZoomAndPan(root) {
     var viewbox = root.viewBox.baseVal;
     var size = {x: viewbox.width, y: viewbox.height};
 
-    if (root.getAttribute('SvgZoomAndPan')) {
-        return;
+    if (root.svgZoomAndPan) {
+        return svgZoom;
     } else {
-        root.setAttribute('SvgZoomAndPan', 'true');
+        root.svgZoomAndPan = true;
     }
     $(root).mousedown(function(e) {
         updateMousePosition(e);
@@ -63,7 +63,7 @@ function svgZoomAndPan(root) {
     $(root).mouseup(function() {
         mouseDown = false;
     });
-    $(root).mousemove(function(e){
+    $(root).mousemove(function(e) {
         if (mouseDown) {
             root.panning = true;
             var x = mouse.x;
@@ -76,7 +76,7 @@ function svgZoomAndPan(root) {
         } else {
             root.panning = false;
             updateMousePosition(e);
-        }        
+        }
     });
     $(root).click(function(e) {
         root.panning = false;
@@ -86,8 +86,7 @@ function svgZoomAndPan(root) {
         svgZoom(delta);
         e.preventDefault();
     });
-
-    return svgZoom;
+    root.zoom = svgZoom;
 }
 
 

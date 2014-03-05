@@ -29,7 +29,6 @@ Template.pieces.events({
 });
 
 Template.selectedPieces.pieces = function() {
-    var g = Session.get('selectedGame');
     var cat = Session.get('piecesCategory');
     if (cat === "Special") {
         return [{//http://code.dylanmtaylor.com/dice/
@@ -38,7 +37,8 @@ Template.selectedPieces.pieces = function() {
                 id: 'special-d6'
             }];
     }
-    var inCat = Session.get('gameInfo').pieces.filter(function(p) {
+    var info = Session.get('gameInfo');
+    var inCat = info.pieces.filter(function(p) {
         return p.category === cat;
     });
     if (inCat.length > 0) {
@@ -46,7 +46,7 @@ Template.selectedPieces.pieces = function() {
             var name = p.images[0];
             return {
                 sides: p.images.join('|'),
-                src: '/games/' + g + '/images/' + name,
+                src: '/games/' + info.table.game + '/images/' + name,
                 id: 'panel-' + name.replace(/[^A-Za-z0-9_]/, '')
             };
         });

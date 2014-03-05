@@ -7,23 +7,28 @@ Router.map(function() {
             var router = this;
             var tableId = this.params._id;
             Meteor.subscribe('operations', tableId);
-            Meteor.call('getTableInfo', tableId, function(error, table) {
-                if (table) {
-                    $.get('/games/' + table.game + '/game.json', function(data) {
-                        data.table = table;
-                        Session.set('gameInfo', data);
-                        console.log('render play ');
-                        router.render();
-                    });
-                } else {
-                    window.alert('Invalid table id: ' + tableId);
-                    this.redirect('welcome');
+            Meteor.subscribe('tables', tableId, {
+                onReady: function() {
+                    var table = Tables.findOne(tableId, {reactive:false});
+                    if (table) {
+                        $.get('/games/' + table.game + '/game.json', function(data) {
+                            data.table = table;
+                            Session.set('gameInfo', data);
+                            router.render();
+                        });
+                    } else {
+                        window.alert('Invalid table id: ' + tableId);
+                        this.redirect('welcome');
+                    }
                 }
             });
         },
         after: function() {
             console.log('after');
             Session.set('tableId', this.params._id);
+        },
+        unload: function() {
+            Session.set('board.ready',false);
         }
     });
     this.route('welcome', {
@@ -31,11 +36,6 @@ Router.map(function() {
         template: 'welcome',
         before: function() {
             Session.set('tableId', null);
-        },
-        data: function() {
-            return {
-                msg: this.params.msg
-            };
         }
     });
 });

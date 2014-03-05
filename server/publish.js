@@ -6,7 +6,12 @@ Meteor.startup(function() {
         });
     });
 
-    Meteor.publish('tables', function() {
-        return Tables.find({players: this.userId});
+    Meteor.publish('tables', function(tableId) {
+        return Tables.find({
+            $or: [
+                {players: this.userId},
+                {_id: tableId}
+            ]
+        });
     });
 });

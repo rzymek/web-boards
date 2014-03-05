@@ -1,16 +1,22 @@
+function getPlayerNames(table) {
+    return table.players.map(function(it) {
+        return Meteor.users.findOne(it).emails[0].address;
+    })
+}
 Meteor.methods({
     games: function() {
         var games = fs.readdirSync('../client/app/games');
         console.log('avaiable games', games);
         return games;
     },
+    getPlayerNames: function(tableId) {
+        return getPlayerNames(Tables.findOne(tableId, {reactive: false}));
+    },
     getTableInfo: function(tableId) {
-        var table = Tables.findOne(tableId, {reactive:false});
+        var table = Tables.findOne(tableId, {reactive: false});
         console.log('getTableInfo', table);
-        if (table) {            
-            table.playersInfo = table.players.map(function(it){
-                return Meteor.users.findOne(it).emails[0].address;
-            })
+        if (table) {
+            table.playersInfo = getPlayerNames(table);
         }
         return table;
     },
