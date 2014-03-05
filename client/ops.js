@@ -3,7 +3,8 @@
 var undoFunctions = {};
 
 runOp = function(data) {
-    removeChildren(sprites.traces);
+    console.log('runOp',data.op);
+    removeChildren(byId('traces'));
     undoFunctions[data._id] = this[data.op](data);
 };
 

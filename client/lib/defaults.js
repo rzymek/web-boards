@@ -10,11 +10,12 @@ Session.set('sprites.ready', false);
 sprites = {};
 
 is = function() {
+    var result = true;
     for (var i = 0; i < arguments.length; i++) {
         var key = arguments[i];
-        if(!Session.equals(key, true)) {
-            return false;
+        if (!Session.equals(key, true)) {
+            result = false;
         }
     }
-    return true;
+    return result;
 };

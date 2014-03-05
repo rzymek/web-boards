@@ -6,7 +6,6 @@ Router.map(function() {
             this.render('loading-board');
             var router = this;
             var tableId = this.params._id;
-            Meteor.subscribe('operations', tableId);
             Meteor.subscribe('tables', tableId, {
                 onReady: function() {
                     var table = Tables.findOne(tableId, {reactive:false});

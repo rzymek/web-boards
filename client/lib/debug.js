@@ -4,9 +4,7 @@ sleep = function(sleepDuration) {
     }
 };
 
-NoOp = {
-    run: function() {
-    },
-    undo: function() {
-    }
+NoOp = function() {
+    return function() {
+    };
 };

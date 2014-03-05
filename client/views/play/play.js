@@ -67,9 +67,9 @@ Template.play.rendered = function() {
     console.log('play rendered');
     
     var svg = byId('svg');
-    var hexes = byId('hexes');
-    if(hexes.ready) 
+    if(svg.ready) 
         return;
+    console.log(svg);
     
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
@@ -94,8 +94,7 @@ Template.play.rendered = function() {
         'Q': function() { byId('svg').zoom(+1); },
         'W': function() { byId('svg').zoom(-1); }
     });
-    sprites.traces = svg.getElementById('traces');
     Session.set('selectedPiece',null);
     Session.set('board.ready', true);
-    hexes.ready = true;
+    svg.ready = true;
 };
