@@ -6,7 +6,10 @@
     "nprogress": {},
     "jquery-mousewheel": {},
     "collection-hooks": {},
-    "iron-router": {},
-    "accounts-ui-bootstrap-3": {}
+    "iron-router": {
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "branch": "blaze-integration"
+    },
+    "blaze-layout": {}
   }
 }
