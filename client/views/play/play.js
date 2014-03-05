@@ -93,8 +93,6 @@ Template.play.rendered = function() {
         'ctrl+shift+z': function() {
             alert('redo not implemented yet');
         },
-        'del': menu.Remove,
-        'F': menu.Flip,
         'Q': function() { byId('svg').zoom(+1); },
         'W': function() { byId('svg').zoom(-1); }
     });
