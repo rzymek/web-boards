@@ -1,4 +1,5 @@
 Deps.autorun(function() {
+    return;//!!!
     if (!is('board.ready', 'sprites.ready'))
         return;
     var scenos = Session.get('gameInfo').scenarios;

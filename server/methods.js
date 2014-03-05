@@ -22,7 +22,9 @@ Meteor.methods({
     },
     join: function(tableId) {
         console.log(this.userId, ' joining ', tableId);
-        var changed = Tables.update(tableId, {$addToSet: {players: this.userId}});
+        var action = {};
+        action['players.' + this.userId] = getUsername(this.userId);
+        var changed = Tables.update(tableId, {$set: action});
         return changed === 1;
     },
     reset: function() {

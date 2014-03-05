@@ -28,7 +28,6 @@ Template.welcome.events({
     'click .start-game': function(e) {
         var t = e.currentTarget;
         var tableId = Tables.insert({
-            players: [Meteor.userId()],
             game: t.value
         });
         Router.go('play', {_id: tableId});
@@ -36,9 +35,7 @@ Template.welcome.events({
     'click .leave-game': function(e) {
         var id = e.currentTarget.value;
         if (window.confirm('Leave game ' + id + '?')) {
-            Tables.update(id, {
-                $pull: {players: Meteor.userId()}
-            });
+            Meteor.call('leave', id);
         }
     },
     'click #config': function(e) {

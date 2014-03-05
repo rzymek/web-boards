@@ -142,7 +142,7 @@ hexClicked = function(e) {
                 };
                 data = {
                     op: 'PlaceOp',
-                    imageBase: '/games/' + Session.get('gameInfo').table.game + '/images/',
+                    imageBase: '/games/' + getTable().game + '/images/',
                     sides: img.getAttribute('sides').split('|'),
                     size: scale(getNatural(img), Session.get('gameInfo').counterScale),
                     hexid: use.id

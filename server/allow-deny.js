@@ -3,10 +3,9 @@ Tables.allow({
         try {
             check(userId, String);
             check(table.game, String);
-            check(table.players, Match.Where(function(arr) {
-                return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
-            }));
             table.started = new Date().valueOf();
+            table.players = {};
+            table.players[userId] = getUsername(userId);
             return true;
         } catch (err) {
             console.error(err.stack);
@@ -32,7 +31,7 @@ Operations.allow({
             check(op.tableId, String);
             check(op.tableId, Match.Where(function(tableId) {
                 var table = Tables.findOne(tableId);
-                return table !== null && table.players.indexOf(userId) !== -1;
+                return (table !== null) && (userId in table.players);
             }));
             if (op.server !== undefined) {
                 //TODO: parse the actual request in doc.server

@@ -12,7 +12,7 @@ Router.map(function() {
                     var table = Tables.findOne(tableId, {reactive:false});
                     if (table) {
                         $.get('/games/' + table.game + '/game.json', function(data) {
-                            data.table = table;
+                            Session.set('tableId', table._id);
                             Session.set('gameInfo', data);
                             router.render();
                         });
