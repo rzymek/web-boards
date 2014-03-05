@@ -20,7 +20,6 @@ PlaceOp = function(data) {
             removeFromStack(counter.position, counter);
             svg.getElementById('counters').removeChild(counter);
             alignStack(counter.position);
-
-        }
+        };
     }
 };
