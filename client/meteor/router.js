@@ -25,9 +25,6 @@ Router.map(function() {
         after: function() {
             console.log('after');
             Session.set('tableId', this.params._id);
-        },
-        unload: function() {
-            Session.set('board.ready',false);
         }
     });
     this.route('welcome', {

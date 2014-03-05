@@ -62,6 +62,9 @@ Template.play.boardImg = function() {
     else
         return '/img/loading.gif';
 };
+Template.play.destroyed = function() {
+    Session.set('board.ready', false);
+};
 
 Template.play.rendered = function() {
     console.log('play rendered');
