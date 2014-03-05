@@ -55,7 +55,11 @@ Template.welcome.events({
     'click #config': function(e) {
         var config = window.prompt("config", Session.get('config'));
         if (config !== null) {
-            Session.set('config', config);
+            if(config==='r') {
+                Meteor.call('reset');
+            }else{
+                Session.set('config', config);
+            }
         }
     }
 });

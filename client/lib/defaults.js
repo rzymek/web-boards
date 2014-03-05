@@ -2,7 +2,7 @@
 Session.setDefault('gameInfo', null);
 Session.setDefault('tableId', null);
 Session.setDefault('selectedGame', null);
-Session.setDefault('config', 'hires');
+Session.setDefault('config', '');
 
 Session.set('board.ready', false);
 Session.set('sprites.ready', false);

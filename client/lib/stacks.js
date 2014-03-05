@@ -8,10 +8,6 @@ removeFromStack = function(target, img) {
 addToStack = function(hex, counter) {
     counter.position = hex;
     hex.stack = addTo(hex.stack, counter);
-    if (hex.stack)
-        hex.stack.push(counter);
-    else
-        hex.stack = [counter];
 };
 
 addOverlay = function(hex, overlay) {

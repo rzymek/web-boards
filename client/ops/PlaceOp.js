@@ -4,14 +4,14 @@ PlaceOp = function(data) {
     if (hex === null) {
         console.warn('Hex not found:', data.hexid);
     } else {
+        var info = Session.get('gameInfo');
         var counter = document.createElementNS(SVGNS, 'image');
-        counter.width.baseVal.value = data.size.width;
-        counter.height.baseVal.value = data.size.height;
+        counter.width.baseVal.value = info.counterDim.width;
+        counter.height.baseVal.value = info.counterDim.height;
         counter.id = data._id;
         counter.sides = data.sides;
         counter.side = 0;
-//      counter.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", data.image);
-        counter.href.baseVal = data.imageBase + data.sides[0];
+        counter.href.baseVal = '/games/' + getTable().game + '/images/' + data.sides[0];
         svg.getElementById('counters').appendChild(counter);
 
         addToStack(hex, counter);
