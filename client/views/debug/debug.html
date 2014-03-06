@@ -1,31 +1,31 @@
 <template name="debug">
-    <div class="container">
-        <h4>User</h4>
-        <pre>{{user}}</pre>
-        <h4>Session</h4>
-        <table border="1" width="100%">
-            {{#each session}}
-            <tr>
-                <td>{{key}}</td>
-                <td>{{value}}</td>
-            </tr>
-            {{/each}}
-        </table>
-        <h4>Tables</h4>
-        <table border="1" width="100%" class="table-hover">
-            {{#each tables}}
-            <tr>
-                <td class="selectTable" value="{{_id}}">{{json .}}</td>
-            </tr>
-            {{/each}}
-        </table>
-        <h4>Ops</h4>
-        <table border="1" width="100%">
-            {{#each ops}}
-            <tr>
-                <td>{{json .}}</td>
-            </tr>
-            {{/each}}
-        </table>
-    </div>
+    <div class="modal" id="dbgModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="btn btn-danger reset">RESET</button>
+                    <h4>User</h4>
+                    <pre>{{user}}</pre>
+                    <h4>Session</h4>
+                    <table border="1" width="100%">
+                        {{#each session}}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td><pre>{{value}}</pre></td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    <h4>Tables</h4>
+                        {{#each tables}}
+                        <pre>{{json .}}</pre>
+                        {{/each}}
+                    <h4>Ops</h4>
+                    {{#each ops}}
+                    <pre>{{json .}}</pre>
+                    {{/each}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div></div></div>
 </template>
