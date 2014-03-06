@@ -7,7 +7,6 @@ standard-app-packages
 preserve-inputs
 bootstrap3-less
 less
-fs
 keybindings
 jquery-ui
 nprogress

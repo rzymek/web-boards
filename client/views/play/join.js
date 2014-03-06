@@ -1,6 +1,6 @@
 Template.join.guest = function() {
     var table = getTable();
-    if (!table) 
+    if (!table || table.player === undefined) 
         return false;
     var isInPlayers = Meteor.userId() in table.players;
     return !isInPlayers;

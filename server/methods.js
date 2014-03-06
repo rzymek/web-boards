@@ -5,6 +5,7 @@ function getPlayerNames(table) {
 }
 Meteor.methods({
     games: function() {
+        var fs = Npm.require('fs');
         var games = fs.readdirSync('../client/app/games');
         console.log('avaiable games', games);
         return games;
