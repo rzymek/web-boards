@@ -1,4 +1,4 @@
-$.get('/sprites.svg', function(data) {
+$.get('/sprites.svg').done(function(data) {
     sprites.defs = data.getElementsByTagName('defs')[0];
     var elements = data.getElementById('tmpl').childNodes;
     for (var i = 0; i < elements.length; i++) {
@@ -8,6 +8,9 @@ $.get('/sprites.svg', function(data) {
         sprites[e.id] = e;
     }
     Session.set('sprites.ready', true);
+}).fail(function(err){
+    console.error(err);
+    window.alert('Failed to get sprites.svg: '+err);
 });
 
 Deps.autorun(function attachSprites() {
