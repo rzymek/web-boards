@@ -11,6 +11,10 @@ getTable = function(options) {
     }
     return Tables.findOne(id, options);
 };
+getGame = function() {
+    var table = getTable({fields: {game: 1}});
+    return table ? table.game : null;
+};
 
 getNatural = function(e) {
     if (e.naturalWidth !== undefined && e.naturalHeight !== undefined) {
