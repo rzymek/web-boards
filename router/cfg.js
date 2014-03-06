@@ -1,0 +1,3 @@
+Router.configure({
+  notFoundTemplate: 'notFound'
+});

@@ -1,0 +1,28 @@
+Router.map(function() {
+    this.route('export', {
+        where: 'server',
+        path: '/export/:_id',
+        action: function() {
+            var tableId = this.params._id;
+            var ops = Operations.find({tableId: tableId}).fetch();
+            this.response.writeHead(200, {'Content-Type': 'application/json'});
+            this.response.end(JSON.stringify(ops));
+        }
+    });
+    this.route('hooks', {
+        where: 'server',
+        path: '/games/:game/hooks.js',
+        action: function() {
+            var fs = Npm.require('fs');
+            var response = this.response;
+            var filename = '../client/app/games/' + this.params.game + '/hooks.js';
+            console.log(filename);
+            response.writeHead(200, {'Content-Type': 'text/javascript'});
+            if (fs.existsSync(filename)) {
+                response.end(fs.readFileSync(filename));
+            }else{
+                response.end(Assets.getText('defaultHooks.js'));
+            }
+        }
+    });
+});
