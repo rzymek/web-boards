@@ -11,7 +11,7 @@ PlaceOp = function(data) {
         counter.id = data._id;
         counter.sides = data.sides;
         counter.side = 0;
-        counter.href.baseVal = '/games/' + getTable().game + '/images/' + data.sides[0];
+        counter.href.baseVal = '/games/' + getTable({fields:{game:1}}).game + '/images/' + data.sides[0];
         svg.getElementById('counters').appendChild(counter);
 
         addToStack(hex, counter);

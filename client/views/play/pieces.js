@@ -38,7 +38,7 @@ Template.selectedPieces.pieces = function() {
             }];
     }
     var info = Session.get('gameInfo');
-    var table = getTable();
+    var table = getTable({fields: {game: 1}});
     var inCat = info.pieces.filter(function(p) {
         return p.category === cat;
     });

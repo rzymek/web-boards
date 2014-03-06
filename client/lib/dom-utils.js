@@ -6,6 +6,9 @@ getTable = function(options) {
     var id = Session.get('tableId');
     if (!id)
         return null;
+    if (options === undefined) {
+        options = {fields: {ops: 0}};
+    }
     return Tables.findOne(id, options);
 };
 
@@ -32,7 +35,7 @@ removeChildren = function(node) {
 };
 
 copyTransformation = function(src, dest) {
-    var t =  src.getAttribute('transform');
-    if(t !== null)
+    var t = src.getAttribute('transform');
+    if (t !== null)
         dest.setAttribute('transform', t.replace(new RegExp('scale\(.*\)'), ''));
 };

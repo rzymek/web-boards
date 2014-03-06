@@ -1,6 +1,6 @@
 Template.join.guest = function() {
     var table = getTable({fields: {players: 1}});
-    if (!table || table.player === undefined) 
+    if (!table || table.player === undefined)
         return false;
     var isInPlayers = Meteor.userId() in table.players;
     return !isInPlayers;
@@ -10,12 +10,12 @@ Template.join.loggedIn = function() {
     return Meteor.userId() !== null;
 };
 
-Template.join.table = function() {
-    return getTable();
+Template.join.game = function() {
+    return getTable({fields: {game: 1}}).game;
 };
 
 Template.join.players = function() {
-    var table = getTable()
+    var table = getTable({fields: {players: 1}})
     if (!table)
         return [];
     var players = [];
@@ -26,13 +26,13 @@ Template.join.players = function() {
 };
 
 Template.join.events({
-    'click #join':function() {
+    'click #join': function() {
         Meteor.call('join', Session.get('tableId'));
     },
-    'click #leave':function() {
+    'click #leave': function() {
         Router.go('/');
     },
-    'click #hide':function() {
+    'click #hide': function() {
         $('#joinNavBar').hide();
     }
 });
