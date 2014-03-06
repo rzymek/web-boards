@@ -7,7 +7,7 @@ Meteor.startup(function() {
             return;
         }
         var current = lastReplayIndex;
-        var count = Operations.find({}, {reactive:false}).count();
+        var count = Operations.find({}, {reactive: false}).count();
         if (to === null)
             to = count;
         if (current === null)
@@ -24,7 +24,12 @@ Meteor.startup(function() {
             }
         }
         NProgress.set(to / count);
-        byId('svg').style.filter = (to === count ? '' : 'url(#mark)');
+        var style = byId('svg').style;
+        if (to === count) {
+            style.filter = '';
+        } else if (style.filter !== 'url(#mark)') {
+            style.filter = 'url(#mark)';
+        }
         lastReplayIndex = to;
     });
 });
