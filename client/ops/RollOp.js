@@ -8,16 +8,16 @@ RollOp = function(data) {
     var h = bbox.height / 2;
     overlay.width.baseVal.value = w;
     overlay.height.baseVal.value = h;
-    overlay.x.baseVal.value = -w/2;
-    overlay.y.baseVal.value = -h/2;
+    overlay.x.baseVal.value = -w / 2;
+    overlay.y.baseVal.value = -h / 2;
     overlay.id = data._id;
     overlay.href.baseVal = '/img/d' + data.result.roll + '.svg';
-    var backupOverlays = hex.overlays;
     addOverlay(hex, overlay);
     copyTransformation(hex, overlay);
     svg.getElementById('overlays').appendChild(overlay);
     return function() {
-        hex.overlay = backupOverlays;
+        if(hex.overlay)
+            hex.overlay = hex.overlay.splice(hex.overlay.indexOf(overlay));
         overlay.remove();
     };
 }
