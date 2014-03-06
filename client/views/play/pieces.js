@@ -18,7 +18,7 @@ Template.piece.events({
         Session.set('selectedPiece', val);
     }
 });
-
+Session.setDefault('piecesCategory','Special');
 Template.pieces.events({
     'change select': function(e) {
         var combo = e.target;
