@@ -8,7 +8,7 @@ Router.map(function() {
             var tableId = this.params._id;
             Meteor.subscribe('tables', tableId, {
                 onReady: function() {
-                    var table = Tables.findOne(tableId, {reactive:false});
+                    var table = Tables.findOne(tableId, {reactive: false});
                     if (table) {
                         $.get('/games/' + table.game + '/game.json', function(data) {
                             Session.set('tableId', table._id);
