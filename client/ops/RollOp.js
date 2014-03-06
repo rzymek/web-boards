@@ -1,12 +1,11 @@
 RollOp = function(data) {
-    var scale = Session.get('gameInfo').counterScale;
     console.info(data.result.roll);
     var svg = document.getElementById('svg');
     var hex = svg.getElementById(data.hexid);
     var bbox = hex.getBBox();
     var overlay = document.createElementNS(SVGNS, 'image');
-    var w = bbox.width * scale;
-    var h = bbox.height * scale;
+    var w = bbox.width / 2;
+    var h = bbox.height / 2;
     overlay.width.baseVal.value = w;
     overlay.height.baseVal.value = h;
     overlay.x.baseVal.value = -w/2;
