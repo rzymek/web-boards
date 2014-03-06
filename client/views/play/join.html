@@ -1,0 +1,30 @@
+<template name="join">
+    {{#if quest}}
+    <nav id="joinNavBar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Web Boards</a>
+                <p class="navbar-text">
+                    {{table.game}}: {{players}}
+                </p>
+                <button id="leave" type="button" class="btn btn-default navbar-btn">Leave</button>
+
+                {{#if loggedIn}}
+                <button id="join" type="button" class="btn btn-default navbar-btn">Join</button>
+                {{/if}}
+
+                <div class="navbar-right">
+                    {{#unless loggedIn}}
+                    <p class="navbar-text">You need to login to join. <span class="glyphicon glyphicon-arrow-right"></span></p>
+                    {{/unless}}
+                    <ul class="nav navbar-nav">
+                        {{ loginButtons }} 
+                    </ul>
+                    <button id="hide" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {{/if}}
+</template>
+

@@ -38,6 +38,7 @@ Template.selectedPieces.pieces = function() {
             }];
     }
     var info = Session.get('gameInfo');
+    var table = getTable();
     var inCat = info.pieces.filter(function(p) {
         return p.category === cat;
     });
@@ -46,7 +47,7 @@ Template.selectedPieces.pieces = function() {
             var name = p.images[0];
             return {
                 sides: p.images.join('|'),
-                src: '/games/' + info.table.game + '/images/' + name,
+                src: '/games/' + table.game + '/images/' + name,
                 id: 'panel-' + name.replace(/[^A-Za-z0-9_]/, '')
             };
         });

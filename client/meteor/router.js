@@ -6,13 +6,12 @@ Router.map(function() {
             this.render('loading-board');
             var router = this;
             var tableId = this.params._id;
-            Meteor.subscribe('operations', tableId);
             Meteor.subscribe('tables', tableId, {
                 onReady: function() {
                     var table = Tables.findOne(tableId, {reactive:false});
                     if (table) {
                         $.get('/games/' + table.game + '/game.json', function(data) {
-                            data.table = table;
+                            Session.set('tableId', table._id);
                             Session.set('gameInfo', data);
                             router.render();
                         });
@@ -26,9 +25,6 @@ Router.map(function() {
         after: function() {
             console.log('after');
             Session.set('tableId', this.params._id);
-        },
-        unload: function() {
-            Session.set('board.ready',false);
         }
     });
     this.route('welcome', {

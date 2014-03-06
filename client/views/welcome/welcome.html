@@ -31,6 +31,7 @@
                             <th>Game</th>
                             <th>Started</th>
                             <th>Ops</th>
+                            <th>Players</th>
                             <th>ID</th>
                             <th></th>
                         </tr>
@@ -46,6 +47,7 @@
                             <td>{{game}}</td>
                             <td>{{fmtDate started}}</td>
                             <td>{{ops}}</td>
+                            <td>{{listPlayers .}}</td>
                             <td>{{_id}}</td>
                             <th>
                                 <button class="leave-game btn btn-default" value="{{_id}}">

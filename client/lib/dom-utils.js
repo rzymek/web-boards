@@ -2,6 +2,13 @@ byId = function(id) {
     return document.getElementById(id);
 };
 
+getTable = function(options) {
+    var id = Session.get('tableId');
+    if (!id)
+        return null;
+    return Tables.findOne(id, options);
+};
+
 getNatural = function(e) {
     if (e.naturalWidth !== undefined && e.naturalHeight !== undefined) {
         return {width: e.naturalWidth, height: e.naturalHeight};

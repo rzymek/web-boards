@@ -22,8 +22,22 @@ Meteor.methods({
     },
     join: function(tableId) {
         console.log(this.userId, ' joining ', tableId);
-        var changed = Tables.update(tableId, {$addToSet: {players: this.userId}});
+        var action = {};
+        action['players.' + this.userId] = getUsername(this.userId);
+        var changed = Tables.update(tableId, {$set: action});
         return changed === 1;
+    },
+    leave: function(tableId) {
+        var unset = {};
+        unset['players.'+Meteor.userId()] = "";
+        Tables.update(tableId, {
+            $unset: unset
+        });
+        var table = Tables.findOne(tableId);
+        if(Object.keys(table.players).length === 0 && !table.ops) {
+            console.log('deleteing empty table', tableId);
+            Tables.remove(tableId);
+        }
     },
     reset: function() {
         console.log('FULL RESET');

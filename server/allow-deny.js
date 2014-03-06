@@ -3,23 +3,14 @@ Tables.allow({
         try {
             check(userId, String);
             check(table.game, String);
-            check(table.players, Match.Where(function(arr) {
-                return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
-            }));
             table.started = new Date().valueOf();
+            table.players = {};
+            table.players[userId] = getUsername(userId);
             return true;
         } catch (err) {
             console.error(err.stack);
             return false;
         }
-    },
-    update: function(userId, doc, fields, mods) {
-        check(table.players, Match.Where(function(arr) {
-            return arr !== null && arr.length > 0 && arr.indexOf(userId) !== -1;
-        }));
-        return (fields.length === 1 && fields[0] === 'players') &&
-                (mods.$pull !== undefined) &&
-                (mods.$pull.players === userId);
     }
 });
 
@@ -32,7 +23,7 @@ Operations.allow({
             check(op.tableId, String);
             check(op.tableId, Match.Where(function(tableId) {
                 var table = Tables.findOne(tableId);
-                return table !== null && table.players.indexOf(userId) !== -1;
+                return (table !== null) && (userId in table.players);
             }));
             if (op.server !== undefined) {
                 //TODO: parse the actual request in doc.server

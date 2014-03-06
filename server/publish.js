@@ -7,9 +7,13 @@ Meteor.startup(function() {
     });
 
     Meteor.publish('tables', function(tableId) {
+        var own = {
+            //'players.'+this.userId: {$exists: true}
+        };
+        own['players.'+this.userId] = {$exists: true};
         return Tables.find({
             $or: [
-                {players: this.userId},
+                own,
                 {_id: tableId}
             ]
         });

@@ -12,6 +12,17 @@ Template.welcome.loggedIn = function() {
     return Meteor.userId() !== null;
 };
 
+Template.welcome.listPlayers = function(table) {
+    var players = [];
+    for (var id in table.players) {
+        if (id !== Meteor.userId()) {
+            players.push(table.players[id]);
+        }
+    }
+    ;
+    return players;
+};
+
 Template.welcome.fmtDate = function(millis) {
     function fmt(c, s) {
         while (s.toString().length < c) {
@@ -28,7 +39,6 @@ Template.welcome.events({
     'click .start-game': function(e) {
         var t = e.currentTarget;
         var tableId = Tables.insert({
-            players: [Meteor.userId()],
             game: t.value
         });
         Router.go('play', {_id: tableId});
@@ -36,15 +46,20 @@ Template.welcome.events({
     'click .leave-game': function(e) {
         var id = e.currentTarget.value;
         if (window.confirm('Leave game ' + id + '?')) {
-            Tables.update(id, {
-                $pull: {players: Meteor.userId()}
+            Meteor.call('leave', id, function(err) {
+                if (err)
+                    window.alert(err);
             });
         }
     },
     'click #config': function(e) {
         var config = window.prompt("config", Session.get('config'));
         if (config !== null) {
-            Session.set('config', config);
+            if(config==='r') {
+                Meteor.call('reset');
+            }else{
+                Session.set('config', config);
+            }
         }
     }
 });

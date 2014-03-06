@@ -56,14 +56,14 @@ Template.play.board = function() {
 };
 Template.play.boardImg = function() {
     var info = Session.get('gameInfo');
-    if (info)
-        return '/games/' + info.table.game + '/images/' + info.board.image;
+    var table = getTable({fields: {game: 1}});
+    if (info && table)
+        return '/games/' + table.game + '/images/' + info.board.image;
     else
         return '/img/loading.gif';
 };
-
-Template.status.status = function() {
-    return Meteor.status();
+Template.play.destroyed = function() {
+    Session.set('board.ready', false);
 };
 
 Template.play.rendered = function() {
@@ -72,6 +72,7 @@ Template.play.rendered = function() {
     var svg = byId('svg');
     if(svg.ready) 
         return;
+    console.log(svg);
     
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
@@ -96,7 +97,6 @@ Template.play.rendered = function() {
         'Q': function() { byId('svg').zoom(+1); },
         'W': function() { byId('svg').zoom(-1); }
     });
-    sprites.traces = svg.getElementById('traces');
     Session.set('selectedPiece',null);
     Session.set('board.ready', true);
     svg.ready = true;
