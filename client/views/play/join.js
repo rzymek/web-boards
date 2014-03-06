@@ -1,4 +1,4 @@
-Template.join.quest = function() {
+Template.join.guest = function() {
     var table = getTable();
     if (!table) 
         return false;

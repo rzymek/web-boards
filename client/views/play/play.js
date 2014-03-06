@@ -68,12 +68,11 @@ Template.play.destroyed = function() {
 
 Template.play.rendered = function() {
     console.log('play rendered');
-    
+
     var svg = byId('svg');
-    if(svg.ready) 
+    if (svg.ready)
         return;
-    console.log(svg);
-    
+
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
         $('#menu').addClass('touch');
@@ -86,18 +85,29 @@ Template.play.rendered = function() {
     }
     setupGrid(svg);
 
-    Meteor.Keybindings.removeAll();
-    Meteor.Keybindings.add({
-        '←': menu.Back,
-        '→': menu.Fwd,
-        'ctrl+z': menu.Undo,
-        'ctrl+shift+z': function() {
-            alert('redo not implemented yet');
-        },
-        'Q': function() { byId('svg').zoom(+1); },
-        'W': function() { byId('svg').zoom(-1); }
+    Deps.autorun(function() {
+        console.log('keybindings - remove');
+        Meteor.Keybindings.removeAll();
+        if (!Template.join.guest()) {
+            console.log('keybindings - add');
+            Meteor.Keybindings.add({
+                '←': menu.Back,
+                '→': menu.Fwd,
+                'ctrl+z': menu.Undo,
+                'ctrl+shift+z': function() {
+                    alert('redo not implemented yet');
+                },
+                'Q': function() {
+                    byId('svg').zoom(+1);
+                },
+                'W': function() {
+                    byId('svg').zoom(-1);
+                }
+            });
+        }
     });
-    Session.set('selectedPiece',null);
+    
+    Session.set('selectedPiece', null);
     Session.set('board.ready', true);
     svg.ready = true;
 };
