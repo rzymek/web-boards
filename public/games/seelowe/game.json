@@ -1,0 +1,137 @@
+{
+  "board": {
+    "image": "mapa.jpg",
+    "width": 2690,
+    "height": 3765,
+    "grid": {
+      "hexSize": 92.09999999999988,
+      "hexWidth": 81.0,
+      "originX": 46,
+      "originY": -16
+    }
+  },
+  "pieces": [
+    {
+      "category": "German",
+      "list": [
+        {
+          "name": "Bf-109 E (L)",
+          "images": [
+            "u_ME109L.jpg",
+            "u_ME109L_.jpg"
+          ]
+        },
+        {
+          "name": "Bf-109 E (1)",
+          "images": [
+            "u_ME109.jpg",
+            "u_ME109_.jpg"
+          ]
+        },
+        {
+          "name": "Bf-110 C (L)",
+          "images": [
+            "u_ME110L.jpg",
+            "u_ME110L_.jpg"
+          ]
+        },
+        {
+          "name": "Bf-110 C (2)",
+          "images": [
+            "u_ME110.jpg",
+            "u_ME110_.jpg"
+          ]
+        },
+        {
+          "name": "Ju-88 A-4 (1)",
+          "images": [
+            "u_JU88.jpg",
+            "u_JU88_.jpg"
+          ]
+        },
+        {
+          "name": "HE-111 H3 (1)",
+          "images": [
+            "u_HE111.jpg",
+            "u_HE111_.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "British",
+      "list": [
+        {
+          "name": "Spitfire Mk I (L)",
+          "images": [
+            "u_SpitL.jpg",
+            "u_SpitL_.jpg"
+          ]
+        },
+        {
+          "name": "Spitfire Mk I",
+          "images": [
+            "u_Spit.jpg",
+            "u_Spit_.jpg"
+          ]
+        },
+        {
+          "name": "Huricane Mk I (L)",
+          "images": [
+            "u_HurL.jpg",
+            "u_HurL_.jpg"
+          ]
+        },
+        {
+          "name": "Huricane Mk I",
+          "images": [
+            "u_Hur.jpg",
+            "u_Hur_.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Markers",
+      "list": [
+        {
+          "name": "AA Guns",
+          "images": [
+            "m_antia.png"
+          ]
+        },
+        {
+          "name": "Bombarded",
+          "images": [
+            "m_bombarded.jpg"
+          ]
+        },
+        {
+          "name": "Setup info",
+          "images": [
+            "NOTE.jpg"
+          ]
+        },
+        {
+          "name": "Taget",
+          "images": [
+            "m_target.png"
+          ]
+        },
+        {
+          "name": "Sun",
+          "images": [
+            "sun4.jpg",
+            "sun3.jpg",
+            "sun2.jpg",
+            "sun1.jpg"
+          ]
+        }
+      ]
+    }
+  ],
+  "counterDim": {
+    "width": 80,
+    "height": 80
+  }
+}

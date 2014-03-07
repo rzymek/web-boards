@@ -1,0 +1,31 @@
+Fire			Distance to Target
+Strenght (2d6)	1	2	3	4	5
+
+    1	-	9+	10+	11	-	-
+
+    2	-<td>	8+	9+	10+	11	-
+
+    3	-	7+	8+	9+	10+	11
+
+    4	-	6+	7+	8+	9+	10+
+
+    5	-	5+	6+	7+	8+	9+<
+
+Score 2 or 12 - Guns Jammed</p> <br>
+(in sbsequent Attack Phase roll 1d6 - 6 fixed guns)
+
+Fire Strenght mod:</p><br>
+-1	- Fire into Sun </p><br>
+-1/-2	- Target in clouds (border hex/ deep in hex)
+-2/-3	- Firerer in Clouds (border hex/ deep in hex)
+
+-----------------------------------------------------
+
+AA Guns Fire (1d6)	Distance to Target
+Targets Hight		0	1
+
+High		-	6	-
+
+LoW		-	5+	6
+
+Very LOW	-	4+	5+
