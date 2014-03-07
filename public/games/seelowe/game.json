@@ -1,13 +1,13 @@
 {
   "board": {
     "image": "mapa.jpg",
-    "width": 2690,
-    "height": 3765,
+    "width": 3765,
+    "height": 2690,
     "grid": {
-      "hexSize": 92.09999999999988,
+      "hexSize": 92.39999999999975,
       "hexWidth": 81.0,
-      "originX": 46,
-      "originY": -16
+      "originX": 75,
+      "originY": 24
     }
   },
   "pieces": [
