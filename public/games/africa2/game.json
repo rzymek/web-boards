@@ -1,0 +1,1406 @@
+{
+  "board": {
+    "image": "Map.JPG",
+    "width": 8149,
+    "height": 3514,
+    "grid": {
+      "hexSize": 100.0,
+      "hexWidth": 87.70000000000002,
+      "originX": -45,
+      "originY": 4
+    }
+  },
+  "pieces": [
+    {
+      "category": "Benghazi Capacity",
+      "list": [
+        {
+          "name": "Benghazi Capacity",
+          "images": [
+            "Counters-Front_56.jpg",
+            "Counters-Back_56.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Axis Air Points",
+      "list": [
+        {
+          "name": "Axis Air Points",
+          "images": [
+            "Counters-Front_74.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Axis Truck Points",
+      "list": [
+        {
+          "name": "Normal",
+          "images": [
+            "Counters-Front_72.jpg",
+            "Counters-Front_72.jpg",
+            "Counters-Back_72.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Axis Coastal Shipping",
+      "list": [
+        {
+          "name": "Axis Coastal Shipping",
+          "images": [
+            "Counters-Front_73.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Tobruk Capacity",
+      "list": [
+        {
+          "name": "Tobruk Capacity",
+          "images": [
+            "Counters-Front_58.jpg",
+            "Counters-Back_58.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Bardia Capacity",
+      "list": [
+        {
+          "name": "Bardia Capacity",
+          "images": [
+            "Counters-Front_59.jpg",
+            "Counters-Back_59.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Matruh Capacity",
+      "list": [
+        {
+          "name": "Matruh Capacity",
+          "images": [
+            "Counters-Back_57.jpg",
+            "Counters-Front_57.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Allied Air Points",
+      "list": [
+        {
+          "name": "Allied Air Points",
+          "images": [
+            "Counters-Front_76.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Allied Truck Points",
+      "list": [
+        {
+          "name": "Allied Truck Points",
+          "images": [
+            "Counters-Front_75.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-1",
+      "list": [
+        {
+          "name": "6NZ - 2NZ",
+          "images": [
+            "Counters-Front_16.jpg",
+            "Counters-Back_16.jpg"
+          ]
+        },
+        {
+          "name": "Turn-Axis",
+          "images": [
+            "Counters-Front_60.jpg",
+            "Counters-Front_60.jpg",
+            "Counters-Back_60.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-2",
+      "list": [
+        {
+          "name": "7 Ind - 4 Ind",
+          "images": [
+            "Counters-Front_263.jpg",
+            "Counters-Back_263.jpg"
+          ]
+        },
+        {
+          "name": "14",
+          "images": [
+            "Counters-Front_222.jpg",
+            "Counters-Back_222.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-3",
+      "list": []
+    },
+    {
+      "category": "Turn-4",
+      "list": [
+        {
+          "name": "10 Brs",
+          "images": [
+            "Counters-Front_147.jpg"
+          ]
+        },
+        {
+          "name": "Selby",
+          "images": [
+            "Counters-Front_210.jpg",
+            "Counters-Back_210.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-5",
+      "list": [
+        {
+          "name": "8 Brs - Ariete",
+          "images": [
+            "Counters-Front_124.jpg",
+            "Counters-Back_124.jpg"
+          ]
+        },
+        {
+          "name": "2 Med",
+          "images": [
+            "Counters-Front_108.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-6",
+          "images": [
+            "Counters-Front_163.jpg"
+          ]
+        },
+        {
+          "name": "KDG",
+          "images": [
+            "Counters-Front_208.jpg",
+            "Counters-Back_208.jpg"
+          ]
+        },
+        {
+          "name": "1 - 2 Arm",
+          "images": [
+            "Counters-Front_170.jpg",
+            "Counters-Back_170.jpg"
+          ]
+        },
+        {
+          "name": "2 - 2 Arm",
+          "images": [
+            "Counters-Front_181.jpg",
+            "Counters-Back_181.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-6",
+      "list": [
+        {
+          "name": "Rommel",
+          "images": [
+            "Counters-Front_01.jpg"
+          ]
+        },
+        {
+          "name": "8",
+          "images": [
+            "Counters-Front_28.jpg",
+            "Counters-Back_28.jpg"
+          ]
+        },
+        {
+          "name": "3 Aufk - 21 Pz",
+          "images": [
+            "Counters-Front_08.jpg",
+            "Counters-Back_08.jpg"
+          ]
+        },
+        {
+          "name": "1-33",
+          "images": [
+            "Counters-Front_05.jpg",
+            "Counters-Back_05.jpg"
+          ]
+        },
+        {
+          "name": "605",
+          "images": [
+            "Counters-Front_30.jpg",
+            "Counters-Back_30.jpg"
+          ]
+        },
+        {
+          "name": "7 Brs",
+          "images": [
+            "Counters-Front_145.jpg",
+            "Counters-Back_145.jpg"
+          ]
+        },
+        {
+          "name": "Light - Ariete",
+          "images": [
+            "Counters-Front_109.jpg"
+          ]
+        },
+        {
+          "name": "5",
+          "images": [
+            "Counters-Front_103.jpg"
+          ]
+        },
+        {
+          "name": "Trento",
+          "images": [
+            "Counters-Front_90.jpg",
+            "Counters-Back_90.jpg"
+          ]
+        },
+        {
+          "name": "22 Gd",
+          "images": [
+            "Counters-Front_221.jpg",
+            "Counters-Back_221.jpg"
+          ]
+        },
+        {
+          "name": "3 Ind",
+          "images": [
+            "Counters-Front_11.jpg",
+            "Counters-Back_11.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-7",
+      "list": [
+        {
+          "name": "1-5 - 21 Pz",
+          "images": [
+            "Counters-Front_09.jpg",
+            "Counters-Back_09.jpg"
+          ]
+        },
+        {
+          "name": "2-5 - 21 Pz",
+          "images": [
+            "Counters-Front_10.jpg",
+            "Counters-Back_10.jpg"
+          ]
+        },
+        {
+          "name": "2",
+          "images": [
+            "Counters-Front_27.jpg",
+            "Counters-Back_27.jpg"
+          ]
+        },
+        {
+          "name": "1-18",
+          "images": [
+            "Counters-Front_04.jpg",
+            "Counters-Back_04.jpg"
+          ]
+        },
+        {
+          "name": "7 Med - Ariete",
+          "images": [
+            "Counters-Front_110.jpg",
+            "Counters-Back_110.jpg"
+          ]
+        },
+        {
+          "name": "Royals",
+          "images": [
+            "Counters-Front_209.jpg",
+            "Counters-Back_209.jpg"
+          ]
+        },
+        {
+          "name": "5NZ - 2NZ",
+          "images": [
+            "Counters-Front_15.jpg",
+            "Counters-Back_15.jpg"
+          ]
+        },
+        {
+          "name": "20 Aus - 9 Aus",
+          "images": [
+            "Counters-Front_33.jpg",
+            "Counters-Back_33.jpg"
+          ]
+        },
+        {
+          "name": "24 Aus - 9 Aus",
+          "images": [
+            "Counters-Front_34.jpg",
+            "Counters-Back_34.jpg"
+          ]
+        },
+        {
+          "name": "26 Aus - 9 Aus",
+          "images": [
+            "Counters-Front_35.jpg",
+            "Counters-Back_35.jpg"
+          ]
+        },
+        {
+          "name": "18 Aus - 7 Aus",
+          "images": [
+            "Counters-Front_20.jpg",
+            "Counters-Back_20.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-8",
+      "list": [
+        {
+          "name": "15",
+          "images": [
+            "Counters-Front_29.jpg",
+            "Counters-Back_29.jpg"
+          ]
+        },
+        {
+          "name": "33 Aufk - 15 Pz",
+          "images": [
+            "Counters-Front_22.jpg",
+            "Counters-Back_22.jpg"
+          ]
+        },
+        {
+          "name": "115 - 15 Pz",
+          "images": [
+            "Counters-Front_25.jpg",
+            "Counters-Back_25.jpg"
+          ]
+        },
+        {
+          "name": "104 - 21 Pz",
+          "images": [
+            "Counters-Front_21.jpg",
+            "Counters-Back_21.jpg"
+          ]
+        },
+        {
+          "name": "21 - 7 Aus",
+          "images": [
+            "Counters-Front_31.jpg",
+            "Counters-Back_31.jpg"
+          ]
+        },
+        {
+          "name": "25 - 7 Aus",
+          "images": [
+            "Counters-Front_32.jpg",
+            "Counters-Back_32.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-9",
+      "list": [
+        {
+          "name": "1-8 - 15 Pz",
+          "images": [
+            "Counters-Front_23.jpg",
+            "Counters-Back_23.jpg"
+          ]
+        },
+        {
+          "name": "Arty - 0-1-9",
+          "images": [
+            "Counters-Front_61.jpg"
+          ]
+        },
+        {
+          "name": "23",
+          "images": [
+            "Counters-Front_224.jpg",
+            "Counters-Back_224.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        },
+        {
+          "name": "5SA - 1SA",
+          "images": [
+            "Counters-Front_39.jpg",
+            "Counters-Back_39.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-10",
+      "list": [
+        {
+          "name": "2-8 - 15 Pz",
+          "images": [
+            "Counters-Front_24.jpg",
+            "Counters-Back_24.jpg"
+          ]
+        },
+        {
+          "name": "8 Med - Ariete",
+          "images": [
+            "Counters-Front_121.jpg",
+            "Counters-Back_121.jpg"
+          ]
+        },
+        {
+          "name": "150 - 50",
+          "images": [
+            "Counters-Front_202.jpg",
+            "Counters-Back_202.jpg"
+          ]
+        },
+        {
+          "name": "9 Ind - 5 Ind",
+          "images": [
+            "Counters-Front_265.jpg",
+            "Counters-Back_265.jpg"
+          ]
+        },
+        {
+          "name": "1 Army",
+          "images": [
+            "Counters-Front_226.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        },
+        {
+          "name": "1SA - 1SA",
+          "images": [
+            "Counters-Front_37.jpg",
+            "Counters-Back_37.jpg"
+          ]
+        },
+        {
+          "name": "2SA - 1SA",
+          "images": [
+            "Counters-Front_38.jpg",
+            "Counters-Back_38.jpg"
+          ]
+        },
+        {
+          "name": "3SA - 2SA",
+          "images": [
+            "Counters-Front_40.jpg",
+            "Counters-Back_40.jpg"
+          ]
+        },
+        {
+          "name": "6SA - 2SA",
+          "images": [
+            "Counters-Front_52.jpg",
+            "Counters-Back_52.jpg"
+          ]
+        },
+        {
+          "name": "4+6",
+          "images": [
+            "Counters-Front_36.jpg",
+            "Counters-Back_36.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-11",
+      "list": [
+        {
+          "name": "288 Snd",
+          "images": [
+            "Counters-Front_06.jpg",
+            "Counters-Back_06.jpg"
+          ]
+        },
+        {
+          "name": "Arty - 0-1-9",
+          "images": [
+            "Counters-Front_61.jpg"
+          ]
+        },
+        {
+          "name": "69 - 50",
+          "images": [
+            "Counters-Front_201.jpg",
+            "Counters-Back_201.jpg"
+          ]
+        },
+        {
+          "name": "151 - 50",
+          "images": [
+            "Counters-Front_203.jpg",
+            "Counters-Back_203.jpg"
+          ]
+        },
+        {
+          "name": "161 Ind",
+          "images": [
+            "Counters-Front_13.jpg",
+            "Counters-Back_13.jpg"
+          ]
+        },
+        {
+          "name": "10 Ind - 5 Ind",
+          "images": [
+            "Counters-Front_266.jpg",
+            "Counters-Back_266.jpg"
+          ]
+        },
+        {
+          "name": "29 Ind - 5 Ind",
+          "images": [
+            "Counters-Front_267.jpg",
+            "Counters-Back_267.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-12",
+      "list": [
+        {
+          "name": "RECAM",
+          "images": [
+            "Counters-Front_102.jpg",
+            "Counters-Back_102.jpg"
+          ]
+        },
+        {
+          "name": "9 Med - Ariete",
+          "images": [
+            "Counters-Front_122.jpg",
+            "Counters-Back_122.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-6",
+          "images": [
+            "Counters-Front_163.jpg"
+          ]
+        },
+        {
+          "name": "4SA - 2SA",
+          "images": [
+            "Counters-Front_51.jpg",
+            "Counters-Back_51.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-13",
+      "list": [
+        {
+          "name": "155 - 90 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_42.jpg",
+            "Counters-Back_42.jpg"
+          ]
+        },
+        {
+          "name": "32 Army",
+          "images": [
+            "Counters-Front_229.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-14",
+      "list": [
+        {
+          "name": "361 - 90 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_44.jpg",
+            "Counters-Back_44.jpg"
+          ]
+        },
+        {
+          "name": "Arty - 0-1-7",
+          "images": [
+            "Counters-Front_49.jpg"
+          ]
+        },
+        {
+          "name": "22 - 1 Arm",
+          "images": [
+            "Counters-Front_168.jpg",
+            "Counters-Back_168.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-15",
+      "list": [
+        {
+          "name": "580 Aufk - 90 Le",
+          "images": [
+            "Counters-Front_41.jpg"
+          ]
+        },
+        {
+          "name": "9 Brs",
+          "images": [
+            "Counters-Front_146.jpg",
+            "Counters-Back_146.jpg"
+          ]
+        },
+        {
+          "name": "65 - Trieste",
+          "images": [
+            "Counters-Front_141.jpg",
+            "Counters-Back_141.jpg"
+          ]
+        },
+        {
+          "name": "66 - Trieste",
+          "images": [
+            "Counters-Front_142.jpg",
+            "Counters-Back_142.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-6",
+          "images": [
+            "Counters-Front_163.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        },
+        {
+          "name": "12 Lanc - 1 Arm",
+          "images": [
+            "Counters-Front_166.jpg",
+            "Counters-Back_166.jpg"
+          ]
+        },
+        {
+          "name": "2 - 1 Arm",
+          "images": [
+            "Counters-Front_167.jpg",
+            "Counters-Back_167.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-16",
+      "list": [
+        {
+          "name": "1 - 1 Arm",
+          "images": [
+            "Counters-Front_169.jpg",
+            "Counters-Back_169.jpg"
+          ]
+        },
+        {
+          "name": "1 FF",
+          "images": [
+            "Counters-Front_54.jpg",
+            "Counters-Back_54.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-17",
+      "list": [
+        {
+          "name": "AG - Ariete",
+          "images": [
+            "Counters-Front_123.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-18",
+      "list": [
+        {
+          "name": "1-133 - Littorio",
+          "images": [
+            "Counters-Front_126.jpg",
+            "Counters-Back_126.jpg"
+          ]
+        },
+        {
+          "name": "12 Brs - Littorio",
+          "images": [
+            "Counters-Front_128.jpg",
+            "Counters-Back_128.jpg"
+          ]
+        },
+        {
+          "name": "8 - 10 Arm",
+          "images": [
+            "Counters-Front_186.jpg",
+            "Counters-Back_186.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-19",
+      "list": [
+        {
+          "name": "33 PJ - 15 Pz",
+          "images": [
+            "Counters-Front_26.jpg",
+            "Counters-Back_26.jpg"
+          ]
+        },
+        {
+          "name": "2-133 - Littorio",
+          "images": [
+            "Counters-Front_127.jpg",
+            "Counters-Back_127.jpg"
+          ]
+        },
+        {
+          "name": "21 Army",
+          "images": [
+            "Counters-Front_227.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-20",
+      "list": [
+        {
+          "name": "200 - 90 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_43.jpg",
+            "Counters-Back_43.jpg"
+          ]
+        },
+        {
+          "name": "Nizza - Ariete",
+          "images": [
+            "Counters-Front_125.jpg"
+          ]
+        },
+        {
+          "name": "2 FF",
+          "images": [
+            "Counters-Front_55.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-21",
+      "list": [
+        {
+          "name": "Lehr",
+          "images": [
+            "Counters-Front_03.jpg"
+          ]
+        },
+        {
+          "name": "Arty - 0-1-7",
+          "images": [
+            "Counters-Front_49.jpg"
+          ]
+        },
+        {
+          "name": "GGFF",
+          "images": [
+            "Counters-Front_66.jpg",
+            "Counters-Back_66.jpg"
+          ]
+        },
+        {
+          "name": "6",
+          "images": [
+            "Counters-Front_104.jpg"
+          ]
+        },
+        {
+          "name": "21 Ind - 10 Ind",
+          "images": [
+            "Counters-Front_269.jpg",
+            "Counters-Back_269.jpg"
+          ]
+        },
+        {
+          "name": "9 - 10 Arm",
+          "images": [
+            "Counters-Front_187.jpg",
+            "Counters-Back_187.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-22",
+      "list": [
+        {
+          "name": "18 Ind",
+          "images": [
+            "Counters-Front_12.jpg"
+          ]
+        },
+        {
+          "name": "20 Ind - 10 Ind",
+          "images": [
+            "Counters-Front_268.jpg",
+            "Counters-Back_268.jpg"
+          ]
+        },
+        {
+          "name": "25 Ind - 10 Ind",
+          "images": [
+            "Counters-Front_270.jpg",
+            "Counters-Back_270.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-23",
+      "list": [
+        {
+          "name": "125 - 164 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_46.jpg",
+            "Counters-Back_46.jpg"
+          ]
+        },
+        {
+          "name": "131 - 44",
+          "images": [
+            "Counters-Front_188.jpg",
+            "Counters-Back_188.jpg"
+          ]
+        },
+        {
+          "name": "132 - 44",
+          "images": [
+            "Counters-Front_189.jpg",
+            "Counters-Back_189.jpg"
+          ]
+        },
+        {
+          "name": "133 - 44",
+          "images": [
+            "Counters-Front_190.jpg",
+            "Counters-Back_190.jpg"
+          ]
+        },
+        {
+          "name": "24",
+          "images": [
+            "Counters-Front_225.jpg",
+            "Counters-Back_225.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-24",
+      "list": [
+        {
+          "name": "220 Aufk - 164 Le",
+          "images": [
+            "Counters-Front_45.jpg"
+          ]
+        },
+        {
+          "name": "382 - 164 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_47.jpg",
+            "Counters-Back_47.jpg"
+          ]
+        },
+        {
+          "name": "433- 164 Le",
+          "images": [
+            "Counters-Front_41.jpg",
+            "Counters-Front_48.jpg",
+            "Counters-Back_48.jpg"
+          ]
+        },
+        {
+          "name": "Ramcke",
+          "images": [
+            "Counters-Front_02.jpg",
+            "Counters-Back_02.jpg"
+          ]
+        },
+        {
+          "name": "Pistoia",
+          "images": [
+            "Counters-Front_86.jpg",
+            "Counters-Back_86.jpg"
+          ]
+        },
+        {
+          "name": "186 - Folgore",
+          "images": [
+            "Counters-Front_143.jpg",
+            "Counters-Back_143.jpg"
+          ]
+        },
+        {
+          "name": "187 - Folgore",
+          "images": [
+            "Counters-Front_144.jpg",
+            "Counters-Back_144.jpg"
+          ]
+        },
+        {
+          "name": "152 - 51",
+          "images": [
+            "Counters-Front_204.jpg",
+            "Counters-Back_204.jpg"
+          ]
+        },
+        {
+          "name": "153 - 51",
+          "images": [
+            "Counters-Front_205.jpg",
+            "Counters-Back_205.jpg"
+          ]
+        },
+        {
+          "name": "154 - 51",
+          "images": [
+            "Counters-Front_206.jpg",
+            "Counters-Back_206.jpg"
+          ]
+        },
+        {
+          "name": "Greek",
+          "images": [
+            "Counters-Front_71.jpg",
+            "Counters-Back_71.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-25",
+      "list": []
+    },
+    {
+      "category": "Turn-26",
+      "list": [
+        {
+          "name": "Buhse",
+          "images": [
+            "Counters-Front_07.jpg",
+            "Counters-Back_07.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-27",
+      "list": [
+        {
+          "name": "L Spezia",
+          "images": [
+            "Counters-Front_83.jpg",
+            "Counters-Back_83.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn-28",
+      "list": []
+    },
+    {
+      "category": "Axis At Start",
+      "list": [
+        {
+          "name": "Bologna",
+          "images": [
+            "Counters-Front_69.jpg",
+            "Counters-Back_69.jpg"
+          ]
+        },
+        {
+          "name": "Brescia",
+          "images": [
+            "Counters-Front_70.jpg",
+            "Counters-Back_70.jpg"
+          ]
+        },
+        {
+          "name": "Pavia",
+          "images": [
+            "Counters-Front_85.jpg",
+            "Counters-Back_85.jpg"
+          ]
+        },
+        {
+          "name": "Sabrtha",
+          "images": [
+            "Counters-Front_87.jpg",
+            "Counters-Back_87.jpg"
+          ]
+        },
+        {
+          "name": "Savona",
+          "images": [
+            "Counters-Front_88.jpg",
+            "Counters-Back_88.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-4",
+          "images": [
+            "Counters-Front_161.jpg"
+          ]
+        },
+        {
+          "name": "Sirte",
+          "images": [
+            "Counters-Front_89.jpg",
+            "Counters-Back_89.jpg"
+          ]
+        },
+        {
+          "name": "Tobruk",
+          "images": [
+            "Counters-Front_148.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-0",
+          "images": [
+            "Counters-Front_150.jpg"
+          ]
+        },
+        {
+          "name": "3 Jan",
+          "images": [
+            "Counters-Front_63.jpg",
+            "Counters-Back_63.jpg"
+          ]
+        },
+        {
+          "name": "Catnzro",
+          "images": [
+            "Counters-Front_81.jpg",
+            "Counters-Back_81.jpg"
+          ]
+        },
+        {
+          "name": "2 Lib",
+          "images": [
+            "Counters-Front_106.jpg"
+          ]
+        },
+        {
+          "name": "28 Oct",
+          "images": [
+            "Counters-Front_65.jpg",
+            "Counters-Back_65.jpg"
+          ]
+        },
+        {
+          "name": "Bardia",
+          "images": [
+            "Counters-Front_149.jpg"
+          ]
+        },
+        {
+          "name": "Cirene",
+          "images": [
+            "Counters-Front_82.jpg",
+            "Counters-Back_82.jpg"
+          ]
+        },
+        {
+          "name": "1 Lib",
+          "images": [
+            "Counters-Front_105.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-4",
+          "images": [
+            "Counters-Front_161.jpg"
+          ]
+        },
+        {
+          "name": "Marmrca",
+          "images": [
+            "Counters-Front_84.jpg",
+            "Counters-Back_84.jpg"
+          ]
+        },
+        {
+          "name": "1 Lib Inf",
+          "images": [
+            "Counters-Front_67.jpg",
+            "Counters-Back_67.jpg"
+          ]
+        },
+        {
+          "name": "2 Lib Inf",
+          "images": [
+            "Counters-Front_68.jpg",
+            "Counters-Back_68.jpg"
+          ]
+        },
+        {
+          "name": "23 Mar",
+          "images": [
+            "Counters-Front_64.jpg",
+            "Counters-Back_64.jpg"
+          ]
+        },
+        {
+          "name": "1 Med",
+          "images": [
+            "Counters-Front_107.jpg"
+          ]
+        },
+        {
+          "name": "Maletti",
+          "images": [
+            "Counters-Front_101.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Allied At Start",
+      "list": [
+        {
+          "name": "LRDG",
+          "images": [
+            "Counters-Front_207.jpg"
+          ]
+        },
+        {
+          "name": "Cairo",
+          "images": [
+            "Counters-Front_241.jpg"
+          ]
+        },
+        {
+          "name": "Alex",
+          "images": [
+            "Counters-Front_242.jpg"
+          ]
+        },
+        {
+          "name": "Matruh",
+          "images": [
+            "Counters-Front_230.jpg"
+          ]
+        },
+        {
+          "name": "Arty 0-1-7",
+          "images": [
+            "Counters-Front_243.jpg"
+          ]
+        },
+        {
+          "name": "O\u0027Connor",
+          "images": [
+            "Counters-Front_228.jpg"
+          ]
+        },
+        {
+          "name": "4 - 7 Arm",
+          "images": [
+            "Counters-Front_183.jpg",
+            "Counters-Back_183.jpg"
+          ]
+        },
+        {
+          "name": "7 - 7 Arm",
+          "images": [
+            "Counters-Front_184.jpg",
+            "Counters-Back_184.jpg"
+          ]
+        },
+        {
+          "name": "11 Hus - 7 Arm",
+          "images": [
+            "Counters-Front_182.jpg",
+            "Counters-Back_182.jpg"
+          ]
+        },
+        {
+          "name": "7 - 7 Arm SPT",
+          "images": [
+            "Counters-Front_185.jpg",
+            "Counters-Back_185.jpg"
+          ]
+        },
+        {
+          "name": "4NZ - 2NZ",
+          "images": [
+            "Counters-Front_14.jpg",
+            "Counters-Back_14.jpg"
+          ]
+        },
+        {
+          "name": "5 Ind - 4 Ind",
+          "images": [
+            "Counters-Front_262.jpg",
+            "Counters-Back_262.jpg"
+          ]
+        },
+        {
+          "name": "11 Ind - 4 Ind",
+          "images": [
+            "Counters-Front_264.jpg",
+            "Counters-Back_264.jpg"
+          ]
+        },
+        {
+          "name": "16 Aus - 6 Aus",
+          "images": [
+            "Counters-Front_17.jpg",
+            "Counters-Back_17.jpg"
+          ]
+        },
+        {
+          "name": "17 Aus - 6 Aus",
+          "images": [
+            "Counters-Front_18.jpg",
+            "Counters-Back_18.jpg"
+          ]
+        },
+        {
+          "name": "19 Aus - 6 Aus",
+          "images": [
+            "Counters-Front_19.jpg",
+            "Counters-Back_19.jpg"
+          ]
+        },
+        {
+          "name": "Carp",
+          "images": [
+            "Counters-Front_53.jpg",
+            "Counters-Back_53.jpg"
+          ]
+        },
+        {
+          "name": "16",
+          "images": [
+            "Counters-Front_223.jpg",
+            "Counters-Back_223.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Trento Optional Units",
+      "list": [
+        {
+          "name": "61 - Trento",
+          "images": [
+            "Counters-Front_129.jpg",
+            "Counters-Back_129.jpg"
+          ]
+        },
+        {
+          "name": "62 - Trento",
+          "images": [
+            "Counters-Front_130.jpg",
+            "Counters-Back_130.jpg"
+          ]
+        }
+      ]
+    }
+  ],
+  "counterDim": {
+    "width": 75,
+    "height": 75
+  }
+}
