@@ -99,6 +99,1214 @@
           ]
         }
       ]
+    },
+    {
+      "category": "O19",
+      "list": [
+        {
+          "name": "1/1/JR16",
+          "images": [
+            "1-1-JR16.gif",
+            "1-1-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "2/1/JR16",
+          "images": [
+            "2-1-JR16.gif",
+            "2-1-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "3/1/JR16",
+          "images": [
+            "3-1-JR16.gif",
+            "3-1-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/1/JR16",
+          "images": [
+            "MG-1-JR16.gif",
+            "MG-1-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/1/JR16",
+          "images": [
+            "MG-1-JR16.gif",
+            "MG-1-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "Mtr/JR16",
+          "images": [
+            "Mtr-JR16_O19.gif",
+            "Finnish_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "Lt. Col. Pajari",
+          "images": [
+            "Pajari.gif",
+            "Pajari_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "H19",
+      "list": [
+        {
+          "name": "1/PPP7",
+          "images": [
+            "1-PPP7_Back.gif",
+            "1-PPP7_Back.gif",
+            "1-PPP7.gif"
+          ]
+        },
+        {
+          "name": "2/PPP7",
+          "images": [
+            "2-PPP7_Back.gif",
+            "2-PPP7_Back.gif",
+            "2-PPP7.gif"
+          ]
+        },
+        {
+          "name": "3/PPP7",
+          "images": [
+            "3-PPP7_Back.gif",
+            "3-PPP7_Back.gif",
+            "3-PPP7.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "F21",
+      "list": [
+        {
+          "name": "3/ErP112",
+          "images": [
+            "3-ErP112_Back.gif",
+            "3-ErP112.gif"
+          ]
+        },
+        {
+          "name": "8/3/JR37",
+          "images": [
+            "8-3-JR37_Back.gif",
+            "8-3-JR37.gif"
+          ]
+        },
+        {
+          "name": "MG/ErP 9",
+          "images": [
+            "MG-ErP9.gif",
+            "MG-ErP9_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finn \"St\"",
+      "list": [
+        {
+          "name": "9/KTR13",
+          "images": [
+            "9-KTR13.gif",
+            "Finnish_Artillery_Fired.gif"
+          ]
+        },
+        {
+          "name": "5/KTR12",
+          "images": [
+            "5-KTR12.gif",
+            "Finnish_Artillery_Fired.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finnish Entrenchments",
+      "list": [
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Finnish_Digging_In.gif",
+            "Finnish_Dug_In.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Q25",
+      "list": [
+        {
+          "name": "1/1/609",
+          "images": [
+            "1-1-609.gif",
+            "1-1-609_Back.gif"
+          ]
+        },
+        {
+          "name": "2/1/609",
+          "images": [
+            "2-1-609.gif",
+            "2-1-609_Back.gif"
+          ]
+        },
+        {
+          "name": "3/1/609",
+          "images": [
+            "3-1-609.gif",
+            "3-1-609_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/1/609",
+          "images": [
+            "MG-1-609.gif",
+            "MG-1-609_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "R27",
+      "list": [
+        {
+          "name": "4/2/609",
+          "images": [
+            "4-2-609.gif",
+            "4-2-609_Back.gif"
+          ]
+        },
+        {
+          "name": "5/2/609",
+          "images": [
+            "5-2-609.gif",
+            "5-2-609_Back.gif"
+          ]
+        },
+        {
+          "name": "6/2/609",
+          "images": [
+            "6-2-609.gif",
+            "6-2-609_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/2/609",
+          "images": [
+            "MG-2-609.gif",
+            "MG-2-609_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet Entrenchments",
+      "list": [
+        {
+          "name": "Digging In",
+          "images": [
+            "Soviet_Digging_In.gif",
+            "Soviet_Digging_In.gif",
+            "Soviet_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Soviet_Digging_In.gif",
+            "Soviet_Digging_In.gif",
+            "Soviet_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Soviet_Digging_In.gif",
+            "Soviet_Dug_In.gif"
+          ]
+        },
+        {
+          "name": "Digging In",
+          "images": [
+            "Soviet_Digging_In.gif",
+            "Soviet_Dug_In.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet T1 Reinforcements",
+      "list": [
+        {
+          "name": "Mtr/609",
+          "images": [
+            "Mtr-609.gif",
+            "Soviet_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "MG/3/609",
+          "images": [
+            "MG-3-609.gif",
+            "MG-3-609_Back.gif"
+          ]
+        },
+        {
+          "name": "9/3/609",
+          "images": [
+            "9-3-609.gif",
+            "9-3-609_Back.gif"
+          ]
+        },
+        {
+          "name": "8/3/609",
+          "images": [
+            "8-3-609.gif",
+            "8-3-609_Back.gif"
+          ]
+        },
+        {
+          "name": "7/3/609",
+          "images": [
+            "7-3-609.gif",
+            "7-3-609_Back.gif"
+          ]
+        },
+        {
+          "name": "IG/609",
+          "images": [
+            "IG-609.gif",
+            "Soviet_IG_Fired.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finish T1 Reinforcements",
+      "list": [
+        {
+          "name": "9/3/JR16",
+          "images": [
+            "9-3-JR16.gif",
+            "9-3-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "8/3/JR16",
+          "images": [
+            "8-3-JR16.gif",
+            "8-3-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "7/3/JR16",
+          "images": [
+            "7-3-JR16.gif",
+            "7-3-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/3/JR16",
+          "images": [
+            "MG-3-JR16.gif",
+            "MG-3-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/3/JR16",
+          "images": [
+            "MG-3-JR16.gif",
+            "MG-3-JR16_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finnish 76mm Ammo x1 Marker",
+      "list": [
+        {
+          "name": "Finnish 76mm Ammo x1",
+          "images": [
+            "Finnish_76mm_Ammo_x1.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finnish 76mm Ammo x10 Marker",
+      "list": [
+        {
+          "name": "Finnish 76mm Ammo x10 Marker",
+          "images": [
+            "Finnish_76mm_Ammo_x10.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet 76mm Ammo x1 Marker",
+      "list": [
+        {
+          "name": "Soviet 76mm Ammo x1 Marker",
+          "images": [
+            "Soviet_76mm_Ammo_x1.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet 76mm Ammo x10 Marker",
+      "list": [
+        {
+          "name": "Soviet 76mm Ammo x10 Marker",
+          "images": [
+            "Soviet_76mm_Ammo_x10.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finnish VP x1",
+      "list": [
+        {
+          "name": "Finnish VP x1",
+          "images": [
+            "Finnish_VP_x1.gif",
+            "Finnish_VP_x1.gif",
+            "Finnish_VP_-1.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Finnish VP x10",
+      "list": [
+        {
+          "name": "Finnish VP x10",
+          "images": [
+            "Finnish_VP_x10.gif",
+            "Finnish_VP_x10.gif",
+            "Finnish_VP_-10.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet VP x1",
+      "list": [
+        {
+          "name": "Soviet VP x1",
+          "images": [
+            "Soviet_VP_x1.gif",
+            "Soviet_VP_x1.gif",
+            "Soviet_VP_-1.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Soviet VP x10",
+      "list": [
+        {
+          "name": "Soviet VP x10",
+          "images": [
+            "Soviet_VP_x10.gif",
+            "Soviet_VP_x10.gif",
+            "Soviet_VP_-10.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 1",
+      "list": [
+        {
+          "name": "Soviet Turn",
+          "images": [
+            "Soviet_Turn.gif",
+            "Finnish_Turn.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 2",
+      "list": [
+        {
+          "name": "2/47",
+          "images": [
+            "2-47.gif",
+            "Soviet_Artillery_Fired.gif"
+          ]
+        },
+        {
+          "name": "1/47",
+          "images": [
+            "1-47.gif",
+            "Soviet_Artillery_Fired.gif"
+          ]
+        },
+        {
+          "name": "MG/1/364",
+          "images": [
+            "MG-1-364.gif",
+            "MG-1-364_Back.gif"
+          ]
+        },
+        {
+          "name": "3/1/364",
+          "images": [
+            "3-1-364.gif",
+            "3-1-364_Back.gif"
+          ]
+        },
+        {
+          "name": "2/1/364",
+          "images": [
+            "2-1-364.gif",
+            "2-1-364_Back.gif"
+          ]
+        },
+        {
+          "name": "1/1/364",
+          "images": [
+            "1-1-364.gif",
+            "1-1-364_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 3",
+      "list": [
+        {
+          "name": "4/2/JR16",
+          "images": [
+            "4-2-JR16.gif",
+            "4-2-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "Mtr/364",
+          "images": [
+            "Mtr-364.gif",
+            "Soviet_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "MG/2/364",
+          "images": [
+            "MG-2-364.gif",
+            "MG-2-364_Back.gif"
+          ]
+        },
+        {
+          "name": "6/2/364",
+          "images": [
+            "6-2-364.gif",
+            "6-2-364_Back.gif"
+          ]
+        },
+        {
+          "name": "5/2/364",
+          "images": [
+            "5-2-364.gif",
+            "5-2-364_Back.gif"
+          ]
+        },
+        {
+          "name": "4/2/364",
+          "images": [
+            "4-2-364.gif",
+            "4-2-364_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/3/364",
+          "images": [
+            "MG-3-364.gif",
+            "MG-3-364_Back.gif"
+          ]
+        },
+        {
+          "name": "9/3/364",
+          "images": [
+            "9-3-364.gif",
+            "9-3-364_Back.gif"
+          ]
+        },
+        {
+          "name": "8/3/364",
+          "images": [
+            "8-3-364.gif",
+            "8-3-364_Back.gif"
+          ]
+        },
+        {
+          "name": "7/3/364",
+          "images": [
+            "7-3-364.gif",
+            "7-3-364_Back.gif"
+          ]
+        },
+        {
+          "name": "IG/364",
+          "images": [
+            "IG-364.gif",
+            "Soviet_IG_Fired.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 4",
+      "list": [
+        {
+          "name": "2/2/139 AT",
+          "images": [
+            "2-2-139 AT.gif"
+          ]
+        },
+        {
+          "name": "1/2/139 AT",
+          "images": [
+            "1-2-139 AT.gif"
+          ]
+        },
+        {
+          "name": "2/1/139 AT",
+          "images": [
+            "2-1-139 AT.gif"
+          ]
+        },
+        {
+          "name": "1/1/139 AT",
+          "images": [
+            "1-1-139 AT.gif"
+          ]
+        },
+        {
+          "name": "5/2/JR16",
+          "images": [
+            "5-2-JR16.gif",
+            "5-2-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "6/2/JR16",
+          "images": [
+            "6-2-JR16.gif",
+            "6-2-JR16_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 5",
+      "list": [
+        {
+          "name": "MG/2/JR16",
+          "images": [
+            "MG-2-JR16.gif",
+            "MG-2-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/2/JR16",
+          "images": [
+            "MG-2-JR16.gif",
+            "MG-2-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "3/47",
+          "images": [
+            "3-47.gif",
+            "Soviet_Artillery_Fired.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 6",
+      "list": [
+        {
+          "name": "1/ErP112",
+          "images": [
+            "1-ErP112.gif",
+            "1-ErP112_Back.gif"
+          ]
+        },
+        {
+          "name": "2/ErP112",
+          "images": [
+            "2-ErP112.gif",
+            "2-ErP112_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 8",
+      "list": [
+        {
+          "name": "Eng/JR16",
+          "images": [
+            "Eng-JR16.gif",
+            "Eng-JR16_Back.gif"
+          ]
+        },
+        {
+          "name": "Mtr/JR16",
+          "images": [
+            "Mtr-JR16_T8.gif",
+            "Finnish_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "Mtr/JR16",
+          "images": [
+            "Mtr-JR16_T8.gif",
+            "Finnish_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "3/354",
+          "images": [
+            "3-354.gif",
+            "354_Artillery_Back.gif"
+          ]
+        },
+        {
+          "name": "2/354",
+          "images": [
+            "2-354.gif",
+            "354_Artillery_Back.gif"
+          ]
+        },
+        {
+          "name": "1/354",
+          "images": [
+            "1-354.gif",
+            "354_Artillery_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 11",
+      "list": [
+        {
+          "name": "MG/1/718",
+          "images": [
+            "MG-1-718.gif",
+            "MG-1-718_Back.gif"
+          ]
+        },
+        {
+          "name": "3/1/718",
+          "images": [
+            "3-1-718.gif",
+            "3-1-718_Back.gif"
+          ]
+        },
+        {
+          "name": "2/1/718",
+          "images": [
+            "2-1-718.gif",
+            "2-1-718_Back.gif"
+          ]
+        },
+        {
+          "name": "1/1/718",
+          "images": [
+            "1-1-718.gif",
+            "1-1-718_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 13",
+      "list": [
+        {
+          "name": "MG/2/718",
+          "images": [
+            "MG-2-718.gif",
+            "MG-2-718_Back.gif"
+          ]
+        },
+        {
+          "name": "6/2/718",
+          "images": [
+            "6-2-718.gif",
+            "6-2-718_Back.gif"
+          ]
+        },
+        {
+          "name": "5/2/718",
+          "images": [
+            "5-2-718.gif",
+            "5-2-718_Back.gif"
+          ]
+        },
+        {
+          "name": "4/2/718",
+          "images": [
+            "4-2-718.gif",
+            "4-2-718_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 14",
+      "list": [
+        {
+          "name": "Mtr/718",
+          "images": [
+            "Mtr-718.gif",
+            "Soviet_Mortars_Fired.gif"
+          ]
+        },
+        {
+          "name": "8/3/718",
+          "images": [
+            "8-3-718.gif",
+            "8-3-718_Back.gif"
+          ]
+        },
+        {
+          "name": "7/3/718",
+          "images": [
+            "7-3-718.gif",
+            "7-3-718_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/3/718",
+          "images": [
+            "MG-3-718.gif",
+            "MG-3-718_Back.gif"
+          ]
+        },
+        {
+          "name": "9/3/718",
+          "images": [
+            "9-3-718.gif",
+            "9-3-718_Back.gif"
+          ]
+        },
+        {
+          "name": "IG/718",
+          "images": [
+            "IG-718.gif",
+            "Soviet_IG_Fired.gif"
+          ]
+        },
+        {
+          "name": "1/3/139 AT",
+          "images": [
+            "1-3-139 AT.gif"
+          ]
+        },
+        {
+          "name": "2/3/139 AT",
+          "images": [
+            "2-3-139 AT.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 15",
+      "list": [
+        {
+          "name": "8/KTR6",
+          "images": [
+            "8-KTR6.gif",
+            "Finnish_Artillery_Fired.gif"
+          ]
+        },
+        {
+          "name": "7/KTR6",
+          "images": [
+            "7-KTR6.gif",
+            "Finnish_Artillery_Fired.gif"
+          ]
+        },
+        {
+          "name": "AT/JR16",
+          "images": [
+            "AT-JR16.gif",
+            "AT-JR16_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 20",
+      "list": [
+        {
+          "name": "Soviets - Player One",
+          "images": [
+            "Soviet_Player_One.gif",
+            "Finnish_Player_One.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 22",
+      "list": [
+        {
+          "name": "MG/ErP112",
+          "images": [
+            "MG-ErP112.gif"
+          ]
+        },
+        {
+          "name": "1/ErP10",
+          "images": [
+            "1-ErP10.gif",
+            "1-ErP10_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 25",
+      "list": [
+        {
+          "name": "3/ErP10",
+          "images": [
+            "3-ErP10.gif",
+            "3-ErP10_Back.gif"
+          ]
+        },
+        {
+          "name": "2/ErP10",
+          "images": [
+            "2-ErP10.gif",
+            "2-ErP10_Back.gif"
+          ]
+        },
+        {
+          "name": "3/ErP9",
+          "images": [
+            "3-ErP9.gif",
+            "3-ErP9_Back.gif"
+          ]
+        },
+        {
+          "name": "2/ErP9",
+          "images": [
+            "2-ErP9.gif",
+            "2-ErP9_Back.gif"
+          ]
+        },
+        {
+          "name": "1/ErP9",
+          "images": [
+            "1-ErP9.gif",
+            "1-ErP9_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Turn 28",
+      "list": [
+        {
+          "name": "Obuhov AT",
+          "images": [
+            "Obukov AT.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Variable Reinforcements",
+      "list": [
+        {
+          "name": "BA-10",
+          "images": [
+            "BA-10.gif",
+            "BA-10_Back.gif"
+          ]
+        },
+        {
+          "name": "T-26m31",
+          "images": [
+            "T-26m31.gif",
+            "T-26m31_Back.gif"
+          ]
+        },
+        {
+          "name": "T-26m33",
+          "images": [
+            "T-26m33.gif",
+            "T-26m33_Back.gif"
+          ]
+        },
+        {
+          "name": "T-37",
+          "images": [
+            "T-37.gif",
+            "T-37_Back.gif"
+          ]
+        },
+        {
+          "name": "Prov/TF-P",
+          "images": [
+            "Prov-TF-P.gif",
+            "Prov-TF-P_Back.gif"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Variant",
+      "list": [
+        {
+          "name": "1/JR16 Kitchen",
+          "images": [
+            "1-JR16_Field_Kitchen.gif",
+            "Field_Kitchen_Back.gif"
+          ]
+        },
+        {
+          "name": "2/JR16 Kitchen",
+          "images": [
+            "2-JR16_Field_Kitchen.gif",
+            "Field_Kitchen_Back.gif"
+          ]
+        },
+        {
+          "name": "Captured LMGs",
+          "images": [
+            "Captured_LMGs.gif",
+            "Captured_LMGs_Back.gif"
+          ]
+        },
+        {
+          "name": "Captured LMGs",
+          "images": [
+            "Captured_LMGs.gif",
+            "Captured_LMGs_Back.gif"
+          ]
+        },
+        {
+          "name": "Captured LMGs",
+          "images": [
+            "Captured_LMGs.gif",
+            "Captured_LMGs_Back.gif"
+          ]
+        },
+        {
+          "name": "Captured LMGs",
+          "images": [
+            "Captured_LMGs.gif",
+            "Captured_LMGs_Back.gif"
+          ]
+        },
+        {
+          "name": "Captured LMGs",
+          "images": [
+            "Captured_LMGs.gif",
+            "Captured_LMGs_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish ErP Platoon",
+          "images": [
+            "1-1-2-6_ErP_Platoon.gif",
+            "ErP_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish ErP Platoon",
+          "images": [
+            "1-0-2-6_ErP_Platoon.gif",
+            "ErP_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish ErP Platoon",
+          "images": [
+            "1-0-0-6_ErP_Platoon.gif",
+            "ErP_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish ErP Platoon",
+          "images": [
+            "1-0-0-6_ErP_Platoon.gif",
+            "ErP_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_A.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_A.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_A.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-1-2-6_JR16_Platoon_A.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_B.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_B.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-0-2-6_JR16_Platoon_B.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "Finnish JR16 Platoon",
+          "images": [
+            "1-1-2-6_JR16_Platoon_B.gif",
+            "JR16_Platoon_Back.gif"
+          ]
+        },
+        {
+          "name": "1/13/KT-Pr",
+          "images": [
+            "1-13-KT-Pr.gif",
+            "1-13-KT-Pr_Back.gif"
+          ]
+        },
+        {
+          "name": "2/13/KT-Pr",
+          "images": [
+            "2-13-KT-Pr.gif",
+            "2-13-KT-Pr_Back.gif"
+          ]
+        },
+        {
+          "name": "3/13/KT-Pr",
+          "images": [
+            "3-13-KT-Pr.gif",
+            "3-13-KT-Pr_Back.gif"
+          ]
+        },
+        {
+          "name": "MG/13/KT-Pr",
+          "images": [
+            "MG-13-KT-Pr.gif",
+            "MG-13-KT-Pr_Back.gif"
+          ]
+        },
+        {
+          "name": "Mtr/13/KT-Pr",
+          "images": [
+            "Mtr-13-KT-Pr.gif",
+            "Finnish_Mortars_Fired.gif"
+          ]
+        }
+      ]
     }
   ],
   "counterDim": {
