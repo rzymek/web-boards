@@ -26,14 +26,15 @@ Operations.allow({
                 return (table !== null) && (userId in table.players);
             }));
             if (op.server !== undefined) {
-                op.result={};
+                op.result = {};
                 if (op.server.roll !== undefined) {
                     var r = op.server.roll;
-                    var sum=0;
+                    var sum = 0;
                     for (var i = 0; i < r.count; i++) {
-                        sum += 1 + Math.floor(Math.random() * r.sides)
+                        sum += (1 + Math.floor(Math.random() * r.sides))
                     }
-                    op.result.roll = sum / r.count;
+                    op.result.roll = sum;
+                    op.result.type = r.count + 'd' + r.sides;
                 }
                 delete op['server'];
                 console.log('rolled', op.result.roll);

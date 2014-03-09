@@ -19,7 +19,7 @@ Template.piece.events({
     }
 });
 
-Session.setDefault('piecesCategory','Special');
+Session.setDefault('piecesCategory', 'Special');
 Template.pieces.events({
     'change select': function(e) {
         var combo = e.target;
@@ -29,19 +29,17 @@ Template.pieces.events({
     }
 });
 
+
 Template.selectedPieces.pieces = function() {
     var cat = Session.get('piecesCategory');
     if (cat === "Special") {
-        return [{//http://code.dylanmtaylor.com/dice/
-                sides: '/img/dic6.svg',
-                src: '/img/dice.svg',
-                id: 'special-d6'
-            },
-            {
-                sides: '/img/note.svg',
-                src: '/img/note.svg',
-                id: 'special-note'
-            }];
+        return Object.keys(Special).map(function(id){
+            return {
+                src: Special[id].src,
+                category: cat,
+                id: id
+            };
+        });
     }
     var info = Session.get('gameInfo');
     var table = getTable({fields: {game: 1}});
@@ -55,7 +53,7 @@ Template.selectedPieces.pieces = function() {
                 name: p.name,
                 category: cat,
                 src: '/games/' + table.game + '/images/' + img,
-                id: (cat+'_'+p.name).replace(/[^A-Za-z0-9_]/, '')
+                id: (cat + '_' + p.name).replace(/[^A-Za-z0-9_]/, '')
             };
         });
     } else {

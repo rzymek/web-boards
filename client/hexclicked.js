@@ -119,32 +119,12 @@ hexClicked = function(e) {
 
         hidePieceMenu();
 
-        var data = null;
         var img = byId(selectedId);
         if (isOnBoard(img)) {
             data = {op: 'MoveOp', counter: img.id, to: use.id};
         } else {
-            if (img.id === 'special-d6') {
-                data = {
-                    op: 'RollOp',
-                    size: getNatural(img),
-                    hexid: use.id,
-                    server: {
-                        roll: {
-                            count: 1,
-                            sides: 6
-                        }
-                    }
-                };
-            } else if (img.id === 'special-note') {
-                var text = window.prompt("Enter message:");
-                if (text === null)
-                    return;
-                data = {
-                    op: 'NoteOp',
-                    text: text,
-                    hexid: use.id
-                }
+            if (img.getAttribute('category') === 'Special') {
+                Special[img.id].action(use);
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
@@ -152,15 +132,14 @@ hexClicked = function(e) {
                         height: dim.height * scale
                     };
                 }
-                data = {
+                Operations.insert({
                     op: 'PlaceOp',
                     category: img.getAttribute('category'),
                     name: img.getAttribute('name'),
                     hexid: use.id
-                };
+                });
             }
         }
-        Operations.insert(data);
         //deselect counter after action:
         selectById(null);
     }

@@ -1,5 +1,4 @@
 RollOp = function(data) {
-    console.info(data.result.roll);
     var svg = document.getElementById('svg');
     var hex = svg.getElementById(data.hexid);
     var bbox = hex.getBBox();
@@ -11,12 +10,12 @@ RollOp = function(data) {
     overlay.x.baseVal.value = -w / 2;
     overlay.y.baseVal.value = -h / 2;
     overlay.id = data._id;
-    overlay.href.baseVal = '/img/d' + data.result.roll + '.svg';
+    overlay.href.baseVal = '/img/dice.svg?x=' + data.result.roll + '&y=' + data.result.type;
     addOverlay(hex, overlay);
     copyTransformation(hex, overlay);
     svg.getElementById('overlays').appendChild(overlay);
     return function() {
-        if(hex.overlay)
+        if (hex.overlay)
             hex.overlay = hex.overlay.splice(hex.overlay.indexOf(overlay));
         overlay.remove();
     };

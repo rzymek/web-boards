@@ -1,5 +1,7 @@
 
 Operations.before.insert(function(userId, doc) {
+    if (!doc)
+        return;
     doc.tableId = Session.get('tableId');
 });
 
@@ -19,7 +21,7 @@ Meteor.startup(function() {
             }
         },
         removed: function(data) {
-            if(is('board.ready')) {
+            if (is('board.ready')) {
                 undoOp(data);
             }
         }

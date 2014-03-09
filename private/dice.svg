@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" style="enable-background:new 0 0 557 557;" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 557 557">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g stroke="#740000" stroke-width="5" fill="#FF724C">
+  <circle cy="439.97" cx="117.03" r="57.115"/>
+  <circle cy="439.97" cx="439.97" r="57.115"/>
+  <circle cy="117.03" cx="439.97" r="57.115"/>
+ </g>
+ <path stroke="#000" stroke-width="7" d="m71.459,553.5c-37.378,0-67.959-30.58-67.959-67.96v-414.08c0-37.378,30.581-67.96,67.959-67.96h414.08c37.38,0,67.96,30.582,67.96,67.959v414.08c0,37.38-30.58,67.96-67.96,67.96h-414.08z" fill="none"/>
+ <circle stroke-width="5" cy="117.03" stroke="#740000" cx="117.03" r="57.115" fill="#FF724C"/>
+ <text style="text-anchor:middle;text-align:center;" xml:space="preserve" font-size="235.39935303px" y="361.65988" x="281.43051" font-weight="bold"><tspan stroke-width="4.35599995" x="281.43051" style="text-anchor:middle;text-align:center;" font-weight="bold" font-stretch="normal" stroke-dasharray="none" font-variant="normal" y="361.65988" stroke-miterlimit="4" font-family="Arial" font-style="normal">{{x}}</tspan></text>
+ <text font-size="124.74399567px" xml:space="preserve" style="text-anchor:middle;text-align:center;" y="498.06226" x="279.20047" font-weight="bold"><tspan style="text-anchor:middle;text-align:center;" stroke-width="4.35599995" font-family="Arial" stroke-dasharray="none" font-style="normal" font-stretch="normal" stroke-miterlimit="4" font-variant="normal" y="498.06226" x="279.20047" font-weight="bold">{{y}}</tspan></text>
+</svg>
