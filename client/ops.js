@@ -3,7 +3,6 @@
 var undoFunctions = {};
 
 runOp = function(data) {
-    console.log('runOp',data.op);
     removeChildren(byId('traces'));
     undoFunctions[data._id] = this[data.op](data);
 };
