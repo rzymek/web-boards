@@ -29,6 +29,8 @@ PlaceOp = function(data) {
         console.log(cnt);
         counter.sides = cnt.images;
         counter.side = 0;
+        counter.name = data.name;
+        counter.category = data.category;
         counter.href.baseVal = '/games/' + getTable({fields:{game:1}}).game + '/images/' + counter.sides[0];
         svg.getElementById('counters').appendChild(counter);
 
