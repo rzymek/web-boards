@@ -11,12 +11,16 @@ RollOp = function(data) {
     overlay.y.baseVal.value = -h / 2;
     overlay.id = data._id;
     overlay.href.baseVal = '/img/dice.svg?x=' + data.result.roll + '&y=' + data.result.type;
-    addOverlay(hex, overlay);
+    overlay.style.pointerEvents = 'auto';
+    overlay.onclick = function() {
+        Operations.insert({
+            op: 'RemoveElementOp',
+            element: overlay.id
+        });
+    };
     copyTransformation(hex, overlay);
     svg.getElementById('overlays').appendChild(overlay);
     return function() {
-        if (hex.overlay)
-            hex.overlay = hex.overlay.splice(hex.overlay.indexOf(overlay));
         overlay.remove();
     };
 }

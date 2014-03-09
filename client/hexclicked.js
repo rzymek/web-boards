@@ -71,14 +71,6 @@ hexClicked = function(e) {
 
     var use = e.currentTarget;
 
-    if (use.overlays) {
-        Operations.insert({
-            op: 'AckOverlay',
-            hexid: use.id
-        });
-        return;
-    }
-
     var selectedId = getSelectedId();
     if (selectedId === null) {
         //nothing is currently selected
