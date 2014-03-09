@@ -130,12 +130,15 @@ hexClicked = function(e) {
                     size: getNatural(img),
                     hexid: use.id,
                     server: {
-                        roll: '1d6'
+                        roll: {
+                            count: 1,
+                            sides: 6
+                        }
                     }
                 };
-            } else if(img.id === 'special-note') {
+            } else if (img.id === 'special-note') {
                 var text = window.prompt("Enter message:");
-                if(text === null)
+                if (text === null)
                     return;
                 data = {
                     op: 'NoteOp',

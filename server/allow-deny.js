@@ -26,12 +26,17 @@ Operations.allow({
                 return (table !== null) && (userId in table.players);
             }));
             if (op.server !== undefined) {
-                //TODO: parse the actual request in doc.server
-                op.result = {
-                    roll: 1 + Math.floor(Math.random() * 6)
-                };
+                op.result={};
+                if (op.server.roll !== undefined) {
+                    var r = op.server.roll;
+                    var sum=0;
+                    for (var i = 0; i < r.count; i++) {
+                        sum += 1 + Math.floor(Math.random() * r.sides)
+                    }
+                    op.result.roll = sum / r.count;
+                }
                 delete op['server'];
-                console.log('rolled', op.roll);
+                console.log('rolled', op.result.roll);
             }
             op.createdAt = new Date().valueOf();
             return true;
