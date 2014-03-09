@@ -113,7 +113,11 @@ hexClicked = function(e) {
 
         var img = byId(selectedId);
         if (isOnBoard(img)) {
-            data = {op: 'MoveOp', counter: img.id, to: use.id};
+            Operations.insert({
+                op: 'MoveOp',
+                counter: img.id,
+                to: use.id
+            });
         } else {
             if (img.getAttribute('category') === 'Special') {
                 Special[img.id].action(use);

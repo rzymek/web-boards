@@ -38,8 +38,23 @@ removeChildren = function(node) {
     }
 };
 
+/*
+ * Assumtion:
+ * transformList is [
+ *  translate,
+ *  scale,
+ *  rotate
+ * ]
+ */
 copyTransformation = function(src, dest) {
-    var t = src.getAttribute('transform');
-    if (t !== null)
-        dest.setAttribute('transform', t.replace(new RegExp('scale\(.*\)'), ''));
+    var srcTx = src.transform.baseVal;
+    var destTx = dest.transform.baseVal;
+    var svg = byId('svg');
+    var tx = svg.createSVGTransform();
+    tx.setMatrix(srcTx.getItem(0).matrix);
+    if(destTx.numberOfItems < 1) {
+        destTx.appendItem(tx);
+    }else{
+        destTx.replaceItem(tx, 0);
+    }
 };
