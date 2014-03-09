@@ -87,7 +87,9 @@ Template.play.rendered = function() {
 
     Deps.autorun(function() {
         console.log('keybindings - remove');
-        Meteor.Keybindings.removeAll();
+        _.each(Meteor.Keybindings._bindings, function(obj) {
+            Meteor.Keybindings.removeOne(obj.key);
+        });
         if (!Template.join.guest()) {
             console.log('keybindings - add');
             Meteor.Keybindings.add({
