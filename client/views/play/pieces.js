@@ -36,6 +36,11 @@ Template.selectedPieces.pieces = function() {
                 sides: '/img/dic6.svg',
                 src: '/img/dice.svg',
                 id: 'special-d6'
+            },
+            {
+                sides: '/img/note.svg',
+                src: '/img/note.svg',
+                id: 'special-note'
             }];
     }
     var info = Session.get('gameInfo');

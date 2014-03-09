@@ -133,6 +133,15 @@ hexClicked = function(e) {
                         roll: '1d6'
                     }
                 };
+            } else if(img.id === 'special-note') {
+                var text = window.prompt("Enter message:");
+                if(text === null)
+                    return;
+                data = {
+                    op: 'NoteOp',
+                    text: text,
+                    hexid: use.id
+                }
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
