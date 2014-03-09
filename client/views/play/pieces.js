@@ -18,6 +18,7 @@ Template.piece.events({
         Session.set('selectedPiece', val);
     }
 });
+
 Session.setDefault('piecesCategory','Special');
 Template.pieces.events({
     'change select': function(e) {
@@ -25,7 +26,7 @@ Template.pieces.events({
         var category = combo.options[combo.selectedIndex].value;
         Session.set('piecesCategory', category);
         return true;
-    },
+    }
 });
 
 Template.selectedPieces.pieces = function() {
@@ -44,11 +45,12 @@ Template.selectedPieces.pieces = function() {
     });
     if (inCat.length > 0) {
         return inCat[0].list.map(function(p) {
-            var name = p.images[0];
+            var img = p.images[0];
             return {
-                sides: p.images.join('|'),
-                src: '/games/' + table.game + '/images/' + name,
-                id: 'panel-' + name.replace(/[^A-Za-z0-9_]/, '')
+                name: p.name,
+                category: cat,
+                src: '/games/' + table.game + '/images/' + img,
+                id: (cat+'_'+p.name).replace(/[^A-Za-z0-9_]/, '')
             };
         });
     } else {

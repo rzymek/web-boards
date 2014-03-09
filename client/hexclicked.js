@@ -56,11 +56,11 @@ function showMenu(hex) {
 }
 
 hexClicked = function(e) {
-    if(byId('svg').panning)
+    if (byId('svg').panning)
         return;
     var selector = sprites.stackSelector;
     selector.style.visibility = 'hidden';
-    
+
     if (selector.atHex) {
         selector.stack.forEach(function(it) {
             it.style.pointerEvents = '';
@@ -70,19 +70,19 @@ hexClicked = function(e) {
     }
 
     var use = e.currentTarget;
-    
-    if(use.overlays) {
+
+    if (use.overlays) {
         Operations.insert({
             op: 'AckOverlay',
             hexid: use.id
         });
         return;
     }
-    
+
     var selectedId = getSelectedId();
-    if (selectedId === null) {        
+    if (selectedId === null) {
         //nothing is currently selected
-        if(showingPieceMenu()) {
+        if (showingPieceMenu()) {
             hidePieceMenu();
             return;
         }
@@ -116,7 +116,7 @@ hexClicked = function(e) {
             }
             return;
         }
-        
+
         hidePieceMenu();
 
         var data = null;
@@ -124,7 +124,7 @@ hexClicked = function(e) {
         if (isOnBoard(img)) {
             data = {op: 'MoveOp', counter: img.id, to: use.id};
         } else {
-            if(img.id === 'special-d6') {
+            if (img.id === 'special-d6') {
                 data = {
                     op: 'RollOp',
                     size: getNatural(img),
@@ -133,16 +133,17 @@ hexClicked = function(e) {
                         roll: '1d6'
                     }
                 };
-            }else{ 
-                function scale(dim, scale){
+            } else {
+                function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
                         width: dim.width * scale,
                         height: dim.height * scale
-                    };             
-                };
+                    };
+                }
                 data = {
                     op: 'PlaceOp',
-                    sides: img.getAttribute('sides').split('|'),
+                    category: img.getAttribute('category'),
+                    name: img.getAttribute('name'),
                     hexid: use.id
                 };
             }
