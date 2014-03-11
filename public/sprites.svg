@@ -104,6 +104,15 @@
     <style
        id="dyncss"
        type="text/css" />
+    <filter id="selectionOutline">
+        <feMorphology operator="dilate" in="SourceAlpha" radius="10"/>
+        <feColorMatrix type="matrix" values=
+            "1 0 0 0  1
+             0 0 0 0  0
+             0 0 0 0  0
+             0 0 0 1  0 "/>
+        <feComposite in="SourceGraphic"/>
+    </filter>
     <filter
        color-interpolation-filters="sRGB"
        inkscape:menu-tooltip="Edges are partly feathered out"
