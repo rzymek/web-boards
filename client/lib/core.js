@@ -81,6 +81,16 @@ function getSVGElements(stack/*string[] -ids*/) {
     return e;
 }
 
+hideStackSelector = function() {
+    var selector = sprites.stackSelector;
+    selector.style.visibility = 'hidden';
+    var counters = byId('counters');
+    (selector.stack || []).forEach(function(it) {
+        counters.appendChild(it);
+    });
+    console.log(byId('stackSelectorLayer'));
+};
+
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
     var margin = 10;
     var svg = byId('svg');
@@ -104,7 +114,11 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
     selector.height.baseVal.value = height;
-    svg.getElementById('stackSelectorLayer').appendChild(selector);
+    var layer=svg.getElementById('stackSelectorLayer');
+    layer.appendChild(selector);
+    stack.forEach(function(it){
+        layer.appendChild(it);
+    });
     selector.stack = gstack;
     alignStack(selector);
     selector.atHex = hexElement;

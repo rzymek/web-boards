@@ -58,9 +58,9 @@ function showMenu(hex) {
 hexClicked = function(e) {
     if (byId('svg').panning)
         return;
+    hideStackSelector();
+    
     var selector = sprites.stackSelector;
-    selector.style.visibility = 'hidden';
-
     if (selector.atHex) {
         selector.stack.forEach(function(it) {
             it.style.pointerEvents = '';
