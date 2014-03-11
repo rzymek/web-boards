@@ -136,7 +136,5 @@ hexClicked = function(e) {
                 });
             }
         }
-        //deselect counter after action:
-        selectById(null);
     }
 };

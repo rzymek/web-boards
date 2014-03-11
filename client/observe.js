@@ -3,6 +3,7 @@ Operations.before.insert(function(userId, doc) {
     if (!doc)
         return;
     doc.tableId = Session.get('tableId');
+    selectById(null);
 });
 
 Meteor.startup(function() {
