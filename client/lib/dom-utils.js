@@ -47,6 +47,8 @@ removeChildren = function(node) {
  * ]
  */
 copyTransformation = function(src, dest) {
+    if(src.transform === undefined)
+        return;
     var srcTx = src.transform.baseVal;
     var destTx = dest.transform.baseVal;
     var svg = byId('svg');
