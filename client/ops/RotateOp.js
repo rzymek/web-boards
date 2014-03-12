@@ -1,14 +1,8 @@
 getRotatation = function(svg, transformList) {
-    var tranform;
-    for (var i = 0; i < transformList.numberOfItems; i++) {
-        tranform = transformList.getItem(i);
-        if (tranform.angle !== 0) {
-            return tranform;
-        }
+    for(var i=transformList.numberOfItems;i<3;i++){
+        transformList.appendItem(svg.createSVGTransform());            
     }
-    tranform = svg.createSVGTransform();
-    transformList.appendItem(tranform);
-    return tranform;
+    return transformList.getItem(2);
 }
 
 RotateOp = function(data) {

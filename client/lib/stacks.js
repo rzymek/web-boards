@@ -28,6 +28,10 @@ hideStackSelector = function() {
     selector.style.visibility = 'hidden';
     var counters = byId('counters');
     (selector.stack || []).forEach(function(it) {
+        if (it.restoreRotation !== undefined) {
+            it.transform.baseVal.insertItemBefore(it.restoreRotation, 3);
+        }
+        delete it.restoreRotation;
         counters.appendChild(it);
     });
     console.log(byId('stackSelectorLayer'));
@@ -49,17 +53,21 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     var height = Math.floor(size + 0.5);
     //TODO::getMaxCounterSize(gstack);
     var maxCounterSize = {
-        width: gstack[0].width.baseVal.value, 
+        width: gstack[0].width.baseVal.value,
         height: gstack[0].height.baseVal.value
     };
     width = margin + width * maxCounterSize.width + margin;
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
     selector.height.baseVal.value = height;
-    var layer=svg.getElementById('stackSelectorLayer');
+    var layer = svg.getElementById('stackSelectorLayer');
     layer.appendChild(selector);
-    stack.forEach(function(it){
+    stack.forEach(function(it) {
         layer.appendChild(it);
+        console.log(it, it.transform.baseVal.numberOfItems);
+        if (it.transform.baseVal.numberOfItems > 2) {
+            it.restoreRotation = it.transform.baseVal.removeItem(2);
+        }
     });
     selector.stack = gstack;
     alignStack(selector);
@@ -67,12 +75,12 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     stack.forEach(function(it) {
         it.style.pointerEvents = 'auto';
         it.onclick = function(evt) {
-            console.log('stack click',evt);
+            console.log('stack click', evt);
             var val = evt.target.id;
             if (getSelectedId() === val)
                 val = null;
             selectById(val);
-            evt.stopPropagation();            
+            evt.stopPropagation();
         };
     });
 };
