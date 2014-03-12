@@ -12,9 +12,7 @@ Meteor.startup(function() {
      */
     Operations.find().observe({
         added: function(data) {
-            if (data.server === undefined) {
-                runOp(data);
-            }
+            runOp(data);
         },
         changed: function(data) {
             if (data.result !== undefined) {
