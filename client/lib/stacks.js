@@ -42,20 +42,17 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     var svg = byId('svg');
     var selector = sprites.stackSelector;
     copyTransformation(hexElement, selector);
+    var info = Session.get('gameInfo');
+    var maxCounterSize = info.counterDim;
 
-    var img = stack[0];//open at
-    selector.x.baseVal.value = img.x.baseVal.value - margin;
-    selector.y.baseVal.value = img.y.baseVal.value - margin;
+    selector.x.baseVal.value = -info.counterDim.width/2 - margin;
+    selector.y.baseVal.value = -info.counterDim.height/2 - margin;
     selector.style.visibility = 'visible';
     var gstack = stack.concat().reverse();
     var size = Math.sqrt(gstack.length);
     var width = Math.ceil(size);
     var height = Math.floor(size + 0.5);
-    //TODO::getMaxCounterSize(gstack);
-    var maxCounterSize = {
-        width: gstack[0].width.baseVal.value,
-        height: gstack[0].height.baseVal.value
-    };
+
     width = margin + width * maxCounterSize.width + margin;
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
@@ -66,7 +63,7 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
         layer.appendChild(it);
         console.log(it, it.transform.baseVal.numberOfItems);
         if (it.transform.baseVal.numberOfItems > 2) {
-            it.restoreRotation = it.transform.baseVal.removeItem(2);
+            it.restoreRotation = it.transform.baseVal.getItem(2).setRotate(0,0,0);
         }
     });
     selector.stack = gstack;
@@ -76,7 +73,7 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
         it.style.pointerEvents = 'auto';
         it.onclick = function(evt) {
             console.log('stack click', evt);
-            var val = evt.target.id;
+            var val = it.id;
             if (getSelectedId() === val)
                 val = null;
             selectById(val);

@@ -14,15 +14,16 @@ function find(info, category, name) {
 }
 
 PlaceOp = function(data) {
-    var svg = document.getElementById('svg');
-    var hex = svg.getElementById(data.hexid);
+    var svg = byId('svg');
+    var hex = byId(data.hexid);
     if (hex === null) {
         console.warn('Hex not found:', data.hexid);
     } else {
         var info = Session.get('gameInfo');
-        var counter = document.createElementNS(SVGNS, 'image');
-        counter.width.baseVal.value = info.counterDim.width;
-        counter.height.baseVal.value = info.counterDim.height;
+        var counter = document.createElementNS(SVGNS, 'g');
+        var contents = document.createElementNS(SVGNS, 'image');
+        contents.width.baseVal.value = info.counterDim.width;
+        contents.height.baseVal.value = info.counterDim.height;
         counter.id = data._id;
         
         var cnt = find(info, data.category, data.name);
@@ -31,8 +32,9 @@ PlaceOp = function(data) {
         counter.side = 0;
         counter.name = data.name;
         counter.category = data.category;
-        counter.href.baseVal = '/games/' + getTable({fields:{game:1}}).game + '/images/' + counter.sides[0];
-        svg.getElementById('counters').appendChild(counter);
+        contents.href.baseVal = '/games/' + getTable({fields:{game:1}}).game + '/images/' + counter.sides[0];
+        counter.appendChild(contents);
+        byId('counters').appendChild(counter);
 
         addToStack(hex, counter);
         alignStack(hex);

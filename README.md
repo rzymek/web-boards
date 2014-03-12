@@ -41,6 +41,7 @@ Counters are represented by `SVGImageElement`.
 1. translation
 2. scale 
 3. rotation 
+4. translation inside stack/stackSelector
 
 All are optional, but if present must be in this order and on these positions.
 

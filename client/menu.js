@@ -32,9 +32,9 @@ pieceMenu = {
             counterId: piece.id
         });
     },
-    'Mark': function(piece) {
+    'Unmark': function(piece) {
         Operations.insert({
-            op: 'MarkOp',
+            op: 'ClearMarkersOp',
             counterId: piece.id
         });
     }

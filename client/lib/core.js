@@ -14,6 +14,7 @@ function bringToTop(e) {
 
 var STACKS = 'wb-stacks';
 alignStack = function(area/*SVGElement*/) {
+    var svg = byId('svg');
     var counters = area.stack;
     var areaBBox = area.getBBox();
     var spacing = 3;
@@ -21,10 +22,7 @@ alignStack = function(area/*SVGElement*/) {
     if(counters === undefined || counters.length === 0) {
         return;
     }
-    var counterDim = { //TODO: get max dim
-        width: counters[0].width.baseVal.value,
-        height: counters[0].height.baseVal.value
-    };
+    var counterDim = Session.get('gameInfo').counterDim;
     var placing = getPlacing(counters, counterDim, areaBBox, spacing);
     var startx = (areaBBox.width - (placing.width * (counterDim.width + spacing))) / 2;
     var starty = (areaBBox.height - (placing.height * (counterDim.height + spacing))) / 2;
@@ -42,8 +40,11 @@ alignStack = function(area/*SVGElement*/) {
         var cx = x + stackOffset;
         var cy = y + stackOffset;
         copyTransformation(area, counter);
-        counter.x.baseVal.value = -counter.width.baseVal.value / 2 + cx;
-        counter.y.baseVal.value = -counter.height.baseVal.value / 2 + cy;
+        var transformList = ensureTransformListSize(svg, counter.transform.baseVal, 4);
+        transformList.getItem(3).setTranslate(
+                -counter.children[0].width.baseVal.value / 2 + cx,
+                -counter.children[0].height.baseVal.value / 2 + cy
+        );
         if (layer > 0) {
             var id = counter.id;
             var stacksWith = counters[i - countersOnLayer].id;

@@ -50,13 +50,6 @@ copyTransformation = function(src, dest) {
     if(src.transform === undefined)
         return;
     var srcTx = src.transform.baseVal;
-    var destTx = dest.transform.baseVal;
-    var svg = byId('svg');
-    var tx = svg.createSVGTransform();
-    tx.setMatrix(srcTx.getItem(0).matrix);
-    if(destTx.numberOfItems < 1) {
-        destTx.appendItem(tx);
-    }else{
-        destTx.replaceItem(tx, 0);
-    }
+    var destTx = ensureTransformListSize(byId('svg'), dest.transform.baseVal, 1);
+    destTx.getItem(0).setMatrix(srcTx.getItem(0).matrix);
 };

@@ -7,13 +7,14 @@ hidePieceMenu = function() {
     $('#pieceMenuLayer').empty();
 };
 
-showPieceMenu = function(img) {
+showPieceMenu = function(counter) {
     var menuItem = sprites.menuItem;
     var layer = byId('pieceMenuLayer');
     var dy = 0;
+    var bbox = counter.getBBox();
     for (var entry in pieceMenu) {
-        var x = img.position.rx + img.width.baseVal.value / 2;
-        var y = img.position.ry - img.height.baseVal.value / 2 + dy;
+        var x = counter.position.rx + bbox.width / 2;
+        var y = counter.position.ry - bbox.height / 2 + dy;
         var item = menuItem.cloneNode(true);
         item.removeAttribute('id');
         item.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
@@ -22,7 +23,7 @@ showPieceMenu = function(img) {
         $(item).find('tspan').text(entry);
         item.onclick = (function(name) {
             return function() {
-                pieceMenu[name](img);
+                pieceMenu[name](counter);
             };
         })(entry);
 

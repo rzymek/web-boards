@@ -63,7 +63,10 @@ hexClicked = function(e) {
             });
         } else {
             if (img.getAttribute('category') === 'Special') {
-                Special[img.id].action(use);
+                var counter = null;
+                if(use.stack && use.stack.length > 0)
+                    counter = use.stack[0];
+                Special[img.id].action(use, counter);
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {

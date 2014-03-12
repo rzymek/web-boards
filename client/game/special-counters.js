@@ -32,5 +32,17 @@ Special = {
                 hexid: hex.id
             });
         }
+    },
+    used: {
+        src: '/img/used.svg',
+        action: function(hex, counter) {
+            if(!counter)
+                return;
+            Operations.insert({
+                op: 'PlaceMarkerOp',
+                src: '/img/used.svg',
+                counterId: counter.id
+            });            
+        }
     }
 };

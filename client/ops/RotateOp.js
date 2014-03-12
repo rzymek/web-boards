@@ -1,9 +1,6 @@
 getRotatation = function(svg, transformList) {
-    for(var i=transformList.numberOfItems;i<3;i++){
-        transformList.appendItem(svg.createSVGTransform());            
-    }
-    return transformList.getItem(2);
-}
+    return translateScaleRotate(svg, transformList).getItem(2);
+};
 
 RotateOp = function(data) {
     var svg = byId('svg');
