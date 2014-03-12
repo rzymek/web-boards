@@ -1,4 +1,4 @@
-$.get('/sprites.svg').done(function(data) {
+$.get('/sprites.svg'+requestSuffix()).done(function(data) {
     sprites.defs = data.getElementsByTagName('defs')[0];
     var elements = data.getElementById('tmpl').childNodes;
     for (var i = 0; i < elements.length; i++) {

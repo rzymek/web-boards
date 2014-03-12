@@ -19,7 +19,6 @@ Template.welcome.listPlayers = function(table) {
             players.push(table.players[id]);
         }
     }
-    ;
     return players;
 };
 
@@ -36,33 +35,28 @@ Template.welcome.fmtDate = function(millis) {
 };
 
 Template.welcome.events({
-    'click .start-game': function(e) {
-        var t = e.currentTarget;
-        var tableId = Tables.insert({
-            game: t.value
-        });
-        Router.go('play', {_id: tableId});
-    },
     'click .leave-game': function(e) {
         var id = e.currentTarget.value;
         if (window.confirm('Leave game ' + id + '?')) {
             Meteor.call('leave', id, function(err) {
-                if (err)
+                if (err) {
                     window.alert(err);
+                }
             });
         }
     },
     'click #config': function(e) {
         var config = window.prompt("config", Session.get('config'));
         if (config !== null) {
-            if(config==='r') {
+            if (config === 'r') {
                 Meteor.call('reset');
-            }else{
+            } else {
                 Session.set('config', config);
             }
         }
     }
 });
+
 Template.welcome.config = function() {
     return Session.get('config');
 };

@@ -123,10 +123,10 @@ Template.play.rendered = function() {
     svg.ready = true;
     
     $('script.hooks').remove();
-    var fileref = document.createElement('script')
-    fileref.setAttribute("class", "hooks")
-    fileref.setAttribute("type", "text/javascript")
-    fileref.setAttribute("src", '/games/'+getGame()+'/hooks.js')
+    var fileref = document.createElement('script');
+    fileref.setAttribute("class", "hooks");
+    fileref.setAttribute("type", "text/javascript");
+    fileref.setAttribute("src", '/games/'+getGame()+'/hooks.js'+requestSuffix());
     document.getElementsByTagName("head")[0].appendChild(fileref);
     console.log(fileref);
 };

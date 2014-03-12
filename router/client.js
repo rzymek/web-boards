@@ -10,7 +10,7 @@ Router.map(function() {
                 onReady: function() {
                     var table = Tables.findOne(tableId, {reactive: false});
                     if (table) {
-                        $.get('/games/' + table.game + '/game.json', function(data) {
+                        $.get('/games/' + table.game + '/game.json'+requestSuffix(), function(data) {
                             Session.set('tableId', table._id);
                             Session.set('gameInfo', data);
                             router.render();
