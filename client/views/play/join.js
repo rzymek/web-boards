@@ -15,7 +15,7 @@ Template.join.game = function() {
 };
 
 Template.join.players = function() {
-    var table = getTable({fields: {players: 1}})
+    var table = getTable({fields: {players: 1}});
     if (!table)
         return [];
     var players = [];
