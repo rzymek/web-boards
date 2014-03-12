@@ -25,6 +25,8 @@ addTo = function(list, element) {
 
 hideStackSelector = function() {
     var selector = sprites.stackSelector;
+    if(selector.style.visibility === 'hidden')
+        return;
     selector.style.visibility = 'hidden';
     var counters = byId('counters');
     (selector.stack || []).forEach(function(it) {
@@ -34,7 +36,6 @@ hideStackSelector = function() {
         delete it.restoreRotation;
         counters.appendChild(it);
     });
-    console.log(byId('stackSelectorLayer'));
 };
 
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
