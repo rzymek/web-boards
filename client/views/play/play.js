@@ -37,13 +37,13 @@ function setupGrid(svg) {
             use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             var translate = svg.createSVGTransform();
             var scale = svg.createSVGTransform();
-            
-            translate.setTranslate(hx,hy);
+
+            translate.setTranslate(hx, hy);
             scale.setScale(hscale, hscale);
 
             use.transform.baseVal.appendItem(translate)
             use.transform.baseVal.appendItem(scale)
-            
+
 //            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
             use.id = 'h' + x + '_' + y;
@@ -73,6 +73,14 @@ Template.play.boardImg = function() {
 };
 Template.play.destroyed = function() {
     Session.set('board.ready', false);
+    unbindKeys();
+    unloadModule();
+};
+
+unbindKeys = function() {
+    _.each(Meteor.Keybindings._bindings, function(obj) {
+        Meteor.Keybindings.removeOne(obj.key);
+    });
 };
 
 Template.play.rendered = function() {
@@ -96,9 +104,7 @@ Template.play.rendered = function() {
 
     Deps.autorun(function() {
         console.log('keybindings - remove');
-        _.each(Meteor.Keybindings._bindings, function(obj) {
-            Meteor.Keybindings.removeOne(obj.key);
-        });
+        unbindKeys();
         if (!Template.join.guest()) {
             console.log('keybindings - add');
             Meteor.Keybindings.add({
@@ -117,16 +123,8 @@ Template.play.rendered = function() {
             });
         }
     });
-    
+
     Session.set('selectedPiece', null);
     Session.set('board.ready', true);
     svg.ready = true;
-    
-    $('script.hooks').remove();
-    var fileref = document.createElement('script');
-    fileref.setAttribute("class", "hooks");
-    fileref.setAttribute("type", "text/javascript");
-    fileref.setAttribute("src", '/games/'+getGame()+'/hooks.js'+requestSuffix());
-    document.getElementsByTagName("head")[0].appendChild(fileref);
-    console.log(fileref);
 };

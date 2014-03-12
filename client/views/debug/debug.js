@@ -4,13 +4,9 @@ Template.debug.created = function() {
         e.preventDefault();
     });
 };
-Session.setDefault('dbg', false);
-Deps.autorun(function() {
-    if (is('dbg'))
-        $('#dbgModal').modal('show');
-    else
-        $('#dbgModal').modal('hide');
-});
+dbg = function() {
+    $('#dbgModal').toggle();
+};
 
 Template.debug.session = function() {
     var result = [];
@@ -27,7 +23,7 @@ Template.debug.user = function() {
     return Template.debug.json(Meteor.user());
 };
 Template.debug.json = function(it) {
-    return JSON.stringify(it,null,' ');
+    return JSON.stringify(it, null, ' ');
 };
 Template.debug.tables = function() {
     return Tables.find();
