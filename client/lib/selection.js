@@ -1,16 +1,8 @@
 updateSelection = function() {
     var rect = sprites.selection;
     if (rect.target) {
-        copyTransformation(rect.target, rect);
-//        if(rect.target.transform.baseVal.numberOfItems > 3) {
-//            var tf = ensureTransformListSize(byId('svg'), rect.transform.baseVal, 4);
-//            tf.getItem(3).setMatrix(rect.target.transform.baseVal.getItem(3).matrix);
-//        }
-//        
-//        if (rect.x.baseVal && rect.target.x.baseVal) {
-//            rect.x.baseVal.value = rect.target.x.baseVal.value;
-//            rect.y.baseVal.value = rect.target.y.baseVal.value;
-//        }
+        copyTransformationItem(rect.target, rect, TX.POSITION);
+        copyTransformationItem(rect.target, rect, TX.OFFSET);
     }
 };
 

@@ -47,9 +47,13 @@ removeChildren = function(node) {
  * ]
  */
 copyTransformation = function(src, dest) {
+    return copyTransformationItem(src, dest, TX.POSITION);
+};
+
+copyTransformationItem = function(src, dest, item) {
     if(src.transform === undefined)
         return;
     var srcTx = src.transform.baseVal;
-    var destTx = ensureTransformListSize(byId('svg'), dest.transform.baseVal, 1);
-    destTx.getItem(TX.POSITION).setMatrix(srcTx.getItem(TX.POSITION).matrix);
+    var destTx = ensureTransformListSize(byId('svg'), dest.transform.baseVal, item+1);
+    destTx.getItem(item).setMatrix(srcTx.getItem(item).matrix);
 };
