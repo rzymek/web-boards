@@ -4,6 +4,8 @@ Operations.before.insert(function(userId, doc) {
         return;
     doc.tableId = Session.get('tableId');
     selectById(null);
+    hidePieceMenu();
+    hideStackSelector();
 });
 
 Meteor.startup(function() {

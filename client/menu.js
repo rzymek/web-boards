@@ -37,5 +37,11 @@ pieceMenu = {
             op: 'ClearMarkersOp',
             counterId: piece.id
         });
+    },
+    'Remove': function(piece) {
+        Operations.insert({
+            op: 'RemovePieceOp',
+            counterId: piece.id
+        });
     }
 };
