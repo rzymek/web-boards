@@ -52,6 +52,7 @@ alignStack = function(area/*SVGElement*/) {
             counter.removeAttribute(STACKS);
         }
         bringToTop(counter);
+        counterDim = getTBBox(counter);
         x += counterDim.width + spacing;
         if (x + counterDim.width + spacing > areaBBox.width) {
             x = 0;

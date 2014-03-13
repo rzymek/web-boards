@@ -38,24 +38,26 @@ hideStackSelector = function() {
         });
         alignStack(selector.atHex);
     }
-
-//    var counters = byId('counters');
-//    (selector.stack || []).forEach(function(it) {
-//        if (it.restoreRotation !== undefined) {
-//            it.transform.baseVal.insertItemBefore(it.restoreRotation, 3);
-//        }
-//        delete it.restoreRotation;
-//        counters.appendChild(it);
-//    });
 };
 
-showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
+function getMaxCounterSize(stack) {
+    return stack.map(function(c){
+        return getTBBox(c);
+    }).reduce(function(a,b){
+        return {
+            width: Math.max(a.width, b.width),
+            height: Math.max(a.height, b.height)
+        };
+    });
+}
+
+showStackSelector = function(hexElement/*SVGUseElement*/, stack) {
     var margin = 10;
     var svg = byId('svg');
     var selector = sprites.stackSelector;
     copyTransformation(hexElement, selector);
     var info = Session.get('gameInfo');
-    var maxCounterSize = info.counterDim;
+    var maxCounterSize = getMaxCounterSize(stack);
 
     selector.x.baseVal.value = -info.counterDim.width / 2 - margin;
     selector.y.baseVal.value = -info.counterDim.height / 2 - margin;
@@ -69,15 +71,10 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     height = margin + Math.floor(height * maxCounterSize.height) + margin;
     selector.width.baseVal.value = width;
     selector.height.baseVal.value = height;
-    var layer = svg.getElementById('stackSelectorLayer');
-    layer.appendChild(selector);
+    var stackSelectorLayer = svg.getElementById('stackSelectorLayer');
+    stackSelectorLayer.appendChild(selector);
     stack.forEach(function(it) {
-        layer.appendChild(it);
-//        console.log(it, it.transform.baseVal.numberOfItems);
-//        if (it.transform.baseVal.numberOfItems > 2) {
-//            it.restoreRotation = it.transform.baseVal.getItem(TX.ROTATE);
-////            .setRotate(0,0,0);
-//        }
+        stackSelectorLayer.appendChild(it);
     });
     selector.stack = gstack;
     alignStack(selector);
