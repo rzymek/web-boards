@@ -38,10 +38,10 @@ Counters are represented by `SVGImageElement`.
 ##### TransformList
 `.transform` (`SVGTransformList`) items are in the follwing order:
 
-1. translation
-2. scale 
+0. translation
+1. scale 
+2. translation inside stack/stackSelector
 3. rotation 
-4. translation inside stack/stackSelector
 
 All are optional, but if present must be in this order and on these positions.
 

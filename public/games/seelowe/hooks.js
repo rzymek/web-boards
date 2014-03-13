@@ -1,4 +1,3 @@
-console.warn('seelove hook');
 gameModule = function() {
     console.warn('seelove gameModule()');
     var rotations = '↑↗↘↓↙↖';
@@ -14,6 +13,27 @@ gameModule = function() {
             };
         })(i);
     }
+    pieceMenu['High'] = function(piece) {
+        Operations.insert({
+            op: 'AltitudeOp',
+            counterId: piece.id,
+            scale: 1
+        });
+    };
+    pieceMenu['Low'] = function(piece) {
+        Operations.insert({
+            op: 'AltitudeOp',
+            counterId: piece.id,
+            scale: 0.75
+        });
+    };
+    pieceMenu['Very Low'] = function(piece) {
+        Operations.insert({
+            op: 'AltitudeOp',
+            counterId: piece.id,
+            scale: 0.5
+        });
+    };
     Special.jamm = {
         src: '/games/seelowe/markers/jamm.svg',
         action: function(hex, counter) {
@@ -26,6 +46,18 @@ gameModule = function() {
             });
         }
     };
+    AltitudeOp = function(data) {
+        var svg = byId('svg');
+        var counter = byId(data.counterId);
+        var tx = ensureTransformListSize(svg, counter.transform.baseVal, 5);
+        var initial = counter.altitude || 1;
+        tx.getItem(4).setScale(data.scale, data.scale);
+        counter.altitude = data.scale;
+        return function() {
+            tx.getItem(4).setScale(initial, initial);
+        };
+    };
+
     return function() {
         for (key in pieceMenu) {
             if (key.indexOf('Rotate ') === 0) {

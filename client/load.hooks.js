@@ -22,6 +22,7 @@ Deps.autorun(function() {
     script.onload = function() {
         if (typeof(gameModule) === 'function') {
             gameModuleUnload = gameModule();
+            Session.set('module.ready', true);
         }
     };
     document.getElementsByTagName("head")[0].appendChild(script);
