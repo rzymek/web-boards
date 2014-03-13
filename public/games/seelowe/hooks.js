@@ -1,6 +1,6 @@
 console.warn('seelove hook');
 gameModule = function() {
-    console.warn('seelove gameModule()');   
+    console.warn('seelove gameModule()');
     var rotations = '↑↗↘↓↙↖';
     for (var i = 0; i < rotations.length; i++) {
         (function(i) {
@@ -14,12 +14,25 @@ gameModule = function() {
             };
         })(i);
     }
-    return function() {       
-        for(key in pieceMenu) {
-            if(key.indexOf('Rotate ') === 0) {
+    Special.jamm = {
+        src: '/games/seelowe/markers/jamm.svg',
+        action: function(hex, counter) {
+            if (!counter)
+                return;
+            Operations.insert({
+                op: 'PlaceMarkerOp',
+                src: '/games/seelowe/markers/jamm.svg',
+                counterId: counter.id
+            });
+        }
+    };
+    return function() {
+        for (key in pieceMenu) {
+            if (key.indexOf('Rotate ') === 0) {
                 delete pieceMenu[key];
             }
         }
+        delete Special.jamm;
     };
 };
 
