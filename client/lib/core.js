@@ -41,10 +41,7 @@ alignStack = function(area/*SVGElement*/) {
         var cy = y + stackOffset;
         copyTransformation(area, counter);
         var transformList = ensureTransformListSize(svg, counter.transform.baseVal, 4);
-        transformList.getItem(3).setTranslate(
-                -counter.children[0].width.baseVal.value / 2 + cx,
-                -counter.children[0].height.baseVal.value / 2 + cy
-        );
+        transformList.getItem(TX.OFFSET).setTranslate(cx,cy);
         if (layer > 0) {
             var id = counter.id;
             var stacksWith = counters[i - countersOnLayer].id;

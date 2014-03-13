@@ -28,14 +28,14 @@ hideStackSelector = function() {
     if(selector.style.visibility === 'hidden')
         return;
     selector.style.visibility = 'hidden';
-    var counters = byId('counters');
-    (selector.stack || []).forEach(function(it) {
-        if (it.restoreRotation !== undefined) {
-            it.transform.baseVal.insertItemBefore(it.restoreRotation, 3);
-        }
-        delete it.restoreRotation;
-        counters.appendChild(it);
-    });
+//    var counters = byId('counters');
+//    (selector.stack || []).forEach(function(it) {
+//        if (it.restoreRotation !== undefined) {
+//            it.transform.baseVal.insertItemBefore(it.restoreRotation, 3);
+//        }
+//        delete it.restoreRotation;
+//        counters.appendChild(it);
+//    });
 };
 
 showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement[]*/) {
@@ -62,10 +62,11 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     layer.appendChild(selector);
     stack.forEach(function(it) {
         layer.appendChild(it);
-        console.log(it, it.transform.baseVal.numberOfItems);
-        if (it.transform.baseVal.numberOfItems > 2) {
-            it.restoreRotation = it.transform.baseVal.getItem(2).setRotate(0,0,0);
-        }
+//        console.log(it, it.transform.baseVal.numberOfItems);
+//        if (it.transform.baseVal.numberOfItems > 2) {
+//            it.restoreRotation = it.transform.baseVal.getItem(TX.ROTATE);
+////            .setRotate(0,0,0);
+//        }
     });
     selector.stack = gstack;
     alignStack(selector);

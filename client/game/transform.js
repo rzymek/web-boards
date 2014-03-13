@@ -4,7 +4,3 @@ ensureTransformListSize = function(svg, transformList, size) {
     }
     return transformList;    
 };
-
-translateScaleRotate = function(svg, transformList) {
-    return ensureTransformListSize(svg, transformList, 3);
-};

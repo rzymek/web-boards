@@ -13,9 +13,9 @@ Template.piece.events({
     'click img': function(e) {
         var img = e.currentTarget;
         var val = img.id;
-        if (Session.equals('selectedPiece', val))
+        if (getSelectedId() === val)
             val = null;
-        Session.set('selectedPiece', val);
+        selectById(val);
     }
 });
 

@@ -1,5 +1,5 @@
 getRotatation = function(svg, transformList) {
-    return translateScaleRotate(svg, transformList).getItem(2);
+    return ensureTransformListSize(svg, transformList, 4).getItem(TX.ROTATE);
 };
 
 RotateOp = function(data) {

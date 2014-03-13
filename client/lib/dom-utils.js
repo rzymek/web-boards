@@ -51,5 +51,5 @@ copyTransformation = function(src, dest) {
         return;
     var srcTx = src.transform.baseVal;
     var destTx = ensureTransformListSize(byId('svg'), dest.transform.baseVal, 1);
-    destTx.getItem(0).setMatrix(srcTx.getItem(0).matrix);
+    destTx.getItem(TX.POSITION).setMatrix(srcTx.getItem(TX.POSITION).matrix);
 };
