@@ -3,15 +3,6 @@ hexClicked = function(e) {
         return;
     hideStackSelector();
     
-    var selector = sprites.stackSelector;
-    if (selector.atHex) {
-        selector.stack.forEach(function(it) {
-            it.style.pointerEvents = '';
-            it.onclick = undefined;
-        });
-        alignStack(selector.atHex);
-    }
-
     var use = e.currentTarget;
 
     var selectedId = getSelectedId();

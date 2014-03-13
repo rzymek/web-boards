@@ -25,9 +25,20 @@ addTo = function(list, element) {
 
 hideStackSelector = function() {
     var selector = sprites.stackSelector;
-    if(selector.style.visibility === 'hidden')
+    if (selector.style.visibility === 'hidden')
         return;
     selector.style.visibility = 'hidden';
+    
+    var layer = byId('counters');
+    if (selector.atHex) {
+        selector.stack.forEach(function(it) {
+            it.style.pointerEvents = '';
+            it.onclick = undefined;
+            layer.appendChild(it);
+        });
+        alignStack(selector.atHex);
+    }
+
 //    var counters = byId('counters');
 //    (selector.stack || []).forEach(function(it) {
 //        if (it.restoreRotation !== undefined) {
@@ -46,8 +57,8 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack/*SVGImageElement
     var info = Session.get('gameInfo');
     var maxCounterSize = info.counterDim;
 
-    selector.x.baseVal.value = -info.counterDim.width/2 - margin;
-    selector.y.baseVal.value = -info.counterDim.height/2 - margin;
+    selector.x.baseVal.value = -info.counterDim.width / 2 - margin;
+    selector.y.baseVal.value = -info.counterDim.height / 2 - margin;
     selector.style.visibility = 'visible';
     var gstack = stack.concat().reverse();
     var size = Math.sqrt(gstack.length);
