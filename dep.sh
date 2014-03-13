@@ -1,6 +1,6 @@
 #!/bin/bash
 git log > public/log
-meteor deploy wb.meteor.com #--debug
+meteor deploy wb.meteor.com --debug
 echo 'Stable? [ENTER / Ctrl+C]'
 read
 meteor deploy wbs.meteor.com 

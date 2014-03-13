@@ -6,11 +6,14 @@ Deps.autorun(function() {
     }
     drawSelection(selected);
 });
-
-selectById = function(id)  {
-    Session.set('selectedPiece', id);
+selectedPiece = null;
+selectById = function(id) {
+    selectedPiece = id;
+    drawSelection(id);
+//    Session.set('selectedPiece', id);
 };
 
 getSelectedId = function() {
-    return Session.get('selectedPiece');
+    return selectedPiece;
+//    return Session.get('selectedPiece');
 };
