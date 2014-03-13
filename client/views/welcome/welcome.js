@@ -35,6 +35,13 @@ Template.welcome.fmtDate = function(millis) {
 };
 
 Template.welcome.events({
+    'click .start-game': function(e) {
+        var t = e.currentTarget;
+        var tableId = Tables.insert({
+            game: t.value
+        });
+        Router.go('play', {_id: tableId});
+    },
     'click .leave-game': function(e) {
         var id = e.currentTarget.value;
         if (window.confirm('Leave game ' + id + '?')) {
