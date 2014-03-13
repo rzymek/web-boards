@@ -4,13 +4,13 @@ PlaceMarkerOp = function(data) {
 
     for (var i = 1; i < counter.children.length; i++) {
         var c = counter.children[i];
-        if(c.marker) {
-            if(c.href.baseVal === data.src) {
+        if (c.marker) {
+            if (c.href.baseVal === data.src) {
                 c.remove();
-                return function() {                    
+                return function() {
                     //insertAfter: https://developer.mozilla.org/pl/docs/DOM/element.insertBefore
-                    counter.insertBefore(c, counter.children[i-1].nextSibling);
-                }
+                    counter.insertBefore(c, counter.children[i - 1].nextSibling);
+                };
             }
         }
     }
