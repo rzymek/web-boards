@@ -64,6 +64,9 @@ gameModule = function() {
                 delete pieceMenu[key];
             }
         }
+        delete pieceMenu['High'];
+        delete pieceMenu['Low'];
+        delete pieceMenu['Very Low'];
         delete Special.jamm;
     };
 };
