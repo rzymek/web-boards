@@ -1,0 +1,22 @@
+<template name="scenario">
+    {{#if visible}}
+    <nav id="scenarioNavBar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <span class="navbar-brand">Scenario: </span>
+                <form class="navbar-form navbar-left" role="search">
+                    <select class="form-control scenarios" >
+                        {{#each scenarios}}
+                        <option>{{.}}</option>
+                        {{/each}}
+                    </select>
+                    <button type="button" class="btn btn-default">Select</button>
+                </form>
+                <div class="navbar-right">
+                    <button id="hide" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {{/if}}
+</template>

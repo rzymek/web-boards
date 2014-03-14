@@ -37,4 +37,20 @@ Router.map(function() {
             }
         }
     });
+    this.route('scenarios', {
+        where: 'server',
+        path: '/games/:game/scenarios.json',
+        action: function() {
+            var fs = Npm.require('fs');
+            var response = this.response;
+            var filename = '../client/app/games/' + this.params.game + '/scenarios.json';
+            console.log(filename);
+            response.writeHead(200, {'Content-Type': 'text/javascript'});
+            if (fs.existsSync(filename)) {
+                response.end(fs.readFileSync(filename));
+            } else {
+                response.end("{}");
+            }
+        }
+    });
 });
