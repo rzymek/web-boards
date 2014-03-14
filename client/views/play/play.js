@@ -124,7 +124,7 @@ Template.play.rendered = function() {
         }
     });
 
-    Session.set('selectedPiece', null);
+    selectById(null);
     Session.set('board.ready', true);
     svg.ready = true;
 };
