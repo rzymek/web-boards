@@ -1,7 +1,5 @@
 
 Operations.before.insert(function(userId, doc) {
-    if (!doc)
-        return;
     doc.tableId = Session.get('tableId');
     selectById(null);
     hidePieceMenu();
@@ -28,15 +26,3 @@ Meteor.startup(function() {
         }
     });
 });
-
-Deps.autorun(function(c) {
-    var tableId = Session.get('tableId');
-    console.log('sprites.ready', 'board.ready', Session.get('sprites.ready'), Session.get('board.ready'), tableId);
-    /* The board need to be fully ready before any Ops are executed */
-    if (is('sprites.ready', 'board.ready', 'module.ready') && tableId) {
-        console.log('sub ops...', tableId);
-        Meteor.subscribe('operations', tableId);
-    }
-});
-
-
