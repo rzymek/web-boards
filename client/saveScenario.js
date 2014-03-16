@@ -1,17 +1,12 @@
 
 saveSceno = function() {
-    var counters = byId('counters').children;
-    console.log('----------------');
-    var setup = [];
-    for (var i = 0; i < counters.length; i++) {
-        var c = counters[i];
-        setup.push([
-            c.category,
-            c.name,
-            c.position.id
-        ]);
-    }
-    return setup;
+    var ops = Operations.find().fetch().map(function(it){
+        delete it._id;
+        delete it.createdAt;
+        delete it.tableId;
+        return it;
+    });
+    return ops;
 };
 
 showSceno = function (){    
