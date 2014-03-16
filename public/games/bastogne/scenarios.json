@@ -1,4 +1,307 @@
 {
-    "5.2 Longvilly":
-            [["Cherry", "D/3", "h44_13"], ["Cherry", "C/20", "h45_13"], ["Cherry", "A/3", "h48_12"], ["Cherry", "C/609", "h48_11"], ["Cherry", "D/90", "h37_18"], ["Cherry", "HHC/3", "h36_18"], ["CCR", "HHC", "h46_13"], ["CCR", "C/482", "h49_13"], ["501", "A/1", "h31_17"], ["501", "B/1", "h31_17"], ["501", "C/1", "h31_17"], ["501", "D/2", "h31_17"], ["501", "E/2", "h31_17"], ["501", "F/2", "h31_17"], ["501", "G/3", "h31_17"], ["501", "H/3", "h31_17"], ["26 VG", "1/I/78", "h55_7"], ["26 VG", "2/I/78", "h55_7"], ["26 VG", "3/I/78", "h55_7"], ["26 VG", "4/I/78", "h55_7"], ["26 VG", "S/I/78", "h55_7"], ["26 VG", "5/II/78", "h55_8"], ["26 VG", "6/II/78", "h55_8"], ["26 VG", "7/II/78", "h55_8"], ["26 VG", "8/II/78", "h55_8"], ["26 VG", "S/II/78", "h55_8"], ["26 VG", "1/I/77", "h55_10"], ["26 VG", "2/I/77", "h55_10"], ["26 VG", "3/I/77", "h55_10"], ["26 VG", "4/I/77", "h55_10"], ["26 VG", "S/I/77", "h55_10"], ["26 VG", "5/II/77", "h55_11"], ["26 VG", "6/II/77", "h55_11"], ["26 VG", "7/II/77", "h55_11"], ["26 VG", "8/II/77", "h55_11"], ["26 VG", "S/II/77", "h55_11"], ["KG 902", "1/I", "h55_12"], ["KG 902", "2/I", "h55_12"], ["KG 902", "3/I", "h55_12"], ["KG 902", "5/II", "h55_13"], ["KG 902", "6/II", "h55_13"], ["KG 902", "7/II", "h55_13"], ["KG 902", "5/130", "h55_14"], ["KG 902", "7/130", "h55_14"], ["KG 902", "9", "h55_15"], ["KG 902", "10", "h55_15"], ["KG 902", "Arty", "h55_15"], ["26 VG", "IV/26", "h50_17"]]
+    "5.2 Longvilly": [
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/3",
+            "hexid": "h45_13"
+        },
+        {
+            "op": "MoveOp",
+            "counter": "oLe5DhEsaLqT2QFw3",
+            "to": "h44_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/20",
+            "hexid": "h45_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "A/3",
+            "hexid": "h48_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/609",
+            "hexid": "h48_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/90",
+            "hexid": "h37_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "HHC/3",
+            "hexid": "h36_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "HHC",
+            "hexid": "h46_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "C/482",
+            "hexid": "h49_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "A/1",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "B/1",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "C/1",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "D/2",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "E/2",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "F/2",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "G/3",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "H/3",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "1/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "2/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "3/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "6/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "9",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "10",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "Arty",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "IV/26",
+            "hexid": "h50_17"
+        },
+        {
+            "op": "NoteOp",
+            "text": "turn 3",
+            "hexid": "h50_17"
+        },
+        {
+            "op": "NoteOp",
+            "text": "turn 2",
+            "hexid": "h31_17"
+        }
+    ]
 }
