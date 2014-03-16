@@ -7,11 +7,6 @@
             "hexid": "h45_13"
         },
         {
-            "op": "MoveOp",
-            "counter": "oLe5DhEsaLqT2QFw3",
-            "to": "h44_13"
-        },
-        {
             "op": "PlaceOp",
             "category": "Cherry",
             "name": "C/20",
