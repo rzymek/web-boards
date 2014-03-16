@@ -1,12 +1,15 @@
 FlipOp = function(data) {
-    var svg = document.getElementById('svg');
-    var counter = svg.getElementById(data.counterId);
-    var oldHref = counter.href.baseVal;
+    var svg = byId('svg');
+    var counter = byId(data.counterId);
+    var img = counter.children[0];
+    var oldHref = img.href.baseVal;
+    var oldSideIdx = counter.side;
     var newSideIdx = (counter.side + 1) % counter.sides.length;
     var newSide = counter.sides[newSideIdx];
-    counter.href.baseVal = counter.href.baseVal.replace(/([^/])*$/, newSide);
+    img.href.baseVal = img.href.baseVal.replace(/([^/])*$/, newSide);
     counter.side = newSideIdx;
     return function() {
-        counter.href.baseVal = oldHref;
+        img.href.baseVal = oldHref;
+        counter.side = oldSideIdx;
     };
 };
