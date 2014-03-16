@@ -29,7 +29,6 @@ PlaceOp = function(data) {
         counter.id = data._id;
         
         var cnt = find(info, data.category, data.name);
-        console.log(cnt);
         counter.sides = cnt.images;
         counter.side = 0;
         counter.name = data.name;
