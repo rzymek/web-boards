@@ -66,10 +66,6 @@ Template.play.board = function() {
 
 Template.play.boardImg = function() {
     var info = Session.get('gameInfo');
-    var override = Session.get('boardImgOverride');
-    if (override) {
-        return override;
-    }
     var table = getTable({fields: {game: 1}});
     if (info && table) {
         return '/games/' + table.game + '/images/' + info.board.image;
@@ -83,6 +79,23 @@ Template.play.destroyed = function() {
     unbindKeys();
     unloadModule();
 };
+
+Deps.autorun(function() {
+    if (!is('board.ready'))
+        return;
+    var override = Session.get('boardImgOverride');
+    var svg = byId('svg');
+    var img = _.toArray(svg.children).filter(function(e) {
+        return e.tagName === 'image'
+    })[0];
+    if (override) {
+        img.origHref = img.href.baseVal;
+        img.href.baseVal = override;
+    } else if (img.origHref) {
+        img.href.baseVal = img.origHref;
+        delete img.origHref;
+    }
+});
 
 unbindKeys = function() {
     _.each(Meteor.Keybindings._bindings, function(obj) {
@@ -122,8 +135,8 @@ Template.play.rendered = function() {
                     alert('redo not implemented yet');
                 },
                 'ctrl+shift+s': function() {
-                    var override = Session.get('boardImgOverride');
-                    Session.set('boardImgOverride', override ? null : '/img/board-sfw.jpg');
+                    Session.set('boardImgOverride',
+                            Session.get('boardImgOverride') ? null : '/img/board-sfw.jpg');
                 },
                 'Q': function() {
                     byId('svg').zoom(+1);
