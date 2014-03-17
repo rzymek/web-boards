@@ -1,6 +1,6 @@
 Operations.after.insert(function(userId, doc) {
     Tables.update(doc.tableId, {
-        $set: {ops: Operations.find().count()}
+        $set: {ops: Operations.find({tableId: doc.tableId}).count()}
     });
 });
 
