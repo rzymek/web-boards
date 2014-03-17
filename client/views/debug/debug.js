@@ -36,6 +36,9 @@ Template.debug.events({
     'click .reset': function() {
         Meteor.call('reset');
     },
+    'click .dbg-key': function(e) {
+        $(e.currentTarget.nextElementSibling.firstElementChild).toggle();
+    },
     'click .selectTable': function(e) {
         var id = e.currentTarget.getAttribute('value');
         if (opsSub) {
