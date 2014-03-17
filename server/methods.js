@@ -2,7 +2,8 @@ function getPlayerNames(table) {
     return table.players.map(function(it) {
         return Meteor.users.findOne(it).emails[0].address;
     })
-}
+};
+
 Meteor.methods({
     games: function() {
         var fs = Npm.require('fs');
@@ -57,5 +58,12 @@ Meteor.methods({
             return;
         }
         Operations.remove(last._id);
+    },
+    logError: function(data) {
+        data.user = getCurrentUsername();
+        data.userId = Meteor.userId();
+        data.time = new Date();
+        ErrorLog.insert(data);
+        console.warn('client error', data);
     }
 });

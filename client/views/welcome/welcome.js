@@ -23,15 +23,7 @@ Template.welcome.listPlayers = function(table) {
 };
 
 Template.welcome.fmtDate = function(millis) {
-    function fmt(c, s) {
-        while (s.toString().length < c) {
-            s = '0' + s;
-        }
-        return s;
-    }
-    var d = new Date(millis);
-    return d.getFullYear() + "-" + fmt(2, d.getMonth() + 1) + "-" + fmt(2, d.getDay()) + " "
-            + fmt(2, d.getHours()) + ":" + fmt(2, d.getMinutes());
+    return dateFmt(new Date(millis));
 };
 
 Template.welcome.events({
@@ -73,7 +65,3 @@ Template.welcome.tables = function() {
         sort: ['started', 'asc']
     });
 };
-
-function getUsername() {
-    return Meteor.user().emails[0].address;
-}

@@ -1,0 +1,1 @@
+ErrorLog = new Meteor.Collection('errorlog');
