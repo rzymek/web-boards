@@ -24,6 +24,7 @@ Operations.before.insert(function(userId, doc) {
 
 var selectedSceno = null;
 var undoCurrentSceno = null;
+
 Template.scenario.events({
     'change .scenarios': function(e) {
         if (undoCurrentSceno) {
@@ -34,6 +35,17 @@ Template.scenario.events({
         selectedSceno = e.currentTarget.value;
         if (selectedSceno in scenos) {
             undoCurrentSceno = ScenarioOp({name: selectedSceno});
+        }
+    },
+    'click .selectSceno': function() {
+        if (selectedSceno === null) {
+            $('#scenarioNavBar').hide();
+        } else {
+            undoCurrentSceno();
+            Operations.insert({
+                op: 'ScenarioOp',
+                name: selectedSceno
+            });
         }
     },
     'click #hide': function() {

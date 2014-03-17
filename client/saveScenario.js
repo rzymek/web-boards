@@ -1,7 +1,6 @@
 
 saveSceno = function() {
     var ops = Operations.find().fetch().map(function(it){
-        delete it._id;
         delete it.createdAt;
         delete it.tableId;
         return it;
