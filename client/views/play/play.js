@@ -63,14 +63,21 @@ Template.play.board = function() {
         h: gameInfo.board.height
     };
 };
+
 Template.play.boardImg = function() {
     var info = Session.get('gameInfo');
+    var override = Session.get('boardImgOverride');
+    if (override) {
+        return override;
+    }
     var table = getTable({fields: {game: 1}});
-    if (info && table)
+    if (info && table) {
         return '/games/' + table.game + '/images/' + info.board.image;
-    else
+    } else {
         return '/img/loading.gif';
+    }
 };
+
 Template.play.destroyed = function() {
     Session.set('board.ready', false);
     unbindKeys();
@@ -113,6 +120,10 @@ Template.play.rendered = function() {
                 'ctrl+z': menu.Undo,
                 'ctrl+shift+z': function() {
                     alert('redo not implemented yet');
+                },
+                'ctrl+shift+s': function() {
+                    var override = Session.get('boardImgOverride');
+                    Session.set('boardImgOverride', override ? null : '/img/board-sfw.jpg');
                 },
                 'Q': function() {
                     byId('svg').zoom(+1);

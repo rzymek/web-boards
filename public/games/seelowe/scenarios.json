@@ -1,13 +1,3 @@
 {
-    "Scenario 1": [
-        ["British", "Spitfire Mk I (L)", "h10_24"],
-        ["British", "Spitfire Mk I", "h11_25"],
-        ["British", "Spitfire Mk I", "h9_25"],
-        ["German", "HE-111 H3 (1)", "h39_14"],
-        ["German", "HE-111 H3 (1)", "h39_13"],
-        ["German", "HE-111 H3 (1)", "h39_12"],
-        ["German", "HE-111 H3 (1)", "h40_12"],
-        ["German", "Bf-110 C (2)", "h38_12"],
-        ["German", "Bf-110 C (2)", "h38_13"]
-    ]
+
 }
