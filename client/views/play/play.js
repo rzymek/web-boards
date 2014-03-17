@@ -134,6 +134,10 @@ Template.play.rendered = function() {
                 'ctrl+shift+z': function() {
                     alert('redo not implemented yet');
                 },
+                'ctrl+shift+d': function(e) {
+                    dbg();
+                    e.preventDefault();
+                },
                 'ctrl+shift+s': function() {
                     Session.set('boardImgOverride',
                             Session.get('boardImgOverride') ? null : '/img/board-sfw.jpg');
