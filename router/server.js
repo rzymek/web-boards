@@ -53,4 +53,16 @@ Router.map(function() {
             }
         }
     });
+    this.route('dbg-users', {
+        where: 'server',
+        path: '/usr',
+        action: function() {
+            this.response.writeHead(200, {'Content-Type': 'text/plain'});
+            var users={};            
+            Meteor.users.find({}, {fields: {emails: 1, createdAt: 1}}).forEach(function(user) {
+                users[user.emails[0].address] = user.createdAt;
+            });
+            this.response.end(JSON.stringify(users, null, ' '));
+        }
+    });
 });
