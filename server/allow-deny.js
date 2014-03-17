@@ -23,7 +23,7 @@ Operations.allow({
             check(op.tableId, String);
             check(op.tableId, Match.Where(function(tableId) {
                 var table = Tables.findOne(tableId);
-                return (table !== null) && (userId in table.players);
+                return (table !== null) && (table !== undefined) && (userId in table.players);
             }));
             if (op.server !== undefined) {
                 op.result = {};
