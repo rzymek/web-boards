@@ -45,6 +45,7 @@ Meteor.methods({
         console.log('FULL RESET');
         Operations.remove({});
         Tables.remove({});
+        ErrorLog.remove({});
     },
     undo: function() {
         var last = Operations.findOne({}, {
