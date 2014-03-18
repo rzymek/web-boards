@@ -15,6 +15,7 @@ Operations.before.insert(function(userId, doc) {
     if (doc.op === 'ScenarioOp')
         return;
     if (!isGameStarted()) {
+        callUndoCurrentSceno();
         Operations.insert({
             op: 'ScenarioOp',
             name: selectedSceno
@@ -22,15 +23,19 @@ Operations.before.insert(function(userId, doc) {
     }
 });
 
+function callUndoCurrentSceno() {
+    if (undoCurrentSceno) {
+        undoCurrentSceno();
+        undoCurrentSceno = null;
+    }
+}
+
 var selectedSceno = null;
 var undoCurrentSceno = null;
 
 Template.scenario.events({
     'change .scenarios': function(e) {
-        if (undoCurrentSceno) {
-            undoCurrentSceno();
-            undoCurrentSceno = null;
-        }
+        callUndoCurrentSceno();
         var scenos = Session.get('scenarios');
         selectedSceno = e.currentTarget.value;
         if (selectedSceno in scenos) {
@@ -41,7 +46,7 @@ Template.scenario.events({
         if (selectedSceno === null) {
             $('#scenarioNavBar').hide();
         } else {
-            undoCurrentSceno();
+            callUndoCurrentSceno();
             Operations.insert({
                 op: 'ScenarioOp',
                 name: selectedSceno
