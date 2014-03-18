@@ -1,7 +1,22 @@
+CRT = [
+    ["     ", "1:3 ", "1:2 ", "1:1 ", "2:1 ", "3:1 ", "4:1 ", "5:1 "],
+    ["2    ", "A1r2", "A1r2", "A1r2", "A1r1", "A1r1", "A1  ", "A1  "],
+    ["3    ", "A1r2", "A1r2", "A1r1", "A1r1", "A1  ", "A1  ", "A1D1"],
+    ["4    ", "A1r2", "A1r1", "A1r1", "A1  ", "A1  ", "A1D1", "D1r1"],
+    ["5    ", "A1r1", "A1r1", "A1  ", "A1  ", "A1D1", "D1r1", "D1r2"],
+    ["6    ", "A1r1", "A1  ", "A1  ", "A1D1", "D1r1", "D1r2", "D1r2"],
+    ["7    ", "A1  ", "A1  ", "A1D1", "D1r1", "D1r2", "D1r2", "D1r3"],
+    ["8    ", "A1  ", "A1  ", "A1D1", "D1r1", "D1r2", "D1r2", "D1r3"], //same
+    ["9    ", "A1  ", "A1D1", "D1r1", "D1r2", "D1r2", "D1r3", "D1r4"],
+    ["10   ", "A1  ", "D1r1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r5"],
+    ["11   ", "A1  ", "D1r1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r5"], //same 
+    ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"],
+];
+
 gameModule = function() {
     var origMoveOp = MoveOp;
     MoveOp = function(data) {
-        var counter = byId(data.counter);       
+        var counter = byId(data.counter);
         if (counter.name.match(/ DG$/)) {
             return origMoveOp(data);
         }
@@ -40,6 +55,7 @@ gameModule = function() {
 
     return function() {
         MoveOp = origMoveOp;
+        delete CRT;
     };
 };
 
