@@ -18,4 +18,8 @@ Meteor.startup(function() {
             ]
         });
     });
+    
+    Meteor.publish('edit', function() {
+        return Edit.find();
+    });
 });

@@ -1,16 +1,18 @@
-if (!isTouchDevice()) {
-    Template.play.svgWidth = '100%';
-    Template.play.svgHeight = '100%';
-} else {
-    Template.play.svgWidth = function() {
-        return Template.play.board().w;
-    };
-    Template.play.svgHeight = function() {
-        return Template.play.board().h;
-    };
+setupSvgWidth = function(tmpl) {
+    if (!isTouchDevice()) {
+        tmpl.svgWidth = '100%';
+        tmpl.svgHeight = '100%';
+    } else {
+        tmpl.svgWidth = function() {
+            return tmpl.board().w;
+        };
+        Template.play.svgHeight = function() {
+            return tmpl.board().h;
+        };
+    }
 }
 
-function setupGrid(svg) {
+setupGrid = function(svg, hexClicked) {
     var layer = svg.getElementById('hexes');
     if (layer.childNodes.length > 0) {
         return svg; //already setup
@@ -58,6 +60,8 @@ function setupGrid(svg) {
 
 Template.play.board = function() {
     var gameInfo = Session.get('gameInfo');
+    if (!gameInfo)
+        return;
     return {
         w: gameInfo.board.width,
         h: gameInfo.board.height
@@ -103,13 +107,17 @@ unbindKeys = function() {
     });
 };
 
+Meteor.startup(function(){
+    setupSvgWidth(Template.play);
+});
+
 Template.play.rendered = function() {
     console.log('play rendered');
 
     var svg = byId('svg');
     if (svg.ready)
         return;
-
+    
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
         $('#menu').addClass('touch');
@@ -120,7 +128,7 @@ Template.play.rendered = function() {
     if (gameInfo.board.grid === null) {
         return;
     }
-    setupGrid(svg);
+    setupGrid(svg, hexClicked);
 
     Deps.autorun(function() {
         console.log('keybindings - remove');
