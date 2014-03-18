@@ -3,7 +3,8 @@ hexClicked = function(e) {
         return;
     hideStackSelector();
     
-    var use = e.currentTarget;
+    var hex = e.currentTarget;
+    console.log(hex.id);
 
     var selectedId = getSelectedId();
     if (selectedId === null) {
@@ -12,15 +13,15 @@ hexClicked = function(e) {
             hidePieceMenu();
             return;
         }
-        var stack = use.stack;
+        var stack = hex.stack;
         if (stack === undefined || stack === null || stack.length === 0) {
             //empty hex -> show global menu
-            showMenu(use);
+            showMenu(hex);
             return;
         }
         if (stack.length > 1) {
             //there's a stack, show stack selector
-            showStackSelector(use, stack);
+            showStackSelector(hex, stack);
         } else if (stack.length === 1) {
             //single counter in hex -> select it
             selectById(stack[0].id);
@@ -29,7 +30,7 @@ hexClicked = function(e) {
     } else {
         // there's was a counter selected before this click
         var img = byId(selectedId);
-        if (img.position && img.position.id === use.id) {
+        if (img.position && img.position.id === hex.id) {
             //clicked on a selected counter
             if (!showingPieceMenu()) {
                 //first click on a selected counter -> show counter menu here
@@ -50,14 +51,14 @@ hexClicked = function(e) {
             Operations.insert({
                 op: 'MoveOp',
                 counter: img.id,
-                to: use.id
+                to: hex.id
             });
         } else {
             if (img.getAttribute('category') === 'Special') {
                 var counter = null;
-                if(use.stack && use.stack.length > 0)
-                    counter = use.stack[0];
-                Special[img.id].action(use, counter);
+                if(hex.stack && hex.stack.length > 0)
+                    counter = hex.stack[0];
+                Special[img.id].action(hex, counter);
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
@@ -69,7 +70,7 @@ hexClicked = function(e) {
                     op: 'PlaceOp',
                     category: img.getAttribute('category'),
                     name: img.getAttribute('name'),
-                    hexid: use.id
+                    hexid: hex.id
                 });
             }
         }
