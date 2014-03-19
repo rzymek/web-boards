@@ -115,16 +115,17 @@ Edit.find().observe({
 
 Deps.autorun(function() {
     var g = Session.get('editingGame');
-    if(g)
+    if (is('edit.ready') && g)
         Meteor.subscribe("edit", g);
 });
 
+Template.play.destroyed = function() {
+    Session.set('edit.ready', false);
+};
 Template.edit.rendered = function() {
-    console.log('play rendered');
-
     var svg = byId('svg');
     if (svg.ready)
-        return;
+        return; 
 
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
@@ -137,4 +138,5 @@ Template.edit.rendered = function() {
         return;
     }
     setupGrid(svg, editHexClicked);
+    Session.set('edit.ready', true);
 };
