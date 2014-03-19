@@ -19,7 +19,7 @@ Meteor.startup(function() {
         });
     });
     
-    Meteor.publish('edit', function() {
-        return Edit.find();
+    Meteor.publish('edit', function(game) {
+        return Edit.find({game:game});
     });
 });

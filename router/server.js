@@ -88,4 +88,17 @@ Router.map(function() {
             this.response.end(JSON.stringify(errors, null, ' '));
         }
     });
+    this.route('edit.export', {
+        where: 'server',
+        path: '/edit/:game/export',
+        action: function() {
+            this.response.writeHead(200, {'Content-Type': 'text/javascript'});
+            var out = Edit.find({
+                game: this.params.game
+            }, {
+                fields: {from: 1, to: 1, type: 1, _id: 0}
+            }).fetch();
+            this.response.end(JSON.stringify(out, null, ' '));
+        }
+    });
 });

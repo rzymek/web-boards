@@ -30,6 +30,9 @@ Template.edit.events({
 Meteor.startup(function() {
     setupSvgWidth(Template.edit);
 });
+Edit.before.insert(function(userId, doc) {
+    doc.game = Session.get('editingGame');
+});
 
 var actions = {
     '': function() {
@@ -110,6 +113,10 @@ Edit.find().observe({
     }
 });
 
+Deps.autorun(function() {
+    Meteor.subscribe("edit", Session.get('editingGame'));
+});
+
 Template.edit.rendered = function() {
     console.log('play rendered');
 
@@ -128,5 +135,4 @@ Template.edit.rendered = function() {
         return;
     }
     setupGrid(svg, editHexClicked);
-    Meteor.subscribe("edit");
 };
