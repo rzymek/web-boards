@@ -54,10 +54,10 @@ hexClicked = function(e) {
             });
         } else {
             if (counter.getAttribute('category') === 'Special') {
-                var counter = null;
+                var target = null;
                 if(hex.stack && hex.stack.length > 0)
-                    counter = hex.stack[0];
-                Special[counter.id].action(hex, counter);
+                    target = hex.stack[0];
+                Special[counter.id].action(hex, target);
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
