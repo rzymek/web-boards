@@ -47,8 +47,8 @@ var actions = {
 };
 var maps = {
     road: {color: 'black'},
-    trail: {color: 'yellow'},
-    rail: {color: 'lightgray'},
+    trail: {color: 'brown'},
+    rail: {color: 'gray'},
     stream: {color: 'blue'},
     interrupted: {color: 'red'}
 };
