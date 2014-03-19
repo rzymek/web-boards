@@ -101,12 +101,6 @@ Deps.autorun(function() {
     }
 });
 
-unbindKeys = function() {
-    _.each(Meteor.Keybindings._bindings, function(obj) {
-        Meteor.Keybindings.removeOne(obj.key);
-    });
-};
-
 Meteor.startup(function(){
     setupSvgWidth(Template.play);
 });
@@ -135,28 +129,7 @@ Template.play.rendered = function() {
         unbindKeys();
         if (!Template.join.guest()) {
             console.log('keybindings - add');
-            Meteor.Keybindings.add({
-                '←': menu.Back,
-                '→': menu.Fwd,
-                'ctrl+z': menu.Undo,
-                'ctrl+shift+z': function() {
-                    alert('redo not implemented yet');
-                },
-                'ctrl+shift+d': function(e) {
-                    dbg();
-                    e.preventDefault();
-                },
-                'ctrl+shift+s': function() {
-                    Session.set('boardImgOverride',
-                            Session.get('boardImgOverride') ? null : '/img/board-sfw.jpg');
-                },
-                'Q': function() {
-                    byId('svg').zoom(+1);
-                },
-                'W': function() {
-                    byId('svg').zoom(-1);
-                }
-            });
+            bindKeys();
         }
     });
 
