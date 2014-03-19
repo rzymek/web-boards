@@ -1,3 +1,5 @@
+sprites = {};
+
 $.get('/sprites.svg'+requestSuffix()).done(function(data) {
     sprites.defs = data.getElementsByTagName('defs')[0];
     var elements = data.getElementById('tmpl').childNodes;
@@ -12,7 +14,7 @@ $.get('/sprites.svg'+requestSuffix()).done(function(data) {
     console.error(err);
     window.alert('Failed to get sprites.svg: '+err);
 });
-
+ 
 Deps.autorun(function attachSprites() {
     if (!is('sprites.ready', 'board.ready'))
         return;

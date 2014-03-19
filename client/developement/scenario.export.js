@@ -1,4 +1,4 @@
-saveSceno = function() {
+var saveSceno = function() {
     var scenos = Session.get('scenarios');
     return Operations.find().fetch().map(function(data) {
         if (data.op === 'ScenarioOp') {
@@ -17,7 +17,7 @@ saveSceno = function() {
         return it;
     });
 };
-showSceno = function() {
+scenoExport = function() {
     var output = saveSceno();
     var json = JSON.stringify(output);//,null, ' ');
     window.open('data:application/json;' + (window.btoa ? 'base64,' + btoa(json) : json));

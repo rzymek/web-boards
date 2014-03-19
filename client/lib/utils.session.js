@@ -1,4 +1,3 @@
-
 Session.setDefault('gameInfo', null);
 Session.setDefault('tableId', null);
 Session.setDefault('config', '');
@@ -7,8 +6,6 @@ Session.set('board.ready', false);
 Session.set('sprites.ready', false);
 Session.set('module.ready', false);
 Session.set('ops.ready', false);
-
-sprites = {};
 
 is = function() {
     var result = true;
