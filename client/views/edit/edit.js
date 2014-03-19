@@ -127,7 +127,7 @@ Template.play.destroyed = function() {
 Template.edit.rendered = function() {
     var svg = byId('svg');
     if (svg.ready)
-        return; 
+        return;
 
     if (!isTouchDevice()) {
         svgZoomAndPan(svg);
@@ -142,3 +142,11 @@ Template.edit.rendered = function() {
     setupGrid(svg, editHexClicked);
     Session.set('edit.ready', true);
 };
+
+importEdit = function() {
+    $.get('/games/' + Session.get('editingGame') + '/hex-info.json').done(function(data) {
+        data.forEach(function(it) {
+            Edit.insert(it);
+        });
+    });
+}
