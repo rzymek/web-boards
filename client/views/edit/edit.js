@@ -46,8 +46,9 @@ var actions = {
 var maps = {
     road: {color: 'black'},
     trail: {color: 'yellow'},
-    rail: {color: 'red'},
-    stream: {color: 'blue'}
+    rail: {color: 'lightgray'},
+    stream: {color: 'blue'},
+    interrupted: {color: 'red'}
 };
 
 var selected = Object.keys(maps)[0];
@@ -86,25 +87,24 @@ function editHexClicked(e) {
     last = hex;
 }
 
-function tx() {
-    return Object.keys(maps).indexOf(selected) * 3;
+function tx(type) {
+    var k = Object.keys(maps);
+    return (k.indexOf(type)) * 2;
 }
 Edit.find().observe({
     added: function(data) {
         var trace = document.createElementNS(SVGNS, "path");
         trace.id = data._id;
-        trace.setAttribute('stroke', maps[data.type].color);
-        trace.style.opacity = "0.5";
-        trace.setAttribute('stroke-width', '5px');
+        trace.style.stroke = maps[data.type].color;
         var from = byId(data.from);
         var to = byId(data.to);
         trace.pathSegList.appendItem(trace.createSVGPathSegMovetoAbs(
-                from.rx + tx(),
-                from.ry + tx()
+                from.rx + tx(data.type),
+                from.ry + tx(data.type)
                 ));
         trace.pathSegList.appendItem(trace.createSVGPathSegLinetoAbs(
-                to.rx + tx(),
-                to.ry + tx()
+                to.rx + tx(data.type),
+                to.ry + tx(data.type)
                 ));
         svg.getElementById('data').appendChild(trace);
     },
@@ -114,7 +114,9 @@ Edit.find().observe({
 });
 
 Deps.autorun(function() {
-    Meteor.subscribe("edit", Session.get('editingGame'));
+    var g = Session.get('editingGame');
+    if(g)
+        Meteor.subscribe("edit", g);
 });
 
 Template.edit.rendered = function() {

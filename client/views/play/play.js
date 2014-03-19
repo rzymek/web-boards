@@ -6,11 +6,11 @@ setupSvgWidth = function(tmpl) {
         tmpl.svgWidth = function() {
             return tmpl.board().w;
         };
-        Template.play.svgHeight = function() {
+        tmpl.svgHeight = function() {
             return tmpl.board().h;
         };
     }
-}
+};
 
 setupGrid = function(svg, hexClicked) {
     var layer = svg.getElementById('hexes');
