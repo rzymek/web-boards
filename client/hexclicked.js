@@ -29,13 +29,13 @@ hexClicked = function(e) {
         return;
     } else {
         // there's was a counter selected before this click
-        var img = byId(selectedId);
-        if (img.position && img.position.id === hex.id) {
+        var counter = byId(selectedId);
+        if (counter.position && counter.position.id === hex.id) {
             //clicked on a selected counter
             if (!showingPieceMenu()) {
                 //first click on a selected counter -> show counter menu here
                 hidePieceMenu();
-                showPieceMenu(img);
+                showPieceMenu(counter);
             } else {
                 //second click on a selected counter -> deselect it
                 hidePieceMenu();
@@ -46,19 +46,18 @@ hexClicked = function(e) {
 
         hidePieceMenu();
 
-        var img = byId(selectedId);
-        if (isOnBoard(img)) {
+        if (isOnBoard(counter)) {
             Operations.insert({
                 op: 'MoveOp',
-                counter: img.id,
+                counter: counter.id,
                 to: hex.id
             });
         } else {
-            if (img.getAttribute('category') === 'Special') {
+            if (counter.getAttribute('category') === 'Special') {
                 var counter = null;
                 if(hex.stack && hex.stack.length > 0)
                     counter = hex.stack[0];
-                Special[img.id].action(hex, counter);
+                Special[counter.id].action(hex, counter);
             } else {
                 function scale(dim, scale) {
                     return (scale === undefined) ? dim : {
@@ -68,8 +67,8 @@ hexClicked = function(e) {
                 }
                 Operations.insert({
                     op: 'PlaceOp',
-                    category: img.getAttribute('category'),
-                    name: img.getAttribute('name'),
+                    category: counter.getAttribute('category'),
+                    name: counter.getAttribute('name'),
                     hexid: hex.id
                 });
             }
