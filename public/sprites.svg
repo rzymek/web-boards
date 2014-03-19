@@ -30,13 +30,13 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1280"
-     inkscape:window-height="751"
+     inkscape:window-height="1000"
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.3714171"
-     inkscape:cx="20.608537"
-     inkscape:cy="349.74736"
-     inkscape:window-x="0"
+     inkscape:cx="51.962966"
+     inkscape:cy="243.28814"
+     inkscape:window-x="1280"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="tmpl"
@@ -104,14 +104,22 @@
     <style
        id="dyncss"
        type="text/css" />
-    <filter id="selectionOutline">
-        <feMorphology operator="dilate" in="SourceAlpha" radius="10"/>
-        <feColorMatrix type="matrix" values=
-            "1 0 0 0  1
-             0 0 0 0  0
-             0 0 0 0  0
-             0 0 0 1  0 "/>
-        <feComposite in="SourceGraphic"/>
+    <filter
+       id="selectionOutline">
+      <feMorphology
+         operator="dilate"
+         in="SourceAlpha"
+         radius="10"
+         id="feMorphology13" />
+      <feColorMatrix
+         type="matrix"
+         values="1 0 0 0  1              0 0 0 0  0              0 0 0 0  0              0 0 0 1  0 "
+         id="feColorMatrix15"
+         result="result1" />
+      <feComposite
+         in="SourceGraphic"
+         id="feComposite17"
+         in2="result1" />
     </filter>
     <filter
        color-interpolation-filters="sRGB"
@@ -402,7 +410,7 @@
        height="40"
        width="40"
        id="selection"
-       style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.74429226;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:none;stroke:#f20000;stroke-width:6;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        inkscape:label="#rect15007" />
     <image
        sodipodi:absref="img/loading.gif"
@@ -560,7 +568,8 @@
            height="41"
            requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
            id="foreignObject3223">
-          <xhtml:p style="font-size:10px"></xhtml:p>
+          <xhtml:p
+             style="font-size:10px" />
         </foreignObject>
         <text
            x="-118.45834"

@@ -22,7 +22,7 @@ drawSelection = function(selected) {
         rect.x.baseVal.value = -w / 2;
         rect.y.baseVal.value = -h / 2;
         updateSelection();
-        byId('overlays').appendChild(rect);
+        byId('selectionLayer').appendChild(rect);
         rect.style.visibility = 'visible';
     } else {
         rect.style.visibility = 'hidden';
