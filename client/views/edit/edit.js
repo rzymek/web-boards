@@ -1,3 +1,5 @@
+Session.set('edit.ready', false);
+
 Template.edit.board = function() {
     return Template.play.board();
 };
