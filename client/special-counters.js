@@ -1,21 +1,3 @@
-function roll(count, sides) {
-    return {
-        src: '/img/dice.svg?x=' + count + 'd' + sides,
-        action: function(hex) {
-            Operations.insert({
-                op: 'RollOp',
-                hexid: hex.id,
-                server: {
-                    roll: {
-                        count: count,
-                        sides: sides
-                    }
-                }
-            });
-        }
-    };
-}
-
 Special = {
     roll_d6: roll(1, 6),
     roll_2d6: roll(2, 6),
@@ -46,3 +28,21 @@ Special = {
         }
     }
 };
+
+function roll(count, sides) {
+    return {
+        src: '/img/dice.svg?x=' + count + 'd' + sides,
+        action: function(hex) {
+            Operations.insert({
+                op: 'RollOp',
+                hexid: hex.id,
+                server: {
+                    roll: {
+                        count: count,
+                        sides: sides
+                    }
+                }
+            });
+        }
+    };
+}

@@ -6,8 +6,9 @@ function notifySession(name) {
         onError: function() {
             Session.set(name, false);
         }
-    }
+    };
 }
+
 Meteor.subscribe('tables', notifySession('tables.ready'));
 
 Deps.autorun(function(c) {
