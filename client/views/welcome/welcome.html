@@ -3,7 +3,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <a class="navbar-brand" href="/">Web Boards</a>
-            <ul class="nav navbar-nav navbar-right">
+            <ul id="signinup" class="nav navbar-nav navbar-right">
                 {{ loginButtons }} 
             </ul>
         </div>
@@ -13,9 +13,11 @@
         <div class="container">
             <p>Web Boards is a web application for playing online adaptation of board games. 
                 You can play online with instant updates or do your moves without the opponent being connected.</p>
-            {{#unless loggedIn}}
+            {{#if loggedIn}}
+            <p><button type="button" class="btn btn-default take-a-tour">Take a tour</button></p>
+            {{else}}
             Please log in/sign up using the link in the upper right corner.
-            {{/unless}}
+            {{/if}}
         </div>
     </div>
 
@@ -61,7 +63,7 @@
             </div>
             <div class="col-md-2">
                 <h3>Start new game:</h3>
-                <div class="btn-group-vertical">
+                <div class="btn-group-vertical" id="startgame">
                     {{#each games}}
                     <button type="button" class="start-game btn btn-default" value="{{.}}">{{.}}</button>
                     {{/each}}

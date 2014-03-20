@@ -9,7 +9,8 @@
       "jquery-mousewheel": {},
       "collection-hooks": {},
       "iron-router": {},
-      "accounts-ui-bootstrap-3": {}
+      "accounts-ui-bootstrap-3": {},
+      "hopscotch": {}
     },
     "packages": {
       "jquery-ui": {
@@ -39,8 +40,8 @@
       },
       "collection-hooks": {
         "git": "https://github.com/matb33/meteor-collection-hooks.git",
-        "tag": "v0.6.2",
-        "commit": "29484b2110206be93b01c6d11ce06ec9208de7bd"
+        "tag": "v0.6.3",
+        "commit": "70f2598bf991cb36effd72aea2555cba96f88355"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -49,8 +50,13 @@
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "tag": "v0.2.5",
-        "commit": "91cd37a1320213dd209c3a668bf542eeb9c39a00"
+        "tag": "v0.2.6",
+        "commit": "f3ee0ef6bc506314e19585550b4f9f5620c4ada6"
+      },
+      "hopscotch": {
+        "git": "https://github.com/Dsyko/meteor-hopscotch.git",
+        "tag": "v0.1.2",
+        "commit": "2f9ed5cf2813198fbb6ed6030ced40f0b84775a8"
       }
     }
   }

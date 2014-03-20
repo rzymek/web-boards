@@ -1,0 +1,153 @@
+{
+  "board": {
+    "image": "board.gif",
+    "width": 990,
+    "height": 702,
+    "grid": {
+      "hexSize": 62.05,
+      "hexWidth": 53.93687630482441,
+      "originX": 0,
+      "originY": 18
+    }
+  },
+  "pieces": [
+    {
+      "category": "German",
+      "list": [
+        {
+          "name": "German_arm_10-6",
+          "images": [
+            "german_arm_10-6",
+            "german_arm_5-6"
+          ]
+        },
+        {
+          "name": "German_arm_12-6",
+          "images": [
+            "german_arm_12-6",
+            "german_arm_6-6"
+          ]
+        },
+        {
+          "name": "German_arm_9-6",
+          "images": [
+            "german_arm_9-6",
+            "garman_arm_4-6"
+          ]
+        },
+        {
+          "name": "German_arm_8-6",
+          "images": [
+            "german_arm_8-6",
+            "garman_arm_4-6"
+          ]
+        },
+        {
+          "name": "German_inf_8-4",
+          "images": [
+            "german_inf_8-4",
+            "german_inf_4-4"
+          ]
+        },
+        {
+          "name": "German_inf_7-4",
+          "images": [
+            "german_inf_7-4",
+            "german_inf_4-4"
+          ]
+        },
+        {
+          "name": "German_inf_6-4",
+          "images": [
+            "german_inf_6-4",
+            "german_inf_3-4"
+          ]
+        },
+        {
+          "name": "German_inf_5-4",
+          "images": [
+            "german_inf_5-4",
+            "german_inf_4-2"
+          ]
+        },
+        {
+          "name": "German_inf_4-4",
+          "images": [
+            "german_inf_4-4",
+            "german_inf_4-2"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Russian",
+      "list": [
+        {
+          "name": "Russian_10-4",
+          "images": [
+            "russian_10-4",
+            "russian_5-4"
+          ]
+        },
+        {
+          "name": "Russian_8-4",
+          "images": [
+            "russian_8-4",
+            "russian_4-4"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Other",
+      "list": [
+        {
+          "name": "Number_1",
+          "images": [
+            "number_1"
+          ]
+        },
+        {
+          "name": "Number_2",
+          "images": [
+            "number_2"
+          ]
+        },
+        {
+          "name": "Number_3",
+          "images": [
+            "number_3"
+          ]
+        },
+        {
+          "name": "Number_4",
+          "images": [
+            "number_4"
+          ]
+        },
+        {
+          "name": "Number_5",
+          "images": [
+            "number_5"
+          ]
+        },
+        {
+          "name": "Number_6",
+          "images": [
+            "number_6"
+          ]
+        },
+        {
+          "name": "Game_Turn",
+          "images": [
+            "game_turn"
+          ]
+        }
+      ]
+    }
+  ],
+  "counterDim": {
+    "width": 43,
+    "height": 43
+  }
+}

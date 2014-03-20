@@ -41,6 +41,7 @@ showMenu = function(hex) {
         var y = hex.ry + dy;
         var item = menuItem.cloneNode(true);
         item.removeAttribute('id');
+        item.name=entry;
         item.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
         item.style.visibility = 'visible';
 
