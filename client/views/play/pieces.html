@@ -1,11 +1,17 @@
 <template name="pieces">
     <div id="panel" class="panel panel-primary">
         <div id="piecesPanel" class="panel-heading">
+            {{#isolate}}
             <select>
                 {{#each categories}}
-                    <option>{{.}}</option>
+                {{#if isSelected .}}
+                <option selected>{{.}}</option>
+                {{else}}
+                <option>{{.}}</option>
+                {{/if}}
                 {{/each}}
             </select>
+            {{/isolate}}
         </div>
         {{> selectedPieces}}
     </div>
@@ -14,11 +20,10 @@
 <template name="selectedPieces">
     <div id="piecesPanel" class="panel-body">
         {{#each pieces}}
-            {{>piece}}
+        {{>piece}}
         {{/each}}
     </div>
 </template>
-
 
 <template name="piece">
     <!--

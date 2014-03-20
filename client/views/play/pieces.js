@@ -1,8 +1,14 @@
+Session.setDefault('piecesCategory', 'Special');
+
 Template.pieces.categories = function() {
     var categories = Session.get('gameInfo').pieces.map(function(pieces) {
         return pieces.category;
     });
     return ["Special"].concat(categories);
+};
+
+Template.pieces.isSelected = function(s) {    
+    return Session.equals('piecesCategory', s); 
 };
 
 Template.piece.selected = function() {
@@ -18,8 +24,7 @@ Template.piece.events({
         selectById(val);
     }
 });
-
-Session.setDefault('piecesCategory', 'Special');
+ 
 Template.pieces.events({
     'change select': function(e) {
         var combo = e.target;
