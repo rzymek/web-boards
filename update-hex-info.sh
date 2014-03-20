@@ -1,1 +1,2 @@
-wget http://localhost:3000/edit/bastogne/export -O public/games/bastogne/hex-info.json
+host=wb.meteor.com
+wget http://$host/edit/bastogne/export -O public/games/bastogne/hex-info.json
