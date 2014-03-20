@@ -79,14 +79,22 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack) {
     selector.stack = gstack;
     alignStack(selector);
     selector.atHex = hexElement;
-    stack.forEach(function(it) {
-        it.style.pointerEvents = 'auto';
-        it.onclick = function(evt) {
+    stack.forEach(function(counter) {
+        counter.style.pointerEvents = 'auto';
+        counter.onclick = function(evt) {
             console.log('stack click', evt);
-            var val = it.id;
-            if (getSelectedId() === val)
-                val = null;
-            selectById(val);
+            var counterId = counter.id;
+            var currectlySelectedId = getSelectedId();
+            if (counterId === currectlySelectedId) {
+                togglePieceMenu(counter);
+            }else{
+                var currentSelection = byId(currectlySelectedId);
+                if(currentSelection && currentSelection.getAttribute('category') === 'Special') {
+                    Special[currentSelection.id].action(counter.position, counter);
+                }else{
+                    selectById(counterId);   
+                }
+            }
             evt.stopPropagation();
         };
     });

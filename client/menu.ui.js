@@ -55,3 +55,15 @@ showMenu = function(hex) {
         dy += item.getBBox().height;
     }
 };
+togglePieceMenu = function(counter) {
+    //clicked on a selected counter
+    if (!showingPieceMenu()) {
+        //first click on a selected counter -> show counter menu here
+        hidePieceMenu();
+        showPieceMenu(counter);
+    } else {
+        //second click on a selected counter -> deselect it
+        hidePieceMenu();
+        selectById(null);
+    }
+};
