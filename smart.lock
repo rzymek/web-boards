@@ -9,8 +9,7 @@
       "jquery-mousewheel": {},
       "collection-hooks": {},
       "iron-router": {},
-      "accounts-ui-bootstrap-3": {},
-      "hopscotch": {}
+      "accounts-ui-bootstrap-3": {}
     },
     "packages": {
       "jquery-ui": {
@@ -52,11 +51,6 @@
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
         "tag": "v0.2.6",
         "commit": "f3ee0ef6bc506314e19585550b4f9f5620c4ada6"
-      },
-      "hopscotch": {
-        "git": "https://github.com/Dsyko/meteor-hopscotch.git",
-        "tag": "v0.1.2",
-        "commit": "2f9ed5cf2813198fbb6ed6030ced40f0b84775a8"
       }
     }
   }
