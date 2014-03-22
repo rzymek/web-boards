@@ -3,7 +3,7 @@ Router.map(function() {
         path: '/play/:_id',
         template: 'board',
         action: function() {
-            this.render('loading-board');
+            this.render('loading');
             var router = this;
             var tableId = this.params._id;
             Meteor.subscribe('tables', tableId, {
