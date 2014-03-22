@@ -1,22 +1,14 @@
-Deps.autorun(function() {
-    var rt = Router.current();
-    if (!rt)
-        return;
-    var r = rt.route.name;
-    console.warn('route: ', r, byId('startgame'), byId('counters'));
-});
-
-tour = function() {
+startTour = function() {
     var steps = [{
             // this is a step object
             content: '<p>Click here to start a new "Battle for Moscow" game</p>',
             highlightTarget: true,
-            setup: function(t) {
+            setup: function(tour) {
                 var target = $($('#startgame button').filter(function() {
-                    return $(this).text() === 'battle-for-moscow'
+                    return $(this).text() === 'battle-for-moscow';
                 })[0]);
                 Template.loading.rendered = function() {
-                    t.next();
+                    tour.next();
                 };
                 return {target: target};
             },
@@ -24,38 +16,38 @@ tour = function() {
             at: 'top center'
         }, {
             content: "<p>Wait till the game fully loads...</p>",
-            target: [100, 100],
-            setup: function(tt) {
+            setup: function(tour) {
                 Deps.autorun(function(c) {
                     if (is('board.ready')) {
                         c.stop();
-                        tt.next();
+                        tour.next();
                     }
                 });
+                return {target: $('#loading')};
             },
             my: 'left center',
             at: 'right center'
         }, {
             content: "<p>Click on any hex to open the game menu</p>",
-            setup: function(tt) {
-                var t = $('#h4_4');
-                t.bind('click.tour', function() {
-                    tt.next();
+            setup: function(tour) {
+                var target = $('#h4_4');
+                target.bind('click.tour', function() {
+                    tour.next();
                 });
-                return {target: t};
+                return {target: target};
             },
             my: 'bottom center',
             at: 'top center'
         }, {
             content: "<p>Open the pieces panel</p>",
-            setup: function(tt) {
-                var t = $($('#pieceMenuLayer g').filter(function() {
+            setup: function(tour) {
+                var target = $($('#pieceMenuLayer g').filter(function() {
                     return this.name === 'Pieces';
                 })[0]);
-                t.bind('click.tour', function() {
-                    tt.next();
+                target.bind('click.tour', function() {
+                    tour.next();
                 });
-                return {target: t};
+                return {target: target};
             },
             my: 'left center',
             at: 'right center'

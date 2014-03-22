@@ -55,7 +55,7 @@ Template.welcome.events({
         }
     },
     'click .take-a-tour': function() {
-        tour();
+        startTour();
     }
 });
 
