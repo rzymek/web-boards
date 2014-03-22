@@ -55,11 +55,7 @@ Template.welcome.events({
         }
     },
     'click .take-a-tour': function() {
-        if(Meteor.userId() === null) {
-            hopscotch.startTour(TOUR1);
-        }else{
-            tour2();
-        }
+        tour();
     }
 });
 
