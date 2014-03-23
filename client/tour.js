@@ -42,24 +42,29 @@ startTour = function() {
             my: 'top left',
             at: 'bottom center'
         }, {
-            content: "<p>Now you can see the scenario setup. To confirm your selection click here. </p>",
+            content: "<p>Now you can see the scenario setup. To confirm your selection click here. \n\
+            Making any move on the board will also confirm scenario selection.</p>",
             setup: function(tour) {
-                var t = $($('#scenarioNavBar button')[0]);
-                t.bind('click.tour', function() {
-                    tour.next();
+                var c = Operations.find({op: 'ScenarioOp'}).observe({
+                    added: function() {
+                        tour.next();
+                        c.stop();
+                    }
                 });
-                return {target: t};
+                return {target: $($('#scenarioNavBar button')[0])};
             },
             my: 'top left',
             at: 'bottom center'
         }, {
-            content: "<p>Click on any hex to open the game menu</p>",
+            content: "<p>Click on any empty hex to open the game menu</p>",
             setup: function(tour) {
-                var target = $('#h4_4');
-                target.bind('click.tour', function() {
+                var orig = showMenu;
+                showMenu = function(hex){
+                    orig(hex);
                     tour.next();
-                });
-                return {target: target};
+                    showMenu = orig;
+                }
+                return {target: $('#h4_4')};
             },
             my: 'bottom center',
             at: 'top center'
