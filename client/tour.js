@@ -17,8 +17,11 @@ startTour = function() {
         }, {
             content: "<p>Wait till the game fully loads...</p>",
             setup: function(tour) {
+                Template.scenario.rendered = function() {
+                    Session.set('sceno.ready', Template.scenario.visible())
+                }
                 Deps.autorun(function(c) {
-                    if (is('board.ready')) {
+                    if (is('sceno.ready')) {
                         c.stop();
                         tour.next();
                     }
@@ -27,6 +30,28 @@ startTour = function() {
             },
             my: 'left center',
             at: 'right center'
+        }, {
+            content: "<p>This game comes with a predefined setup. Pick it from the list here.</p>",
+            setup: function(tour) {
+                var t = $($('#scenarioNavBar select')[0]);
+                t.bind('change.tour', function() {
+                    tour.next();
+                });
+                return {target: t};
+            },
+            my: 'top left',
+            at: 'bottom center'
+        }, {
+            content: "<p>Now you can see the scenario setup. To confirm your selection click here. </p>",
+            setup: function(tour) {
+                var t = $($('#scenarioNavBar button')[0]);
+                t.bind('click.tour', function() {
+                    tour.next();
+                });
+                return {target: t};
+            },
+            my: 'top left',
+            at: 'bottom center'
         }, {
             content: "<p>Click on any hex to open the game menu</p>",
             setup: function(tour) {
