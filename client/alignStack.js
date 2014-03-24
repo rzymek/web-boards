@@ -15,7 +15,7 @@ function bringToTop(e) {
 alignStack = function(area/*SVGElement*/) {
     var svg = byId('svg');
     var counters = area.stack;
-    var areaBBox = area.getBBox();
+    var areaBBox = getTBBox(area);
     var spacing = 3;
 
     if(counters === undefined || counters.length === 0) {

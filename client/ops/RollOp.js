@@ -1,12 +1,12 @@
 RollOp = function(data) {
     var svg = document.getElementById('svg');
     var hex = svg.getElementById(data.hexid);
-    var bbox = hex.getBBox();
+    var bbox = getTBBox(hex);
     var overlay = byId(data._id);
     if (overlay === null) {
         overlay = document.createElementNS(SVGNS, 'image');
-        var w = bbox.width / 2;
-        var h = bbox.height / 2;
+        var w = bbox.width*0.6;
+        var h = bbox.height*0.6;
         overlay.width.baseVal.value = w;
         overlay.height.baseVal.value = h;
         overlay.x.baseVal.value = -w / 2;
