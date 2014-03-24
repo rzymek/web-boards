@@ -13,11 +13,10 @@
         <div class="container">
             <p>Web Boards is a web application for playing online adaptation of board games. 
                 You can play online with instant updates or do your moves without the opponent being connected.</p>
-            {{#if loggedIn}}
             <p><button type="button" class="btn btn-default take-a-tour">Take a tour</button></p>
-            {{else}}
+            {{#unless loggedIn}}
             Please log in/sign up using the link in the upper right corner.
-            {{/if}}
+            {{/unless}}
         </div>
     </div>
 

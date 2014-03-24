@@ -1,5 +1,24 @@
 startTour = function() {
     var steps = [{
+            content: '<p>First thing you need to do is sign in. \n\
+                If you don\'t have an account already, you can create one here as well.</p>',
+            highlightTarget: true,
+            target: $('#signinup'),
+            setup: function(tour) {
+                //Calling tour.next() from `setup` causes an error in tourist.js
+                //Defered call is ok.
+                Meteor.defer(function() {
+                    Deps.autorun(function(c) {
+                        if (Meteor.userId()) {
+                            tour.next();
+                            c.stop();
+                        }
+                    });
+                });
+            },
+            my: 'top right',
+            at: 'bottom center'
+        }, {
             // this is a step object
             content: '<p>Click here to start a new "Battle for Moscow" game</p>',
             highlightTarget: true,
