@@ -5,7 +5,7 @@
             <select>
                 {{#each categories}}
                 {{#if isSelected .}}
-                <option selected>{{.}}</option>
+                <option selected data-value="{{.}}">{{.}}</option>
                 {{else}}
                 <option>{{.}}</option>
                 {{/if}}
