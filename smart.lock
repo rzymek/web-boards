@@ -24,8 +24,8 @@
       },
       "keybindings": {
         "git": "https://github.com/matteodem/meteor-keybindings.git",
-        "tag": "v0.3.8",
-        "commit": "7102c7329453c18c63846d74d0b51ef35a23e945"
+        "tag": "v0.4.1",
+        "commit": "d461475eec435acd8b61af6f1b8696fc70fcea78"
       },
       "nprogress": {
         "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",

@@ -12,7 +12,6 @@ function bringToTop(e) {
     e.parentElement.appendChild(e);
 }
 
-var STACKS = 'wb-stacks';
 alignStack = function(area/*SVGElement*/) {
     var svg = byId('svg');
     var counters = area.stack;
@@ -47,9 +46,6 @@ alignStack = function(area/*SVGElement*/) {
             var stacksWith = counters[i - countersOnLayer].id;
             stackRoots[stacksWith] = undefined;
             stackRoots[id] = true;
-            counter.setAttribute(STACKS, stacksWith);
-        } else {
-            counter.removeAttribute(STACKS);
         }
         bringToTop(counter);
         counterDim = getTBBox(counter);
@@ -68,7 +64,6 @@ alignStack = function(area/*SVGElement*/) {
             }
         }
     }
-    area.setAttribute(STACKS, Object.keys(stackRoots).join(' '));
     updateSelection();
 };
 
