@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>tour</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tour</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//button[@value='battle-for-moscow']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@value='battle-for-moscow']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=select.form-control.scenarios</td>
+	<td>label=Campain</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.form-control.scenarios</td>
+	<td>label=Campain</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h8_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h6_2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h10_6</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=tspan3811</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=&quot;pieceMenuLayer&quot;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/div/div[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=roll_2d6</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h8_7</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=wggKWwr92cayJoCEN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>answerOnNextPrompt</td>
+	<td>aaa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=note</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertPrompt</td>
+	<td>Enter message:</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=piecesPanel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/div/div[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h8_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=h8_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=tspan3811</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

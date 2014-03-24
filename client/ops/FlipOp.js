@@ -1,5 +1,4 @@
 FlipOp = function(data) {
-    var svg = byId('svg');
     var counter = byId(data.counterId);
     var img = counter.children[0];
     var oldHref = img.href.baseVal;

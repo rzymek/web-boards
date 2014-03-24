@@ -4,11 +4,21 @@ startTour = function() {
             content: '<p>Click here to start a new "Battle for Moscow" game</p>',
             highlightTarget: true,
             setup: function(tour) {
-                var target = $($('#startgame button').filter(function() {
+
+                var buttons = $('#startgame button');
+                buttons.map(function(idx, btn) {
+                    btn.disabled = ($(btn).text() !== 'battle-for-moscow');
+                    console.log(btn, btn.disabled);
+                });
+                var target = $(buttons.filter(function() {
                     return $(this).text() === 'battle-for-moscow';
                 })[0]);
                 Template.loading.rendered = function() {
-                    tour.next();
+                    Deps.autorun(function() {
+                        if (getGame() === 'battle-for-moscow') {
+                            tour.next();
+                        }
+                    })
                 };
                 return {target: target};
             },
@@ -70,7 +80,7 @@ startTour = function() {
             at: 'bottom center'
 
         }, {
-            content: "<p>To move click on a target hex.</p>",
+            content: "<p>Click on a target hex to move the selected counter.</p>",
             setup: function(tour) {
                 var c = Operations.find({op: 'MoveOp'}).observe({
                     added: function() {
@@ -118,6 +128,7 @@ startTour = function() {
                     return this.name === 'Pieces';
                 })[0]);
                 target.bind('click.tour', function() {
+                    Session.set('piecesCategory', 'Special');
                     tour.next();
                 });
                 return {target: target};
@@ -227,15 +238,18 @@ startTour = function() {
             my: 'left center',
             at: 'right center'
         }, {
-            content: "<p>Here you can flip it... </p>",
+            content: "<p>Here you can flip it ... </p>",
             setup: function(tour, options) {
                 if (!showingPieceMenu())
                     showPieceMenu(options.selectedCounter);
                 var target = $($('#pieceMenuLayer g').filter(function() {
                     return this.name === 'Flip';
                 })[0]);
-                target.bind('click.tour', function() {
-                    tour.next();
+                var c = Operations.find({op: 'FlipOp', counterId: options.selectedCounter.id}).observe({
+                    added: function() {
+                        tour.next();
+                        c.stop();
+                    }
                 });
                 return {target: target};
             },
@@ -243,15 +257,18 @@ startTour = function() {
             my: 'left center',
             at: 'right center'
         }, {
-            content: "<p>...or remove it from the board.</p>",
+            content: "<p>... or remove it from the board.</p>",
             setup: function(tour, options) {
                 if (!showingPieceMenu())
                     showPieceMenu(options.selectedCounter);
                 var target = $($('#pieceMenuLayer g').filter(function() {
                     return this.name === 'Remove';
                 })[0]);
-                target.bind('click.tour', function() {
-                    tour.next();
+                var c = Operations.find({op: 'RemovePieceOp', counterId: options.selectedCounter.id}).observe({
+                    added: function() {
+                        tour.next();
+                        c.stop();
+                    }
                 });
                 return {target: target};
             },
@@ -260,8 +277,21 @@ startTour = function() {
             at: 'right center'
         }, {
             content: "<p>To leave this game press the Back button in your browser.</p>",
-            target: [100,100],
+            target: [100, 0],
+            setup: function(tour) {
+                Deps.autorun(function(c) {
+                    if (Router.current().route.name === 'welcome') {
+                        tour.stop();
+                        c.stop();
+                    }
+                });
+            },
+            teardown: function() {
+                Router.go('welcome');
+            },
             nextButton: true,
+            my: 'top left',
+            at: 'top center',
         }];
     var tour = new Tourist.Tour({
         steps: steps,
