@@ -1,4 +1,6 @@
 (function() {
+    var origMoveOp = MoveOp;
+    
     function unload() {
         for (key in pieceMenu) {
             if (key.indexOf('Rotate ') === 0) {
@@ -15,20 +17,29 @@
     }
 
 
-    function setupMenu() {
-        var rotations = '↑↗↘↓↙↖';
-        for (var i = 0; i < rotations.length; i++) {
-            (function(i) {
-                pieceMenu['Rotate ' + rotations.charAt(i)] = function(piece) {
-                    console.log('rotation:', i * 60);
-                    Operations.insert({
-                        op: 'RotateOp',
-                        counterId: piece.id,
-                        angle: i * 60
-                    });
-                };
-            })(i);
-        }
+    function setupAutoRotate() {
+        MoveOp = function(data) {
+            var h1 = byId(data.counter).position;
+            var h2 = byId(data.to);
+            var dy = h2.ry - h1.ry;
+            var dx = h2.rx - h1.rx;
+            var degrees = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+            var round = Math.round(degrees / 60) * 60;
+            var undo = [];
+            undo.push(origMoveOp(data));
+            undo.push(RotateOp({
+                counterId: data.counter,
+                angle: round
+            }));
+            return function() {
+                undo.forEach(function(fn) {
+                    fn();
+                });
+            }
+        };
+    }
+    
+    function pieceMenuAltitude() {
         pieceMenu['High'] = function(piece) {
             Operations.insert({
                 op: 'AltitudeOp',
@@ -52,31 +63,26 @@
         };
     }
 
-    var origMoveOp = MoveOp;
-    function setupAutoRotate() {
-        MoveOp = function(data) {
-            var h1 = byId(data.counter).position;
-            var h2 = byId(data.to);
-            var dy = h2.ry - h1.ry;
-            var dx = h2.rx - h1.rx;
-            var degrees = Math.atan2(dy, dx) * 180 / Math.PI + 90;
-            var round = Math.round(degrees / 60) * 60;
-            var undo = [];
-            undo.push(origMoveOp(data));
-            undo.push(RotateOp({
-                counterId: data.counter,
-                angle: round 
-            }));
-            return function() {
-                undo.forEach(function(fn) {
-                    fn();
-                });
-            }
-        };
+    function pieceMenuRotations() {
+        var rotations = '↑↗↘↓↙↖';
+        for (var i = 0; i < rotations.length; i++) {
+            (function(i) {
+                pieceMenu['Rotate ' + rotations.charAt(i)] = function(piece) {
+                    console.log('rotation:', i * 60);
+                    Operations.insert({
+                        op: 'RotateOp',
+                        counterId: piece.id,
+                        angle: i * 60
+                    });
+                };
+            })(i);
+        }
+
     }
 
     gameModule = function() {
-        setupMenu();
+        pieceMenuAltitude();
+        pieceMenuRotations();
         setupAutoRotate();
         Special.jamm = {
             src: '/games/seelowe/markers/jamm.svg',
