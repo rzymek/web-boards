@@ -1,6 +1,8 @@
 web-boards
 ==========
 
+![](https://raw.githubusercontent.com/rzymek/web-boards/master/screenshot-seelowe.jpg)
+
 Web application for playing online adaptation of board games.
 
 Goals:
