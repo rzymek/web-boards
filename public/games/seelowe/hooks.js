@@ -61,16 +61,15 @@
             var dx = h2.rx - h1.rx;
             var degrees = Math.atan2(dy, dx) * 180 / Math.PI + 90;
             var round = Math.round(degrees / 60) * 60;
-            console.log(degrees, round);
-            undo = [];
+            var undo = [];
             undo.push(origMoveOp(data));
             undo.push(RotateOp({
                 counterId: data.counter,
                 angle: round 
             }));
             return function() {
-                undo.forEach(function(it) {
-                    it();
+                undo.forEach(function(fn) {
+                    fn();
                 });
             }
         };
