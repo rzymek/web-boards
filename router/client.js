@@ -22,7 +22,7 @@ Router.map(function() {
                 }
             });
         },
-        after: function() {
+        onAfterAction: function() {
             console.log('after');
             Session.set('tableId', this.params._id);
         }
@@ -42,7 +42,7 @@ Router.map(function() {
     this.route('welcome', {
         path: '/',
         template: 'welcome',
-        before: function() {
+        onBeforeAction: function() {
             Session.set('tableId', null);
         }
     });
