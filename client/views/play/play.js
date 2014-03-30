@@ -14,10 +14,10 @@ setupSvgWidth = function(tmpl) {
 
 setupGrid = function(svg, hexClicked) {
     var layer = svg.getElementById('hexes');
-    layer.onclick = function(event) {
-        var hex = event.target.correspondingUseElement;
+    layer.onclick = function(event) {                
+        var hex = event.target.correspondingUseElement || event.target;        
         hexClicked(hex);
-    }
+    };
     if (layer.childNodes.length > 0) {
         return svg; //already setup
     }
