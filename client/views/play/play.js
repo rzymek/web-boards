@@ -80,6 +80,7 @@ Template.play.boardImg = function() {
 
 Template.play.destroyed = function() {
     Session.set('board.ready', false);
+    Session.set('board.rendered', false);
     unbindKeys();
     unloadModule();
 };
@@ -101,39 +102,40 @@ Deps.autorun(function() {
     }
 });
 
-Meteor.startup(function(){
+Meteor.startup(function() {
     setupSvgWidth(Template.play);
 });
 
 Template.play.rendered = function() {
-    console.log('play rendered');
-
-    var svg = byId('svg');
-    if (svg.ready)
-        return;
-    
     if (!isTouchDevice()) {
+        var svg = byId('svg');
         svgZoomAndPan(svg);
         $('#menu').addClass('touch');
     } else {
         $('#menu').addClass('mouse');
     }
-    var gameInfo = Session.get('gameInfo');
-    if (gameInfo.board.grid === null) {
-        return;
-    }
-    setupGrid(svg, hexClicked);
-
-    Deps.autorun(function() {
-        console.log('keybindings - remove');
-        unbindKeys();
-        if (!Template.join.guest()) {
-            console.log('keybindings - add');
-            bindKeys();
-        }
-    });
 
     selectById(null);
-    Session.set('board.ready', true);
-    svg.ready = true;
+    Session.set('board.rendered', true);
 };
+
+Deps.autorun(function() {
+    var gameInfo = Session.get('gameInfo');
+    if (!is('board.rendered') || gameInfo == null) 
+        return;
+    var svg = byId('svg'); 
+    setupGrid(svg, hexClicked);
+    Session.set('board.ready',true);
+});
+
+Deps.autorun(function() { 
+    if(!is('board.ready')) {
+        return;
+    }
+    unbindKeys();
+    if (!Template.join.guest()) {
+        console.log('keybindings - add');
+        bindKeys();
+    }
+});
+

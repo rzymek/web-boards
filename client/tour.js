@@ -45,9 +45,14 @@ startTour = function() {
             at: 'top center'
         }, {
             content: "<p>Wait till the game fully loads...</p>",
-            setup: function(tour) {
+            setup: function(tour) {                
                 Template.scenario.rendered = function() {
-                    Session.set('sceno.ready', Template.scenario.visible())
+                    Deps.autorun(function(c){
+                        var ready = Template.scenario.visible();
+                        Session.set('sceno.ready', ready);      
+                        if(ready)
+                            c.stop();
+                    });
                 }
                 Deps.autorun(function(c) {
                     if (is('sceno.ready')) {

@@ -1,9 +1,11 @@
 /accounts-ui-bootstrap-3
 /assert
+/blaze-layout
 /blocking
 /bootstrap3-less
 /collection-hooks
 /fs
+/hopscotch
 /iron-router
 /jquery-mousewheel
 /jquery-ui
@@ -13,9 +15,3 @@
 /typescript-compiler
 /typescript-libs
 /xml2js
-/collection-hooks
-/accounts-ui-bootstrap-3
-/hopscotch
-/hopscotch
-/keybindings
-/blaze-layout
