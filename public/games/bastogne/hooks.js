@@ -13,12 +13,22 @@ CRT = [
     ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"],
 ];
 
+
 gameModule = function() {
-    var origMoveOp = MoveOp;
+    var original = {
+        MoveOp: MoveOp,
+        hexClicked: hexClicked
+    };
+    console.log('original', original);
+    hexClicked = function(hex) {
+        console.log(hex.stack);
+        original.hexClicked(hex);
+    };
+
     MoveOp = function(data) {
         var counter = byId(data.counter);
         if (counter.name.match(/ DG$/)) {
-            return origMoveOp(data);
+            return original.MoveOp(data);
         }
         var from = counter.position;
         var to = byId(data.to);
@@ -32,7 +42,7 @@ gameModule = function() {
                 }) : [];
 
         var undo = [];
-        undo.push(origMoveOp(data));
+        undo.push(original.MoveOp(data));
         if (DGfrom.length > 0) {
             undo.push(PlaceOp({
                 _id: (new Meteor.Collection.ObjectID()).toHexString(),
@@ -54,7 +64,8 @@ gameModule = function() {
     };
 
     return function() {
-        MoveOp = origMoveOp;
+        MoveOp = original.MoveOp;
+        hexClicked = original.hexClicked;
         delete CRT;
     };
 };
