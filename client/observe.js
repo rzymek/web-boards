@@ -1,5 +1,6 @@
 Operations.before.insert(function(userId, doc) {
     doc.tableId = Session.get('tableId');
+    doc.player = userId;
     selectById(null);
     hidePieceMenu();
     hideStackSelector();
