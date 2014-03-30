@@ -7,9 +7,6 @@
     "jquery-mousewheel": {},
     "collection-hooks": {},
     "iron-router": {},
-    "accounts-ui-bootstrap-3": {
-        "git":"https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "branch":"blaze"
-    }
+    "accounts-ui-bootstrap-3": {}
   }
 }
