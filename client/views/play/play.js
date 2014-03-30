@@ -80,7 +80,6 @@ Template.play.boardImg = function() {
 
 Template.play.destroyed = function() {
     Session.set('board.ready', false);
-    Session.set('board.rendered', false);
     unbindKeys();
     unloadModule();
 };
@@ -93,7 +92,7 @@ Deps.autorun(function() {
     var img = _.toArray(svg.children).filter(function(e) {
         return e.tagName === 'image'
     })[0];
-    if (override) {
+    if (override) { 
         img.origHref = img.href.baseVal;
         img.href.baseVal = override;
     } else if (img.origHref) {
@@ -114,28 +113,24 @@ Template.play.rendered = function() {
     } else {
         $('#menu').addClass('mouse');
     }
+    
+    Deps.autorun(function(c) {
+        var gameInfo = Session.get('gameInfo');
+        if (gameInfo == null)
+            return;
+        var svg = byId('svg');
+        setupGrid(svg, hexClicked);
+        c.stop();
+        Session.set('board.ready', true);
+    });
 
-    selectById(null);
-    Session.set('board.rendered', true);
-};
-
-Deps.autorun(function() {
-    var gameInfo = Session.get('gameInfo');
-    if (!is('board.rendered') || gameInfo == null) 
-        return;
-    var svg = byId('svg'); 
-    setupGrid(svg, hexClicked);
-    Session.set('board.ready',true);
-});
-
-Deps.autorun(function() { 
-    if(!is('board.ready')) {
-        return;
-    }
     unbindKeys();
     if (!Template.join.guest()) {
         console.log('keybindings - add');
         bindKeys();
     }
-});
+
+    selectById(null);
+};
+
 
