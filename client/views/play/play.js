@@ -14,6 +14,10 @@ setupSvgWidth = function(tmpl) {
 
 setupGrid = function(svg, hexClicked) {
     var layer = svg.getElementById('hexes');
+    layer.onclick = function(event) {
+        var hex = event.target.correspondingUseElement;
+        hexClicked(hex);
+    }
     if (layer.childNodes.length > 0) {
         return svg; //already setup
     }
@@ -49,7 +53,7 @@ setupGrid = function(svg, hexClicked) {
 //            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
             use.setAttribute('class', 'hex');
             use.id = 'h' + x + '_' + y;
-            use.onclick = hexClicked;
+//            use.onclick = hexClicked;
             use.rx = hx;
             use.ry = hy;
             layer.appendChild(use);

@@ -1,10 +1,7 @@
-hexClicked = function(e) {
+hexClicked = function(hex) {
     if (byId('svg').panning)
         return;
     hideStackSelector();
-
-    var hex = e.currentTarget;
-    console.log(hex.id);
 
     var selectedId = getSelectedId();
     if (selectedId === null) {
