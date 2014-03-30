@@ -1,7 +1,8 @@
 <template name="playback">
+    {{#if is 'show.playback'}}
     <div style="position:fixed;left:0;top:0">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 100"
-             width="250" height="50" version="1.1">
+             width="250" height="50" version="1.1" class="playback">
             <g class="rewind-to-start" transform="matrix(0.13157791,0,0,0.13157791,356.16824,-12.098947)">
                 <path fill="#FFF" d="m-2706.9,471.99c0-210,170-380,380-380s380,170,380,380-170,380-380,380-380-170-380-380z"/>
                 <path stroke-linejoin="round" style="enable-background:accumulate;color:#000000;" d="m-2407.5,348.52,0,102.09,204.03-102,0,246.75-204.03-102,0,102.09-42.812,0,0-246.94,42.812,0z" fill-rule="nonzero" stroke="#000" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.25845766" fill="#000"/>
@@ -34,4 +35,5 @@
             </g>
         </svg>
     </div>
+    {{/if}}
 </template>

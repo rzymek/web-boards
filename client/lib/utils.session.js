@@ -17,3 +17,6 @@ is = function() {
     }
     return result;
 };
+toggle = function(key) {
+    Session.set(key, !is(key));
+};

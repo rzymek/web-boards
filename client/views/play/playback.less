@@ -1,3 +1,15 @@
 .pause {
     display:none;
 }
+.playback > g {
+    &:hover {
+        path:nth-child(1) {
+            fill:lightgray;
+        }
+    }
+    &:active {
+        path:nth-child(1) {
+            fill:yellow;
+        }        
+    }
+}
