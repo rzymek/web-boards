@@ -13,20 +13,37 @@ CRT = [
     ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"]
 ];
 
-var catOwner = {
-    'US': ["101", "327", "401", "501", "502", "506", "705", "Abrams", "CCB", "CCR", "Cherry", "Desobry", "O'Hara"],
-    'GE': ["5 FJ", "26 VG", "KG Coch", "KG Gutt", "KG 901", "KG 902", "KG Kunkel", "Lehr", "KG Maucke", "v.Bohm", "v.Fallois"]
-};
+var ownerByCategory = (function() {
+    var map = {
+        'US': ["101", "327", "401", "501", "502", "506", "705", "Abrams", "CCB", "CCR", "Cherry", "Desobry", "O'Hara", "Misc US"],
+        'GE': ["5 FJ", "26 VG", "KG Coch", "KG Gutt", "KG 901", "KG 902", "KG Kunkel", "Lehr", "KG Maucke", "v.Bohm", "v.Fallois", "Misc"]
+    };
+    var result = {};
+    Object.keys(map).forEach(function(owner) {
+        map[owner].forEach(function(category) {
+            result[category] = owner;
+        });
+    });
+    return result;
+})();
 
 gameModule = function() {
     var original = {
         MoveOp: MoveOp,
-        hexClicked: hexClicked
+        moveTo: moveTo
     };
-    console.log('original', original);
-    hexClicked = function(hex) {
-        console.log(hex.stack);
-        original.hexClicked(hex);
+    moveTo = function(counter, targetHex) {
+        console.log(counter, targetHex);
+        var targetStackOwner = (targetHex.stack && targetHex.stack.map(function(it) {
+            return ownerByCategory[it.category];
+        })[0])
+        var counterOwner = ownerByCategory[counter.category];
+        console.log(targetStackOwner, counterOwner);
+        if (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner) {
+            console.log('ATTACK!!');
+        } else {
+            original.moveTo(counter, targetHex);
+        }
     };
 
     MoveOp = function(data) {

@@ -1,3 +1,11 @@
+moveTo = function(selectedCounter, hex) {
+    Operations.insert({
+        op: 'MoveOp',
+        counter: selectedCounter.id,
+        to: hex.id
+    });
+};
+
 hexClicked = function(hex) {
     if (byId('svg').panning)
         return;
@@ -34,11 +42,7 @@ hexClicked = function(hex) {
                 target = hex.stack[0];
             Special[selectedCounter.id].action(hex, target);
         } else if (isOnBoard(selectedCounter)) {
-            Operations.insert({
-                op: 'MoveOp',
-                counter: selectedCounter.id,
-                to: hex.id
-            });
+            moveTo(selectedCounter, hex);
         } else {
             function scale(dim, scale) {
                 return (scale === undefined) ? dim : {
