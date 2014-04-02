@@ -1,5 +1,6 @@
 var FOREST = 1;
 var RUNE = 2;
+var CITY = 3;
 
 var hexInfo = {
     h0_34: [FOREST, RUNE],

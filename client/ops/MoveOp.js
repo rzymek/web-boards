@@ -5,7 +5,7 @@ function move(counter, to) {
     alignStack(to);
 }
 
-placeArrow = function(trace, from, target) {
+placeArrow = function(trace, from, target, layer) {
     var start = trace.pathSegList.getItem(0);
     var to = trace.pathSegList.getItem(1);
     start.pathSegTypeAsLetter = 'M';
@@ -18,7 +18,8 @@ placeArrow = function(trace, from, target) {
     var point = trace.getPointAtLength(trace.getTotalLength() - 45);
     to.x = point.x;
     to.y = point.y;
-    byId('traces').appendChild(trace);
+    byId(layer).appendChild(trace);
+    return trace;
 };
 
 MoveOp = function(data) {
@@ -28,7 +29,7 @@ MoveOp = function(data) {
     var trace = sprites.trace.cloneNode(true);
     var from = counter.position;
     move(counter, hex);
-    placeArrow(trace, from, counter.position);
+    placeArrow(trace, from, counter.position, 'traces');
     return function() {
         move(counter, from);
         trace.remove();

@@ -22,7 +22,6 @@ ScenarioOp = function(data) {
         data._id = setupId;
         undo.push(this[data.op](data));
     }
-    console.log(idmap);
     return function() {
         undo.forEach(function(fn) {
             fn();
