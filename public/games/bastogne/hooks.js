@@ -10,9 +10,13 @@ CRT = [
     ["9    ", "A1  ", "A1D1", "D1r1", "D1r2", "D1r2", "D1r3", "D1r4"],
     ["10   ", "A1  ", "D1r1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r5"],
     ["11   ", "A1  ", "D1r1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r5"], //same 
-    ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"],
+    ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"]
 ];
 
+var catOwner = {
+    'US': ["101", "327", "401", "501", "502", "506", "705", "Abrams", "CCB", "CCR", "Cherry", "Desobry", "O'Hara"],
+    'GE': ["5 FJ", "26 VG", "KG Coch", "KG Gutt", "KG 901", "KG 902", "KG Kunkel", "Lehr", "KG Maucke", "v.Bohm", "v.Fallois"]
+};
 
 gameModule = function() {
     var original = {
@@ -69,5 +73,3 @@ gameModule = function() {
         delete CRT;
     };
 };
-
-
