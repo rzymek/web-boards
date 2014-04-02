@@ -5,6 +5,22 @@ function move(counter, to) {
     alignStack(to);
 }
 
+placeArrow = function(trace, from, target) {
+    var start = trace.pathSegList.getItem(0);
+    var to = trace.pathSegList.getItem(1);
+    start.pathSegTypeAsLetter = 'M';
+    start.x = from.rx;
+    start.y = from.ry;
+    to.pathSegTypeAsLetter = 'L';
+    to.x = target.rx;
+    to.y = target.ry;
+    //TOOD: replace 45 with counterDim
+    var point = trace.getPointAtLength(trace.getTotalLength() - 45);
+    to.x = point.x;
+    to.y = point.y;
+    byId('traces').appendChild(trace);
+};
+
 MoveOp = function(data) {
     var svg = document.getElementById('svg');
     var hex = svg.getElementById(data.to);
@@ -12,21 +28,9 @@ MoveOp = function(data) {
     var trace = sprites.trace.cloneNode(true);
     var from = counter.position;
     move(counter, hex);
-
-    var start = trace.pathSegList.getItem(0);
-    var to = trace.pathSegList.getItem(1);
-    start.pathSegTypeAsLetter = 'M';
-    start.x = from.rx;
-    start.y = from.ry;
-    to.pathSegTypeAsLetter = 'L';
-    to.x = counter.position.rx;
-    to.y = counter.position.ry;
-    svg.getElementById('traces').appendChild(trace);
-
+    placeArrow(trace, from, counter.position);
     return function() {
         move(counter, from);
-        if (trace.parentElement) {
-            trace.parentElement.removeChild(trace);
-        }
+        trace.remove();
     };
 };

@@ -30,14 +30,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1280"
-     inkscape:window-height="1000"
+     inkscape:window-height="975"
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.3714171"
-     inkscape:cx="51.962966"
-     inkscape:cy="243.28814"
-     inkscape:window-x="1280"
-     inkscape:window-y="0"
+     inkscape:cx="74.567322"
+     inkscape:cy="198.07943"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="tmpl"
      showguides="true"
@@ -427,7 +427,7 @@
        inkscape:connector-curvature="0"
        id="attackArrow"
        d="M 37.819208,255.25182 134.16598,210.14408"
-       style="opacity:0.72972969;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline" />
+       style="opacity:0.72972968999999999;fill:none;stroke:#ff0f0f;stroke-width:13.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:1.00000043;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-end:url(#TriangleOutSJ);display:inline" />
     <g
        style="opacity:0.80658438;display:inline"
        id="boom"

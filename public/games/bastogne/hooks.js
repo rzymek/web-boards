@@ -40,7 +40,12 @@ gameModule = function() {
         var counterOwner = ownerByCategory[counter.category];
         console.log(targetStackOwner, counterOwner);
         if (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner) {
-            console.log('ATTACK!!');
+            Operations.insert({
+                op: 'DeclareAttack',
+                attackerHex: counter.position.id,
+                targetHex: targetHex.id,
+                value:''
+            });
         } else {
             original.moveTo(counter, targetHex);
         }
