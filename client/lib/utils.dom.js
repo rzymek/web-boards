@@ -1,6 +1,13 @@
 byId = function(id) {
     return document.getElementById(id);
 };
+toArray = function(collection) {
+    var array = [];
+    for (var i = 0, len = collection.length; i < len; i++) {
+        array.push(collection[i]);
+    }
+    return array;
+};
 
 getNatural = function(e) {
     if (e.naturalWidth !== undefined && e.naturalHeight !== undefined) {

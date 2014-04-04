@@ -1,4 +1,5 @@
 #!/bin/bash
+cd `dirname $0`
 while true;do 
   inotifywait -e modify src
   echo '(function(){' > hooks.js

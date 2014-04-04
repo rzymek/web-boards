@@ -1,11 +1,8 @@
 function getOddsText(odds) {
     return odds.getElementsByTagNameNS(SVGNS, 'text')[0];
 }
-DeclareAttack = function(data) {
-    var arrow = sprites.attackArrow.cloneNode(true);
-    var attacker = byId(data.attackerHex);
+ShowOdds= function(data) {
     var targetHex = byId(data.targetHex);
-    placeArrow(arrow, attacker, targetHex, 'overlays');
 
     if (!targetHex.odds) {
         targetHex.odds = sprites.target.cloneNode(true);
@@ -13,10 +10,8 @@ DeclareAttack = function(data) {
         byId('overlays').appendChild(targetHex.odds);
     }
     getOddsText(targetHex.odds).textContent = data.value;
-    arrow.from=attacker;
-    arrow.to=targetHex;
     return function() {
-        arrow.remove();
+        //TODO
     };
 };
 

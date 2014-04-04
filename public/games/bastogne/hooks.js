@@ -14,6 +14,7 @@ var CRT = [
     ["11   ", "A1  ", "D1r1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r5"], //same 
     ["12   ", "A1D1", "D1r2", "D1r2", "D1r3", "D1r3", "D2r4", "D2r6"]
 ];
+ 
 
 var FOREST = 1;
 var RUNE = 2;
@@ -1297,32 +1298,39 @@ JoinAttack = function(data) {
     }
     if (sourceHex.id in targetHex.attacking) {
         delete targetHex.attacking[sourceHex.id];
-        $(byId('overlays')).children().filter(function(element) {
+        toArray(byId('overlays').children).filter(function(element) {
             return element.from && element.to;
-        }).each(function(element) {
+        }).forEach(function(element) {
             if (element.from.id === sourceHex.id && element.to.id === targetHex.id) {
                 element.remove();
             }
         });
     } else {
         targetHex.attacking[sourceHex.id] = sourceHex;
+        var arrow = sprites.attackArrow.cloneNode(true);
+        arrow.from = sourceHex;
+        arrow.to = targetHex;
+        placeArrow(arrow, sourceHex, targetHex, 'overlays');
     }
 
     var defence = targetHex.stack.map(function(unit) {
         return getUnitInfo(unit).defence;
-    }).reduce(sum);
+    }).reduce(sum, 0);
 
     var attack = _.values(targetHex.attacking).map(function(hex) {
         return hex.stack.map(function(unit) {
             return getUnitInfo(unit).attack;
-        }).reduce(sum);
-    }).reduce(sum);
-
-    DeclareAttack({
-        attackerHex: sourceHex.id,
-        targetHex: targetHex.id,
-        value: attack + ':' + defence
-    });
+        }).reduce(sum, 0);
+    }).reduce(sum, 0);
+    if (attack > 0) {
+        ShowOdds({
+            targetHex: targetHex.id,
+            value: attack + ':' + defence
+        });
+    }else{
+        targetHex.odds.remove();
+        delete targetHex.odds;
+    }
     return function() {
 
     };
