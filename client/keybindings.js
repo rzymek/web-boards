@@ -1,9 +1,9 @@
 bindings = {
     '←': function() {
-        menu.Back()
+        playback.stepBack();
     },
     '→': function() {
-        menu.Fwd()
+        playback.stepForward();
     },
     'ctrl+z': function() {
         menu.Undo();

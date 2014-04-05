@@ -7,10 +7,28 @@ function getReplayIdx() {
             ? idx = Operations.find({}).count()
             : idx;
 }
-Template.playback.events({
-    'click .rewind-to-start': function() {
+playback = {
+    rewindToStart: function() {
         Session.set('replayIndex', 0);
     },
+    stepBack: function() {
+        var idx = getReplayIdx();
+        idx--;
+        if (idx < 0)
+            return;
+        Session.set('replayIndex', idx);
+    },
+    stepForward : function() {
+        var idx = getReplayIdx();
+        idx++;
+        if (idx > Operations.find({}).count())
+            idx = null;
+        Session.set('replayIndex', idx);
+    }
+};
+
+Template.playback.events({
+    'click .rewind-to-start': playback.rewindToStart,
     'click .play': function() {
         $('.playback .play').hide();
         $('.playback .pause').show();
@@ -42,22 +60,10 @@ Template.playback.events({
             Session.set('replayIndex', idx - rewindBy);
         }
     },
-    'click .step-back': function() {
-        var idx = getReplayIdx();
-        idx--;
-        if (idx < 0)
-            return;
-        Session.set('replayIndex', idx);
-    },
+    'click .step-back': playback.stepBack,
     'click .fast-forward': function() {
     },
-    'click .step-forward': function() {
-        var idx = getReplayIdx();
-        idx++;
-        if (idx > Operations.find({}).count())
-            idx = null;
-        Session.set('replayIndex', idx);
-    },
+    'click .step-forward': playback.stepForward,
     'click .rewind-to-end': function() {
         Session.set('replayIndex', null);
     }
