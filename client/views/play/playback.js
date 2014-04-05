@@ -9,7 +9,7 @@ function getReplayIdx() {
 }
 playback = {
     rewindToStart: function() {
-        Session.set('replayIndex', 0);
+        Session.set('replayIndex', 1);
     },
     stepBack: function() {
         var idx = getReplayIdx();
