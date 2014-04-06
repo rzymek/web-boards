@@ -16,7 +16,7 @@ function removeAttack(sourceHex, targetHex) {
     }
 }
 function setAttack(sourceHex, targetHex) {
-    targetHex.attacking[sourceHex.id] = sourceHex; 
+    targetHex.attacking[sourceHex.id] = sourceHex;
     var arrow = sprites.attackArrow.cloneNode(true);
     arrow.from = sourceHex;
     arrow.to = targetHex;
@@ -31,7 +31,7 @@ function setOdds(targetHex, value) {
     getOddsText(targetHex.odds).textContent = value;
 }
 function removeOdds(targetHex) {
-    if(targetHex.odds) {
+    if (targetHex.odds) {
         targetHex.odds.remove();
         delete targetHex.odds;
     }
@@ -54,28 +54,35 @@ JoinAttack = function(data) {
         setAttack(sourceHex, targetHex);
         undo = removeAttack;
     }
+    var targetHexInfo = getHexInfo(targetHex.id);
 
     var defence = targetHex.stack.map(function(unit) {
         return getUnitInfo(unit).defence;
-    }).reduce(sum, 0);
+    }).reduce(sum, 0) * targetHexInfo.defenceMod;
 
     var attack = _.values(targetHex.attacking).map(function(hex) {
         return hex.stack.map(function(unit) {
             return getUnitInfo(unit).attack;
-        }).reduce(sum, 0); 
+        }).reduce(sum, 0);
     }).reduce(sum, 0);
+
     var initialOdds = targetHex.odds ? getOddsText(targetHex.odds).textContent : null;
     if (attack > 0) {
         setOdds(targetHex, attack + ':' + defence);
     } else {
         removeOdds(targetHex);
     }
+    if (targetHex.odds) {
+        targetHex.odds.children[0].style.stroke = targetHexInfo.defenceMod > 1 ? 'black' : 'none';
+    }
+
     return function() {
         if (initialOdds === null) {
             removeOdds(targetHex);
         } else {
             setOdds(targetHex, initialOdds);
-        }        
+        }
         undo(sourceHex, targetHex);
     };
-}
+};
+
