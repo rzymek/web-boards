@@ -81,25 +81,24 @@ JoinAttack = function(data) {
     }
     if (targetHex.odds) {
         targetHex.odds.children[0].style.stroke = targetHexInfo.defenceMod > 1 ? 'black' : 'none';
-    }
-
-    targetHex.odds.style.pointerEvents = 'auto';
-    targetHex.odds.onclick = function() {
-        if (getSelectedId() !== null && isAttack(byId(getSelectedId()), targetHex)) {
-            $(targetHex).click();
-            return;
-        }
-        Operations.insert({
-            op: 'Attack',
-            target: targetHex.id,
-            server: {
-                roll: {
-                    count: 2,
-                    sides: 6
-                }
+        targetHex.odds.style.pointerEvents = 'auto';
+        targetHex.odds.onclick = function() {
+            if (getSelectedId() !== null && isAttack(byId(getSelectedId()), targetHex)) {
+                $(targetHex).click();
+                return;
             }
-        });
-    };
+            Operations.insert({
+                op: 'Attack',
+                target: targetHex.id,
+                server: {
+                    roll: {
+                        count: 2,
+                        sides: 6
+                    }
+                }
+            });
+        };
+    }
 
     return function() {
         if (initialOdds === null) {
