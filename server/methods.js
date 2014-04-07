@@ -2,7 +2,8 @@ function getPlayerNames(table) {
     return table.players.map(function(it) {
         return Meteor.users.findOne(it).emails[0].address;
     })
-};
+}
+;
 
 Meteor.methods({
     games: function() {
@@ -31,12 +32,12 @@ Meteor.methods({
     },
     leave: function(tableId) {
         var unset = {};
-        unset['players.'+Meteor.userId()] = "";
+        unset['players.' + Meteor.userId()] = "";
         Tables.update(tableId, {
             $unset: unset
         });
         var table = Tables.findOne(tableId);
-        if(Object.keys(table.players).length === 0 && !table.ops) {
+        if (Object.keys(table.players).length === 0 && !table.ops) {
             console.log('deleteing empty table', tableId);
             Tables.remove(tableId);
         }
@@ -52,8 +53,9 @@ Meteor.methods({
             sort: {'createdAt': -1}
         });
         if (last.result !== undefined) {
-            //'Undo not allowed for '+last.op;
-            return;
+            console.log('Undo not allowed for ' + last.op);
+            throw new Meteor.Error(500, 'Undo not allowed for ' + last.op,
+                    "The action includes a random result. Undoing that would be considered cheating.");
         }
         if (last === undefined) {
             return;

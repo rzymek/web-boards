@@ -1,16 +1,18 @@
+var isAttack = function(counter, targetHex) {
+    var targetStackOwner = (targetHex.stack && targetHex.stack.map(function(it) {
+        return ownerByCategory[it.category];
+    })[0]);
+    var counterOwner = ownerByCategory[counter.category];
+    return (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner);
+};
+
 gameModule = function() {
     var original = {
         MoveOp: MoveOp,
         moveTo: moveTo
     };
     moveTo = function(counter, targetHex) {
-        console.log(counter, targetHex);
-        var targetStackOwner = (targetHex.stack && targetHex.stack.map(function(it) {
-            return ownerByCategory[it.category];
-        })[0]);
-        var counterOwner = ownerByCategory[counter.category];
-        console.log(targetStackOwner, counterOwner);
-        if (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner) {
+        if (isAttack(counter, targetHex)) {
             Operations.insert({
                 op: 'JoinAttack',
                 sourceHex: counter.position.id,

@@ -1,8 +1,20 @@
 RemoveElementOp = function(data) {
-    var element = byId(data.element);
-    var parent = element.parentElement;
-    element.remove();
+    var elements = data.elements || [];
+    if (data.element) {
+        elements.push(data.element);
+    }
+    var backup=[];
+    elements.forEach(function(elementId) {        
+        var element = byId(elementId);
+        backup.push({
+            element: element,
+            parent: element.parentElement
+        });
+        element.remove();
+    });
     return function() {
-        parent.appendChild(element);
+        backup.forEach(function(it){
+            it.parent.appendChild(it.element);
+        });
     };
 };

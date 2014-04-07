@@ -8,6 +8,7 @@
 //});
 selectedPiece = null;
 selectById = function(id) {
+    log('selectById',id);
     selectedPiece = id;
     drawSelection(id);
     Session.set('selectedPiece', id);

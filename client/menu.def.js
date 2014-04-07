@@ -1,6 +1,9 @@
 menu = {
     'Undo': function() {
-        Meteor.call('undo');
+        Meteor.call('undo', function(error){
+            console.log(error);
+            alert(error.reason+'\n'+error.details);
+        });
     },
     'Pieces': function() {
         $('#panel').fadeToggle();

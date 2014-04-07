@@ -32,5 +32,8 @@ removeChildren = function(node) {
     }
 };
 
-
+log = function() {
+    console.log.apply(console, arguments);
+    return arguments[0];
+};
 
