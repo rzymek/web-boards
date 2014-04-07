@@ -62,11 +62,11 @@ var maps = {
 
 var selected = Object.keys(maps)[0];
 var last = null;
-function editHexClicked(e) {
+
+function editHexClicked(hex) {
     var svg = byId('svg');
     if (svg.panning)
         return;
-    var hex = e.currentTarget;
 
     if (last) {
         last.style.fill = '';
