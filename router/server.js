@@ -28,10 +28,28 @@ Router.map(function() {
             var fs = Npm.require('fs');
             var response = this.response;
             var filename = '../client/app/games/' + this.params.game + '/hooks.js';
+            var dirname = '../client/app/games/' + this.params.game + '/src';
             console.log(filename);
             response.writeHead(200, {'Content-Type': 'text/javascript'});
-            if (fs.existsSync(filename)) {
-                response.end(fs.readFileSync(filename));
+            if (fs.statSync(dirname).isDirectory()) {
+                var walk = function(dir) {
+                    var list = fs.readdirSync(dir)
+                    list.forEach(function(file) {
+                        file = dir + '/' + file;
+                        var stat = fs.statSync(file)
+                        if (stat && stat.isDirectory())
+                            walk(file);
+                        else if(file.endsWith('.js')) {
+                            response.write(fs.readFileSync(file), 'utf-8');
+                            response.write('\n', 'utf-8');
+                        }
+                    })
+                };
+                response.write('(function(){\n');
+                walk(dirname);
+                response.write('\n})();');
+            } else if (fs.existsSync(filename)) {
+                response.end(fs.readFileSync(filename), 'utf-8');
             } else {
                 response.end(Assets.getText('defaultHooks.js'));
             }
