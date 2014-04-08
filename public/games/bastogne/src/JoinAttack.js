@@ -9,6 +9,7 @@ function removeAttack(sourceHex, targetHex) {
         return (element.from.id === sourceHex.id && element.to.id === targetHex.id);
     });
     remove.forEach(function(it) {
+        console.log(targetHex.attackArrows, it);
         delete targetHex.attackArrows[targetHex.attackArrows.indexOf(it.id)];
         it.remove();
     });
