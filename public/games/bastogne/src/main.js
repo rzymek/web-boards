@@ -16,7 +16,7 @@ gameModule = function() {
             Operations.insert({
                 op: 'JoinAttack',
                 sourceHex: counter.position.id,
-                targetHex: targetHex.id,
+                targetHex: targetHex.id
             });
         } else {
             original.moveTo(counter, targetHex);
@@ -41,7 +41,7 @@ gameModule = function() {
 
         var undo = [];
         undo.push(original.MoveOp(data));
-        if (DGfrom.length > 0) {
+        if (DGfrom.length > 0 && DGto.length === 0) {
             undo.push(PlaceOp({
                 _id: (new Meteor.Collection.ObjectID()).toHexString(),
                 name: DGfrom[0].name,
