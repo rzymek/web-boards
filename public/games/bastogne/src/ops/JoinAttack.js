@@ -1,6 +1,3 @@
-function getOddsText(odds) {
-    return odds.getElementsByTagNameNS(SVGNS, 'text')[0];
-}
 function removeAttack(sourceHex, targetHex) {
     targetHex.attack.arrows[sourceHex.id].remove();
 
@@ -19,19 +16,21 @@ function setAttack(sourceHex, targetHex) {
     targetHex.attack.arrows[sourceHex.id] = arrow;
 }
 
-function setOdds(targetHex, value) {
-    if (!targetHex.attack.odds) {
-        var odds = sprites.target.cloneNode(true);
+function setOdds(targetHex, oddsVal) {
+    var odds = targetHex.attack.odds;
+    if (!odds) {
+        odds = sprites.target.cloneNode(true);
         odds.id = targetHex.id + "_odds";
         copyTransformation(targetHex, odds);
         byId('overlays').appendChild(odds);
         targetHex.attack.odds = odds;
     }
-    targetHex.attack.oddsValue = value;
-    getOddsText(targetHex.attack.odds).textContent = value;
-
-    targetHex.attack.odds.style.pointerEvents = 'auto';
-    targetHex.attack.odds.onclick = function() {
+    targetHex.attack.oddsValue = oddsVal;
+    var oddsTSpan = odds.getElementsByTagNameNS(SVGNS, 'tspan')
+    oddsTSpan[0].textContent = normalizeOdds(oddsVal).join(':');
+    oddsTSpan[1].textContent = oddsVal.join(':');
+    odds.style.pointerEvents = 'auto';
+    odds.onclick = function() {
         if (getSelectedId() !== null && isAttack(byId(getSelectedId()), targetHex)) {
             $(targetHex).click();
             return;
@@ -65,7 +64,7 @@ JoinAttack = function(data) {
                 arrows: {}, //source hex id -> arrow element
                 from: {}, //source hex id -> hex element
                 odds: null, //element
-                oddsValue: ''
+                oddsValue: null
             };
         }
     }
@@ -95,7 +94,7 @@ JoinAttack = function(data) {
 
     var initialOdds = targetHex.attack.oddsValue;
     if (Object.keys(targetHex.attack.from).length > 0) {
-        setOdds(targetHex, attack + ':' + defence);
+        setOdds(targetHex, [attack, defence]);
         targetHex.attack.odds.children[0].style.stroke = defenceMod > 1 ? 'black' : 'none';
     } else {
         removeOdds(targetHex);
@@ -104,7 +103,7 @@ JoinAttack = function(data) {
     return function() {
         init(targetHex);
         undo(sourceHex, targetHex);
-        if (initialOdds === '') {
+        if (initialOdds === null) {
             removeOdds(targetHex);
         } else {
             setOdds(targetHex, initialOdds);
