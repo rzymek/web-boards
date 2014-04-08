@@ -8,8 +8,6 @@ function removeAttack(sourceHex, targetHex) {
 function setAttack(sourceHex, targetHex) {
     var arrow = sprites.attackArrow.cloneNode(true);
     arrow.id = 'arrow_' + targetHex.id + "_" + sourceHex.id;
-    arrow.from = sourceHex;
-    arrow.to = targetHex;
     placeArrow(arrow, sourceHex, targetHex, 'overlays');
 
     targetHex.attack.from[sourceHex.id] = sourceHex;

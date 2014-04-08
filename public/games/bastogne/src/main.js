@@ -13,11 +13,20 @@ gameModule = function() {
     };
     moveTo = function(counter, targetHex) {
         if (isAttack(counter, targetHex)) {
-            Operations.insert({
-                op: 'JoinAttack',
-                sourceHex: counter.position.id,
-                targetHex: targetHex.id
-            });
+            var isArty = (getUnitInfo(counter).artyType !== undefined);
+            if (isArty) {
+                Operations.insert({
+                    op: 'DeclareBarrage',
+                    counterId: counter.id,
+                    targetHex: targetHex.id
+                });
+            } else {
+                Operations.insert({
+                    op: 'JoinAttack',
+                    sourceHex: counter.position.id,
+                    targetHex: targetHex.id
+                });
+            }
         } else {
             original.moveTo(counter, targetHex);
         }
