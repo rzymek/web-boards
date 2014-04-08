@@ -4,17 +4,14 @@ Attack = function(data) {
         return;
     }
     var hex = byId(data.target);
-    var backup = {
-        odds: hex.odds,
-        arrows: hex.attackArrows,
-        attacking: hex.attacking
-    };
+    var initialAttack = hex.attack;
+
     var undo = RemoveElementOp({
-        elements: hex.attackArrows.concat(hex.odds.id)
+        elements: _.values(hex.attack.arrows).map(function(e) {
+            return e.id;
+        }).concat(hex.attack.odds.id)
     });
-    delete hex.odds;
-    delete hex.attackArrows;
-    delete hex.attacking;
+    delete hex.attack;
 
     var boom = sprites.boom.cloneNode(true);
     boom.id = data._id;
@@ -29,12 +26,10 @@ Attack = function(data) {
     copyTransformation(hex, boom);
     byId('overlays').appendChild(boom);
 
-    //TODO: roll the dice, display results
+    //TODO: CRT
     return function() {
         undo();
-        hex.odds = backup.odds;
-        hex.attackArrows = backup.arrows;
-        hex.attaking = backup.attacking;
+        hex.attack = initialAttack;
         boom.remove();
     };
 };
