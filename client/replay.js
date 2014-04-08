@@ -13,7 +13,6 @@ Meteor.startup(function() {
         if (current === null)
             current = count;
         var ops = opRange(current, to);
-        console.log('replaying', to, current, ops.length);
         if (current <= to) {
             for (var i = 0; i < ops.length; i++) {
                 runOp(ops[i]);

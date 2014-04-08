@@ -1,7 +1,7 @@
 menu = {
     'Undo': function() {
         Meteor.call('undo', function(error){
-            console.log(error);
+            console.error(error);
             alert(error.reason+'\n'+error.details);
         });
     },

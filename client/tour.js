@@ -23,11 +23,9 @@ startTour = function() {
             content: '<p>Click here to start a new "Battle for Moscow" game</p>',
             highlightTarget: true,
             setup: function(tour) {
-
                 var buttons = $('#startgame button');
                 buttons.map(function(idx, btn) {
                     btn.disabled = ($(btn).text() !== 'battle-for-moscow');
-                    console.log(btn, btn.disabled);
                 });
                 var target = $(buttons.filter(function() {
                     return $(this).text() === 'battle-for-moscow';

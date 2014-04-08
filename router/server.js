@@ -29,7 +29,6 @@ Router.map(function() {
             var response = this.response;
             var filename = '../client/app/games/' + this.params.game + '/hooks.js';
             var dirname = '../client/app/games/' + this.params.game + '/src';
-            console.log(filename);
             response.writeHead(200, {'Content-Type': 'text/javascript'});
             if (fs.statSync(dirname).isDirectory()) {
                 var walk = function(dir) {

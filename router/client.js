@@ -23,7 +23,6 @@ Router.map(function() {
             });
         },
         onAfterAction: function() {
-            console.log('after');
             Session.set('tableId', this.params._id);
         }
     });

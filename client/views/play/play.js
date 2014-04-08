@@ -130,7 +130,6 @@ Template.play.rendered = function() {
 
     unbindKeys();
     if (!Template.join.guest()) {
-        console.log('keybindings - add');
         bindKeys();
     }
 

@@ -82,7 +82,6 @@ showStackSelector = function(hexElement/*SVGUseElement*/, stack) {
     stack.forEach(function(counter) {
         counter.style.pointerEvents = 'auto';
         counter.onclick = function(evt) {
-            console.log('stack click', evt);
             var counterId = counter.id;
             var currectlySelectedId = getSelectedId();
             if (counterId === currectlySelectedId) {
