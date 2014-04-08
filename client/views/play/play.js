@@ -13,14 +13,11 @@ setupSvgWidth = function(tmpl) {
 };
 
 setupGrid = function(svg, hexClicked) {
-    var layer = svg.getElementById('hexes');
+    var layer = byId('hexes');
     layer.onclick = function(event) {                
         var hex = event.target.correspondingUseElement || event.target;        
         hexClicked(hex);
     };
-    if (layer.childNodes.length > 0) {
-        return svg; //already setup
-    }
     var board = Session.get('gameInfo').board;
     var hex2hex = {
         x: board.grid.hexWidth,
@@ -28,7 +25,7 @@ setupGrid = function(svg, hexClicked) {
     };
 
     var A = 2 * board.grid.hexSize / Math.sqrt(3);
-    var use;
+    var hex;
     var yn = board.height / hex2hex.y;
     var xn = board.width / hex2hex.x;
     for (var y = 0; y < yn; y++) {
@@ -39,24 +36,22 @@ setupGrid = function(svg, hexClicked) {
             if (x % 2) {
                 hy -= hex2hex.y / 2;
             }
-            use = document.createElementNS(SVGNS, 'use');
-            use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
+            hex = document.createElementNS(SVGNS, 'use');
+            hex.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", '#hex');
             var translate = svg.createSVGTransform();
             var scale = svg.createSVGTransform();
 
             translate.setTranslate(hx, hy);
             scale.setScale(hscale, hscale);
 
-            use.transform.baseVal.appendItem(translate)
-            use.transform.baseVal.appendItem(scale)
+            hex.transform.baseVal.appendItem(translate)
+            hex.transform.baseVal.appendItem(scale)
 
-//            use.setAttribute('transform', 'translate(' + hx + ' ' + hy + ') scale(' + hscale + ')');
-            use.setAttribute('class', 'hex');
-            use.id = 'h' + x + '_' + y;
-//            use.onclick = hexClicked;
-            use.rx = hx;
-            use.ry = hy;
-            layer.appendChild(use);
+            hex.setAttribute('class', 'hex');
+            hex.id = 'h' + x + '_' + y;
+            hex.rx = hx;
+            hex.ry = hy;
+            layer.appendChild(hex);
         }
     }
     return svg;
@@ -94,7 +89,7 @@ Deps.autorun(function() {
     var override = Session.get('boardImgOverride');
     var svg = byId('svg');
     var img = _.toArray(svg.children).filter(function(e) {
-        return e.tagName === 'image'
+        return e.tagName === 'image';
     })[0];
     if (override) { 
         img.origHref = img.href.baseVal;

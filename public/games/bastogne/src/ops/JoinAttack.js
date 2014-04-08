@@ -26,7 +26,7 @@ function setOdds(targetHex, oddsVal) {
         targetHex.attack.odds = odds;
     }
     targetHex.attack.oddsValue = oddsVal;
-    var oddsTSpan = odds.getElementsByTagNameNS(SVGNS, 'tspan')
+    var oddsTSpan = odds.getElementsByTagNameNS(SVGNS, 'tspan');
     oddsTSpan[0].textContent = normalizeOdds(oddsVal).join(':');
     oddsTSpan[1].textContent = oddsVal.join(':');
     odds.style.pointerEvents = 'auto';

@@ -35,3 +35,36 @@ ensureTransformListSize = function(svg, transformList, size) {
     }
     return transformList;
 };
+
+getAdjacentIds = function(hexId) {
+    function toId(x, y) {
+        return 'h' + x + '_' + y;
+    }
+    var split = /h([0-9]+)_([0-9]+)/.exec(hexId);
+    var p = {
+        x: parseInt(split[1]),
+        y: parseInt(split[2])
+    };
+    var o = (p.x % 2 === 0) ? 0 : -1;
+    return [
+        toId(p.x, p.y + 1),
+        toId(p.x - 1, p.y + 1 + o), toId(p.x + 1, p.y + 1 + o),
+        toId(p.x - 1, p.y + o), toId(p.x + 1, p.y + o),
+        toId(p.x, p.y - 1)
+    ];
+};
+/*
+Meteor.startup(function() {
+    Deps.autorun(function() {
+        if (!is('board.ready'))
+            return;
+        var dyncss = byId('dyncss');
+        byId('hexes').onmousemove = function(event) {
+            var hex = event.target.correspondingUseElement || event.target;
+            dyncss.textContent = getAdjacentIds(hex.id).map(function(it) {
+                return '#' + it;
+            }).join(',') + ' { fill: black !important }';
+        };
+    });
+});
+*/
