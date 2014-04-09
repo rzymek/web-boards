@@ -30,8 +30,11 @@ Operations.allow({
                 if (op.server.roll !== undefined) {
                     var r = op.server.roll;
                     var sum = 0;
+                    op.result.dice=[];
                     for (var i = 0; i < r.count; i++) {
-                        sum += (1 + Math.floor(Math.random() * r.sides))
+                        var die = 1 + Math.floor(Math.random() * r.sides);
+                        sum += die;
+                        op.result.dice.push(die);
                     }
                     op.result.roll = sum;
                     op.result.type = r.count + 'd' + r.sides;

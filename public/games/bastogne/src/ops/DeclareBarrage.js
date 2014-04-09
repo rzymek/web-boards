@@ -1,5 +1,5 @@
-function getToRoll(counter) {
-    switch (getUnitInfo(counter).artyType) {
+function getKillRoll(info) {
+    switch (info.artyType) {
         case ArtyType.GUNS_88:
             return 5;
         case ArtyType.OTHER:
@@ -13,23 +13,45 @@ DeclareBarrage = function(data) {
     var targetHex = byId(data.targetHex);
     var counter = byId(data.counterId);
 
-    console.log('barrage');
-
     var arrow = sprites.attackArrow.cloneNode(true);
     arrow.id = 'barrage_' + targetHex.id + "_" + counter.id;
     placeArrow(arrow, counter.position, targetHex, 'overlays');
 
-    var toRoll = sprites.target.cloneNode(true);
-    toRoll.id = targetHex.id + '_barrage';
-    copyTransformation(targetHex, toRoll);
-    byId('overlays').appendChild(toRoll);
-    var tspan = toRoll.getElementsByTagNameNS(SVGNS, 'tspan');
-
+    var info = getUnitInfo(counter);
     var mod = getHexInfo(targetHex.id).barrage;
-    tspan[0].textContent = getToRoll(counter) + mod;
-    tspan[1].textContent = mod;
+    var killRoll = getKillRoll(info);
+    var dgRoll = info.attack - mod;
+    
+    var target = sprites.target.cloneNode(true);
+    target.style.pointerEvents = 'auto';
+    target.id = targetHex.id + '_barrage';
+    target.onclick = function() {
+        Operations.insert({
+            op: 'Barrage',
+            targetHex: targetHex.id,
+            counterId: counter.id,
+            dgRoll: dgRoll,
+            server: {
+                roll: {
+                    count: 2,
+                    sides: 6
+                }
+            }
+        });
+    };
+    copyTransformation(targetHex, target);
+    byId('overlays').appendChild(target);
+    var tspan = target.getElementsByTagNameNS(SVGNS, 'tspan');
 
+    tspan[1].textContent = '>=' + killRoll;
+    tspan[0].textContent = '<=' + dgRoll;
+
+    targetHex.barrage = {
+        arrow: arrow,
+        target: target
+    };
     return function() {
-        //TODO
+        arrow.remove();
+        target.remove();
     };
 };
