@@ -56,7 +56,7 @@ function removeOdds(targetHex) {
     delete targetHex.attack;
 }
 
-JoinAttack = function(data) {
+ToggleAttack = function(data) {
     function sum(a, b) {
         return (a || 0) + b;
     }

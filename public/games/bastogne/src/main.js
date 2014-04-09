@@ -39,7 +39,7 @@ gameModule = function() {
                 }
             } else {
                 Operations.insert({
-                    op: 'JoinAttack',
+                    op: 'ToggleAttack',
                     sourceHex: counter.position.id,
                     targetHex: targetHex.id
                 });
