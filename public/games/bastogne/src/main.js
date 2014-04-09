@@ -45,28 +45,45 @@ gameModule = function() {
                 });
             }
         } else {
-            var from = counter.position;
-            console.log('from.attack',from.attack);
-            var targetHexes = [
-                targetHex.attack && from.attack.from && targetHex.id,
-                from.attack && from.attack.target && from.attack.target.id,
-                from.attack && from.attack.from && from.attack.from.id
-            ];
-            console.log('targetHexes',targetHexes);
-            var abandonAttack = {
-                op: 'UndeclareAttack',
-                targetHexes: targetHexes.filter(function(it) {
-                    return it !== undefined;
-                })
-            };
-            console.log(abandonAttack);
-            if (abandonAttack.targetHexes.length > 0) {
-                Operations.insert(abandonAttack);
-            }
             original.moveTo(counter, targetHex);
         }
     };
-
+    function getAttackTarget(hex) {
+        if (hex.attack) {
+            return hex;
+        } else if (hex.attackSource) {
+            return hex.attackSource.target;
+        } else {
+            return null;
+        }
+    }
+    function abandonAttack(hex) {
+        if (!hex)
+            return function() {
+            };
+        var undoData = hex.attack;
+        _.values(hex.attack.arrows).forEach(function(el) {
+            el.remove();
+        });
+        _.values(hex.attack.from).forEach(function(sourceHex) {
+            delete sourceHex.attackSource;
+        });
+        hex.attack.odds.remove();
+        delete hex.attack;
+        return function() {
+            hex.attack = undoData;
+            var overlays = byId('overlays');
+            _.values(hex.attack.arrows).forEach(function(el) {
+                overlays.appendChild(el);
+            });
+            _.values(hex.attack.from).forEach(function(sourceHex) {
+                sourceHex.attackSource = {
+                    target: hex
+                };
+            });
+            overlays.appendChild(hex.attack.odds);
+        };
+    }
     MoveOp = function(data) {
         var counter = byId(data.counter);
         if (counter.name.match(/ DG$/)) {
@@ -98,6 +115,8 @@ gameModule = function() {
                 undo.push(RemoveElementOp({element: it.id}));
             });
         }
+        undo.push(abandonAttack(getAttackTarget(from)));
+        undo.push(abandonAttack(getAttackTarget(to)));
         return function() {
             undo.reverse().forEach(function(fn) {
                 fn();

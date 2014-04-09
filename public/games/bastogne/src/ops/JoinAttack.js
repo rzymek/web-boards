@@ -3,7 +3,7 @@ function removeAttack(sourceHex, targetHex) {
 
     delete targetHex.attack.from[sourceHex.id];
     delete targetHex.attack.arrows[sourceHex.id];
-    delete sourceHex.attack;
+    delete sourceHex.attackSource;
 }
 
 function setAttack(sourceHex, targetHex) {
@@ -13,9 +13,9 @@ function setAttack(sourceHex, targetHex) {
 
     targetHex.attack.from[sourceHex.id] = sourceHex;
     targetHex.attack.arrows[sourceHex.id] = arrow;
-    sourceHex.attack = {
+    sourceHex.attackSource = {
         target: targetHex
-    }
+    };
 }
 
 function setOdds(targetHex, oddsVal) {
@@ -66,7 +66,8 @@ JoinAttack = function(data) {
                 arrows: {}, //source hex id -> arrow element
                 from: {}, //source hex id -> hex element
                 odds: null, //element
-                oddsValue: null
+                oddsValue: null,
+                target: targetHex
             };
         }
     }
