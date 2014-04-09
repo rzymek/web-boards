@@ -13,6 +13,13 @@ DeclareBarrage = function(data) {
     var targetHex = byId(data.targetHex);
     var counter = byId(data.counterId);
 
+    if(counter.barrage) {
+        var struct = counter.barrage.target.barrage;
+        struct.arrow.remove();
+        struct.target.remove();
+        delete struct;
+        console.log(counter.barrage.target.barrage);
+    };
     var arrow = sprites.attackArrow.cloneNode(true);
     arrow.id = 'barrage_' + targetHex.id + "_" + counter.id;
     placeArrow(arrow, counter.position, targetHex, 'overlays');
@@ -46,9 +53,13 @@ DeclareBarrage = function(data) {
     tspan[1].textContent = '>=' + killRoll;
     tspan[0].textContent = '<=' + dgRoll;
 
+    counter.barrage = {
+        target: targetHex
+    };
     targetHex.barrage = {
         arrow: arrow,
-        target: target
+        target: target,
+        source: counter
     };
     return function() {
         arrow.remove();
