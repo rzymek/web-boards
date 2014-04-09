@@ -25,7 +25,7 @@ DeclareBarrage = function(data) {
     byId('overlays').appendChild(toRoll);
     var tspan = toRoll.getElementsByTagNameNS(SVGNS, 'tspan');
 
-    var mod = getHexInfo(counter.position.id).barrage;
+    var mod = getHexInfo(targetHex.id).barrage;
     tspan[0].textContent = getToRoll(counter) + mod;
     tspan[1].textContent = mod;
 
