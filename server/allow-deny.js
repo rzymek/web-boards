@@ -15,7 +15,8 @@ Tables.allow({
 });
 
 Operations.allow({
-    insert: function(userId, op) {
+    insert: function(userId, op) {        
+        console.log(op);
         try {
             check(userId, String);
             check(op.op, String);

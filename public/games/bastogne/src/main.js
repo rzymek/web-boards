@@ -5,7 +5,9 @@ var isAttack = function(counter, targetHex) {
     var counterOwner = ownerByCategory[counter.category];
     return (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner);
 };
-
+var isArty = function(counter) {
+    return (getUnitInfo(counter).artyType !== undefined);
+};
 gameModule = function() {
     var original = {
         MoveOp: MoveOp,
@@ -13,13 +15,28 @@ gameModule = function() {
     };
     moveTo = function(counter, targetHex) {
         if (isAttack(counter, targetHex)) {
-            var isArty = (getUnitInfo(counter).artyType !== undefined);
-            if (isArty) {
-                Operations.insert({
-                    op: 'DeclareBarrage',
-                    counterId: counter.id,
-                    targetHex: targetHex.id
-                });
+            if (isArty(counter)) {
+                if (counter.barrage) {
+                    if (counter.barrage.target.id === targetHex.id) {
+                        Operations.insert({
+                            op: 'UndeclareBarrage',
+                            counterId: counter.id,
+                            targetHex: targetHex.id
+                        });
+                    } else {
+                        Operations.insert({
+                            op: 'SwitchBarrage',
+                            counterId: counter.id,
+                            targetHex: targetHex.id
+                        });
+                    }
+                } else {
+                    Operations.insert({
+                        op: 'DeclareBarrage',
+                        counterId: counter.id,
+                        targetHex: targetHex.id
+                    });
+                }
             } else {
                 Operations.insert({
                     op: 'JoinAttack',
@@ -28,6 +45,24 @@ gameModule = function() {
                 });
             }
         } else {
+            var from = counter.position;
+            console.log('from.attack',from.attack);
+            var targetHexes = [
+                targetHex.attack && from.attack.from && targetHex.id,
+                from.attack && from.attack.target && from.attack.target.id,
+                from.attack && from.attack.from && from.attack.from.id
+            ];
+            console.log('targetHexes',targetHexes);
+            var abandonAttack = {
+                op: 'UndeclareAttack',
+                targetHexes: targetHexes.filter(function(it) {
+                    return it !== undefined;
+                })
+            };
+            console.log(abandonAttack);
+            if (abandonAttack.targetHexes.length > 0) {
+                Operations.insert(abandonAttack);
+            }
             original.moveTo(counter, targetHex);
         }
     };

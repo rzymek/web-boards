@@ -1,8 +1,10 @@
 menu = {
     'Undo': function() {
         Meteor.call('undo', function(error){
-            console.error(error);
-            alert(error.reason+'\n'+error.details);
+            if(error) {
+                console.error(error);
+                alert(error.reason+'\n'+error.details);
+            }
         });
     },
     'Pieces': function() {
