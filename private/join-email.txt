@@ -1,0 +1,7 @@
+Hi there, 
+
+{{user}} joined your game {{game}} (id: {{id}}).
+Go to {{url}} to play this game.
+
+Truly yours,
+WebBoards

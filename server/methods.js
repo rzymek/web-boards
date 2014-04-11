@@ -24,9 +24,21 @@ Meteor.methods({
         return table;
     },
     join: function(tableId) {
-        console.log(this.userId, ' joining ', tableId);
+        var user = getUsername(this.userId);
+        var table = Tables.findOne(tableId, {reactive: false});
+        var mail = Assets.getText('join-email.txt')
+                .replace('{{game}}', table.game)
+                .replace('{{id}}', table.id)
+                .replace('{{url}}', Meteor.absoluteUrl('/play/' + table._id))
+                .replace('{{user}}', user);
+        Email.send({
+            from: 'eerzymek@gmail.com',
+            bcc: _.values(table.players),
+            subject: '[WebBoards] ' + user + ' joined ' + table.game,
+            text: mail
+        });
         var action = {};
-        action['players.' + this.userId] = getUsername(this.userId);
+        action['players.' + this.userId] = user;
         var changed = Tables.update(tableId, {$set: action});
         return changed === 1;
     },
