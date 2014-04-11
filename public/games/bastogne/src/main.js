@@ -16,27 +16,11 @@ gameModule = function() {
     moveTo = function(counter, targetHex) {
         if (isAttack(counter, targetHex)) {
             if (isArty(counter)) {
-                if (counter.barrage) {
-                    if (counter.barrage.target.id === targetHex.id) {
-                        Operations.insert({
-                            op: 'UndeclareBarrage',
-                            counterId: counter.id,
-                            targetHex: targetHex.id
-                        });
-                    } else {
-                        Operations.insert({
-                            op: 'SwitchBarrage',
-                            counterId: counter.id,
-                            targetHex: targetHex.id
-                        });
-                    }
-                } else {
-                    Operations.insert({
-                        op: 'DeclareBarrage',
-                        counterId: counter.id,
-                        targetHex: targetHex.id
-                    });
-                }
+                Operations.insert({
+                    op: 'ToggleBarrage',
+                    counterId: counter.id,
+                    targetHex: targetHex.id
+                });
             } else {
                 Operations.insert({
                     op: 'ToggleAttack',
