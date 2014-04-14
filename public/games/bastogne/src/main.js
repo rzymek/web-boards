@@ -17,7 +17,7 @@ gameModule = function() {
         if (isAttack(counter, targetHex)) {
             if (isArty(counter)) {
                 Operations.insert({
-                    op: 'ToggleBarrage',
+                    op: 'DeclBarrage',
                     counterId: counter.id,
                     targetHex: targetHex.id
                 });
