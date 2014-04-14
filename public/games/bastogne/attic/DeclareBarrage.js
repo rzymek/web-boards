@@ -1,31 +1,5 @@
-function getKillRoll(info) {
-    switch (info.artyType) {
-        case ArtyType.GUNS_88:
-            return 5;
-        case ArtyType.OTHER:
-            return 6;
-        case ArtyType.YELLOW:
-            return 4;
-    }
-}
-placeSprite = function(sprite, hex) {
-    var element = sprite.cloneNode(true);
-    element.style.pointerEvents = 'auto';
-    element.id = hex.id + '_barrage';
-    element.onclick;
-    copyTransformation(hex, element);
-    byId('overlays').appendChild(element);
-    return element;
-};
+/*
 
-setSpriteTexts = function(sprite/*, [test1], [text2], ...*/) {
-    var index = 1;
-    var args = arguments;
-    toArray(sprite.getElementsByTagNameNS(SVGNS, 'tspan')).forEach(function(tspan) {
-        var value = args[index++] || '';
-        tspan.textContent = value;
-    });
-};
 var updateTargetDisplay = function(targetHex) {
     var initialCount = Object.keys(targetHex.barrage.from);
     var count = Object.keys(targetHex.barrage.from).length;
@@ -71,8 +45,8 @@ DeclareBarrage = function(data) {
     counter.barrage.display = placeSprite(sprites.declareBarrage, counter.position);
     counter.barrage.display.style.pointerEvents = 'none';
     setSpriteTexts(counter.barrage.display,
-            '\u2264'/* <= */ + dgRoll,
-            '\u2265'/* >= */ + killRoll);    
+//            '\u2264'/* <=  + dgRoll,
+//            '\u2265'/* >=  + killRoll);    
     
     targetHex.barrage.display = placeSprite(sprites.target, targetHex);
     targetHex.barrage.from[counter.id] = counter;
@@ -101,3 +75,4 @@ DeclareBarrage = function(data) {
     return function() {
     };
 };
+        */

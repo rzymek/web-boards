@@ -64,11 +64,13 @@ Meteor.methods({
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
         });
+        /*
         if (last.result !== undefined) {
             console.log('Undo not allowed for ' + last.op);
             throw new Meteor.Error(500, 'Undo not allowed for ' + last.op,
                     "The action includes a random result. Undoing that would be considered cheating.");
         }
+        */
         if (last === undefined) {
             return;
         }

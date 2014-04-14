@@ -1,34 +1,35 @@
-function getBarrageResult(counter, data) {
-    console.log(data);
-    var info = getUnitInfo(counter);
-    var dice = data.result.dice;
-    if(dice[0] <= data.dgRoll) {
-        if(dice[1] >= getKillRoll(info)) {
+function getBarrageResult(counter, targetHex, dice) {
+    var roll = getArtyRollInfo(counter, targetHex, dice);
+    if (dice[0] <= roll.dg) {
+        if (dice[1] >= roll.kill) {
             return 'DG+';
-        }else{
+        } else {
             return 'DG';
         }
-    }else{
+    } else {
         return '';
     }
 }
 
 Barrage = function(data) {
-    if(data.server)
+    if (data.server)
         return;
     var targetHex = byId(data.targetHex);
-    var counter = byId(data.counterId);
 
-    targetHex.barrage.arrow.remove();
-    targetHex.barrage.target.remove();
-    
+    var barrage = targetHex.barrage;
+
+    var counter = _.values(barrage.from)[0];
+    var undo = cancelBarrage(counter);
+
     var dice = data.result.dice;
-    var result = getBarrageResult(counter, data);
+    var result = getBarrageResult(counter, targetHex, dice);
     var boom = sprites.boom.cloneNode(true);
     boom.id = data._id;
-    var tspan = boom.getElementsByTagNameNS(SVGNS, 'tspan');
-    tspan[1].textContent = result;
-    tspan[0].textContent = dice[0] + (result === 'DG+' ? ','+dice[1] : '');
+    console.log(result, dice);
+    setSpriteTexts(boom,
+        dice[0] + (result === 'DG+' ? ',' + dice[1] : ''),
+        result
+    );
     copyTransformation(targetHex, boom);
     byId('overlays').appendChild(boom);
     boom.style.pointerEvents = 'auto';
@@ -39,6 +40,7 @@ Barrage = function(data) {
         });
     };
     return function() {
-
+        undo();
+        boom.remove();
     };
 };

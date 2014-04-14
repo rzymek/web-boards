@@ -31,6 +31,14 @@ var clearBarrage = function(barrage) {
     delete barrage.ui;
 };
 
+var getArtyRollInfo = function(counter, targetHex) {
+    var info = getUnitInfo(counter);
+    var dgRollModifier = getHexInfo(targetHex.id).barrage;
+    return {
+        dg: info.attack - dgRollModifier,
+        kill:getKillRoll(info)
+    };
+};
 
 var drawBarrage = function(barrage) {
     var count = Object.keys(barrage.from).length;
@@ -44,7 +52,22 @@ var drawBarrage = function(barrage) {
         })
     };
     barrage.ui.target = placeSprite(sprites.target, barrage.target);
-    barrage.ui.target.style.pointerEvents = 'none';
+    barrage.ui.target.onclick = function() {
+        if (getSelectedId() !== null && isArty(byId(getSelectedId()))) {
+            $(barrage.target).click();
+            return;
+        }
+        Operations.insert({
+            op: 'Barrage',
+            targetHex: barrage.target.id,
+            server: {
+                roll: {
+                    count: 2,
+                    sides: 6
+                }
+            }
+        });
+    };
     setSpriteTexts(barrage.ui.target, count);
 
 
@@ -52,13 +75,10 @@ var drawBarrage = function(barrage) {
         var marker = sprites.declareBarrage.cloneNode(true);
         marker.transform.baseVal.clear();
         marker.style.pointerEvents = 'none';
-        var info = getUnitInfo(counter);
-        var dgRollModifier = getHexInfo(barrage.target.id).barrage;
-        var killRoll = getKillRoll(info);
-        var dgRoll = info.attack - dgRollModifier;
+        var roll = getArtyRollInfo(counter, barrage.target);
         setSpriteTexts(marker,
-                '\u2264'/* <= */ + dgRoll,
-                '\u2265'/* >= */ + killRoll);
+                '\u2264'/* <= */ + roll.dg,
+                '\u2265'/* >= */ + roll.kill);
         counter.appendChild(marker);
         return marker;
     });

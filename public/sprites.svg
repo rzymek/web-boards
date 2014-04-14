@@ -34,8 +34,8 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="3.1454172"
-     inkscape:cx="-23.454443"
-     inkscape:cy="223.31172"
+     inkscape:cx="100.53547"
+     inkscape:cy="208.68727"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -485,7 +485,8 @@
              y="28.838877"
              x="57.87809"
              id="tspan3866"
-             sodipodi:role="line">12</tspan></text>
+             sodipodi:role="line"
+             style="font-weight:bold;-inkscape-font-specification:Arial Bold">12</tspan></text>
       </g>
       <text
          xml:space="preserve"
