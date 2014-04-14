@@ -6,13 +6,15 @@ web-boards
 Web application for playing online adaptation of board games.
 
 Goals:
-* online play as well as turn based (like PBEM)
+* online play as well as turn based 
 * VASSAL modules import
-* state on server - no need to send log files like in PBEL
+* state on server - no need to send log files like in PBEM
 * works on Desktop as well as Mobile 
 
-
 ## Implementation
+
+This is work in progress. If you're interested please DO send
+me an email at eerzymek@gmail.com and I'll update this document.
 
 ### Startup:
 
