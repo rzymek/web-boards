@@ -21,7 +21,6 @@ placeSprite = function(sprite, hex) {
 setSpriteTexts = function(sprite/*, [test1], [text2], ...*/) {
     var index = 1;
     var args = arguments;
-    console.log(arguments);
     toArray(sprite.getElementsByTagNameNS(SVGNS, 'tspan')).forEach(function(tspan) {
         var value = args[index++] || '';
         tspan.textContent = value;
