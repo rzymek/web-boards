@@ -33,9 +33,9 @@
      inkscape:window-height="975"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="3.1454172"
-     inkscape:cx="100.53547"
-     inkscape:cy="208.68727"
+     inkscape:zoom="1.5727086"
+     inkscape:cx="-26.358883"
+     inkscape:cy="246.06206"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -69,27 +69,6 @@
   </metadata>
   <defs
      id="defs6">
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 150 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="300 : 150 : 1"
-       inkscape:persp3d-origin="150 : 100 : 1"
-       id="perspective3064" />
-    <marker
-       style="overflow:visible"
-       id="Arrow2Send"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="Arrow2Send">
-      <path
-         inkscape:connector-curvature="0"
-         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         id="path5687" />
-    </marker>
     <marker
        inkscape:stockid="TriangleOutSJ"
        orient="auto"
@@ -108,194 +87,6 @@
        id="style2990"
        type="text/css"> .h {fill:#fffff;fill-opacity:0;stroke:#000000;stroke-opacity:0.1;pointer-events:all}
         </style>
-    <style
-       id="dyncss"
-       type="text/css" />
-    <filter
-       id="selectionOutline">
-      <feMorphology
-         operator="dilate"
-         in="SourceAlpha"
-         radius="10"
-         id="feMorphology13" />
-      <feColorMatrix
-         type="matrix"
-         values="1 0 0 0  1              0 0 0 0  0              0 0 0 0  0              0 0 0 1  0 "
-         id="feColorMatrix15"
-         result="result1" />
-      <feComposite
-         in="SourceGraphic"
-         id="feComposite17"
-         in2="result1" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:menu-tooltip="Edges are partly feathered out"
-       inkscape:menu="Blurs"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       inkscape:label="Apparition"
-       id="filter3706">
-      <feMorphology
-         result="result0"
-         in="SourceGraphic"
-         radius="4"
-         id="feMorphology3708" />
-      <feGaussianBlur
-         result="result91"
-         stdDeviation="8"
-         in="result0"
-         id="feGaussianBlur3710" />
-      <feComposite
-         in="SourceGraphic"
-         operator="in"
-         in2="result91"
-         id="feComposite3712" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:menu-tooltip="Edges are partly feathered out"
-       inkscape:menu="Blurs"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       inkscape:label="Apparition"
-       id="filter3690">
-      <feMorphology
-         result="result0"
-         in="SourceGraphic"
-         radius="4"
-         id="feMorphology3692" />
-      <feGaussianBlur
-         result="result91"
-         stdDeviation="8"
-         in="result0"
-         id="feGaussianBlur3694" />
-      <feComposite
-         in="SourceGraphic"
-         operator="in"
-         in2="result91"
-         id="feComposite3696" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:menu-tooltip="Edges are partly feathered out"
-       inkscape:menu="Blurs"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       inkscape:label="Apparition"
-       id="filter3690-0">
-      <feMorphology
-         result="result0"
-         in="SourceGraphic"
-         radius="4"
-         id="feMorphology3692-0" />
-      <feGaussianBlur
-         result="result91"
-         stdDeviation="8"
-         in="result0"
-         id="feGaussianBlur3694-4" />
-      <feComposite
-         in="SourceGraphic"
-         operator="in"
-         in2="result91"
-         id="feComposite3696-3" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:menu-tooltip="Edges are partly feathered out"
-       inkscape:menu="Blurs"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       inkscape:label="Apparition"
-       id="filter3706-1">
-      <feMorphology
-         result="result0"
-         in="SourceGraphic"
-         radius="4"
-         id="feMorphology3708-4" />
-      <feGaussianBlur
-         result="result91"
-         stdDeviation="8"
-         in="result0"
-         id="feGaussianBlur3710-9" />
-      <feComposite
-         in="SourceGraphic"
-         operator="in"
-         in2="result91"
-         id="feComposite3712-1" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:menu-tooltip="Invert colors"
-       inkscape:menu="Color"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       inkscape:label="Invert"
-       id="grayscale">
-      <feColorMatrix
-         values="0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0"
-         id="feColorMatrix5702" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:label="select"
-       inkscape:menu="ABCs"
-       inkscape:menu-tooltip="Draws a black outline around"
-       id="select">
-      <feGaussianBlur
-         result="result0"
-         in="SourceAlpha"
-         stdDeviation="2"
-         id="feGaussianBlur3025" />
-      <feComposite
-         k4="0"
-         k1="0"
-         k3="10"
-         k2="1"
-         in="SourceGraphic"
-         operator="arithmetic"
-         result="result3"
-         in2="result0"
-         id="feComposite3027" />
-      <feComposite
-         result="result4"
-         in="result3"
-         operator="in"
-         in2="result3"
-         id="feComposite3029" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       id="mark">
-      <feColorMatrix
-         id="feColorMatrix34"
-         values="0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0"
-         type="matrix" />
-    </filter>
-    <marker
-       style="overflow:visible"
-       id="Arrow2Send-2"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="Arrow2Send">
-      <path
-         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         id="path5687-5"
-         inkscape:connector-curvature="0" />
-    </marker>
     <filter
        color-interpolation-filters="sRGB"
        inkscape:menu-tooltip="Edges are partly feathered out"
@@ -348,20 +139,6 @@
          in2="result91"
          id="feComposite3712-1-3" />
     </filter>
-    <marker
-       inkscape:stockid="TriangleOutSJ"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="TriangleOutSJ-4"
-       style="overflow:visible">
-      <path
-         transform="scale(0.2,0.2)"
-         id="path5934-1"
-         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
-         style="fill:#ff0f0f;fill-rule:evenodd;stroke:#ff0f0f;stroke-width:1pt;marker-start:none"
-         inkscape:connector-curvature="0" />
-    </marker>
     <filter
        color-interpolation-filters="sRGB"
        inkscape:label="select"
@@ -404,6 +181,157 @@
          style="stroke-linejoin:round;stroke:#1506ff;stroke-width:0.625;fill:#1506ff;fill-rule:evenodd"
          id="path3134" />
     </marker>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n1">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">1</tspan></text>
+      </g>
+    </pattern>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n2">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">2</tspan></text>
+      </g>
+    </pattern>
+        <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n3">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">3</tspan></text>
+      </g>
+    </pattern>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n4">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">4</tspan></text>
+      </g>
+    </pattern>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n5">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">5</tspan></text>
+      </g>
+    </pattern>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="50.5"
+       height="50.5"
+       patternTransform="translate(-189.13899,-156.83588)"
+       id="n6">
+      <g transform="translate(91.21875,-16.75)">
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           width="50"
+           height="50"
+           x="-90.953735"
+           y="16.991726" />
+        <text
+           xml:space="preserve"
+           style="font-size:53.61688614px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Sans Bold"
+           x="-63.702244"
+           y="61.260296"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5383"
+             x="-63.702244"
+             y="61.260296">6</tspan></text>
+      </g>
+    </pattern>
+
   </defs>
   <g
      style="display:inline"
@@ -677,5 +605,18 @@
              sodipodi:role="line">1:1</tspan></text>
       </g>
     </g>
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.54357183000000009;stroke-miterlimit:0;stroke-dasharray:none"
+       inkscape:connector-curvature="0"
+       d="M -110.71885,171.8609 -159.94685,171.8609 -184.56085,129.14789 -159.94685,86.434895 H -110.71885 L -86.104854,129.14789 z"
+       stroke-miterlimit="0"
+       id="path103" />
+    <rect
+       style="stroke:none;fill:url(#pattern5390)"
+       width="50.5"
+       height="50.5"
+       x="-189.13899"
+       y="-156.83588"
+       id="rect5396" />
   </g>
 </svg>

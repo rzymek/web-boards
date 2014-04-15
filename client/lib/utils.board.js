@@ -53,17 +53,34 @@ getAdjacentIds = function(hexId) {
         toId(p.x, p.y - 1)
     ];
 };
+
+getAdjacent = function(hex) {
+    if (!hex)
+        return [];
+    return getAdjacentIds(hex.id).map(function(id) {
+        return byId(id);
+    }).filter(function(element) {
+        return element;
+    });
+};
+
+clearHexMarks = function() {
+    byId('dyncss').textContent = '';
+};
+markHexIds = function(ids, fill) {
+    var dyncss = byId('dyncss');
+    dyncss.textContent += '\n' + ids.map(function(id) {
+        return '#' + id;
+    }).join(',') + ' { fill: ' + (fill || 'black') + ' !important }';
+};
 /*
 Meteor.startup(function() {
     Deps.autorun(function() {
         if (!is('board.ready'))
             return;
-        var dyncss = byId('dyncss');
         byId('hexes').onmousemove = function(event) {
             var hex = event.target.correspondingUseElement || event.target;
-            dyncss.textContent = getAdjacentIds(hex.id).map(function(it) {
-                return '#' + it;
-            }).join(',') + ' { fill: black !important }';
+            markHexIds(getAdjacentIds(hex.id));
         };
     });
 });

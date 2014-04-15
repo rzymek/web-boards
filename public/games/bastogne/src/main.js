@@ -102,7 +102,7 @@ gameModule = function() {
         }
         undo.push(abandonAttack(getAttackTarget(from)));
         undo.push(abandonAttack(getAttackTarget(to)));
-        if((from.stack || []).length === 0) {
+        if ((from.stack || []).length === 0) {
             undo.push(abbortBarrage1(from.barrage));
         }
         return function() {
@@ -111,8 +111,54 @@ gameModule = function() {
             });
         };
     };
+    console.log('here');
+    var autorun = Deps.autorun(function() {
+        var selectedId = Session.get('selectedPiece');
+        if (!selectedId) {
+            clearHexMarks();
+            return;
+        }
+        var counter = byId(getSelectedId());
+        var cinfo = getUnitInfo(counter);
+        console.log(counter);
+        var start = counter.position;
+        var go = [start];
+        var costToGetTo = {};
+        costToGetTo[start.id] = {
+            mps: cinfo.movement,
+            hex: start
+        };
+        while (go.length > 0) {
+            var begin = go.pop();
+            getAdjacent(begin).forEach(function(adj) {
+                var from = costToGetTo[begin.id];
+                var already = costToGetTo[adj.id];
+                var hinfo = getHexInfo(adj.id);
+                var left = from.mps - hinfo.movement;
+                if (left >= 0) {
+                    if (!already || already.mps < left) {
+                        setSpriteTexts(placeSprite(sprites.target, adj), left);
+                        costToGetTo[adj.id] = {
+                            mps: left,
+                            hex: adj
+                        };
+                        go.push(adj);
+                    }
+                }
+            });
+        }
+//        _.values(costToGetTo).forEach(function(it){
+//            setSpriteTexts(placeSprite(sprites.target, it.hex), it.mps);
+//        });
+        _.values(costToGetTo).forEach(function(it) {
+            it.hex.onmouseenter = function() {
+                console.log(it.mps);
+            }
+        });
+    });
 
     return function() {
+        autorun.stop();
         MoveOp = original.MoveOp;
         hexClicked = original.hexClicked;
         delete CRT;
