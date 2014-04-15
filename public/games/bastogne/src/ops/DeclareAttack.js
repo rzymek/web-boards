@@ -33,7 +33,7 @@ function setOdds(targetHex, oddsVal) {
     oddsTSpan[1].textContent = oddsVal.join(':');
     odds.style.pointerEvents = 'auto';
     odds.onclick = function() {
-        if (getSelectedId() !== null && isAttack(byId(getSelectedId()), targetHex)) {
+        if (getSelectedId() !== null) {
             $(targetHex).click();
             return;
         }
@@ -56,7 +56,7 @@ function removeOdds(targetHex) {
     delete targetHex.attack;
 }
 
-ToggleAttack = function(data) {
+DeclareAttack = function(data) {
     function sum(a, b) {
         return (a || 0) + b;
     }

@@ -17,13 +17,13 @@ gameModule = function() {
         if (isAttack(counter, targetHex)) {
             if (isArty(counter)) {
                 Operations.insert({
-                    op: 'DeclBarrage',
+                    op: 'DeclareBarrage',
                     counterId: counter.id,
                     targetHex: targetHex.id
                 });
             } else {
                 Operations.insert({
-                    op: 'ToggleAttack',
+                    op: 'DeclareAttack',
                     sourceHex: counter.position.id,
                     targetHex: targetHex.id
                 });

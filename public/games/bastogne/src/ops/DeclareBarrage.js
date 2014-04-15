@@ -121,7 +121,7 @@ var declareBarrage = function(targetHex, counter) {
     };
 };
 
-DeclBarrage = function(data) {
+DeclareBarrage = function(data) {
     var targetHex = byId(data.targetHex);
     var counter = byId(data.counterId);
 

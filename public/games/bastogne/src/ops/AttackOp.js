@@ -10,9 +10,13 @@ Attack = function(data) {
     boom.id = data._id;
     var tspan = boom.getElementsByTagNameNS(SVGNS, 'tspan');
     tspan[1].textContent = getCombatResult(data.result.roll, hex.attack.oddsValue);
-    tspan[0].textContent = data.result.roll; 
+    tspan[0].textContent = data.result.roll;
     boom.style.pointerEvents = 'auto';
     boom.onclick = function() {
+        if (getSelectedId() !== null) {
+            $(hex).click();
+            return;
+        }
         Operations.insert({
             op: 'RemoveElementOp',
             element: boom.id
