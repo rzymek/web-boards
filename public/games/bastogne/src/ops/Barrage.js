@@ -34,18 +34,14 @@ Barrage = function(data) {
     byId('overlays').appendChild(boom);
     boom.style.pointerEvents = 'auto';
     boom.onclick = function() {
+        if (getSelectedId() !== null) {
+            $(barrage.target).click();
+            return;
+        }
         Operations.insert({
             op: 'RemoveElementOp',
             element: boom.id
         });
-        if (result.startsWith('DG')) {
-            Operations.insert({
-                op: 'PlaceOp',
-                category: 'Misc Counters',
-                name: 'US DG',
-                hexid: targetHex.id
-            });
-        }
     };
     return function() {
         undo();

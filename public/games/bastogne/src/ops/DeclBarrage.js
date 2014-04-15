@@ -53,7 +53,7 @@ var drawBarrage = function(barrage) {
     };
     barrage.ui.target = placeSprite(sprites.target, barrage.target);
     barrage.ui.target.onclick = function() {
-        if (getSelectedId() !== null && isArty(byId(getSelectedId()))) {
+        if (getSelectedId() !== null) {
             $(barrage.target).click();
             return;
         }
