@@ -27,9 +27,9 @@ Barrage = function(data) {
     boom.id = data._id;
     console.log(result, dice);
     setSpriteTexts(boom,
-        dice[0] + (result === 'DG+' ? ',' + dice[1] : ''),
-        result
-    );
+            dice[0] + (result === 'DG+' ? ',' + dice[1] : ''),
+            result
+            );
     copyTransformation(targetHex, boom);
     byId('overlays').appendChild(boom);
     boom.style.pointerEvents = 'auto';
@@ -38,6 +38,14 @@ Barrage = function(data) {
             op: 'RemoveElementOp',
             element: boom.id
         });
+        if (result.startsWith('DG')) {
+            Operations.insert({
+                op: 'PlaceOp',
+                category: 'Misc Counters',
+                name: 'US DG',
+                hexid: targetHex.id
+            });
+        }
     };
     return function() {
         undo();

@@ -36,7 +36,7 @@ var getArtyRollInfo = function(counter, targetHex) {
     var dgRollModifier = getHexInfo(targetHex.id).barrage;
     return {
         dg: info.attack - dgRollModifier,
-        kill:getKillRoll(info)
+        kill: getKillRoll(info)
     };
 };
 
@@ -90,6 +90,7 @@ var cancelBarrage = function(counter) {
         return function() {
         };
     }
+    console.log('cancelBarrage', counter);
     clearBarrage(barrage);
     delete barrage.from[counter.id];
     delete counter.barrage;
@@ -103,6 +104,7 @@ var cancelBarrage = function(counter) {
 };
 
 var declareBarrage = function(targetHex, counter) {
+    console.log('declareBarrage', targetHex, counter);
     var barrage = targetHex.barrage;
     clearBarrage(barrage);
     if (counter.barrage) {
@@ -113,9 +115,9 @@ var declareBarrage = function(targetHex, counter) {
     targetHex.barrage = barrage;
     drawBarrage(barrage);
     return function() {
+        cancelBarrage(counter);
         if (undo)
             undo();
-        cancelBarrage(targetHex, counter);
     };
 };
 
