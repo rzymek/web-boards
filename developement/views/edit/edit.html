@@ -17,32 +17,42 @@
             </marker>
 
             <style type="text/css">
-                #data {
+                #data,#all {
                     pointer-events: none;
                 }
-                #data path {
+                #all {
+                    opacity: 0.4;
+                }
+                #data path, #all path {
                     /*marker-end:url(#start);*/
                     marker-start:url(#end);
-                    opacity: 0.5;
+                    opacity: 0.6;
+                    fill:none;
                     stroke-width:5px;
                 }
+
             </style>
         </defs>
         <image id="boardImg" xlink:href="{{boardImg}}" x="0" y="0" height="{{board.h}}" width="{{board.w}}"/>
-        <g id="hexes"></g>        
+        <g id="hexes"></g>
+        <g id="all"></g>
         <g id="data"></g>
     </svg>
 
-    <div  style="position:fixed;top:0;left:0">
-        <select id="actions">
-            {{#each actions}}
-            <option>{{.}}</option>
-            {{/each}}
-        </select>
+    <div id="toolbar" style="position:fixed;top:0;left:0">
         <select id="select">
             {{#each types}}
             <option>{{.}}</option>
             {{/each}}
         </select>
+        <select id="paths">
+            {{#each paths}}
+            <option value="{{_id}}">{{_id}}-{{type}}</option>
+            {{/each}}
+        </select>
+        {{#each actions}}
+        <button class="{{.}}">{{.}}</button>
+        {{/each}}
+        <div style="background: white; border: solid 1px black">path:{{session "edit.path"}}</div>
     </div>
 </template>
