@@ -51,7 +51,7 @@ if (Meteor.isClient) {
             });
         },
         'import': function() {
-            $.get('/games/' + Session.get('editingGame') + '/hex-info.json').done(function(data) {
+            $.get('/games/' + Session.get('editingGame') + '/path-info.json').done(function(data) {
                 data.forEach(function(it) {
                     Edit.insert(it);
                 });

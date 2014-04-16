@@ -40,19 +40,20 @@
     </svg>
 
     <div id="toolbar" style="position:fixed;top:0;left:0">
+        {{#each actions}}
+        <button class="{{.}}">{{.}}</button>
+        {{/each}}
         <select id="select">
             {{#each types}}
             <option>{{.}}</option>
             {{/each}}
         </select>
         <select id="paths">
+            <option></option>
             {{#each paths}}
-            <option value="{{_id}}">{{_id}}-{{type}}</option>
+            <option value="{{_id}}" selected="{{selected 'edit.path'}}">{{_id}}-{{type}}</option>
             {{/each}}
         </select>
-        {{#each actions}}
-        <button class="{{.}}">{{.}}</button>
-        {{/each}}
         <div style="background: white; border: solid 1px black">path:{{session "edit.path"}}</div>
     </div>
 </template>
