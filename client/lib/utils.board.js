@@ -59,7 +59,8 @@ getAdjacentIds = function(hexId) {
 getAdjacent = function(hex) {
     if (!hex)
         return [];
-    return getAdjacentIds(hex.id).map(function(id) {
+    var id = typeof(hex) === "string" ? hex : hex.id;
+    return getAdjacentIds(id).map(function(id) {
         return byId(id);
     }).filter(function(element) {
         return element;

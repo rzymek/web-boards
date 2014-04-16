@@ -113,7 +113,7 @@ gameModule = function() {
     };
     console.log('here');
     var showMovement = Deps.autorun(function() {
-        return;
+//        return;
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -121,6 +121,7 @@ gameModule = function() {
             return;
         }
         var counter = byId(getSelectedId());
+        var side = ownerByCategory[counter.category];
         var cinfo = getUnitInfo(counter);
 
         console.log(counter);
@@ -128,33 +129,44 @@ gameModule = function() {
         var go = [startId];
         var costToGetTo = {};
         costToGetTo[startId] = cinfo.movement;
-        while(true){
+
+        while (true) {
+//        Meteor.setInterval(function(c) {
             var beginId = go.pop();
-            if(!beginId)
+            if (!beginId)
+//                c.stop();
                 break;
             var mps = costToGetTo[beginId];
 //            setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
-            getAdjacentIds(beginId).forEach(function(adjId) {
+            getAdjacentIds(beginId).filter(function(adjId){
+                return !containsEnemy(side, adjId);
+            }).forEach(function(adjId) {                
                 var otherRouteCost = costToGetTo[adjId];
                 var hinfo = getHexInfo(adjId);
-                var pinfo = getPathInfo(beginId, adjId);
-                var mpsAtAdj = mps - (pinfo ? pinfo.movement : hinfo.movement);
+                var mpsAtAdj = mps;
+                if (isEZOC(counter, adjId)) {
+                    mpsAtAdj -= 2;
+                } else {
+                    var pathMovement = getPathMovementCost(beginId, adjId);
+                    if (pathMovement) {
+                        mpsAtAdj -= pathMovement;
+                    }
+                }
+                mpsAtAdj -= hinfo.movement;
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
-//                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
+                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
                         costToGetTo[adjId] = mpsAtAdj;
                         go.push(adjId);
                     }
                 }
             });
+//        }, 100);
         }
-        markHexIds(Object.keys(costToGetTo));
+//        markHexIds(Object.keys(costToGetTo));
     });
 
-    var showRoadMovement= Deps.autorun(function() {
-        
-    });
-    
+
     return function() {
         showMovement.stop();
         MoveOp = original.MoveOp;
