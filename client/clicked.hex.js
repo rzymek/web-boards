@@ -9,6 +9,7 @@ moveTo = function(selectedCounter, hex) {
 hexClicked = function(hex) {
     if (byId('svg').panning)
         return;
+    console.log(hex.id);
     hideStackSelector();
 
     var selectedId = getSelectedId();

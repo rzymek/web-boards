@@ -115,31 +115,32 @@ gameModule = function() {
     var autorun = Deps.autorun(function() {
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
+            $('#overlays').empty();
             clearHexMarks();
             return;
         }
         var counter = byId(getSelectedId());
         var cinfo = getUnitInfo(counter);
-        $('#overlays').empty();
 
         console.log(counter);
-        var start = counter.position.id;
-        var go = [start];
+        var startId = counter.position.id;
+        var go = [startId];
         var costToGetTo = {};
-        costToGetTo[start] = cinfo.movement;
+        costToGetTo[startId] = cinfo.movement;
         while(true){
-            var begin = go.pop();
-            if(!begin)
+            var beginId = go.pop();
+            if(!beginId)
                 break;
-            var mps = costToGetTo[begin];
-            //setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
-            getAdjacentIds(begin).forEach(function(adjId) {
+            var mps = costToGetTo[beginId];
+//            setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
+            getAdjacentIds(beginId).forEach(function(adjId) {
                 var otherRouteCost = costToGetTo[adjId];
                 var hinfo = getHexInfo(adjId);
-                var mpsAtAdj = mps - hinfo.movement;
+                var pinfo = getPathInfo(beginId, adjId);
+                var mpsAtAdj = mps - (pinfo ? pinfo.movement : hinfo.movement);
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
-                        //setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
+                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
                         costToGetTo[adjId] = mpsAtAdj;
                         go.push(adjId);
                     }
