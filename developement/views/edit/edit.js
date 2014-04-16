@@ -51,7 +51,7 @@ if (Meteor.isClient) {
             });
         },
         'import': function() {
-            $.get('/games/' + Session.get('editingGame') + '/path-info.json').done(function(data) {
+            $.get('/games/' + Session.get('editingGame') + '/path-info.json' + requestSuffix()).done(function(data) {
                 data.forEach(function(it) {
                     Edit.insert(it);
                 });
@@ -93,7 +93,7 @@ if (Meteor.isClient) {
         var k = Object.keys(maps);
         return (k.indexOf(type)) * 2;
     }
-    
+
     function toSVGPath(data) {
         var trace = document.createElementNS(SVGNS, "path");
         trace.id = data._id;
@@ -113,11 +113,11 @@ if (Meteor.isClient) {
         var id = Session.get('edit.path');
         var layer = byId('all');
         $('#all').empty();
-        Edit.find({_id: {$ne:id}}).map(toSVGPath).forEach(function(path){
+        Edit.find({_id: {$ne: id}}).map(toSVGPath).forEach(function(path) {
             layer.appendChild(path);
         });
     });
-    
+
     Deps.autorun(function() {
         $('#data').empty();
         var id = Session.get('edit.path');
