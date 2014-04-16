@@ -31,17 +31,17 @@ Router.map(function() {
             response.writeHead(200, {'Content-Type': 'text/javascript'});
             if (fs.statSync(dirname).isDirectory()) {
                 var walk = function(dir) {
-                    var list = fs.readdirSync(dir)
+                    var list = fs.readdirSync(dir);
                     list.forEach(function(file) {
                         file = dir + '/' + file;
-                        var stat = fs.statSync(file)
+                        var stat = fs.statSync(file);
                         if (stat && stat.isDirectory())
                             walk(file);
                         else if(file.endsWith('.js')) {
                             response.write(fs.readFileSync(file), 'utf-8');
                             response.write('\n', 'utf-8');
                         }
-                    })
+                    });
                 };
                 response.write('(function(){\n');
                 walk(dirname);
