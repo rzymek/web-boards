@@ -120,42 +120,35 @@ gameModule = function() {
         }
         var counter = byId(getSelectedId());
         var cinfo = getUnitInfo(counter);
+        $('#overlays').empty();
+
         console.log(counter);
-        var start = counter.position;
+        var start = counter.position.id;
         var go = [start];
         var costToGetTo = {};
-        costToGetTo[start.id] = {
-            mps: cinfo.movement,
-            hex: start
-        };
-        while (go.length > 0) {
+        costToGetTo[start] = cinfo.movement;
+        while(true){
             var begin = go.pop();
-            getAdjacent(begin).forEach(function(adj) {
-                var from = costToGetTo[begin.id];
-                var already = costToGetTo[adj.id];
-                var hinfo = getHexInfo(adj.id);
-                var left = from.mps - hinfo.movement;
-                if (left >= 0) {
-                    if (!already || already.mps < left) {
-                        setSpriteTexts(placeSprite(sprites.target, adj), left);
-                        costToGetTo[adj.id] = {
-                            mps: left,
-                            hex: adj
-                        };
-                        go.push(adj);
+            if(!begin)
+                break;
+            var mps = costToGetTo[begin];
+            //setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
+            getAdjacentIds(begin).forEach(function(adjId) {
+                var otherRouteCost = costToGetTo[adjId];
+                var hinfo = getHexInfo(adjId);
+                var mpsAtAdj = mps - hinfo.movement;
+                if (mpsAtAdj >= 0) {
+                    if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
+                        //setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
+                        costToGetTo[adjId] = mpsAtAdj;
+                        go.push(adjId);
                     }
                 }
             });
         }
-//        _.values(costToGetTo).forEach(function(it){
-//            setSpriteTexts(placeSprite(sprites.target, it.hex), it.mps);
-//        });
-        _.values(costToGetTo).forEach(function(it) {
-            it.hex.onmouseenter = function() {
-                console.log(it.mps);
-            }
-        });
+        markHexIds(Object.keys(costToGetTo));
     });
+
 
     return function() {
         autorun.stop();

@@ -38,7 +38,7 @@ ensureTransformListSize = function(svg, transformList, size) {
 
 getAdjacentIds = function(hexId) {
     function toId(x, y) {
-        return 'h' + x + '_' + y;
+        return (x >= 0 && y >= 0) ? 'h' + x + '_' + y : null;
     }
     var split = /h([0-9]+)_([0-9]+)/.exec(hexId);
     var p = {
@@ -51,7 +51,9 @@ getAdjacentIds = function(hexId) {
         toId(p.x - 1, p.y + 1 + o), toId(p.x + 1, p.y + 1 + o),
         toId(p.x - 1, p.y + o), toId(p.x + 1, p.y + o),
         toId(p.x, p.y - 1)
-    ];
+    ].filter(function(it) {
+        return it;
+    });
 };
 
 getAdjacent = function(hex) {
@@ -74,14 +76,14 @@ markHexIds = function(ids, fill) {
     }).join(',') + ' { fill: ' + (fill || 'black') + ' !important }';
 };
 /*
-Meteor.startup(function() {
-    Deps.autorun(function() {
-        if (!is('board.ready'))
-            return;
-        byId('hexes').onmousemove = function(event) {
-            var hex = event.target.correspondingUseElement || event.target;
-            markHexIds(getAdjacentIds(hex.id));
-        };
-    });
-});
-*/
+ Meteor.startup(function() {
+ Deps.autorun(function() {
+ if (!is('board.ready'))
+ return;
+ byId('hexes').onmousemove = function(event) {
+ var hex = event.target.correspondingUseElement || event.target;
+ markHexIds(getAdjacentIds(hex.id));
+ };
+ });
+ });
+ */
