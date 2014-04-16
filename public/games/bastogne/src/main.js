@@ -112,7 +112,8 @@ gameModule = function() {
         };
     };
     console.log('here');
-    var autorun = Deps.autorun(function() {
+    var showMovement = Deps.autorun(function() {
+        return;
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -140,7 +141,7 @@ gameModule = function() {
                 var mpsAtAdj = mps - (pinfo ? pinfo.movement : hinfo.movement);
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
-                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
+//                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
                         costToGetTo[adjId] = mpsAtAdj;
                         go.push(adjId);
                     }
@@ -150,9 +151,12 @@ gameModule = function() {
         markHexIds(Object.keys(costToGetTo));
     });
 
-
+    var showRoadMovement= Deps.autorun(function() {
+        
+    });
+    
     return function() {
-        autorun.stop();
+        showMovement.stop();
         MoveOp = original.MoveOp;
         hexClicked = original.hexClicked;
         delete CRT;
