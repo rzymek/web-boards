@@ -180,27 +180,65 @@ gameModule = function() {
         var upToEZOC = function(seg) {
             var res = [];
             for (var i = 0; i < seg.length; i++) {
-                if (isEZOC(side, seg[i]))
-                    break;
+                if (isEZOC(side, seg[i]) || containsEnemy(side, seg[i])) {
+                    return {
+                        nodes: res,
+                        stop: true
+                    };
+                }
                 res.push(seg[i]);
             }
-            return res;
-        };
-        var firstRoad = _.chain(pathInfo).map(function(path) {
             return {
-                at: path.nodes.indexOf(hexId),
-                path: path
+                nodes: res,
+                stop: false
             };
-        }).filter(function(pair) {
-            return pair.at >= 0;
-        }).map(function(pair) {
-            return _.union(
-                    upToEZOC(_.chain(pair.path.nodes).rest(pair.at).value()),
-                    upToEZOC(_.chain(pair.path.nodes).first(pair.at).reverse().value())
-                    );
-        }).flatten().value();
+        };
+
+        function joinSeg(segments) {
+            return segments.map(function(seg) {
+                return seg.nodes.concat(joinSeg(seg.next))
+            });
+        }
+
+        function reverseSeg(seg) {
+            return {
+                nodes: seg.nodes.reverse(),
+                next: seg.prevRev,
+                nextRev: seg.prev,
+                prev: seg.nextRev,
+                prevRev: seg.next
+            };
+        }
         
-        markHexIds(firstRoad);
+        visit={};
+        startSeg = pathInfo.filter(function(segInfo) {
+            var nodes = segInfo.nodes;
+            var at = nodes.indexOf(hexId);
+            if (at === -1)
+                return false;
+            segInfo.at = at;
+            return true;
+        }).map(function(segInfo) {
+            var at = segInfo.at;
+            delete segInfo.at;
+            var fwd = upToEZOC(_.chain(segInfo.nodes).rest(at).value());
+            var back = upToEZOC(_.chain(segInfo.nodes).first(at).reverse().value());
+            if(!fwd.stop){
+                visit[_.last(fwd.nodes)] = segInfo.next.concat(segInfo.nextRev.map(reverseSeg));
+                visit[_.first(fwd.nodes)] = segInfo.next.concat(segInfo.nextRev.map(reverseSeg));
+            }
+            if(!back.stop){
+                visit[_.last(back.nodes)] = segInfo.prev.concat(segInfo.prevRev.map(reverseSeg));
+                visit[_.first(back.nodes)] = segInfo.prev.concat(segInfo.prevRev.map(reverseSeg));
+            }
+            delete visit[counter.position.id];
+            return {
+                nodes: fwd.nodes.concat(back.nodes),
+                type: segInfo.type
+            };
+        });
+        console.log(Object.keys(visit).map(byId));
+        markHexIds(_.chain(startSeg).pluck('nodes').flatten().value());
     });
 
 

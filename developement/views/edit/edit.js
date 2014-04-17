@@ -102,18 +102,25 @@ if (Meteor.isClient) {
         return (k.indexOf(type)) * 2;
     }
 
-    function toSVGPath(data) {
-        var trace = document.createElementNS(SVGNS, "path");
-        trace.id = data._id;
-        trace.style.stroke = maps[data.type].color;
-        data.nodes.forEach(function(hexId) {
+    nodesToSVGPath = function(nodes, offset) {
+        offset = offset || 0;
+        var trace = document.createElementNS(SVGNS, "path");        
+        nodes.forEach(function(hexId) {
             var hex = byId(hexId);
             var createSeg = trace.pathSegList.numberOfItems === 0
                     ? trace.createSVGPathSegMovetoAbs
                     : trace.createSVGPathSegLinetoAbs;
-            var seg = createSeg.call(trace, hex.rx + tx(data.type), hex.ry + tx(data.type));
+            var seg = createSeg.call(trace, hex.rx + offset, hex.ry + offset);
             trace.pathSegList.appendItem(seg);
         });
+        return trace;
+    };
+    
+    function toSVGPath(data) {        
+        var offset = tx(data.type);        
+        var trace = nodesToSVGPath(data.nodes, offset);
+        trace.id = data._id;
+        trace.style.stroke = maps[data.type].color;
         return trace;
     }
 
