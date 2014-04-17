@@ -200,17 +200,8 @@ gameModule = function() {
             });
         }
 
-        function reverseSeg(seg) {
-            return {
-                nodes: seg.nodes.reverse(),
-                next: seg.prevRev,
-                nextRev: seg.prev,
-                prev: seg.nextRev,
-                prevRev: seg.next
-            };
-        }
-        
-        visit={};
+
+        visit = {};
         startSeg = pathInfo.filter(function(segInfo) {
             var nodes = segInfo.nodes;
             var at = nodes.indexOf(hexId);
@@ -218,27 +209,12 @@ gameModule = function() {
                 return false;
             segInfo.at = at;
             return true;
-        }).map(function(segInfo) {
-            var at = segInfo.at;
-            delete segInfo.at;
-            var fwd = upToEZOC(_.chain(segInfo.nodes).rest(at).value());
-            var back = upToEZOC(_.chain(segInfo.nodes).first(at).reverse().value());
-            if(!fwd.stop){
-                visit[_.last(fwd.nodes)] = segInfo.next.concat(segInfo.nextRev.map(reverseSeg));
-                visit[_.first(fwd.nodes)] = segInfo.next.concat(segInfo.nextRev.map(reverseSeg));
-            }
-            if(!back.stop){
-                visit[_.last(back.nodes)] = segInfo.prev.concat(segInfo.prevRev.map(reverseSeg));
-                visit[_.first(back.nodes)] = segInfo.prev.concat(segInfo.prevRev.map(reverseSeg));
-            }
-            delete visit[counter.position.id];
-            return {
-                nodes: fwd.nodes.concat(back.nodes),
-                type: segInfo.type
-            };
         });
-        console.log(Object.keys(visit).map(byId));
-        markHexIds(_.chain(startSeg).pluck('nodes').flatten().value());
+        console.log(startSeg,
+                _.flatten(startSeg.map(function(seg) {
+            return Object.keys(seg.ends).map(byId);
+        })));
+//        markHexIds(_.chain(startSeg).pluck('nodes').flatten().value());
     });
 
 
