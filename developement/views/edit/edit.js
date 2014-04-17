@@ -24,6 +24,11 @@ if (Meteor.isClient) {
     Template.edit.actions = function() {
         return Object.keys(actions);
     };
+    Template.edit.helpers({
+        length: function(arr) {
+            return arr.length;
+        }
+    });
     Template.edit.events({
         'change #select': function(e) {
             selected = e.currentTarget.value;
@@ -62,6 +67,9 @@ if (Meteor.isClient) {
                 type: selected,
                 nodes: []
             }));
+        },
+        'delete path': function() {
+            Edit.remove(Session.get('edit.path'));
         },
         'undo': function() {
             Edit.update(Session.get('edit.path'), {

@@ -11,7 +11,7 @@ containsEnemy = function(counterOwner, hexId) {
 };
 
 isEZOC = function(counter, hexId) {
-    var counterOwner = ownerByCategory[counter.category];
+    var counterOwner = _.isString(counter) ? counter : ownerByCategory[counter.category];
     var adjCounters = _.chain(getAdjacent(hexId)).map(function(hex){
         return hex.stack || [];
     }).flatten().value();

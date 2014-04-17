@@ -51,7 +51,7 @@
         <select id="paths">
             <option></option>
             {{#each paths}}
-            <option value="{{_id}}" selected="{{selected 'edit.path'}}">{{_id}}-{{type}}</option>
+            <option value="{{_id}}" selected="{{selected 'edit.path'}}">{{_id}}-{{type}}({{length nodes}})</option>
             {{/each}}
         </select>
     </div>

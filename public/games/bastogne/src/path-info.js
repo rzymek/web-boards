@@ -16,4 +16,11 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathInfo
         }).min().value();
         return value === Number.POSITIVE_INFINITY ? undefined : value;
     };
+    window.pathInfo = pathInfo;
+    getPath = function(hex) {
+        var hexId = 'id' in hex ? hex.id : hex;
+        _.chain(pathInfo).filter(function(path){
+            return path.nodes.indexOf(hexId) >= 0;
+        });
+    }
 });

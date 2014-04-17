@@ -74,7 +74,7 @@ markHexIds = function(ids, fill) {
     var dyncss = byId('dyncss');
     dyncss.textContent += '\n' + ids.map(function(id) {
         return '#' + id;
-    }).join(',') + ' { fill: ' + (fill || 'black') + ' !important }';
+    }).join(', ') + ' { fill: ' + (fill || 'black') + ' !important }';
 };
 /*
  Meteor.startup(function() {

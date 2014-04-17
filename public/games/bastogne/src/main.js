@@ -113,7 +113,7 @@ gameModule = function() {
     };
     console.log('here');
     var showMovement = Deps.autorun(function() {
-//        return;
+        return;
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -138,9 +138,9 @@ gameModule = function() {
                 break;
             var mps = costToGetTo[beginId];
 //            setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
-            getAdjacentIds(beginId).filter(function(adjId){
+            getAdjacentIds(beginId).filter(function(adjId) {
                 return !containsEnemy(side, adjId);
-            }).forEach(function(adjId) {                
+            }).forEach(function(adjId) {
                 var otherRouteCost = costToGetTo[adjId];
                 var hinfo = getHexInfo(adjId);
                 var mpsAtAdj = mps;
@@ -164,6 +164,42 @@ gameModule = function() {
 //        }, 100);
         }
 //        markHexIds(Object.keys(costToGetTo));
+    });
+
+    var showRoadMovement = Deps.autorun(function() {
+        var selectedId = Session.get('selectedPiece');
+        if (!selectedId) {
+            $('#overlays').empty();
+            clearHexMarks();
+            return;
+        }
+        var counter = byId(getSelectedId());
+        var hexId = counter.position.id;
+        var side = ownerByCategory[counter.category];
+
+        var upToEZOC = function(seg) {
+            var res = [];
+            for (var i = 0; i < seg.length; i++) {
+                if (isEZOC(side, seg[i]))
+                    break;
+                res.push(seg[i]);
+            }
+            return res;
+        };
+        onPaths = _.chain(pathInfo).map(function(path) {
+            return {
+                at: path.nodes.indexOf(hexId),
+                path: path
+            };
+        }).filter(function(pair) {
+            return pair.at >= 0;
+        }).map(function(pair) {
+            return _.union(
+                    upToEZOC(_.chain(pair.path.nodes).rest(pair.at).value()),
+                    upToEZOC(_.chain(pair.path.nodes).first(pair.at).reverse().value())
+                    );
+        }).flatten().value();
+        markHexIds(onPaths);
     });
 
 
