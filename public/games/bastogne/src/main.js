@@ -186,7 +186,7 @@ gameModule = function() {
             }
             return res;
         };
-        onPaths = _.chain(pathInfo).map(function(path) {
+        var firstRoad = _.chain(pathInfo).map(function(path) {
             return {
                 at: path.nodes.indexOf(hexId),
                 path: path
@@ -199,7 +199,8 @@ gameModule = function() {
                     upToEZOC(_.chain(pair.path.nodes).first(pair.at).reverse().value())
                     );
         }).flatten().value();
-        markHexIds(onPaths);
+        
+        markHexIds(firstRoad);
     });
 
 
