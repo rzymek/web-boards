@@ -113,7 +113,7 @@ gameModule = function() {
     };
     console.log('here');
     var showMovement = Deps.autorun(function() {
-//        return;
+        return;//TODO:enable
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -165,10 +165,34 @@ gameModule = function() {
         }
         for (var hexId in costToGetTo) {
             var s = placeSprite(sprites.mps, byId(hexId));
-            s.style.pointerEvents='none';
+            s.style.pointerEvents = 'none';
             setSpriteTexts(s, costToGetTo[hexId]);
         }
 //        markHexIds(Object.keys(costToGetTo));
+    });
+    Deps.autorun(function() {
+        var selectedId = Session.get('selectedPiece');
+        var layer = byId('overlays');
+        if (!selectedId) {
+            $(layer).empty();
+            clearHexMarks();
+            return;
+        }
+        var counter = byId(selectedId);
+        var radiating = getRadiating(counter.position.id);
+        var show = function(road) {
+            log(road);
+            var path = nodesToSVGPath(road.hexes);
+            path.id = '_'; //without this chrome add some empty attributes and the path is not showing
+            path.style.strokeWidth = '5px';
+            path.style.stroke = pathTypeColors[road.type].color;
+            layer.appendChild(path);
+            markHexIds(road.crossroad);
+            return road;
+        };
+        _.chain(radiating).map(show).pluck('crossroad').filter(notNull).forEach(function(hexId){
+            getRadiating(hexId).forEach(show);
+        });
     });
 
     var showRoadMovement = Deps.autorun(function() {
@@ -230,4 +254,4 @@ gameModule = function() {
         hexClicked = original.hexClicked;
         delete CRT;
     };
-}; 
+};

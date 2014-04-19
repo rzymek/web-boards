@@ -5,53 +5,47 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
         'rail': 1,
         'trail': 1
     };
-        reverseSeg = function(seg) {
-            return {
-                nodes: seg.nodes.reverse(),
-                next: seg.prevRev,
-                nextRev: seg.prev,
-                prev: seg.nextRev,
-                prevRev: seg.next
-            };
-        }
+    reverseSeg = function(seg) {
+        return {
+            nodes: seg.nodes.reverse(),
+            next: seg.prevRev,
+            nextRev: seg.prev,
+            prev: seg.nextRev,
+            prevRev: seg.next
+        };
+    }
     function getEnds(segInfo) {
         return [_.first(segInfo.nodes), _.last(segInfo.nodes)];
     }
-
+    var crossroads={};
     pathSegments.forEach(function(segInfo) {
         var first = _.first(segInfo.nodes);
         var last = _.last(segInfo.nodes);
-        function notThis(otherSeg) {
-            return segInfo !== otherSeg;
+        var edge = {
+            hexes: segInfo.nodes,
+            type: segInfo.type,
+            ends: [first, last]
+        };
+        function addCrossroadsPath(crossroadHex, edge) {
+            var crossroad = crossroads[crossroadHex];
+            if(!crossroad)
+                crossroads[crossroadHex] = [edge];
+            else
+                crossroads[crossroadHex].push(edge);
         }
-        segInfo.ends = {};
-        segInfo.ends[first] = function() {
-            return pathSegments.filter(function(segInfo) {
-                return _.last(segInfo.nodes) === first;
-            }).filter(notThis).concat(pathSegments.filter(function(segInfo) {
-                return _.first(segInfo.nodes) === first;
-            }).filter(notThis));
-        };
-        segInfo.ends[last] = function() {
-            return  pathSegments.filter(function(segInfo) {
-                return _.first(segInfo.nodes) === last;
-            }).filter(notThis).concat(pathSegments.filter(function(segInfo) {
-                return _.last(segInfo.nodes) === last;
-            }).filter(notThis));
-        };
-//        segInfo.prev = pathSegments.filter(function(segInfo) {
-//            return _.last(segInfo.nodes) === first;
-//        }).filter(notThis);
-//        segInfo.prevRev = pathSegments.filter(function(segInfo) {
-//            return _.first(segInfo.nodes) === first;
-//        }).filter(notThis);
-//        segInfo.next = pathSegments.filter(function(segInfo) {
-//            return _.first(segInfo.nodes) === last;
-//        }).filter(notThis);
-//        segInfo.nextRev = pathSegments.filter(function(segInfo) {
-//            return _.last(segInfo.nodes) === last;
-//        }).filter(notThis);
+        addCrossroadsPath(first, edge);
+        addCrossroadsPath(last, edge);
     });
+
+    getRadiating = function(crossroadHex) {
+        return (crossroads[crossroadHex] || []).map(function(edge){
+            return {
+                hexes: edge.hexes[0] === crossroadHex ? edge.hexes : edge.hexes.reverse(),
+                type: edge.type,
+                crossroad: _.without(edge.ends, crossroadHex)
+            };
+        });
+    };
 
     getPathMovementCost = function(fromId, toId) {
         var value = _.chain(pathSegments).filter(function(path) {

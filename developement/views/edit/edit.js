@@ -19,7 +19,7 @@ if (Meteor.isClient) {
         return Edit.find();
     }
     Template.edit.types = function() {
-        return Object.keys(maps);
+        return Object.keys(pathTypeColors);
     };
     Template.edit.actions = function() {
         return Object.keys(actions);
@@ -77,7 +77,7 @@ if (Meteor.isClient) {
             });
         }
     };
-    var maps = {
+    pathTypeColors = {
         road: {color: 'black'},
         trail: {color: 'brown'},
         rail: {color: 'gray'},
@@ -85,7 +85,7 @@ if (Meteor.isClient) {
         interrupted: {color: 'red'}
     };
 
-    var selected = Object.keys(maps)[0];
+    var selected = Object.keys(pathTypeColors)[0];
     function editHexClicked(hex) {
         var svg = byId('svg');
         if (svg.panning)
@@ -98,14 +98,15 @@ if (Meteor.isClient) {
     //minor translaction based on type
     //when there are multiple paths on the same hex
     function tx(type) {
-        var k = Object.keys(maps);
+        var k = Object.keys(pathTypeColors);
         return (k.indexOf(type)) * 2;
     }
 
-    nodesToSVGPath = function(nodes, offset) {
+    nodesToSVGPath = function(hexIds, offset) {
         offset = offset || 0;
-        var trace = document.createElementNS(SVGNS, "path");        
-        nodes.forEach(function(hexId) {
+        var trace = document.createElementNS(SVGNS, "path");
+        trace.style.fill='none';
+        hexIds.forEach(function(hexId) {
             var hex = byId(hexId);
             var createSeg = trace.pathSegList.numberOfItems === 0
                     ? trace.createSVGPathSegMovetoAbs
@@ -115,12 +116,12 @@ if (Meteor.isClient) {
         });
         return trace;
     };
-    
-    function toSVGPath(data) {        
-        var offset = tx(data.type);        
+
+    function toSVGPath(data) {
+        var offset = tx(data.type);
         var trace = nodesToSVGPath(data.nodes, offset);
         trace.id = data._id;
-        trace.style.stroke = maps[data.type].color;
+        trace.style.stroke = pathTypeColors[data.type].color;
         return trace;
     }
 
