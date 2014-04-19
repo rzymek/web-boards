@@ -113,7 +113,7 @@ gameModule = function() {
     };
     console.log('here');
     var showMovement = Deps.autorun(function() {
-        return;
+//        return;
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -155,7 +155,7 @@ gameModule = function() {
                 mpsAtAdj -= hinfo.movement;
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
-                        setSpriteTexts(placeSprite(sprites.target, byId(adjId)), mpsAtAdj);
+//                        setSpriteTexts(placeSprite(sprites.mps, byId(adjId)), mpsAtAdj);
                         costToGetTo[adjId] = mpsAtAdj;
                         go.push(adjId);
                     }
@@ -163,10 +163,16 @@ gameModule = function() {
             });
 //        }, 100);
         }
+        for (var hexId in costToGetTo) {
+            var s = placeSprite(sprites.mps, byId(hexId));
+            s.style.pointerEvents='none';
+            setSpriteTexts(s, costToGetTo[hexId]);
+        }
 //        markHexIds(Object.keys(costToGetTo));
     });
 
     var showRoadMovement = Deps.autorun(function() {
+        return;//TODO:remove
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
             $('#overlays').empty();
@@ -212,8 +218,8 @@ gameModule = function() {
         });
         console.log(startSeg,
                 _.flatten(startSeg.map(function(seg) {
-            return Object.keys(seg.ends).map(byId);
-        })));
+                    return Object.keys(seg.ends).map(byId);
+                })));
 //        markHexIds(_.chain(startSeg).pluck('nodes').flatten().value());
     });
 

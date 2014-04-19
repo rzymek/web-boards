@@ -11,7 +11,9 @@ var setSpriteTexts = function(sprite/*, [test1], [text2], ...*/) {
     var index = 1;
     var args = arguments;
     toArray(sprite.getElementsByTagNameNS(SVGNS, 'tspan')).forEach(function(tspan) {
-        var value = args[index++] || '';
+        var value = args[index++];
+        if(value === undefined)
+            value = '';
         tspan.textContent = value;
     });
 };
