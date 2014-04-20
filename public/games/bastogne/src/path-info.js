@@ -42,7 +42,7 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
             return {
                 hexes: edge.hexes[0] === crossroadHex ? edge.hexes : edge.hexes.reverse(),
                 type: edge.type,
-                crossroad: _.without(edge.ends, crossroadHex)
+                crossroad: _.chain(edge.ends).without(crossroadHex).first().value()
             };
         });
     };

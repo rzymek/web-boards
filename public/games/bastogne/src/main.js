@@ -171,6 +171,7 @@ gameModule = function() {
 //        markHexIds(Object.keys(costToGetTo));
     });
     Deps.autorun(function() {
+//        return;//TODO: remove
         var selectedId = Session.get('selectedPiece');
         var layer = byId('overlays');
         if (!selectedId) {
@@ -179,44 +180,17 @@ gameModule = function() {
             return;
         }
         var counter = byId(selectedId);
-        var radiating = getRadiating(counter.position.id);
-        var show = function(road) {
-            log(road);
-            var path = nodesToSVGPath(road.hexes);
-            path.id = '_'; //without this chrome add some empty attributes and the path is not showing
-            path.style.strokeWidth = '5px';
-            path.style.stroke = pathTypeColors[road.type].color;
-            layer.appendChild(path);
-            markHexIds(road.crossroad);
-            return road;
-        };
-        _.chain(radiating).map(show).pluck('crossroad').filter(notNull).forEach(function(hexId){
-            getRadiating(hexId).forEach(show);
-        });
-    });
-
-    var showRoadMovement = Deps.autorun(function() {
-        return;//TODO:remove
-        var selectedId = Session.get('selectedPiece');
-        if (!selectedId) {
-            $('#overlays').empty();
-            clearHexMarks();
-            return;
-        }
-        var counter = byId(getSelectedId());
-        var hexId = counter.position.id;
         var side = ownerByCategory[counter.category];
-
-        var upToEZOC = function(seg) {
+        var upToEZOC = function(hexIds) {
             var res = [];
-            for (var i = 0; i < seg.length; i++) {
-                if (isEZOC(side, seg[i]) || containsEnemy(side, seg[i])) {
+            for (var i = 0; i < hexIds.length; i++) {
+                if (isEZOC(side, hexIds[i]) || containsEnemy(side, hexIds[i])) {
                     return {
                         nodes: res,
                         stop: true
                     };
                 }
-                res.push(seg[i]);
+                res.push(hexIds[i]);
             }
             return {
                 nodes: res,
@@ -224,29 +198,51 @@ gameModule = function() {
             };
         };
 
-        function joinSeg(segments) {
-            return segments.map(function(seg) {
-                return seg.nodes.concat(joinSeg(seg.next))
+        var trimToEZOC = function(road) {
+            var trimmed = upToEZOC(road.hexes);
+            if (trimmed.stop) {
+                road.hexes = trimmed.nodes;
+                delete road.crossroad;
+            }
+            return road;
+        };
+        var show = function(road) {
+//            log(road);
+            var path = nodesToSVGPath(road.hexes);
+            path.id = '_'; //without this chrome add some empty attributes and the path is not showing
+            path.style.strokeWidth = '5px';
+            path.style.stroke = pathTypeColors[road.type].color;
+            layer.appendChild(path);
+            markHexIds([road.crossroad].filter(notNull));
+            return road;
+        };
+        var i=30;
+        visited = {};
+        var expand = function(hex, value) {
+            if(i-- < 0)
+                return ['hammer time'];
+//            if(visited[hex] && visited[hex] < value)
+//                return ['x'];
+            console.log('expand',hex,byId(hex),value);
+            var radiating = getRadiating(hex)
+                    .map(trimToEZOC)
+                    .map(show);
+            return radiating.filter(function(info) {
+                return info.crossroad;
+            }).map(function(info) {
+                return getRadiating(info.crossroad).map(trimToEZOC).map(function(seg){
+                    var newValue = (info.type === seg.type) ? value : value + 1;
+                    var previously = visited[seg.crossroad];
+                    if(!(previously <= newValue) && newValue < 3) {
+                        visited[seg.crossroad] = value;
+                        return expand(seg.crossroad, newValue);
+                    }
+                }).filter(notNull);
             });
-        }
-
-
-        visit = {};
-        startSeg = pathInfo.filter(function(segInfo) {
-            var nodes = segInfo.nodes;
-            var at = nodes.indexOf(hexId);
-            if (at === -1)
-                return false;
-            segInfo.at = at;
-            return true;
-        });
-        console.log(startSeg,
-                _.flatten(startSeg.map(function(seg) {
-                    return Object.keys(seg.ends).map(byId);
-                })));
-//        markHexIds(_.chain(startSeg).pluck('nodes').flatten().value());
+        };
+        var movement = expand(counter.position.id, 1);
+        log(movement,visited);
     });
-
 
     return function() {
         showMovement.stop();
