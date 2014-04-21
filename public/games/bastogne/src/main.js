@@ -1,13 +1,15 @@
 var isAttack = function(counter, targetHex) {
-    var targetStackOwner = (targetHex.stack && targetHex.stack.map(function(it) {
-        return ownerByCategory[it.category];
-    })[0]);
-    var counterOwner = ownerByCategory[counter.category];
-    return (targetStackOwner !== undefined && counterOwner !== undefined && counterOwner !== targetStackOwner);
+    var targetStackOwner = _.first(targetHex.stack && targetHex.stack.map(function(it) {
+        return getOwner(it);
+    }));
+    var counterOwner = getOwner(counter);
+    return (targetStackOwner && counterOwner && counterOwner !== targetStackOwner);
 };
+
 var isArty = function(counter) {
     return (getUnitInfo(counter).artyType !== undefined);
 };
+
 gameModule = function() {
     var original = {
         MoveOp: MoveOp,
@@ -116,12 +118,12 @@ gameModule = function() {
         return;//TODO:enable
         var selectedId = Session.get('selectedPiece');
         if (!selectedId) {
-            $('#overlays').empty();
+            $('#traces').empty();
             clearHexMarks();
             return;
         }
         var counter = byId(getSelectedId());
-        var side = ownerByCategory[counter.category];
+        var side = getOwner(counter);
         var cinfo = getUnitInfo(counter);
 
         console.log(counter);
@@ -164,101 +166,17 @@ gameModule = function() {
 //        }, 100);
         }
         Object.keys(costToGetTo).forEach(function(hexId) {
-            placeMPS(costToGetTo[hexId], hexId);
+            placeMPS(costToGetTo[hexId], hexId, 'traces');
         });
     });
-    function placeMPS(value, hexId) {
-        var hex = byId(hexId);
-        if (!hex) {
-            console.error(hexId, 'not found');
-        }
-        var s = placeSprite(sprites.mps, hex);
-        s.style.pointerEvents = 'none';
-        setSpriteTexts(s, value || '');
-    }
-    Deps.autorun(function() {
-//        return;//TODO: remove
-        var selectedId = Session.get('selectedPiece');
-        var layer = byId('overlays');
-        if (!selectedId) {
-            $(layer).empty();
-            clearHexMarks();
-            return;
-        }
-        var counter = byId(selectedId);
-        var side = ownerByCategory[counter.category];
-        var upToEZOC = function(hexIds) {
-            var res = [];
-            for (var i = 0; i < hexIds.length; i++) {
-                if (isEZOC(side, hexIds[i]) || containsEnemy(side, hexIds[i])) {
-                    return {
-                        nodes: res,
-                        stop: true
-                    };
-                }
-                res.push(hexIds[i]);
-            }
-            return {
-                nodes: res,
-                stop: false
-            };
-        };
 
-        var trimToEZOC = function(road) {
-            var trimmed = upToEZOC(road.hexes);
-            if (trimmed.stop) {
-                road.hexes = trimmed.nodes;
-                delete road.crossroad;
-            }
-            return road;
-        };
-
-        var step = (function() {
-            var visited = {};// hex -> steps left
-            var visit = [{
-                    hex: counter.position.id,
-                    stepsLeft: 3
-                }];
-            return function() {
-                var travelerInfo = visit.pop();
-                if (!travelerInfo)
-                    return;
-                var previous = visited[travelerInfo.hex];
-                console.log('---------------------------------------\nstep', travelerInfo, previous);
-                if (previous !== undefined && previous.stepsLeft >= travelerInfo.stepsLeft && previous.type === travelerInfo.type) {
-                    return;
-                }
-                visited[travelerInfo.hex] = travelerInfo;
-                var neightours = getRadiating(travelerInfo.hex)
-                        .map(trimToEZOC);
-                _.chain(neightours).forEach(function(info) {
-                    console.log(info);
-                    var penalty = (travelerInfo.type && info.type !== travelerInfo.type) ? 1 : 0;
-                    var newStepsLeft = travelerInfo.stepsLeft - penalty;
-                    if (newStepsLeft <= 0)
-                        return;
-                    info.hexes.forEach(placeMPS.bind(_, newStepsLeft));
-                    if (!info.crossroad)
-                        return;
-                    visit.push({
-                        hex: info.crossroad,
-                        type: info.type,
-                        stepsLeft: newStepsLeft
-                    });
-                });
-                console.log('been there', visited);
-                console.log('visit', visit, _.pluck(visit, 'hex').map(byId));
-            };
-        })();
-
-        Meteor.setInterval(step, 100);
-//        Meteor.Keybindings.add({
-//            'space': step
-//        });
-    });
+    var deps = [];
+    deps.push(showRoadMovement());
 
     return function() {
-        showMovement.stop();
+        deps.forEach(function(c) {
+            c.stop();
+        });
         MoveOp = original.MoveOp;
         hexClicked = original.hexClicked;
         delete CRT;

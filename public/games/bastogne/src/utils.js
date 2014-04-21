@@ -1,9 +1,20 @@
-var placeSprite = function(sprite, hex) {
+var placeMPS = function(value, hexId) {
+    var hex = byId(hexId);
+    if (!hex) {
+        console.error(hexId, 'not found');
+    }
+    var s = placeSprite(sprites.mps, hex, 'traces');
+    s.style.pointerEvents = 'none';
+    setSpriteTexts(s, value || '');
+};
+
+var placeSprite = function(sprite, hex, layer) {
+    layer = layer || 'overlays';
     var element = sprite.cloneNode(true);
     element.style.pointerEvents = 'auto';
     element.id += hex.id;
     copyTransformation(hex, element);
-    byId('overlays').appendChild(element);
+    byId(layer).appendChild(element);
     return element;
 };
 
@@ -12,7 +23,7 @@ var setSpriteTexts = function(sprite/*, [test1], [text2], ...*/) {
     var args = arguments;
     toArray(sprite.getElementsByTagNameNS(SVGNS, 'tspan')).forEach(function(tspan) {
         var value = args[index++];
-        if(value === undefined)
+        if (value === undefined)
             value = '';
         tspan.textContent = value;
     });

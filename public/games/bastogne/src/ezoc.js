@@ -1,6 +1,6 @@
 var isEnemyOnList = function(counterOwner, otherCounters) {
     return otherCounters.map(function(counter){
-        return ownerByCategory[counter.category];
+        return getOwner(counter);
     }).filter(function(owner){
         return owner && owner !== counterOwner;
     }).length > 0;
@@ -11,7 +11,7 @@ containsEnemy = function(counterOwner, hexId) {
 };
 
 isEZOC = function(counter, hexId) {
-    var counterOwner = _.isString(counter) ? counter : ownerByCategory[counter.category];
+    var counterOwner = _.isString(counter) ? counter : getOwner(counter);
     var adjCounters = _.chain(getAdjacent(hexId)).map(function(hex){
         return hex.stack || [];
     }).flatten().value();
