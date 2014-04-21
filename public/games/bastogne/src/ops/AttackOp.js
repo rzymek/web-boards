@@ -6,10 +6,11 @@ Attack = function(data) {
     var hex = byId(data.target);
     var initialAttack = hex.attack;
 
+    var combatResult = getCombatResult(data.result.roll, hex.attack.oddsValue);
     var boom = sprites.boom.cloneNode(true);
     boom.id = data._id;
     var tspan = boom.getElementsByTagNameNS(SVGNS, 'tspan');
-    tspan[1].textContent = getCombatResult(data.result.roll, hex.attack.oddsValue);
+    tspan[1].textContent = combatResult;
     tspan[0].textContent = data.result.roll;
     boom.style.pointerEvents = 'auto';
     boom.onclick = function() {
@@ -17,10 +18,19 @@ Attack = function(data) {
             $(hex).click();
             return;
         }
-        Operations.insert({
-            op: 'RemoveElementOp',
-            element: boom.id
-        });
+        if (combatResult.match(/^D[1-9]/)) {
+            Operations.insert({
+                op: 'ApplyAttackResult',
+                targetHex: data.target,
+                element: boom.id,
+                combatResult: combatResult
+            });
+        }else{
+            Operations.insert({
+                op: 'RemoveElementOp',
+                element: boom.id
+            });
+        }
     };
     copyTransformation(hex, boom);
     byId('overlays').appendChild(boom);

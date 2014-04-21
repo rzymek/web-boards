@@ -4,7 +4,16 @@ var ArtyType = {
     GUNS_88: 2
 };
 
-getUnitInfo = (function() {
+var isDGMarker = function(counter) {
+    return counter.name.match(/ DG$/);
+};
+
+var isDGHex = function(hex) {
+    hex = _.isString(hex) ? byId(hex) : hex;
+    return (hex.stack || []).some(isDGMarker);
+};
+
+var getUnitInfo = (function() {
     var unitInfo = {
         "5 FJ\u001e1/I/14": {
             "attack": 1,

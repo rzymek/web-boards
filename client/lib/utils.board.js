@@ -21,6 +21,14 @@ copyTransformation = function(src, dest) {
     return copyTransformationItem(src, dest, TX.POSITION);
 };
 
+isEmpty = function(hex) {
+    return (hex.stack || []).length === 0;
+};
+
+getStepsLeft = function(counter) {
+    return counter.sides.length - counter.side;
+};
+
 copyTransformationItem = function(src, dest, item) {
     if (src.transform === undefined)
         return;

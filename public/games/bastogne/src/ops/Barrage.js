@@ -38,10 +38,21 @@ Barrage = function(data) {
             $(barrage.target).click();
             return;
         }
-        Operations.insert({
-            op: 'RemoveElementOp',
-            element: boom.id
-        });
+        var dg = result.match(/^DG/);
+        var stepLoss = (result === 'DG+');
+        if (dg) {
+            Operations.insert({
+                op: 'ApplyBarrageResult',
+                targetHex: targetHex.id,
+                stepLoss: stepLoss,
+                element: boom.id
+            });
+        } else {
+            Operations.insert({
+                op: 'RemoveElementOp',
+                element: boom.id
+            });
+        }
     };
     return function() {
         undo();

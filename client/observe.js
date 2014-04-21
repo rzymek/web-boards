@@ -12,10 +12,12 @@ Meteor.startup(function() {
      */
     Operations.find().observe({
         added: function(data) {
+            Session.set('replayIndex', null);
             runOp(data);
         },
         changed: function(data) {
             if (data.result !== undefined) {
+                Session.set('replayIndex', null);
                 runOp(data);
             }
         },

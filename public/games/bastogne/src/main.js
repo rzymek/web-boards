@@ -44,9 +44,10 @@ gameModule = function() {
         }
     }
     function abandonAttack(hex) {
-        if (!hex)
+        if (!hex || !hex.attack) {
             return function() {
             };
+        }
         var undoData = hex.attack;
         _.values(hex.attack.arrows).forEach(function(el) {
             el.remove();
@@ -77,14 +78,8 @@ gameModule = function() {
         }
         var from = counter.position;
         var to = byId(data.to);
-        var DGfrom = from.stack ? from.stack.filter(
-                function(c) {
-                    return c.name.match(/ DG$/);
-                }) : [];
-        var DGto = to.stack ? to.stack.filter(
-                function(c) {
-                    return c.name.match(/ DG$/);
-                }) : [];
+        var DGfrom = from.stack ? from.stack.filter(isDGMarker) : [];
+        var DGto = to.stack ? to.stack.filter(isDGMarker) : [];
 
         var undo = [];
         undo.push(cancelBarrage(counter));

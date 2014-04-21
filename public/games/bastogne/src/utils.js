@@ -27,6 +27,7 @@ var setSpriteTexts = function(sprite/*, [test1], [text2], ...*/) {
             value = '';
         tspan.textContent = value;
     });
+    return sprite;
 };
 
 var getKillRoll = function(info) {
