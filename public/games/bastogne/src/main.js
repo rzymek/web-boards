@@ -116,7 +116,7 @@ gameModule = function() {
     console.log('here');
 
     var deps = [];
-    deps.push(showMovement());
+//    deps.push(showMovement());
 //    deps.push(showRoadMovement());
 
     return function() {

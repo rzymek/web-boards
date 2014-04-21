@@ -29,14 +29,15 @@ var showMovement = function() {
                 var hinfo = getHexInfo(adjId);
                 var mpsAtAdj = mps;
                 if (isEZOC(counter, adjId)) {
-                    mpsAtAdj -= 2;
+                    mpsAtAdj -= (hinfo.movement + 2);
                 } else {
                     var pathMovement = getPathMovementCost(beginId, adjId);
                     if (pathMovement) {
                         mpsAtAdj -= pathMovement;
+                    } else {
+                        mpsAtAdj -= hinfo.movement;
                     }
                 }
-                mpsAtAdj -= hinfo.movement;
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
                         //setSpriteTexts(placeSprite(sprites.mps, byId(adjId)), mpsAtAdj);
@@ -57,7 +58,7 @@ var showMovement = function() {
                 Meteor.clearTimeout(c);
             }
             show();
-        }, 100);
+        }, 0);
 //        while (step());show();
     });
 };

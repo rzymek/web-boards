@@ -3,6 +3,7 @@
 var undoFunctions = {};
 
 runOp = function(data) {
+    Session.set('replayIndex', null);
     removeChildren(byId('traces'));
     undoFunctions[data._id] = this[data.op](data);
 };

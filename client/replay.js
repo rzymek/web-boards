@@ -23,12 +23,12 @@ Meteor.startup(function() {
             }
         }
         NProgress.set(to / count);
-        var style = byId('boardImg').style;
-        if (to === count) {
-            style.filter = '';
-        } else if (style.filter !== 'url(#mark)') {
-            style.filter = 'url(#mark)';
-        }
+//        var style = byId('boardImg').style;
+//        if (to === count) {
+//            style.filter = '';
+//        } else if (style.filter !== 'url(#mark)') {
+//            style.filter = 'url(#mark)';
+//        }
         lastReplayIndex = to;
     });
 });
