@@ -5,7 +5,7 @@ var placeMPS = function(value, hexId) {
     }
     var s = placeSprite(sprites.mps, hex, 'traces');
     s.style.pointerEvents = 'none';
-    setSpriteTexts(s, value || '');
+    setSpriteTexts(s, value);
 };
 
 var placeSprite = function(sprite, hex, layer) {

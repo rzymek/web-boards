@@ -77,8 +77,5 @@ var showRoadMovement = function() {
         })();
 
         var roadMovement = Meteor.setInterval(step, 10);
-//        Meteor.Keybindings.add({
-//            'space': step
-//        });
     });
 };
