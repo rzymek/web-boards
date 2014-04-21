@@ -13,11 +13,8 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
             prev: seg.nextRev,
             prevRev: seg.next
         };
-    }
-    function getEnds(segInfo) {
-        return [_.first(segInfo.nodes), _.last(segInfo.nodes)];
-    }
-    var crossroads={};
+    };
+    var crossroads = {};
     pathSegments.forEach(function(segInfo) {
         var first = _.first(segInfo.nodes);
         var last = _.last(segInfo.nodes);
@@ -28,7 +25,7 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
         };
         function addCrossroadsPath(crossroadHex, edge) {
             var crossroad = crossroads[crossroadHex];
-            if(!crossroad)
+            if (!crossroad)
                 crossroads[crossroadHex] = [edge];
             else
                 crossroads[crossroadHex].push(edge);
@@ -38,7 +35,7 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
     });
 
     getRadiating = function(crossroadHex) {
-        return (crossroads[crossroadHex] || []).map(function(edge){
+        return (crossroads[crossroadHex] || []).map(function(edge) {
             return {
                 hexes: edge.hexes[0] === crossroadHex ? edge.hexes : edge.hexes.reverse(),
                 type: edge.type,
@@ -64,5 +61,5 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
         _.chain(pathSegments).filter(function(path) {
             return path.nodes.indexOf(hexId) >= 0;
         });
-    }
+    };
 });

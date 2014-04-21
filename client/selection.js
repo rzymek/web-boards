@@ -1,20 +1,9 @@
-//Deps.autorun(function() {
-//    var selected = Session.get('selectedPiece');
-//    if (sprites === undefined || sprites === null) {
-//        // svg board is not ready, can happen during code-push
-//        return;
-//    }
-//    drawSelection(selected);
-//});
-selectedPiece = null;
 selectById = function(id) {
-    selectedPiece = id;
-    drawSelection(id);
     Session.set('selectedPiece', id);
 };
 
 getSelectedId = function() {
-    return selectedPiece;
+    return Session.get('selectedPiece');
 };
 
 updateSelection = function() {
@@ -47,3 +36,10 @@ drawSelection = function(selected) {
         rect.style.visibility = 'hidden';
     }
 };
+
+Deps.autorun(function() {
+    var selected = Session.get('selectedPiece');
+    if(is('board.ready','sprites.ready')) {
+        drawSelection(selected);
+    }
+});

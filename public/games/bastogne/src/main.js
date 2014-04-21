@@ -212,47 +212,49 @@ gameModule = function() {
             }
             return road;
         };
-        var show = function(road) {
-//            log(road);
-            var path = nodesToSVGPath(road.hexes);
-            path.id = '_'; //without this chrome add some empty attributes and the path is not showing
-            path.style.strokeWidth = '5px';
-            path.style.stroke = pathTypeColors[road.type].color;
-            layer.appendChild(path);
-            markHexIds([road.crossroad].filter(notNull));
-            return road;
-        };
-        var i = 30;
-        visited = {};
-        var expand = function(hex, value) {
-            if (i-- < 0)
-                return ['hammer time'];
-//            if(visited[hex] && visited[hex] < value)
-//                return ['x'];
-            console.log('expand', hex, byId(hex), value);
-            var radiating = getRadiating(hex)
-                    .map(trimToEZOC);
-            _.chain(radiating).pluck('hexes').flatten().forEach(placeMPS.bind(_, value));
-            return radiating.filter(function(info) {
-                return info.crossroad;
-            }).map(function(info) {
-                return getRadiating(info.crossroad)
-                        .map(trimToEZOC)
-                        .filter(function(info) {
-                            return info.crossroad;
-                        })
-                        .map(function(seg) {
-                            var newValue = (info.type === seg.type) ? value : value + 1;
-                            var previously = visited[seg.crossroad];
-                            if (!(previously <= newValue) && newValue < 3) {
-                                visited[seg.crossroad] = value;
-                                return expand(seg.crossroad, newValue);
-                            }
-                        }).filter(notNull);
-            });
-        };
-        var movement = expand(counter.position.id, 1);
-        log(movement, visited);
+
+        var step = (function() {
+            var visited = {};// hex -> steps left
+            var visit = [{
+                    hex: counter.position.id,
+                    stepsLeft: 3
+                }];
+            return function() {
+                var travelerInfo = visit.pop();
+                if (!travelerInfo)
+                    return;
+                var previous = visited[travelerInfo.hex];
+                console.log('---------------------------------------\nstep', travelerInfo, previous);
+                if (previous !== undefined && previous.stepsLeft >= travelerInfo.stepsLeft && previous.type === travelerInfo.type) {
+                    return;
+                }
+                visited[travelerInfo.hex] = travelerInfo;
+                var neightours = getRadiating(travelerInfo.hex)
+                        .map(trimToEZOC);
+                _.chain(neightours).forEach(function(info) {
+                    console.log(info);
+                    var penalty = (travelerInfo.type && info.type !== travelerInfo.type) ? 1 : 0;
+                    var newStepsLeft = travelerInfo.stepsLeft - penalty;
+                    if (newStepsLeft <= 0)
+                        return;
+                    info.hexes.forEach(placeMPS.bind(_, newStepsLeft));
+                    if (!info.crossroad)
+                        return;
+                    visit.push({
+                        hex: info.crossroad,
+                        type: info.type,
+                        stepsLeft: newStepsLeft
+                    });
+                });
+                console.log('been there', visited);
+                console.log('visit', visit, _.pluck(visit, 'hex').map(byId));
+            };
+        })();
+
+        Meteor.setInterval(step, 100);
+//        Meteor.Keybindings.add({
+//            'space': step
+//        });
     });
 
     return function() {
