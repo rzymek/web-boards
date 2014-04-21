@@ -44,7 +44,7 @@ gameModule = function() {
         }
     }
     function abandonAttack(hex) {
-        if (!hex || !hex.attack) {
+        if (!hex) {
             return function() {
             };
         }
