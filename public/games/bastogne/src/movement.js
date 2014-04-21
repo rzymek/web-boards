@@ -16,14 +16,12 @@ var showMovement = function() {
         var costToGetTo = {};
         costToGetTo[startId] = cinfo.movement;
 
-        while (true) {
-//        Meteor.setInterval(function(c) {
+        var step = function() {
             var beginId = go.pop();
             if (!beginId)
-//                c.stop();
-                break;
+                return false;
             var mps = costToGetTo[beginId];
-//            setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
+            //setSpriteTexts(placeSprite(sprites.target, byId(begin)), mps, "!!!");
             getAdjacentIds(beginId).filter(function(adjId) {
                 return !containsEnemy(side, adjId);
             }).forEach(function(adjId) {
@@ -41,16 +39,25 @@ var showMovement = function() {
                 mpsAtAdj -= hinfo.movement;
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
-//                        setSpriteTexts(placeSprite(sprites.mps, byId(adjId)), mpsAtAdj);
+                        //setSpriteTexts(placeSprite(sprites.mps, byId(adjId)), mpsAtAdj);
                         costToGetTo[adjId] = mpsAtAdj;
                         go.push(adjId);
                     }
                 }
             });
-//        }, 100);
-        }
-        Object.keys(costToGetTo).forEach(function(hexId) {
-            placeMPS(costToGetTo[hexId], hexId, 'traces');
-        });
+            return true;
+        };
+        var show = function() {
+            _.keys(costToGetTo).forEach(function(hexId) {
+                placeMPS(costToGetTo[hexId], hexId, 'traces');
+            });
+        };
+        var c = Meteor.setInterval(function() {
+            if (!step()) {
+                Meteor.clearTimeout(c);
+            }
+            show();
+        }, 100);
+//        while (step());show();
     });
 };
