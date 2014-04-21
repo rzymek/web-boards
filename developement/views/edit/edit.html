@@ -45,13 +45,13 @@
         {{/each}}
         <select id="select">
             {{#each types}}
-            <option>{{.}}</option>
+            <option selected="{{equals 'edit.path.type' .}}">{{.}}</option>
             {{/each}}
         </select>
         <select id="paths">
             <option></option>
             {{#each paths}}
-            <option value="{{_id}}" selected="{{selected 'edit.path'}}">{{_id}}-{{type}}({{length nodes}})</option>
+            <option value="{{_id}}" selected="{{equals 'edit.path' _id}}">{{_id}}-{{type}}({{length nodes}})</option>
             {{/each}}
         </select>
     </div>

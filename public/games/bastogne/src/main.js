@@ -163,13 +163,19 @@ gameModule = function() {
             });
 //        }, 100);
         }
-        for (var hexId in costToGetTo) {
-            var s = placeSprite(sprites.mps, byId(hexId));
-            s.style.pointerEvents = 'none';
-            setSpriteTexts(s, costToGetTo[hexId]);
-        }
-//        markHexIds(Object.keys(costToGetTo));
+        Object.keys(costToGetTo).forEach(function(hexId) {
+            placeMPS(costToGetTo[hexId], hexId);
+        });
     });
+    function placeMPS(value, hexId) {
+        var hex = byId(hexId);
+        if (!hex) {
+            console.error(hexId, 'not found');
+        }
+        var s = placeSprite(sprites.mps, hex);
+        s.style.pointerEvents = 'none';
+        setSpriteTexts(s, value || '');
+    }
     Deps.autorun(function() {
 //        return;//TODO: remove
         var selectedId = Session.get('selectedPiece');
@@ -216,32 +222,37 @@ gameModule = function() {
             markHexIds([road.crossroad].filter(notNull));
             return road;
         };
-        var i=30;
+        var i = 30;
         visited = {};
         var expand = function(hex, value) {
-            if(i-- < 0)
+            if (i-- < 0)
                 return ['hammer time'];
 //            if(visited[hex] && visited[hex] < value)
 //                return ['x'];
-            console.log('expand',hex,byId(hex),value);
+            console.log('expand', hex, byId(hex), value);
             var radiating = getRadiating(hex)
-                    .map(trimToEZOC)
-                    .map(show);
+                    .map(trimToEZOC);
+            _.chain(radiating).pluck('hexes').flatten().forEach(placeMPS.bind(_, value));
             return radiating.filter(function(info) {
                 return info.crossroad;
             }).map(function(info) {
-                return getRadiating(info.crossroad).map(trimToEZOC).map(function(seg){
-                    var newValue = (info.type === seg.type) ? value : value + 1;
-                    var previously = visited[seg.crossroad];
-                    if(!(previously <= newValue) && newValue < 3) {
-                        visited[seg.crossroad] = value;
-                        return expand(seg.crossroad, newValue);
-                    }
-                }).filter(notNull);
+                return getRadiating(info.crossroad)
+                        .map(trimToEZOC)
+                        .filter(function(info) {
+                            return info.crossroad;
+                        })
+                        .map(function(seg) {
+                            var newValue = (info.type === seg.type) ? value : value + 1;
+                            var previously = visited[seg.crossroad];
+                            if (!(previously <= newValue) && newValue < 3) {
+                                visited[seg.crossroad] = value;
+                                return expand(seg.crossroad, newValue);
+                            }
+                        }).filter(notNull);
             });
         };
         var movement = expand(counter.position.id, 1);
-        log(movement,visited);
+        log(movement, visited);
     });
 
     return function() {

@@ -2,6 +2,6 @@ UI.registerHelper('session', function(key){
     return Session.get(key);
 });
 
-UI.registerHelper('selected', function(key){
-    return Session.equals(key, this._id) ? true : undefined; 
+UI.registerHelper('equals', function(key,value){
+    return Session.equals(key, value) ? true : undefined;
 });

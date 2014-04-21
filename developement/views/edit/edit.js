@@ -1,11 +1,9 @@
 if (Meteor.isClient) {
 
     Session.set('edit.ready', false);
-
     Template.edit.board = function() {
         return Template.play.board();
     };
-
     Template.edit.boardImg = function() {
         var game = Session.get('editingGame');
         var info = Session.get('gameInfo');
@@ -31,7 +29,7 @@ if (Meteor.isClient) {
     });
     Template.edit.events({
         'change #select': function(e) {
-            selected = e.currentTarget.value;
+            Session.set('edit.path.type', e.currentTarget.value);
         },
         'change #paths': function(e) {
             Session.set('edit.path', e.currentTarget.value);
@@ -48,7 +46,6 @@ if (Meteor.isClient) {
         doc.game = Session.get('editingGame');
         doc.timestamp = new Date();
     });
-
     var actions = {
         'reset all': function() {
             Edit.find({}, {reactive: false}).forEach(function(it) {
@@ -62,12 +59,6 @@ if (Meteor.isClient) {
                 });
             });
         },
-        'new path': function() {
-            Session.set('edit.path', Edit.insert({
-                type: selected,
-                nodes: []
-            }));
-        },
         'delete path': function() {
             Edit.remove(Session.get('edit.path'));
         },
@@ -75,6 +66,12 @@ if (Meteor.isClient) {
             Edit.update(Session.get('edit.path'), {
                 $pop: {nodes: 1}
             });
+        },
+        'new path': function() {
+            Session.set('edit.path', Edit.insert({
+                type: Session.get('edit.path.type'),
+                nodes: []
+            }));
         }
     };
     pathTypeColors = {
@@ -84,19 +81,17 @@ if (Meteor.isClient) {
         stream: {color: 'blue'},
         interrupted: {color: 'red'}
     };
-
-    var selected = Object.keys(pathTypeColors)[0];
+    Session.setDefault('edit.path.type', Object.keys(pathTypeColors)[0]);
     function editHexClicked(hex) {
         var svg = byId('svg');
         if (svg.panning)
             return;
-
         Edit.update(Session.get('edit.path'), {
             $push: {nodes: hex.id}
         });
     }
-    //minor translaction based on type
-    //when there are multiple paths on the same hex
+//minor translaction based on type
+//when there are multiple paths on the same hex
     function tx(type) {
         var k = Object.keys(pathTypeColors);
         return (k.indexOf(type)) * 2;
@@ -105,7 +100,7 @@ if (Meteor.isClient) {
     nodesToSVGPath = function(hexIds, offset) {
         offset = offset || 0;
         var trace = document.createElementNS(SVGNS, "path");
-        trace.style.fill='none';
+        trace.style.fill = 'none';
         hexIds.forEach(function(hexId) {
             var hex = byId(hexId);
             var createSeg = trace.pathSegList.numberOfItems === 0
@@ -116,7 +111,6 @@ if (Meteor.isClient) {
         });
         return trace;
     };
-
     function toSVGPath(data) {
         var offset = tx(data.type);
         var trace = nodesToSVGPath(data.nodes, offset);
@@ -133,7 +127,6 @@ if (Meteor.isClient) {
             layer.appendChild(path);
         });
     });
-
     Deps.autorun(function() {
         $('#data').empty();
         var id = Session.get('edit.path');
@@ -146,7 +139,6 @@ if (Meteor.isClient) {
         }
         byId('data').appendChild(toSVGPath(data));
     });
-
     Deps.autorun(function() {
         var g = Session.get('editingGame');
         if (is('edit.ready') && g)
@@ -159,15 +151,17 @@ if (Meteor.isClient) {
                 }
             });
     });
-
     Template.play.destroyed = function() {
         Session.set('edit.ready', false);
+        unbindKeys();
     };
+    selectType = function (i) {
+        Session.set('edit.path.type', Object.keys(pathTypeColors)[i]);
+    }
     Template.edit.rendered = function() {
         var svg = byId('svg');
         if (svg.ready)
             return;
-
         if (!isTouchDevice()) {
             svgZoomAndPan(svg);
             $('#menu').addClass('touch');
@@ -180,6 +174,14 @@ if (Meteor.isClient) {
         }
         setupGrid(svg, editHexClicked);
         Session.set('edit.ready', true);
+        Meteor.Keybindings.add({
+            'u': actions.undo,
+            'n': actions['new path'],
+            '1': selectType.bind(_, 0),
+            '2': selectType.bind(_, 1),
+            '3': selectType.bind(_, 2),
+            '4': selectType.bind(_, 3),
+            '5': selectType.bind(_, 4)
+        });
     };
-
 }
