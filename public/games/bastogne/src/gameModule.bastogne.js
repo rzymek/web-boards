@@ -3,7 +3,7 @@ gameModule = function() {
         MoveOp: MoveOp,
         moveTo: moveTo
     };
-    MoveOp = MoveOpStickyDG;
+    MoveOp = MoveOpStickyDG.bind(undefined, original);
     moveTo = function(counter, targetHex) {
         if (isAttack(counter, targetHex)) {
             if (isArty(counter)) {

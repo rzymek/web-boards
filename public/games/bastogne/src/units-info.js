@@ -8,6 +8,10 @@ var isDGMarker = function(counter) {
     return counter.name.match(/ DG$/);
 };
 
+var isNotDGMarker = function(counter) {
+    return !isDGMarker(counter);
+};
+
 var isDGHex = function(hex) {
     hex = _.isString(hex) ? byId(hex) : hex;
     return (hex.stack || []).some(isDGMarker);

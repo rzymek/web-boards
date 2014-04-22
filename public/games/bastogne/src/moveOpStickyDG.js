@@ -1,4 +1,4 @@
-var MoveOpStickyDG = function(data) {
+var MoveOpStickyDG = function(original, data) {
     var counter = byId(data.counter);
     if (counter.name.match(/ DG$/)) {
         return original.MoveOp(data);

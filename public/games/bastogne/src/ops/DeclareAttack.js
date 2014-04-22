@@ -86,11 +86,11 @@ DeclareAttack = function(data) {
     }
 
     var defenceMod = getHexInfo(targetHex.id).defenceMod;
-    var defence = targetHex.stack.map(function(unit) {
+    var defence = targetHex.stack.filter(isNotDGMarker).map(function(unit) {
         return getUnitInfo(unit).defence;
     }).reduce(sum, 0) * defenceMod;
     var attack = _.values(targetHex.attack.from).map(function(hex) {
-        return hex.stack.map(function(unit) {
+        return hex.stack.filter(isNotDGMarker).map(function(unit) {
             return getUnitInfo(unit).attack;
         }).reduce(sum, 0);
     }).reduce(sum, 0);
