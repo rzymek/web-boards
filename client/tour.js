@@ -23,6 +23,7 @@ startTour = function() {
             content: '<p>Click here to start a new "Battle for Moscow" game</p>',
             highlightTarget: true,
             setup: function(tour) {
+                console.log('setup:Click here to start a new "Battle for Moscow" game');
                 var buttons = $('#startgame button');
                 buttons.map(function(idx, btn) {
                     btn.disabled = ($(btn).text() !== 'battle-for-moscow');
@@ -31,9 +32,10 @@ startTour = function() {
                     return $(this).text() === 'battle-for-moscow';
                 })[0]);
                 Template.loading.rendered = function() {
-                    Deps.autorun(function() {
+                    Deps.autorun(function(c) {
                         if (getGame() === 'battle-for-moscow') {
                             tour.next();
+                            c.stop();
                         }
                     })
                 };
@@ -44,20 +46,20 @@ startTour = function() {
         }, {
             content: "<p>Wait till the game fully loads...</p>",
             setup: function(tour) {                
+                console.log('setup:Wait till the game fully loads" game');
                 Template.scenario.rendered = function() {
                     Deps.autorun(function(c){
                         var ready = Template.scenario.visible();
-                        Session.set('sceno.ready', ready);      
-                        if(ready)
+                        if(ready) {
                             c.stop();
+                            //call tour.next() once current deps.flush is finished
+                            //that is -> place tour.next() call on the end of the event queue
+                            Meteor.setTimeout(function(){
+                                tour.next()
+                            },0);
+                        }
                     });
-                }
-                Deps.autorun(function(c) {
-                    if (is('sceno.ready')) {
-                        c.stop();
-                        tour.next();
-                    }
-                });
+                };
                 return {target: $('#loading')};
             },
             my: 'left center',
