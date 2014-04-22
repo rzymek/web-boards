@@ -54,12 +54,6 @@ Meteor.methods({
             Tables.remove(tableId);
         }
     },
-    reset: function() {
-        console.log('FULL RESET');
-        Operations.remove({});
-        Tables.remove({});
-        ErrorLog.remove({});
-    },
     undo: function() {
         var last = Operations.findOne({}, {
             sort: {'createdAt': -1}
