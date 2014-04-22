@@ -3,6 +3,7 @@ showingPieceMenu = function() {
     return byId('pieceMenuLayer').childElementCount !== 0;
 };
 
+//TODO: rename to hideMenus
 hidePieceMenu = function() {
     $('#pieceMenuLayer').empty();
 };

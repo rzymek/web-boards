@@ -14,8 +14,27 @@ setupSvgWidth = function(tmpl) {
 
 setupGrid = function(svg, hexClicked) {
     var layer = byId('hexes');
-    layer.onclick = function(event) {                
-        var hex = event.target.correspondingUseElement || event.target;        
+
+    $(layer).on('contextmenu', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (showingPieceMenu()) {
+            hidePieceMenu();
+            return;
+        }
+        var hex = event.target.correspondingUseElement || event.target;
+        if (hex) {
+            var counter = byId(getSelectedId());
+            if (counter && counter.position === hex) {
+                showPieceMenu(counter);
+            } else {
+                showMenu(hex);
+            }
+        }
+    });
+
+    layer.onclick = function(event) {
+        var hex = event.target.correspondingUseElement || event.target;
         hexClicked(hex);
     };
     var board = Session.get('gameInfo').board;
@@ -91,7 +110,7 @@ Deps.autorun(function() {
     var img = _.toArray(svg.children).filter(function(e) {
         return e.tagName === 'image';
     })[0];
-    if (override) { 
+    if (override) {
         img.origHref = img.href.baseVal;
         img.href.baseVal = override;
     } else if (img.origHref) {
@@ -112,7 +131,7 @@ Template.play.rendered = function() {
     } else {
         $('#menu').addClass('mouse');
     }
-    
+
     Deps.autorun(function(c) {
         var gameInfo = Session.get('gameInfo');
         if (gameInfo == null)

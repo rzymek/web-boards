@@ -1,5 +1,5 @@
 byId = function(id) {
-    return document.getElementById(id);
+    return id != undefined ? document.getElementById(id) : null;
 };
 toArray = function(collection) {
     var array = [];

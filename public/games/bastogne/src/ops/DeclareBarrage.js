@@ -90,7 +90,6 @@ var cancelBarrage = function(counter) {
         return function() {
         };
     }
-    console.log('cancelBarrage', counter);
     clearBarrage(barrage);
     delete barrage.from[counter.id];
     delete counter.barrage;
@@ -104,7 +103,6 @@ var cancelBarrage = function(counter) {
 };
 
 var declareBarrage = function(targetHex, counter) {
-    console.log('declareBarrage', targetHex, counter);
     var barrage = targetHex.barrage;
     clearBarrage(barrage);
     if (counter.barrage) {
