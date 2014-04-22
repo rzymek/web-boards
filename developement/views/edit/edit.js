@@ -151,10 +151,6 @@ if (Meteor.isClient) {
                 }
             });
     });
-    Template.play.destroyed = function() {
-        Session.set('edit.ready', false);
-        unbindKeys();
-    };
     selectType = function (i) {
         Session.set('edit.path.type', Object.keys(pathTypeColors)[i]);
     }

@@ -9,6 +9,10 @@ Router.map(function() {
                 Session.set('gameInfo', data);
                 router.render();
             });
+        },
+        onStop: function() {
+            Session.set('edit.ready', false);
+            unbindKeys();
         }
     });
     this.route('edit.export', {
