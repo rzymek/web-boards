@@ -25,15 +25,18 @@ gameModule = function() {
     };
 
     var deps = [];
-//    deps.push(showMovement());
-//    deps.push(showRoadMovement());
+    if(Session.get('config').indexOf('SM') >= 0)
+        deps.push(showMovement());
+    if(Session.get('config').indexOf('RM') >= 0)
+        deps.push(showRoadMovement());
 
     return function() {
+        console.log('unloading bastogne', original);
         deps.forEach(function(c) {
             c.stop();
         });
         MoveOp = original.MoveOp;
-        hexClicked = original.hexClicked;
+        moveTo = original.moveTo;
         delete CRT;
     };
 };
