@@ -3,7 +3,9 @@
     {{> scenario}}
     {{> play}}
     {{> pieces}}
-    {{> debug}}
+    {{#if devMode}}
+        {{> debug}}
+    {{/if}}
     {{> playback}}
 </template>
 
