@@ -14,8 +14,10 @@ if (Meteor.isClient) {
         }
     };
     Template.edit.paths = function() {
-        return Edit.find();
-    }
+        return Edit.find({
+            type: Session.get('edit.path.type')
+        });
+    };
     Template.edit.types = function() {
         return Object.keys(pathTypeColors);
     };
@@ -90,8 +92,8 @@ if (Meteor.isClient) {
             $push: {nodes: hex.id}
         });
     }
-//minor translaction based on type
-//when there are multiple paths on the same hex
+    //minor translaction based on type
+    //when there are multiple paths on the same hex
     function tx(type) {
         var k = Object.keys(pathTypeColors);
         return (k.indexOf(type)) * 2;
@@ -151,9 +153,9 @@ if (Meteor.isClient) {
                 }
             });
     });
-    selectType = function (i) {
+    selectType = function(i) {
         Session.set('edit.path.type', Object.keys(pathTypeColors)[i]);
-    }
+    };
     Template.edit.rendered = function() {
         var svg = byId('svg');
         if (svg.ready)
