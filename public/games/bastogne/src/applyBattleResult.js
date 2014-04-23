@@ -1,6 +1,6 @@
 var placeAutoRemoveBoom = function(target, arg1, arg2) {
     var pickStep = setSpriteTexts(placeSprite(sprites.boom, target), arg1, arg2);
-    pickStep.id = (new Meteor.Collection.ObjectID()).toHexString();
+    pickStep.id = 'autoremoveboom_'+target.id;
     pickStep.onclick = function() {
         Operations.insert({
             op: 'RemoveElementOp',
