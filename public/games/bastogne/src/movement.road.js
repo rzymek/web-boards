@@ -34,7 +34,9 @@ var showRoadMovement = function() {
             }
             return road;
         };
-
+        var visitedKey = function(travelerInfo){
+            return travelerInfo.hex + (travelerInfo.type || '');
+        };
         var step = (function() {
             var visited = {};// hex -> steps left
             var visit = [{
@@ -45,15 +47,17 @@ var showRoadMovement = function() {
                 var travelerInfo = visit.pop();
                 if (!travelerInfo) {
                     console.warn('done');
-                    Meteor.clearTimeout(roadMovement);
                     return;
                 }
-                var previous = visited[travelerInfo.hex + travelerInfo.type];
+                var previous = visited[visitedKey(travelerInfo)];
                 console.log('---------------------------------------\nstep', travelerInfo, previous);
                 if (previous !== undefined && previous.stepsLeft >= travelerInfo.stepsLeft) {
                     return;
                 }
-                visited[travelerInfo.hex + travelerInfo.type] = travelerInfo;
+                if(visited[travelerInfo.hex]) { //start hex
+                    return;
+                }
+                visited[visitedKey(travelerInfo)] = travelerInfo;
                 var neightours = getRadiating(travelerInfo.hex)
                         .map(trimToEZOC);
                 _.chain(neightours).forEach(function(info) {
@@ -75,7 +79,10 @@ var showRoadMovement = function() {
                 console.log('visit', visit, _.pluck(visit, 'hex').map(byId));
             };
         })();
-
-        var roadMovement = Meteor.setInterval(step, 10);
+        Meteor.Keybindings.add({
+            'space': step
+        });
+        step();
+//        var roadMovement = Meteor.setInterval(step, 100);
     });
 };

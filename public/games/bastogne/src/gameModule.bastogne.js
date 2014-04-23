@@ -25,9 +25,9 @@ gameModule = function() {
     };
 
     var deps = [];
-    if(Session.get('config').indexOf('SM') >= 0)
+    if(Session.get('config').indexOf('/m') >= 0)
         deps.push(showMovement());
-    if(Session.get('config').indexOf('RM') >= 0)
+    if(Session.get('config').indexOf('/r') >= 0)
         deps.push(showRoadMovement());
 
     return function() {
