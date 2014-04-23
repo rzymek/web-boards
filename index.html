@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Web-Boards : Game engine for playing online adaptations of board wargames. Is inspired by VASSAL, but allows play diractly via browser (on desktop or smartphone)." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Web-Boards</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/rzymek/web-boards">View on GitHub</a>
+
+          <h1 id="project_title">Web-Boards</h1>
+          <h2 id="project_tagline">Game engine for playing online adaptations of board wargames. Is inspired by VASSAL, but allows play diractly via browser (on desktop or smartphone).</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/rzymek/web-boards/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rzymek/web-boards/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="web-boards" class="anchor" href="#web-boards"><span class="octicon octicon-link"></span></a>web-boards</h1>
+
+<p><img src="https://raw.githubusercontent.com/rzymek/web-boards/master/screenshot-seelowe.jpg" alt=""></p>
+
+<p>Web application for playing online adaptation of board games.</p>
+
+<p>Goals:</p>
+
+<ul>
+<li>online play as well as turn based </li>
+<li>VASSAL modules import</li>
+<li>state on server - no need to send log files like in PBEM</li>
+<li>works on Desktop as well as Mobile </li>
+</ul><h2>
+<a name="implementation" class="anchor" href="#implementation"><span class="octicon octicon-link"></span></a>Implementation</h2>
+
+<p>This is work in progress. If you're interested please DO send
+me an email at <a href="mailto:eerzymek@gmail.com">eerzymek@gmail.com</a> and I'll update this document.</p>
+
+<h3>
+<a name="startup" class="anchor" href="#startup"><span class="octicon octicon-link"></span></a>Startup:</h3>
+
+<ol>
+<li>load sprites.svg</li>
+<li>subscribe to Tables collection</li>
+</ol><h3>
+<a name="on-playtableid" class="anchor" href="#on-playtableid"><span class="octicon octicon-link"></span></a>On /play:tableId</h3>
+
+<ol>
+<li>subscribe to Operations(tableId)</li>
+<li>find out what game this is: Tables.findOne(tableId).game</li>
+<li>render appropriate board: /games/{game}/images/{board.image}
+
+<ol>
+<li>attach sprites to board</li>
+</ol>
+</li>
+<li>execute Operations (observe)</li>
+<li>check if user is in Table(tableId).players
+
+<ol>
+<li>if not, ask if what to join -&gt; Meteor.call('join', tableId)</li>
+</ol>
+</li>
+</ol><h3>
+<a name="counters" class="anchor" href="#counters"><span class="octicon octicon-link"></span></a>Counters</h3>
+
+<p>Counters are represented by <code>SVGImageElement</code>.</p>
+
+<h5>
+<a name="properties" class="anchor" href="#properties"><span class="octicon octicon-link"></span></a>Properties:</h5>
+
+<ul>
+<li>
+<code>.position</code> - the hex (<code>SVGUseElement</code>) the counter is placed on</li>
+</ul><h5>
+<a name="transformlist" class="anchor" href="#transformlist"><span class="octicon octicon-link"></span></a>TransformList</h5>
+
+<p><code>.transform</code> (<code>SVGTransformList</code>) items are in the follwing order:</p>
+
+<ol>
+<li>translation</li>
+<li>scale </li>
+<li>translation inside stack/stackSelector</li>
+<li>rotation </li>
+</ol><p>All are optional, but if present must be in this order and on these positions.</p>
+
+<h3>
+<a name="hexes" class="anchor" href="#hexes"><span class="octicon octicon-link"></span></a>Hexes</h3>
+
+<p>Hexes are <code>SVGUseElement</code>-clones of a SVGPathElement. 
+Hexes are positioned using translation transformation. 
+x=0,y=0 of a hex is in it's center.</p>
+
+<h5>
+<a name="properties-1" class="anchor" href="#properties-1"><span class="octicon octicon-link"></span></a>Properties:</h5>
+
+<ul>
+<li>
+<code>.stack</code> Array of counters (<code>SVGImageElement</code>) on the hex. May be <code>undefined</code> if empty.</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Web-Boards maintained by <a href="https://github.com/rzymek">rzymek</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
