@@ -1,7 +1,7 @@
 web-boards
 ==========
 
-![](https://raw.githubusercontent.com/rzymek/web-boards/master/screenshot-seelowe.jpg)
+![](https://rzymek.github.io/web-boards/screenshots/bastogne.jpg)
 
 Web application for playing online adaptation of board games.
 
