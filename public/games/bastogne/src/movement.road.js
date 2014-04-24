@@ -37,24 +37,31 @@ var showRoadMovement = function() {
         var visitedKey = function(travelerInfo) {
             return travelerInfo.hex + (travelerInfo.type || '');
         };
-        var step = (function() {
+        (function() {
+            var result = {};
             var visited = {};// hex -> steps left
             var visit = [{
                     hex: counter.position.id,
                     stepsLeft: 3
                 }];
-            return function() {
-                var travelerInfo = visit.pop();
-                if (!travelerInfo) {
-                    return;
-                }
+            function getStepLeftOnPrevVisit(travelerInfo) {
                 var previous = visited[visitedKey(travelerInfo)];
-                if (previous !== undefined && previous.stepsLeft >= travelerInfo.stepsLeft) {
+                return (previous == null)
+                        ? 0
+                        : previous.stepsLeft;
+            }
+            function isStartHex(travelerInfo) {
+                return visited[travelerInfo.hex];
+            }
+            function stop(travelerInfo) {
+                return !travelerInfo
+                        || getStepLeftOnPrevVisit(travelerInfo) >= travelerInfo.stepsLeft
+                        || isStartHex(travelerInfo.hex);
+            }
+            step = function() {
+                var travelerInfo = visit.pop();
+                if (stop(travelerInfo))
                     return;
-                }
-                if (visited[travelerInfo.hex]) { //start hex
-                    return;
-                }
                 visited[visitedKey(travelerInfo)] = travelerInfo;
                 var neightours = getRadiating(travelerInfo.hex)
                         .map(trimToEZOC);
@@ -63,7 +70,10 @@ var showRoadMovement = function() {
                     var newStepsLeft = travelerInfo.stepsLeft - penalty;
                     if (newStepsLeft <= 0)
                         return;
-                    info.hexes.forEach(placeMPS.bind(_, newStepsLeft));
+//                    info.hexes.forEach(placeMPS.bind(_, newStepsLeft));
+                    info.hexes.forEach(function(hexId) {
+                        result[hexId] = Math.max(newStepsLeft, result[hexId] || 0);
+                    });
                     if (!info.crossroad)
                         return;
                     visit.push({
@@ -74,15 +84,24 @@ var showRoadMovement = function() {
                 });
                 console.log('visit', visit.map(function(it) {
                     return byId(it.hex);
-                }), '\n'+visit.map(function(it){
-                    return it.hex+':'+it.stepsLeft;
+                }), '\n' + visit.map(function(it) {
+                    return it.hex + ':' + it.stepsLeft;
                 }).join('\n'));
             };
+//            var loop = Meteor.setInterval(function() {
+//                if (visit.length === 0)
+//                    Meteor.clearInterval(loop);
+//                step();
+//            }, 10);
+            while(visit.length > 0) {
+                step();
+            }
+            _.keys(result).forEach(function(hexId){
+                placeMPS(result[hexId], hexId);
+            });
+//            Meteor.Keybindings.add({
+//                'space': step
+//            });
         })();
-        Meteor.Keybindings.add({
-            'space': step
-        });
-        step();
-//        var roadMovement = Meteor.setInterval(step, 100);
     });
 };
