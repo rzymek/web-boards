@@ -31,6 +31,7 @@ var showMovement = function() {
                 if (isEZOC(counter, adjId)) {
                     mpsAtAdj -= (hinfo.movement + 2);
                 } else {
+                    //TODO: fix road traversal                    
                     var pathMovement = getPathMovementCost(beginId, adjId);
                     if (pathMovement) {
                         mpsAtAdj -= pathMovement;
@@ -38,6 +39,7 @@ var showMovement = function() {
                         mpsAtAdj -= hinfo.movement;
                     }
                 }
+                //TODO: river cross
                 if (mpsAtAdj >= 0) {
                     if (!otherRouteCost || otherRouteCost < mpsAtAdj) {
                         //setSpriteTexts(placeSprite(sprites.mps, byId(adjId)), mpsAtAdj);
@@ -53,12 +55,15 @@ var showMovement = function() {
                 placeMPS(costToGetTo[hexId], hexId, 'traces');
             });
         };
-        var c = Meteor.setInterval(function() {
-            if (!step()) {
-                Meteor.clearTimeout(c);
-            }
-            show();
-        }, 0);
+//        var c = Meteor.setInterval(function() {
+//            if (!step()) {
+//                Meteor.clearTimeout(c);
+//            }
+//            show();
+//        }, 0);
 //        while (step());show();
+        while (step()) {
+        }
+        show();
     });
 };
