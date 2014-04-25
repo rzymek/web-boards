@@ -7,14 +7,15 @@ fs.readFile(file, 'utf8', function(err, data) {
         return;
     }
 
-    var pairs = {};
+    var pairs = [];
     JSON.parse(data).map(function(it) {
         return it.nodes;
     }).forEach(function(it) {
         for (var i = 0; i < it.length-1; i++) {
-            pairs[it[i]] = it[i+1];
+            var v=[it[i],it[i+1]];
+            pairs.push(v);
+//            pairs.push(v.slice(0).reverse());
         }
     });
-    var keys = Object.keys(pairs);
     console.log(JSON.stringify(pairs));
 });

@@ -91,7 +91,7 @@ DeclareAttack = function(data) {
     }).reduce(sum, 0) * defenceMod;
     var attack = _.values(targetHex.attack.from).map(function(hex) {
         return hex.stack.filter(isNotDGMarker).map(function(unit) {
-            return getUnitInfo(unit).attack;
+            return getUnitInfo(unit).attack / (isAcrossStream(targetHex.id, unit.position.id) ? 2 : 1);
         }).reduce(sum, 0);
     }).reduce(sum, 0);
 
