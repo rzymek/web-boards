@@ -31,13 +31,16 @@ var showMovement = function() {
                 if (isEZOC(counter, adjId)) {
                     mpsAtAdj -= (hinfo.movement + 2);
                 } else {
-                    //TODO: fix road traversal                    
+                    //TODO: fix road traversal
                     var pathMovement = getPathMovementCost(beginId, adjId);
                     if (pathMovement) {
                         mpsAtAdj -= pathMovement;
                     } else {
                         mpsAtAdj -= hinfo.movement;
                     }
+                }
+                if(isAcrossStream(beginId, adjId)) {
+                    mpsAtAdj -= 2;
                 }
                 //TODO: river cross
                 if (mpsAtAdj >= 0) {
