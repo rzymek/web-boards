@@ -49,6 +49,8 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
             var fromIdx = path.nodes.indexOf(fromId);
             if (fromIdx !== -1) {
                 return (toId === path.nodes[fromIdx + 1] || toId === path.nodes[fromIdx - 1]);
+            }else{
+                return false;
             }
         }).map(function(path) {
             return COST[path.type];
