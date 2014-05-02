@@ -1,7 +1,7 @@
 {
     "board": {
         "image-low": "board-low.jpg",
-        "image": "Bastogne-Map-vassal.png",
+        "image": "board/4k-128.png",
         "width": 3400,
         "height": 2200,
         "grid": {
