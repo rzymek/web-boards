@@ -14,6 +14,21 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
             prevRev: seg.next
         };
     };
+    pathHexes = {};
+    pathSegments.forEach(function(segInfo) {
+        segInfo.nodes.forEach(function(hexId, idx) {
+            var segs = pathHexes[hexId];
+            var entry = {
+                segment: segInfo,
+                index: idx
+            };
+            if (!segs)
+                pathHexes[hexId] = [entry];
+            else
+                segs.push(entry);
+        });
+    });
+
     var crossroads = {};
     pathSegments.forEach(function(segInfo) {
         var first = _.first(segInfo.nodes);
@@ -35,7 +50,25 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
     });
 
     getRadiating = function(crossroadHex) {
-        return (crossroads[crossroadHex] || []).map(function(edge) {
+        var crossings = crossroads[crossroadHex];
+        if (!crossings) {
+            var onPaths = pathHexes[crossroadHex];
+            if(!onPaths)
+                return [];
+            //create artifical crossing -> split path segment into two
+            crossings = _.chain(onPaths).map(function(entry) {
+                return [{
+                        ends: [_.first(entry.segment.nodes), crossroadHex],
+                        type: entry.segment.type,
+                        hexes: entry.segment.nodes.slice(0, entry.index + 1)
+                    }, {
+                        ends: [_.last(entry.segment.nodes), crossroadHex],
+                        type: entry.segment.type,
+                        hexes: entry.segment.nodes.slice(entry.index)
+                    }];
+            }).flatten().value();
+        }
+        return crossings.map(function(edge) {
             return {
                 hexes: edge.hexes[0] === crossroadHex ? edge.hexes : edge.hexes.reverse(),
                 type: edge.type,
@@ -49,7 +82,7 @@ $.get('/games/bastogne/path-info.json' + requestSuffix()).done(function(pathSegm
             var fromIdx = path.nodes.indexOf(fromId);
             if (fromIdx !== -1) {
                 return (toId === path.nodes[fromIdx + 1] || toId === path.nodes[fromIdx - 1]);
-            }else{
+            } else {
                 return false;
             }
         }).map(function(path) {
