@@ -6,6 +6,9 @@
 /collection-hooks
 /fs
 /hopscotch
+/iron-core
+/iron-dynamic-template
+/iron-layout
 /iron-router
 /jquery-mousewheel
 /jquery-ui

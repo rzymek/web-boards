@@ -6,7 +6,7 @@ var isEnemyOnList = function(counterOwner, otherCounters) {
     }).length > 0;
 };
 
-containsEnemy = function(counterOwner, hexId) {
+containsEnemy = function(counterOwner, hexId) {    
     return isEnemyOnList(counterOwner, byId(hexId).stack || []);
 };
 

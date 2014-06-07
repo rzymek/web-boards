@@ -46,6 +46,7 @@ Router.map(function() {
                 response.write('(function(){\n');
                 walk(dirname);
                 response.write('\n})();');
+                response.end();
             } else if (fs.existsSync(filename)) {
                 response.end(fs.readFileSync(filename), 'utf-8');
             } else {
