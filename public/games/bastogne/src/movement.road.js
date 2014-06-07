@@ -82,21 +82,26 @@ var showRoadMovement = function() {
                         stepsLeft: newStepsLeft
                     });
                 });
-                console.log('visit', visit.map(function(it) {
-                    return byId(it.hex);
-                }), '\n' + visit.map(function(it) {
-                    return it.hex + ':' + it.stepsLeft;
-                }).join('\n'));
+//                console.log('visit', visit.map(function(it) {
+//                    return byId(it.hex);
+//                }), '\n' + visit.map(function(it) {
+//                    return it.hex + ':' + it.stepsLeft;
+//                }).join('\n'));
             };
 //            var loop = Meteor.setInterval(function() {
 //                if (visit.length === 0)
 //                    Meteor.clearInterval(loop);
 //                step();
 //            }, 10);
-            while(visit.length > 0) {
+
+            var i = 0;
+            console.profile('road');
+            while (visit.length > 0) {
+                i++;
                 step();
             }
-            _.keys(result).forEach(function(hexId){
+            console.profileEnd();
+            _.keys(result).forEach(function(hexId) {
                 placeMPS(result[hexId], hexId);
             });
 //            Meteor.Keybindings.add({
