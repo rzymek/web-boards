@@ -56,6 +56,18 @@ Template.welcome.events({
     },
     'click .take-a-tour': function() {
         startTour();
+    },
+    'keydown .comment': function(e) {
+        switch(e.which){
+            case 27:
+                e.target.value = this.comment;
+                //pass-through
+            case 13:
+                e.target.blur();          
+        }
+    },
+    'blur .comment': function(e) {
+        Tables.update(this._id, {$set: {comment: e.target.value}});
     }
 });
 

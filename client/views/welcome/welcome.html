@@ -1,5 +1,5 @@
 <template name="welcome">
-    
+
     {{#unless equals 'tables.ready' true}}
     <div class="loading-overlay"><img src="/img/loading.gif" alt="Loading..."></div>
     {{/unless}}
@@ -38,7 +38,7 @@
                             <th>Started</th>
                             <th>Ops</th>
                             <th>Players</th>
-                            <th>ID</th>
+                            <th>Comment</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -54,7 +54,9 @@
                             <td>{{fmtDate started}}</td>
                             <td>{{ops}}</td>
                             <td>{{listPlayers .}}</td>
-                            <td>{{_id}}</td>
+                            <td><input class="inline-edit comment" type="text"
+                                       placeholder="{{_id}}"
+                                       value="{{comment}}"></td>
                             <th>
                                 <button class="leave-game btn btn-default" value="{{_id}}">
                                     <span class="glyphicon glyphicon-remove"></span>
@@ -82,7 +84,7 @@
             {{/each}}
         </ul>
         {{/if}}
-        
+
         {{#if devMode}}
         <div id="config" style="background-color: gray; position: absolute; bottom:0; left:0; min-width:20px;min-height:20px">
             {{config}}

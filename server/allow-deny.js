@@ -11,11 +11,21 @@ Tables.allow({
             console.error(err.stack);
             return false;
         }
+    },
+    update: function(userId, table, fieldNames, modifier) {
+        try {
+            check(userId, String);
+            check(modifier, {$set: {comment: String}});
+            return true;
+        } catch (err) {
+            console.error(err.stack);
+            return false;
+        }
     }
 });
 
 Operations.allow({
-    insert: function(userId, op) {        
+    insert: function(userId, op) {
         console.log(op);
         try {
             check(userId, String);
@@ -31,7 +41,7 @@ Operations.allow({
                 if (op.server.roll !== undefined) {
                     var r = op.server.roll;
                     var sum = 0;
-                    op.result.dice=[];
+                    op.result.dice = [];
                     for (var i = 0; i < r.count; i++) {
                         var die = 1 + Math.floor(Math.random() * r.sides);
                         sum += die;

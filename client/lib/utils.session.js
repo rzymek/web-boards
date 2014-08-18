@@ -8,6 +8,8 @@ Session.set('module.ready', false);
 Session.set('tables.ready', false);
 Session.set('ops.ready', false);
 
+Session.set('welcome.commentEditing', false);
+
 is = function() {
     var result = true;
     for (var i = 0; i < arguments.length; i++) {
