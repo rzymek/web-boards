@@ -85,7 +85,8 @@ DeclareAttack = function(data) {
         undo = removeAttack;
     }
 
-    var defenceMod = getHexInfo(targetHex.id).defenceMod;
+    var attackMod = isDGHex(sourceHex) ? 0.5 : 1;
+    var defenceMod = getHexInfo(targetHex.id).defenceMod * (isDGHex(targetHex) ? 0.5 : 1);
     var defence = targetHex.stack.filter(isNotDGMarker).map(function(unit) {
         return getUnitInfo(unit).defence;
     }).reduce(sum, 0) * defenceMod;
@@ -93,7 +94,7 @@ DeclareAttack = function(data) {
         return hex.stack.filter(isNotDGMarker).map(function(unit) {
             return getUnitInfo(unit).attack / (isAcrossStream(targetHex.id, unit.position.id) ? 2 : 1);
         }).reduce(sum, 0);
-    }).reduce(sum, 0);
+    }).reduce(sum, 0) * attackMod;
 
     var initialOdds = targetHex.attack.oddsValue;
     if (Object.keys(targetHex.attack.from).length > 0) {
@@ -113,4 +114,3 @@ DeclareAttack = function(data) {
         }
     };
 };
-
