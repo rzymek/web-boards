@@ -21,7 +21,7 @@ var getAttackTarget = function(hex) {
 };
 
 var abandonAttack = function(hex) {
-    if (!hex) {
+    if (!hex || !hex.attack) {
         return function() {
         };
     }
