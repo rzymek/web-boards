@@ -1,9 +1,9 @@
 function getPlayerNames(table) {
     return table.players.map(function(it) {
         return Meteor.users.findOne(it).emails[0].address;
-    })
+    });
 }
-;
+
 
 Meteor.methods({
     games: function() {
