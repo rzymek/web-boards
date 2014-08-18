@@ -27,7 +27,7 @@ fs.readFile(file, 'utf8', function(err, data) {
     }).reduce(function(a, b) {
         return a.concat(b);
     }).map(function(it) {
-        var pattern = base + 'images/back-info/**/*{,/}' + it.back;
+        var pattern = __dirname +'/back-info/**/*{,/}' + it.back;
         it.pattern = pattern;
         it.back_info_files = glob.sync(pattern);
         if (it.back_info_files.length > 1) {
@@ -63,10 +63,14 @@ fs.readFile(file, 'utf8', function(err, data) {
                 attack: it.info[0],
                 defence: it.info[1],
                 movement: it.info[2]
-            } 
-            
+            }             
         };
     });
+    var res={};
+    data.forEach(function(it){
+       res[it.name]=it.back; 
+    });
+    data=res;
     var json = JSON.stringify(data, null, 2);
     fs.writeFile(__dirname + '/units-back-info.json', json);
     console.log(rejected);
