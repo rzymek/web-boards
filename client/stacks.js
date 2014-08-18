@@ -23,6 +23,11 @@ addTo = function(list, element) {
     return list;
 };
 
+showingStackSelector = function() {
+    var selector = sprites.stackSelector;
+    return (selector.style.visibility !== 'hidden');
+};
+
 hideStackSelector = function() {
     var selector = sprites.stackSelector;
     if (selector.style.visibility === 'hidden')

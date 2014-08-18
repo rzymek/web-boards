@@ -10,13 +10,16 @@ hexClicked = function(hex) {
     if (byId('svg').panning)
         return;
     console.log(hex.id);
-    hideStackSelector();
 
     var selectedId = getSelectedId();
     if (selectedId === null) {
         //nothing is currently selected
         if (showingPieceMenu()) {
             hidePieceMenu();
+            return;
+        }
+        if(showingStackSelector()) {
+            hideStackSelector();
             return;
         }
         var stack = hex.stack;
@@ -34,6 +37,7 @@ hexClicked = function(hex) {
         }
         return;
     } else {
+        hideStackSelector();
         var selectedCounter = byId(selectedId);
         if (selectedCounter.position && selectedCounter.position.id === hex.id) {
             togglePieceMenu(selectedCounter);
