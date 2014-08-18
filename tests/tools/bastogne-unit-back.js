@@ -1,3 +1,7 @@
+/*
+ * 
+ watch-run bastogne-unit-back.js -- NODE_PATH=~/opt/node/lib/node_modules/ node bastogne-unit-back.js 
+ */
 var fs = require('fs');
 var glob = require('glob');
 var base = __dirname + '/../../public/games/bastogne/';
@@ -9,6 +13,7 @@ fs.readFile(file, 'utf8', function(err, data) {
         return;
     }
 
+    var rejected=[];
     data = JSON.parse(data).pieces.map(function(it) {
         return it.list.filter(function(c) {
             return c.images.length === 2;
@@ -22,7 +27,7 @@ fs.readFile(file, 'utf8', function(err, data) {
     }).reduce(function(a, b) {
         return a.concat(b);
     }).map(function(it) {
-        var pattern = base + 'images/b/*,*,*,' + it.back;
+        var pattern = base + 'images/back-info/**/*{,/}' + it.back;
         it.pattern = pattern;
         it.back_info_files = glob.sync(pattern);
         if (it.back_info_files.length > 1) {
@@ -39,8 +44,13 @@ fs.readFile(file, 'utf8', function(err, data) {
     }).map(function(it) {
         return {
             name: it.name,
-            info: it.back_info_file.replace(/([0-9]*,[0-9]*,[0-9]*).*/, '$1')
+            info: it.back_info_file.replace(/.*[/]([0-9]*,[0-9]*,[0-9]*).*/, '$1')
         };
+    }).filter(function(it) {
+        var matches = it.info.match(/[0-9]*,[0-9]*,[0-9]*/);
+        if(!matches)
+            rejected.push(it);
+        return matches;
     }).map(function(it) {
         return {
             name: it.name,
@@ -53,8 +63,11 @@ fs.readFile(file, 'utf8', function(err, data) {
                 attack: it.info[0],
                 defence: it.info[1],
                 movement: it.info[2]
-            }
+            } 
+            
         };
     });
-    console.log(JSON.stringify(data, null, 2));
+    var json = JSON.stringify(data, null, 2);
+    fs.writeFile(__dirname + '/units-back-info.json', json);
+    console.log(rejected);
 });
