@@ -21,7 +21,7 @@ var MoveOpStickyDG = function(original, data) {
     }
     if (from.stack && from.stack.length === DGfrom.length) {
         DGfrom.forEach(function(it) {
-            undo.push(RemoveElementOp({element: it.id}));
+            undo.push(RemovePieceOp({counterId: it.id}));
         });
     }
     undo.push(abandonAttack(getAttackTarget(from)));

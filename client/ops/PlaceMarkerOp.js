@@ -17,7 +17,7 @@ PlaceMarkerOp = function(data) {
             }
         }
     }
-    
+
     //place marker
     var marker = document.createElementNS(SVGNS, 'image');
     marker.marker = true;
