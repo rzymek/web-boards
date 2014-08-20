@@ -1241,8 +1241,8 @@ var unitInfo = {
 
 
 /*
- * 
- watch-run bastogne-unit-back.js -- NODE_PATH=~/opt/node/lib/node_modules/ node bastogne-unit-back.js 
+ *
+ watch-run bastogne-unit-back.js -- NODE_PATH=~/opt/node/lib/node_modules/ node bastogne-unit-back.js
  */
 var fs = require('fs');
 var glob = require('glob');
@@ -1296,7 +1296,11 @@ fs.readFile(file, 'utf8', function(err, data) {
     }).map(function(it) {
         return {
             name: it.name,
-            info: it.info.substr(it.info.lastIndexOf('/') + 1).split(/,/)
+            info: it.info.substr(it.info.lastIndexOf('/') + 1)
+                    .split(/,/)
+                    .map(function(it){
+                        return parseInt(it);
+                    })
         };
     }).map(function(it) {
         return {
@@ -1309,12 +1313,12 @@ fs.readFile(file, 'utf8', function(err, data) {
         };
     });
 
-    //flatten:
     var res = {};
     data.forEach(function(it) {
         var e={};
+        /*
         var front = unitInfo[it.name];
-        
+
         if(front.attack !== it.back.attack) {
             e.attack = it.back.attack;
         }
@@ -1325,10 +1329,12 @@ fs.readFile(file, 'utf8', function(err, data) {
             e.movement = it.back.movement;
         }
         if(Object.keys(e).length > 1) {
-            res[it.name] = e; 
+            res[it.name] = e;
         }
+        */
+       res[it.name] = it.back;
     });
-    data = res;
+    data = res;//*/
 
     var json = JSON.stringify(data, null, 2);
     fs.writeFile(__dirname + '/units-back-info.json', json);
