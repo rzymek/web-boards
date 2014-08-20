@@ -8,7 +8,7 @@ ApplyBarrageResult = function(data) {
     if (!isDGHex(target) && (target.stack || []).length > 0) {
         var targetSide = _.chain(target.stack).map(getOwner).filter(notNull).first().value();
         undo.push(PlaceOp({
-            _id: (new Meteor.Collection.ObjectID()).toHexString(),
+            _id: 'DG_'+data._id,
             name: (targetSide === 'US' ? 'US' : 'German') + ' DG',
             category: 'Misc Counters',
             hexid: target.id

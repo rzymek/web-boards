@@ -1,7 +1,7 @@
 ApplyAttackResult = function(data) {
     var target = byId(data.targetHex);
     var undo = [];
-    undo.push(RemoveElementOp(data));
+    undo.push(RemoveElementOp(data)); //remove boom with combat results (A1r1)
     var killSteps = parseInt(data.combatResult[1]);
     if (killSteps > 0) {
         undo.push(applyBattleResult(target, killSteps));

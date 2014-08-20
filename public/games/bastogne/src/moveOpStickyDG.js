@@ -13,7 +13,7 @@ var MoveOpStickyDG = function(original, data) {
     undo.push(original.MoveOp(data));
     if (DGfrom.length > 0 && DGto.length === 0) {
         undo.push(PlaceOp({
-            _id: (new Meteor.Collection.ObjectID()).toHexString(),
+            _id: 'DG_'+data._id,
             name: DGfrom[0].name,
             category: DGfrom[0].category,
             hexid: data.to
