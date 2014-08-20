@@ -1,7 +1,9 @@
-var abbortBarrage1 = function(barrage) {
-    if (!barrage)
+var abbortBarrage = function(hex) {
+    if (!hex.barrage || !hex.barrage.from) {
         return function() {
         };
+    }
+    var barrage = hex.barrage;
     var undoData = _.clone(barrage);
     clearBarrage(barrage);
     delete barrage.target;
@@ -16,6 +18,9 @@ var abbortBarrage1 = function(barrage) {
         });
         drawBarrage(undoData);
     };
+    if (Object.keys(barrage).length === 0) {
+        delete hex.barrage;
+    }
 };
 
 var clearBarrage = function(barrage) {

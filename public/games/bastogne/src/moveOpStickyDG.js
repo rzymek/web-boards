@@ -27,7 +27,7 @@ var MoveOpStickyDG = function(original, data) {
     undo.push(abandonAttack(getAttackTarget(from)));
     undo.push(abandonAttack(getAttackTarget(to)));
     if ((from.stack || []).length === 0) {
-        undo.push(abbortBarrage1(from.barrage));
+        undo.push(abbortBarrage(from));
     }
     return function() {
         undo.reverse().forEach(function(fn) {
