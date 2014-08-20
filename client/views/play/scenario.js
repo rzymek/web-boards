@@ -5,7 +5,7 @@ function isGameStarted() {
 Template.scenario.visible = function() {
     return  Session.equals('ops.ready', true)
             && !isGameStarted()
-            && !Template.join.guest()
+//            && !Template.join.guest()
             && Template.scenario.scenarios().length > 0;
 };
 

@@ -1,4 +1,4 @@
-Template.welcome.games = function() {
+Template.welcome_startGame.games = function() {
     return Session.get('__games');
 };
 

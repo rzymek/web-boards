@@ -1,3 +1,12 @@
+<template name="welcome_startGame">
+    <h3>Start new game:</h3>
+    <div class="btn-group-vertical" id="startgame">
+        {{#each games}}
+        <button type="button" class="start-game btn btn-default" value="{{.}}">{{.}}</button>
+        {{/each}}
+    </div>
+</template>
+
 <template name="welcome">
 
     {{#unless equals 'tables.ready' true}}
@@ -19,9 +28,6 @@
             <p>Web Boards is a web application for playing online adaptation of board games. 
                 You can play online with instant updates or do your moves without the opponent being connected.</p>
             <p><button type="button" class="btn btn-default take-a-tour">Take a tour</button></p>
-            {{#unless loggedIn}}
-            Please log in/sign up using the link in the upper right corner.
-            {{/unless}}
         </div>
     </div>
 
@@ -68,21 +74,12 @@
                 </table>
             </div>
             <div class="col-md-2">
-                <h3>Start new game:</h3>
-                <div class="btn-group-vertical" id="startgame">
-                    {{#each games}}
-                    <button type="button" class="start-game btn btn-default" value="{{.}}">{{.}}</button>
-                    {{/each}}
-                </div>
+                {{> welcome_startGame}}
             </div>
         </div>
-        {{else}}       
-        <h3>Available games:</h3>
-        <ul>
-            {{#each games}}
-            <li><h4>{{.}}</h4></li>
-            {{/each}}
-        </ul>
+        {{else}}
+            Login using the link in the upper right corner to gain access to game list management.
+            {{> welcome_startGame}}
         {{/if}}
 
         {{#if devMode}}

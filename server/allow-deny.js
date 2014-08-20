@@ -1,11 +1,13 @@
 Tables.allow({
     insert: function(userId, table) {
         try {
-            check(userId, String);
+//            check(userId, String);
             check(table.game, String);
             table.started = new Date().valueOf();
             table.players = {};
-            table.players[userId] = getUsername(userId);
+            if(userId) {
+                table.players[userId] = getUsername(userId);
+            }
             return true;
         } catch (err) {
             console.error(err.stack);
@@ -28,13 +30,17 @@ Operations.allow({
     insert: function(userId, op) {
         console.log(op);
         try {
-            check(userId, String);
             check(op.op, String);
             check(op.result, undefined);
             check(op.tableId, String);
-            check(op.tableId, Match.Where(function(tableId) {
-                var table = Tables.findOne(tableId);
-                return (table !== null) && (table !== undefined) && (userId in table.players);
+            
+            var table = Tables.findOne(op.tableId);
+            if(!_.isEmpty(table.players)) {
+                check(userId, String);
+            }
+            check(op.tableId, Match.Where(function() {
+                return ((table !== null) && (table !== undefined) && (userId in table.players))
+                    || _.isEmpty(table.players);
             }));
             if (op.server !== undefined) {
                 op.result = {};
