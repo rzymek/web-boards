@@ -1,3 +1,829 @@
 {
-   "5.3 Battle for Bastogne": [{"op":"PlaceOp","category":"Cherry","name":"C/20","hexid":"h45_13"},{"op":"PlaceOp","category":"Cherry","name":"A/3","hexid":"h48_12"},{"op":"PlaceOp","category":"Cherry","name":"C/609","hexid":"h48_11"},{"op":"PlaceOp","category":"Cherry","name":"D/90","hexid":"h36_18"},{"op":"PlaceOp","category":"Cherry","name":"HHC/3","hexid":"h36_18"},{"op":"PlaceOp","category":"CCR","name":"HHC","hexid":"h46_13"},{"op":"PlaceOp","category":"CCR","name":"C/482","hexid":"h49_13"},{"op":"PlaceOp","category":"26 VG","name":"1/I/78","hexid":"h60_14"},{"op":"PlaceOp","category":"26 VG","name":"2/I/78","hexid":"h60_14"},{"op":"PlaceOp","category":"26 VG","name":"3/I/78","hexid":"h60_14"},{"op":"PlaceOp","category":"26 VG","name":"4/I/78","hexid":"h60_14"},{"op":"PlaceOp","category":"26 VG","name":"S/I/78","hexid":"h60_14"},{"op":"PlaceOp","category":"26 VG","name":"5/II/78","hexid":"h61_14"},{"op":"PlaceOp","category":"26 VG","name":"6/II/78","hexid":"h61_14"},{"op":"PlaceOp","category":"26 VG","name":"7/II/78","hexid":"h61_14"},{"op":"PlaceOp","category":"26 VG","name":"8/II/78","hexid":"h61_14"},{"op":"PlaceOp","category":"26 VG","name":"S/II/78","hexid":"h61_14"},{"op":"PlaceOp","category":"26 VG","name":"1/I/77","hexid":"h56_14"},{"op":"PlaceOp","category":"26 VG","name":"2/I/77","hexid":"h56_14"},{"op":"PlaceOp","category":"26 VG","name":"3/I/77","hexid":"h56_14"},{"op":"PlaceOp","category":"26 VG","name":"4/I/77","hexid":"h56_14"},{"op":"PlaceOp","category":"26 VG","name":"S/I/77","hexid":"h56_14"},{"op":"PlaceOp","category":"26 VG","name":"5/II/77","hexid":"h57_14"},{"op":"PlaceOp","category":"26 VG","name":"6/II/77","hexid":"h57_14"},{"op":"PlaceOp","category":"26 VG","name":"7/II/77","hexid":"h57_14"},{"op":"PlaceOp","category":"26 VG","name":"8/II/77","hexid":"h57_14"},{"op":"PlaceOp","category":"26 VG","name":"S/II/77","hexid":"h57_14"},{"op":"PlaceOp","category":"KG 902","name":"1/I","hexid":"h58_14"},{"op":"PlaceOp","category":"KG 902","name":"2/I","hexid":"h58_14"},{"op":"PlaceOp","category":"KG 902","name":"3/I","hexid":"h58_14"},{"op":"PlaceOp","category":"KG 902","name":"5/II","hexid":"h56_13"},{"op":"PlaceOp","category":"KG 902","name":"6/II","hexid":"h56_13"},{"op":"PlaceOp","category":"KG 902","name":"7/II","hexid":"h56_13"},{"op":"PlaceOp","category":"KG 902","name":"5/130","hexid":"h55_14"},{"op":"PlaceOp","category":"KG 902","name":"7/130","hexid":"h55_14"},{"op":"PlaceOp","category":"KG 902","name":"9","hexid":"h55_15"},{"op":"PlaceOp","category":"KG 902","name":"10","hexid":"h55_15"},{"op":"PlaceOp","category":"KG 902","name":"Arty","hexid":"h55_15"},{"op":"PlaceOp","category":"26 VG","name":"IV/26","hexid":"h61_17"},{"_id":"oWWwKMRyeyjJpr7L9","op":"PlaceOp","category":"Cherry","name":"D/3","hexid":"h44_13"},{"_id":"9BzJMzZdbquCM3FqZ","op":"PlaceOp","category":"Misc US","name":"58","hexid":"h48_13"},{"_id":"uxcjiR9JN4ZFCSdT8","op":"PlaceOp","category":"Misc US","name":"73","hexid":"h47_12"},{"_id":"xTyYKoKWwF4EZRDha","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h49_14"},{"_id":"W96KG6JkDbYytyQFX","op":"PlaceOp","category":"Misc US","name":"C","hexid":"h36_15"},{"_id":"GhyJEQBwD7C5vewyS","op":"PlaceOp","category":"Misc US","name":"D","hexid":"h39_16"},{"_id":"o2Mz5mZyxSquS45WY","op":"PlaceOp","category":"Desobry","name":"C/609","hexid":"h33_8","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"2x9Mt3DCa528wdXNq","op":"PlaceOp","category":"Misc US","name":"A","hexid":"h33_9","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"WHZrDEcwpoodwTAQd","op":"PlaceOp","category":"Misc US","name":"B","hexid":"h34_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"zQbb9C5NnZ4t4ppco","op":"PlaceOp","category":"Desobry","name":"D/90","hexid":"h34_5","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"SdH7MSCoLxF7nYChq","op":"PlaceOp","category":"Desobry","name":"B/3","hexid":"h35_5","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"QPM7xmMB9rhMtXw2s","op":"PlaceOp","category":"Desobry","name":"D/3","hexid":"h35_3","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"MaDAHkizauq7Sq2mR","op":"PlaceOp","category":"Desobry","name":"B/20","hexid":"h37_4","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"aM2rDarJkYstRGekt","op":"PlaceOp","category":"O'Hara","name":"D/3","hexid":"h39_23","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"4nP72HPScXXux65xM","op":"PlaceOp","category":"O'Hara","name":"C/21","hexid":"h39_24","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Ffhk5ZEKFWni8NJRj","op":"PlaceOp","category":"O'Hara","name":"B/54","hexid":"h41_23","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"zuKxwkPc9owrwQX8Z","op":"PlaceOp","category":"O'Hara","name":"D/90","hexid":"h43_23","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"8XGJntSuEKBiMZf5u","op":"PlaceOp","category":"O'Hara","name":"C/16","hexid":"h40_21","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"bjnBjT8nDoPXPQFxF","op":"PlaceOp","category":"CCB","name":"A/20","hexid":"h26_19","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"kchFEfrbu68MeQXJQ","op":"PlaceOp","category":"CCB","name":"B/769","hexid":"h27_20","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"4w96P3xxopW6yGfen","op":"PlaceOp","category":"CCB","name":"C/55","hexid":"h27_19","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"P7LLp35ivS2xbNexZ","op":"PlaceOp","category":"CCB","name":"HHC/20","hexid":"h28_19","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"ftZgLePyNERxD5WjS","op":"PlaceOp","category":"Misc US","name":"969","hexid":"h20_19","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"8kehJvi6w5dyHqtBj","op":"PlaceOp","category":"Misc US","name":"420","hexid":"h17_20","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"rSNtDzwYHgKtBR6JM","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h60_26","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"yoSnNDGpJex4pFnLc","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h61_27","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"EpeCPHesCfeyFoGHf","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h60_27","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"tETiFQLqFHRSvRQGK","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h61_28","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"i7zxr5hZaMHuDRjTo","op":"PlaceOp","category":"Misc US","name":"AdHoc SNAFU","hexid":"h61_29","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"o2Mz5mZyxSquS45WY","op":"PlaceOp","category":"Desobry","name":"C/609","hexid":"h33_8","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"2x9Mt3DCa528wdXNq","op":"PlaceOp","category":"Misc US","name":"A","hexid":"h33_9","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"WHZrDEcwpoodwTAQd","op":"PlaceOp","category":"Misc US","name":"B","hexid":"h34_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"zQbb9C5NnZ4t4ppco","op":"PlaceOp","category":"Desobry","name":"D/90","hexid":"h34_5","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"SdH7MSCoLxF7nYChq","op":"PlaceOp","category":"Desobry","name":"B/3","hexid":"h35_5","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"QprQHNsxHMKh4o3wt","op":"PlaceOp","category":"v.Bohm","name":"2 Aufk","hexid":"h59_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"adLZ8nLMBhgkaNsgd","op":"PlaceOp","category":"v.Bohm","name":"3 Aufk","hexid":"h59_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"9YvNCebetCf38DdRi","op":"PlaceOp","category":"v.Bohm","name":"HQ","hexid":"h59_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"P2wAmAdmavyWMjfF8","op":"PlaceOp","category":"v.Bohm","name":"Pz","hexid":"h59_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"sTYzKagMw3zK4X95g","op":"PlaceOp","category":"v.Bohm","name":"Wpn","hexid":"h59_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"TkR9MXnTm26K4gPfK","op":"PlaceOp","category":"KG Coch","name":"5/II","hexid":"h57_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"xYutW4wTsLNHopPNw","op":"PlaceOp","category":"KG Coch","name":"6/II","hexid":"h57_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"JwsrFaSoKLv9gG7dp","op":"PlaceOp","category":"KG Coch","name":"7/II","hexid":"h57_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"fjfhNewJdhZSxeCPn","op":"PlaceOp","category":"KG Coch","name":"1/273","hexid":"h58_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"uKbfuT4kSTwJAJLX2","op":"PlaceOp","category":"KG Coch","name":"9","hexid":"h58_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"2a9AKkWGi3HycDmgG","op":"PlaceOp","category":"KG Coch","name":"Arty","hexid":"h59_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Y87Ya5LCHwfq9ejSz","op":"PlaceOp","category":"KG Coch","name":"3/38","hexid":"h60_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"EwbdMB5dW7y88YmjA","op":"PlaceOp","category":"KG Coch","name":"2","hexid":"h60_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Qk4vQjGQFQjd2Fq4Y","op":"PlaceOp","category":"KG Coch","name":"3","hexid":"h60_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"RH2Ag9rGphcg3zN3A","op":"PlaceOp","category":"KG Coch","name":"4","hexid":"h60_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Njzv53qnkWssLEvpY","op":"PlaceOp","category":"KG Coch","name":"10","hexid":"h60_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"nA9285a8THpGJz2kr","op":"NoteOp","text":"Entry area D","hexid":"h61_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"BsBiW4bheuxM3erzw","op":"NoteOp","text":"Entry area E","hexid":"h58_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"GiGh7RbQmEmg4daDW","op":"NoteOp","text":"Entry area E","hexid":"h60_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Peg5pdTHuzYSm5RDD","op":"PlaceOp","category":"501","name":"A/1","hexid":"h13_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"CxYRwvgQL7nKXTAHp","op":"PlaceOp","category":"501","name":"B/1","hexid":"h13_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"xEafp8H9qt7hLyHNF","op":"PlaceOp","category":"501","name":"C/1","hexid":"h13_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"4tdDJS7peCYvbDunE","op":"PlaceOp","category":"501","name":"D/2","hexid":"h13_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"AHum84tXTfecyQp8f","op":"PlaceOp","category":"501","name":"E/2","hexid":"h14_13","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"jxdBuNRqwaSNmQR33","op":"PlaceOp","category":"501","name":"F/2","hexid":"h14_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"zC6kSN6k7G9fNhJqf","op":"PlaceOp","category":"501","name":"G/3","hexid":"h14_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"WPWDPLJvXxdgeeNfA","op":"PlaceOp","category":"501","name":"H/3","hexid":"h14_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"767tsZ6SZrGTyh3Ga","op":"PlaceOp","category":"501","name":"I/3","hexid":"h14_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"mGDEWuPgZPdrGZ8Xi","op":"PlaceOp","category":"502","name":"A/1","hexid":"h15_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"DxyRbtXymWiPKuBKP","op":"PlaceOp","category":"502","name":"B/1","hexid":"h15_13","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"coX5hD8RZjjPCXbuy","op":"PlaceOp","category":"502","name":"C/1","hexid":"h15_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"PWY7T8cDT3FhzKjMB","op":"PlaceOp","category":"502","name":"D/2","hexid":"h15_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"SsCYScwvWiJKqG2fv","op":"PlaceOp","category":"502","name":"E/2","hexid":"h15_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"sPrFkHsbdZKZ7D8vj","op":"PlaceOp","category":"502","name":"F/2","hexid":"h15_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"DsDtMZzvQCFSX2Suc","op":"PlaceOp","category":"502","name":"G/3","hexid":"h16_11","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"6efPa7ivYByQ7fT49","op":"PlaceOp","category":"502","name":"G/3","hexid":"h16_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"24uPTSjdPtPKn5myB","op":"PlaceOp","category":"502","name":"H/3","hexid":"h16_13","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"97SDrrPbEYZLZLDBH","op":"PlaceOp","category":"502","name":"I/3","hexid":"h16_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"otwopwnCkK8svwG5i","op":"PlaceOp","category":"506","name":"A/1","hexid":"h17_11","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"8ij2ZAQQ3qRBu5Ytk","op":"PlaceOp","category":"506","name":"B/1","hexid":"h17_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"BXs4qG2n6DEWv9zAE","op":"PlaceOp","category":"506","name":"C/1","hexid":"h17_13","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"TxyGhJKLznGeRPs5C","op":"PlaceOp","category":"506","name":"D/2","hexid":"h17_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"Nb4vXTr3oEqY7ykEh","op":"PlaceOp","category":"506","name":"E/2","hexid":"h17_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"FFLJaGz3K2ekwG6J3","op":"PlaceOp","category":"506","name":"F/2","hexid":"h17_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"3PDxsjJ7svta59BC3","op":"PlaceOp","category":"506","name":"G/3","hexid":"h17_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"TyyySkaxSfvqCJ5PZ","op":"PlaceOp","category":"506","name":"H/3","hexid":"h17_18","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"k4gycks7ESB7c3q5S","op":"PlaceOp","category":"506","name":"I/3","hexid":"h18_10","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"NojZMF3wpemw6AmHX","op":"PlaceOp","category":"327","name":"A/1","hexid":"h18_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"BtjjBg57HwFvSPrpB","op":"PlaceOp","category":"327","name":"B/1","hexid":"h18_13","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"YqNSbnvB2oZuzfJ2Z","op":"PlaceOp","category":"327","name":"C/1","hexid":"h18_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"DagfEbDYgwhhFRPvK","op":"PlaceOp","category":"327","name":"E/2","hexid":"h18_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"pRFyiYnFRyJD6R3qy","op":"PlaceOp","category":"327","name":"F/2","hexid":"h18_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"qa9oX93s3heAdeahb","op":"PlaceOp","category":"327","name":"G/2","hexid":"h18_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"TB2SXrWtBfWtPcjbQ","op":"PlaceOp","category":"401","name":"A/1","hexid":"h19_10","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"JmQbR6SboJfbXCcLE","op":"PlaceOp","category":"401","name":"B/1","hexid":"h19_11","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"3ESGsgYL4HL2i5eiv","op":"PlaceOp","category":"401","name":"C/1","hexid":"h19_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"KyDpePcCTtCFZXg9v","op":"PlaceOp","category":"101","name":"A/326","hexid":"h19_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"6tagCb3xCL6nC5L6o","op":"PlaceOp","category":"101","name":"B/326","hexid":"h19_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"AiS4sQ6hbNGHHv3hD","op":"PlaceOp","category":"101","name":"C/326","hexid":"h19_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"jMepA9M6Yk5Y3h27k","op":"PlaceOp","category":"101","name":"D/326","hexid":"h19_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"4ZNZSJhSKJr2arQPT","op":"PlaceOp","category":"101","name":"A/81","hexid":"h20_10","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"cL37WEEYKNmdvW68r","op":"PlaceOp","category":"101","name":"B/81","hexid":"h20_11","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"tm7prEe9gNPbEk3SR","op":"PlaceOp","category":"101","name":"C/81","hexid":"h20_12","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"pqnXq2gRpHWLDKu7s","op":"PlaceOp","category":"101","name":"327","hexid":"h20_14","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"kStyrCXjxgGPLG74u","op":"PlaceOp","category":"101","name":"377","hexid":"h20_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"9canz8XpP9BJdSCmi","op":"PlaceOp","category":"101","name":"463","hexid":"h20_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"vFJPKR66qQ4g4ojAN","op":"PlaceOp","category":"101","name":"907","hexid":"h21_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"XabFKwsGNmu9YT4BM","op":"PlaceOp","category":"Misc US","name":"755","hexid":"h55_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"9F9CrwaGcRQX6y3Te","op":"NoteOp","text":"B or C","hexid":"h55_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"iHJ5Fgy7o7Z7Yvvoi","op":"PlaceOp","category":"Misc US","name":"687(-)","hexid":"h56_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"7Jms4iNx5vg6dcLxu","op":"NoteOp","text":"Entry area F (turn 2)","hexid":"h56_16","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"kg4ijL8Guw9Z6rC6v","op":"NoteOp","text":"Turn 2","hexid":"h18_15","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"yzjnj4HXjWNML4Nz8","op":"PlaceOp","category":"705","name":"A(-)","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"vgtigNovaeeBovScE","op":"PlaceOp","category":"705","name":"B","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"2PQDXGC9w9icWPq9v","op":"PlaceOp","category":"705","name":"C","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"fCiemR6X68mJCpcSB","op":"PlaceOp","category":"705","name":"HHC","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"rt73Fxgck8pEMR7nc","op":"PlaceOp","category":"705","name":"Rec","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"9n34geCyyZbP8nAyk","op":"NoteOp","text":"Entry area A","hexid":"h56_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"YtmweXddGhToPbeZH","op":"PlaceOp","category":"v.Fallois","name":"1 Aufk","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"ThDniKJfd8A3bFvnm","op":"PlaceOp","category":"v.Fallois","name":"3 Aufk","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"BCd9bpadEYH9K5oEJ","op":"PlaceOp","category":"v.Fallois","name":"3/PzPio","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"7tdCP9Ax6iWYYW4Zs","op":"PlaceOp","category":"v.Fallois","name":"Arty","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"ZBLLPg9csohwi88oh","op":"PlaceOp","category":"v.Fallois","name":"HQ","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"},{"_id":"FBSaByWZvew5w9qNG","op":"PlaceOp","category":"v.Fallois","name":"Pz","hexid":"h60_17","player":"QFjrnDTHGgpb3y8Yp"}]
+    "5.1 Battle for Noville: Introductory Scenario": [{"_id": "qL54naPLHoceDXirG", "op": "PlaceOp", "category": "Desobry", "name": "B/3", "hexid": "h35_5"}, {"_id": "eB3bFvWTJpFi6oCsN", "op": "PlaceOp", "category": "Desobry", "name": "D/90", "hexid": "h34_5"}, {"_id": "ACXGi6ByFpRTa8dC2", "op": "PlaceOp", "category": "Desobry", "name": "C/609", "hexid": "h33_8"}, {"_id": "6yT6owBgwbY9CQ5kt", "op": "PlaceOp", "category": "Desobry", "name": "B/20", "hexid": "h37_4"}, {"_id": "6bAW9uh6rjf8JFofL", "op": "PlaceOp", "category": "Desobry", "name": "D/3", "hexid": "h35_3"}, {"_id": "C8TbYFCbFjbH8PtBg", "op": "PlaceOp", "category": "Misc US", "name": "A", "hexid": "h33_9"}, {"_id": "6bNX639SkvrmoKMnM", "op": "PlaceOp", "category": "506", "name": "A/1", "hexid": "h33_12"}, {"_id": "8N2qeYvAGWJemjqSp", "op": "PlaceOp", "category": "506", "name": "B/1", "hexid": "h34_12"}, {"_id": "Jdzi4LZcbahtJgkgN", "op": "PlaceOp", "category": "506", "name": "C/1", "hexid": "h35_12"}, {"_id": "id9JGr6Gv57ndqpHh", "op": "PlaceOp", "category": "Misc US", "name": "420", "hexid": "h27_6"}, {"_id": "QMepP2zpZEzyzjB2C", "op": "PlaceOp", "category": "Misc US", "name": "755", "hexid": "h27_7"}, {"_id": "3tRHtzpwFFtzJZuqm", "op": "PlaceOp", "category": "Misc US", "name": "969", "hexid": "h27_8"}, {"_id": "QAsKEJS4Ps6pYhtRZ", "op": "NoteOp", "text": "Turn 2 for 506 (1/2)", "hexid": "h32_11"}, {"_id": "SWgHw694cmcgpMpxw", "op": "NoteOp", "text": "Turn 2 for 506 (2/2)", "hexid": "h34_11"}, {"_id": "A6DKPvEeGLfqRiXFM", "op": "NoteOp", "text": "GE entry", "hexid": "h40_0"}, {"_id": "E5Ams9t9rSncnWqPf", "op": "NoteOp", "text": "GE entry", "hexid": "h40_4"}, {"_id": "CyNw7e6CtRwaz8fKW", "op": "NoteOp", "text": "GE entry", "hexid": "h40_7"}, {"_id": "Kf4H3bGdQW5dtqqGt", "op": "PlaceOp", "category": "26 VG", "name": "II/26", "hexid": "h41_8"}, {"_id": "uRL8j39EpWw9TMQgt", "op": "PlaceOp", "category": "26 VG", "name": "III/26", "hexid": "h41_9"}, {"_id": "AtwJNPBfFrfT2o9Qi", "op": "PlaceOp", "category": "Misc", "name": "766", "hexid": "h41_10"}, {"_id": "FfBpemaEh3vkLkET5", "op": "PlaceOp", "category": "v.Bohm", "name": "2 Aufk", "hexid": "h42_0"}, {"_id": "cPyFAuRL26a5MCcKD", "op": "PlaceOp", "category": "v.Bohm", "name": "3 Aufk", "hexid": "h42_1"}, {"_id": "8XHXmcyTv6y5kDezG", "op": "PlaceOp", "category": "v.Bohm", "name": "HQ", "hexid": "h42_2"}, {"_id": "5CLFKkn7JLPXKc94n", "op": "PlaceOp", "category": "v.Bohm", "name": "Pz", "hexid": "h43_1"}, {"_id": "xMEZoQSjvC56NRDMi", "op": "PlaceOp", "category": "v.Bohm", "name": "Wpn", "hexid": "h43_2"}, {"_id": "m6EhuPg5tD993cKCN", "op": "PlaceOp", "category": "KG Coch", "name": "3/38", "hexid": "h42_4"}, {"_id": "cYHoyo5Tv6bivHKEW", "op": "PlaceOp", "category": "KG Coch", "name": "2", "hexid": "h42_5"}, {"_id": "sWo4L22rMky8YkvsF", "op": "PlaceOp", "category": "KG Coch", "name": "3", "hexid": "h42_6"}, {"_id": "hjrf66h4hnvyxnvoR", "op": "PlaceOp", "category": "KG Coch", "name": "4", "hexid": "h43_6"}, {"_id": "rEcijJn3rRvXaTsFn", "op": "PlaceOp", "category": "KG Coch", "name": "1/273", "hexid": "h43_5"}, {"_id": "ASWT2WPLpwLbjMYCA", "op": "PlaceOp", "category": "Misc Counters", "name": "German Turn", "hexid": "h56_15"}, {"_id": "fxNp9wdR9uoRekJme", "op": "NoteOp", "text": "Last turn", "hexid": "h55_17"}, {"_id": "WbugeGT2fT8YFNXys", "op": "NoteOp", "text": "NOTE: German Player Turn first, US Player Turn second", "hexid": "h31_3"}],
+    "5.2 Battle for Longvilly, Mageret & Neffe: Small Scenario": [
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/20",
+            "hexid": "h45_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "A/3",
+            "hexid": "h48_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/609",
+            "hexid": "h48_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/90",
+            "hexid": "h36_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "HHC/3",
+            "hexid": "h36_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "HHC",
+            "hexid": "h46_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "C/482",
+            "hexid": "h49_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "A/1",
+            "hexid": "h31_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "B/1",
+            "hexid": "h31_16"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "C/1",
+            "hexid": "h31_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "D/2",
+            "hexid": "h31_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "E/2",
+            "hexid": "h31_19"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "F/2",
+            "hexid": "h30_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "G/3",
+            "hexid": "h30_16"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "501",
+            "name": "H/3",
+            "hexid": "h30_17"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/78",
+            "hexid": "h55_7"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/78",
+            "hexid": "h55_8"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "1/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "2/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "3/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "6/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "9",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "10",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "Arty",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "IV/26",
+            "hexid": "h50_17"
+        },
+        {
+            "op": "NoteOp",
+            "text": "turn 3",
+            "hexid": "h50_17"
+        },
+        {
+            "op": "NoteOp",
+            "text": "turn 2",
+            "hexid": "h31_17"
+        },
+        {
+            "_id": "oWWwKMRyeyjJpr7L9",
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/3",
+            "hexid": "h44_13"
+        },
+        {
+            "_id": "9BzJMzZdbquCM3FqZ",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "58",
+            "hexid": "h48_13"
+        },
+        {
+            "_id": "uxcjiR9JN4ZFCSdT8",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "73",
+            "hexid": "h47_12"
+        },
+        {
+            "_id": "xTyYKoKWwF4EZRDha",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h49_14"
+        },
+        {
+            "_id": "W96KG6JkDbYytyQFX",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "C",
+            "hexid": "h36_15"
+        },
+        {
+            "_id": "p37TLBfYER6nRs2Gg",
+            "op": "PlaceOp",
+            "category": "101",
+            "name": "327",
+            "hexid": "h30_18"
+        },
+        {
+            "_id": "GhyJEQBwD7C5vewyS",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "D",
+            "hexid": "h39_16"
+        },
+        {
+            "_id": "pTnbhghTkj7YFBDHY",
+            "op": "PlaceOp",
+            "category": "Misc Counters",
+            "name": "German Turn",
+            "hexid": "h58_14"
+        },
+        {
+            "_id": "heWHsaai7j64b5kqw",
+            "op": "NoteOp",
+            "text": "Last turn",
+            "hexid": "h59_17"
+        }
+    ],
+    "5.3 Battle for Bastogne": [
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/20",
+            "hexid": "h45_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "A/3",
+            "hexid": "h48_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "C/609",
+            "hexid": "h48_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/90",
+            "hexid": "h36_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "HHC/3",
+            "hexid": "h36_18"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "HHC",
+            "hexid": "h46_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "CCR",
+            "name": "C/482",
+            "hexid": "h49_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/78",
+            "hexid": "h60_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/78",
+            "hexid": "h60_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/78",
+            "hexid": "h60_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/78",
+            "hexid": "h60_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/78",
+            "hexid": "h60_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/78",
+            "hexid": "h61_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/78",
+            "hexid": "h61_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/78",
+            "hexid": "h61_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/78",
+            "hexid": "h61_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/78",
+            "hexid": "h61_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "1/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "2/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "3/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "4/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/I/77",
+            "hexid": "h55_10"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "5/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "6/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "7/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "8/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "S/II/77",
+            "hexid": "h55_11"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "1/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "2/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "3/I",
+            "hexid": "h55_12"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "6/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/II",
+            "hexid": "h55_13"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "5/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "7/130",
+            "hexid": "h55_14"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "9",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "10",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "KG 902",
+            "name": "Arty",
+            "hexid": "h55_15"
+        },
+        {
+            "op": "PlaceOp",
+            "category": "26 VG",
+            "name": "IV/26",
+            "hexid": "h59_17"
+        },
+        {
+            "_id": "oWWwKMRyeyjJpr7L9",
+            "op": "PlaceOp",
+            "category": "Cherry",
+            "name": "D/3",
+            "hexid": "h44_13"
+        },
+        {
+            "_id": "9BzJMzZdbquCM3FqZ",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "58",
+            "hexid": "h48_13"
+        },
+        {
+            "_id": "uxcjiR9JN4ZFCSdT8",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "73",
+            "hexid": "h47_12"
+        },
+        {
+            "_id": "xTyYKoKWwF4EZRDha",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h49_14"
+        },
+        {
+            "_id": "W96KG6JkDbYytyQFX",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "C",
+            "hexid": "h36_15"
+        },
+        {
+            "_id": "GhyJEQBwD7C5vewyS",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "D",
+            "hexid": "h39_16"
+        },
+        {
+            "_id": "pTnbhghTkj7YFBDHY",
+            "op": "PlaceOp",
+            "category": "Misc Counters",
+            "name": "German Turn",
+            "hexid": "h58_14"
+        },
+        {
+            "_id": "o2Mz5mZyxSquS45WY",
+            "op": "PlaceOp",
+            "category": "Desobry",
+            "name": "C/609",
+            "hexid": "h33_8",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "2x9Mt3DCa528wdXNq",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "A",
+            "hexid": "h33_9",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "WHZrDEcwpoodwTAQd",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "B",
+            "hexid": "h34_12",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "zQbb9C5NnZ4t4ppco",
+            "op": "PlaceOp",
+            "category": "Desobry",
+            "name": "D/90",
+            "hexid": "h34_5",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "SdH7MSCoLxF7nYChq",
+            "op": "PlaceOp",
+            "category": "Desobry",
+            "name": "B/3",
+            "hexid": "h35_5",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "QPM7xmMB9rhMtXw2s",
+            "op": "PlaceOp",
+            "category": "Desobry",
+            "name": "D/3",
+            "hexid": "h35_3",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "MaDAHkizauq7Sq2mR",
+            "op": "PlaceOp",
+            "category": "Desobry",
+            "name": "B/20",
+            "hexid": "h37_4",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "aM2rDarJkYstRGekt",
+            "op": "PlaceOp",
+            "category": "O'Hara",
+            "name": "D/3",
+            "hexid": "h39_23",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "4nP72HPScXXux65xM",
+            "op": "PlaceOp",
+            "category": "O'Hara",
+            "name": "C/21",
+            "hexid": "h39_24",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "Ffhk5ZEKFWni8NJRj",
+            "op": "PlaceOp",
+            "category": "O'Hara",
+            "name": "B/54",
+            "hexid": "h41_23",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "zuKxwkPc9owrwQX8Z",
+            "op": "PlaceOp",
+            "category": "O'Hara",
+            "name": "D/90",
+            "hexid": "h43_23",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "8XGJntSuEKBiMZf5u",
+            "op": "PlaceOp",
+            "category": "O'Hara",
+            "name": "C/16",
+            "hexid": "h40_21",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "bjnBjT8nDoPXPQFxF",
+            "op": "PlaceOp",
+            "category": "CCB",
+            "name": "A/20",
+            "hexid": "h26_19",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "kchFEfrbu68MeQXJQ",
+            "op": "PlaceOp",
+            "category": "CCB",
+            "name": "B/769",
+            "hexid": "h27_20",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "4w96P3xxopW6yGfen",
+            "op": "PlaceOp",
+            "category": "CCB",
+            "name": "C/55",
+            "hexid": "h27_19",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "P7LLp35ivS2xbNexZ",
+            "op": "PlaceOp",
+            "category": "CCB",
+            "name": "HHC/20",
+            "hexid": "h28_19",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "ftZgLePyNERxD5WjS",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "969",
+            "hexid": "h20_19",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "8kehJvi6w5dyHqtBj",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "420",
+            "hexid": "h17_20",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "rSNtDzwYHgKtBR6JM",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h60_26",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "yoSnNDGpJex4pFnLc",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h61_27",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "EpeCPHesCfeyFoGHf",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h60_27",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "tETiFQLqFHRSvRQGK",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h61_28",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        },
+        {
+            "_id": "i7zxr5hZaMHuDRjTo",
+            "op": "PlaceOp",
+            "category": "Misc US",
+            "name": "AdHoc SNAFU",
+            "hexid": "h61_29",
+            "player": "QFjrnDTHGgpb3y8Yp"
+        }
+    ],
+    "5.3 Battle for Bastogne": [{"op": "PlaceOp", "category": "Cherry", "name": "C/20", "hexid": "h45_13"}, {"op": "PlaceOp", "category": "Cherry", "name": "A/3", "hexid": "h48_12"}, {"op": "PlaceOp", "category": "Cherry", "name": "C/609", "hexid": "h48_11"}, {"op": "PlaceOp", "category": "Cherry", "name": "D/90", "hexid": "h36_18"}, {"op": "PlaceOp", "category": "Cherry", "name": "HHC/3", "hexid": "h36_18"}, {"op": "PlaceOp", "category": "CCR", "name": "HHC", "hexid": "h46_13"}, {"op": "PlaceOp", "category": "CCR", "name": "C/482", "hexid": "h49_13"}, {"op": "PlaceOp", "category": "26 VG", "name": "1/I/78", "hexid": "h60_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "2/I/78", "hexid": "h60_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "3/I/78", "hexid": "h60_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "4/I/78", "hexid": "h60_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "S/I/78", "hexid": "h60_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "5/II/78", "hexid": "h61_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "6/II/78", "hexid": "h61_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "7/II/78", "hexid": "h61_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "8/II/78", "hexid": "h61_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "S/II/78", "hexid": "h61_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "1/I/77", "hexid": "h56_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "2/I/77", "hexid": "h56_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "3/I/77", "hexid": "h56_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "4/I/77", "hexid": "h56_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "S/I/77", "hexid": "h56_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "5/II/77", "hexid": "h57_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "6/II/77", "hexid": "h57_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "7/II/77", "hexid": "h57_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "8/II/77", "hexid": "h57_14"}, {"op": "PlaceOp", "category": "26 VG", "name": "S/II/77", "hexid": "h57_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "1/I", "hexid": "h58_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "2/I", "hexid": "h58_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "3/I", "hexid": "h58_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "5/II", "hexid": "h56_13"}, {"op": "PlaceOp", "category": "KG 902", "name": "6/II", "hexid": "h56_13"}, {"op": "PlaceOp", "category": "KG 902", "name": "7/II", "hexid": "h56_13"}, {"op": "PlaceOp", "category": "KG 902", "name": "5/130", "hexid": "h55_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "7/130", "hexid": "h55_14"}, {"op": "PlaceOp", "category": "KG 902", "name": "9", "hexid": "h55_15"}, {"op": "PlaceOp", "category": "KG 902", "name": "10", "hexid": "h55_15"}, {"op": "PlaceOp", "category": "KG 902", "name": "Arty", "hexid": "h55_15"}, {"op": "PlaceOp", "category": "26 VG", "name": "IV/26", "hexid": "h59_17"}, {"_id": "oWWwKMRyeyjJpr7L9", "op": "PlaceOp", "category": "Cherry", "name": "D/3", "hexid": "h44_13"}, {"_id": "9BzJMzZdbquCM3FqZ", "op": "PlaceOp", "category": "Misc US", "name": "58", "hexid": "h48_13"}, {"_id": "uxcjiR9JN4ZFCSdT8", "op": "PlaceOp", "category": "Misc US", "name": "73", "hexid": "h47_12"}, {"_id": "xTyYKoKWwF4EZRDha", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h49_14"}, {"_id": "W96KG6JkDbYytyQFX", "op": "PlaceOp", "category": "Misc US", "name": "C", "hexid": "h36_15"}, {"_id": "GhyJEQBwD7C5vewyS", "op": "PlaceOp", "category": "Misc US", "name": "D", "hexid": "h39_16"}, {"_id": "o2Mz5mZyxSquS45WY", "op": "PlaceOp", "category": "Desobry", "name": "C/609", "hexid": "h33_8", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "2x9Mt3DCa528wdXNq", "op": "PlaceOp", "category": "Misc US", "name": "A", "hexid": "h33_9", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "WHZrDEcwpoodwTAQd", "op": "PlaceOp", "category": "Misc US", "name": "B", "hexid": "h34_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "zQbb9C5NnZ4t4ppco", "op": "PlaceOp", "category": "Desobry", "name": "D/90", "hexid": "h34_5", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "SdH7MSCoLxF7nYChq", "op": "PlaceOp", "category": "Desobry", "name": "B/3", "hexid": "h35_5", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "QPM7xmMB9rhMtXw2s", "op": "PlaceOp", "category": "Desobry", "name": "D/3", "hexid": "h35_3", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "MaDAHkizauq7Sq2mR", "op": "PlaceOp", "category": "Desobry", "name": "B/20", "hexid": "h37_4", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "aM2rDarJkYstRGekt", "op": "PlaceOp", "category": "O'Hara", "name": "D/3", "hexid": "h39_23", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "4nP72HPScXXux65xM", "op": "PlaceOp", "category": "O'Hara", "name": "C/21", "hexid": "h39_24", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Ffhk5ZEKFWni8NJRj", "op": "PlaceOp", "category": "O'Hara", "name": "B/54", "hexid": "h41_23", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "zuKxwkPc9owrwQX8Z", "op": "PlaceOp", "category": "O'Hara", "name": "D/90", "hexid": "h43_23", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "8XGJntSuEKBiMZf5u", "op": "PlaceOp", "category": "O'Hara", "name": "C/16", "hexid": "h40_21", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "bjnBjT8nDoPXPQFxF", "op": "PlaceOp", "category": "CCB", "name": "A/20", "hexid": "h26_19", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "kchFEfrbu68MeQXJQ", "op": "PlaceOp", "category": "CCB", "name": "B/769", "hexid": "h27_20", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "4w96P3xxopW6yGfen", "op": "PlaceOp", "category": "CCB", "name": "C/55", "hexid": "h27_19", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "P7LLp35ivS2xbNexZ", "op": "PlaceOp", "category": "CCB", "name": "HHC/20", "hexid": "h28_19", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "ftZgLePyNERxD5WjS", "op": "PlaceOp", "category": "Misc US", "name": "969", "hexid": "h20_19", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "8kehJvi6w5dyHqtBj", "op": "PlaceOp", "category": "Misc US", "name": "420", "hexid": "h17_20", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "rSNtDzwYHgKtBR6JM", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h60_26", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "yoSnNDGpJex4pFnLc", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h61_27", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "EpeCPHesCfeyFoGHf", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h60_27", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "tETiFQLqFHRSvRQGK", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h61_28", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "i7zxr5hZaMHuDRjTo", "op": "PlaceOp", "category": "Misc US", "name": "AdHoc SNAFU", "hexid": "h61_29", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "o2Mz5mZyxSquS45WY", "op": "PlaceOp", "category": "Desobry", "name": "C/609", "hexid": "h33_8", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "2x9Mt3DCa528wdXNq", "op": "PlaceOp", "category": "Misc US", "name": "A", "hexid": "h33_9", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "WHZrDEcwpoodwTAQd", "op": "PlaceOp", "category": "Misc US", "name": "B", "hexid": "h34_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "zQbb9C5NnZ4t4ppco", "op": "PlaceOp", "category": "Desobry", "name": "D/90", "hexid": "h34_5", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "SdH7MSCoLxF7nYChq", "op": "PlaceOp", "category": "Desobry", "name": "B/3", "hexid": "h35_5", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "QprQHNsxHMKh4o3wt", "op": "PlaceOp", "category": "v.Bohm", "name": "2 Aufk", "hexid": "h59_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "adLZ8nLMBhgkaNsgd", "op": "PlaceOp", "category": "v.Bohm", "name": "3 Aufk", "hexid": "h59_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "9YvNCebetCf38DdRi", "op": "PlaceOp", "category": "v.Bohm", "name": "HQ", "hexid": "h59_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "P2wAmAdmavyWMjfF8", "op": "PlaceOp", "category": "v.Bohm", "name": "Pz", "hexid": "h59_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "sTYzKagMw3zK4X95g", "op": "PlaceOp", "category": "v.Bohm", "name": "Wpn", "hexid": "h59_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "TkR9MXnTm26K4gPfK", "op": "PlaceOp", "category": "KG Coch", "name": "5/II", "hexid": "h57_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "xYutW4wTsLNHopPNw", "op": "PlaceOp", "category": "KG Coch", "name": "6/II", "hexid": "h57_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "JwsrFaSoKLv9gG7dp", "op": "PlaceOp", "category": "KG Coch", "name": "7/II", "hexid": "h57_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "fjfhNewJdhZSxeCPn", "op": "PlaceOp", "category": "KG Coch", "name": "1/273", "hexid": "h58_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "uKbfuT4kSTwJAJLX2", "op": "PlaceOp", "category": "KG Coch", "name": "9", "hexid": "h58_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "2a9AKkWGi3HycDmgG", "op": "PlaceOp", "category": "KG Coch", "name": "Arty", "hexid": "h59_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Y87Ya5LCHwfq9ejSz", "op": "PlaceOp", "category": "KG Coch", "name": "3/38", "hexid": "h60_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "EwbdMB5dW7y88YmjA", "op": "PlaceOp", "category": "KG Coch", "name": "2", "hexid": "h60_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Qk4vQjGQFQjd2Fq4Y", "op": "PlaceOp", "category": "KG Coch", "name": "3", "hexid": "h60_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "RH2Ag9rGphcg3zN3A", "op": "PlaceOp", "category": "KG Coch", "name": "4", "hexid": "h60_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Njzv53qnkWssLEvpY", "op": "PlaceOp", "category": "KG Coch", "name": "10", "hexid": "h60_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "nA9285a8THpGJz2kr", "op": "NoteOp", "text": "Entry area D", "hexid": "h61_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "BsBiW4bheuxM3erzw", "op": "NoteOp", "text": "Entry area E", "hexid": "h58_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "GiGh7RbQmEmg4daDW", "op": "NoteOp", "text": "Entry area E", "hexid": "h60_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Peg5pdTHuzYSm5RDD", "op": "PlaceOp", "category": "501", "name": "A/1", "hexid": "h13_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "CxYRwvgQL7nKXTAHp", "op": "PlaceOp", "category": "501", "name": "B/1", "hexid": "h13_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "xEafp8H9qt7hLyHNF", "op": "PlaceOp", "category": "501", "name": "C/1", "hexid": "h13_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "4tdDJS7peCYvbDunE", "op": "PlaceOp", "category": "501", "name": "D/2", "hexid": "h13_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "AHum84tXTfecyQp8f", "op": "PlaceOp", "category": "501", "name": "E/2", "hexid": "h14_13", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "jxdBuNRqwaSNmQR33", "op": "PlaceOp", "category": "501", "name": "F/2", "hexid": "h14_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "zC6kSN6k7G9fNhJqf", "op": "PlaceOp", "category": "501", "name": "G/3", "hexid": "h14_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "WPWDPLJvXxdgeeNfA", "op": "PlaceOp", "category": "501", "name": "H/3", "hexid": "h14_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "767tsZ6SZrGTyh3Ga", "op": "PlaceOp", "category": "501", "name": "I/3", "hexid": "h14_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "mGDEWuPgZPdrGZ8Xi", "op": "PlaceOp", "category": "502", "name": "A/1", "hexid": "h15_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "DxyRbtXymWiPKuBKP", "op": "PlaceOp", "category": "502", "name": "B/1", "hexid": "h15_13", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "coX5hD8RZjjPCXbuy", "op": "PlaceOp", "category": "502", "name": "C/1", "hexid": "h15_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "PWY7T8cDT3FhzKjMB", "op": "PlaceOp", "category": "502", "name": "D/2", "hexid": "h15_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "SsCYScwvWiJKqG2fv", "op": "PlaceOp", "category": "502", "name": "E/2", "hexid": "h15_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "sPrFkHsbdZKZ7D8vj", "op": "PlaceOp", "category": "502", "name": "F/2", "hexid": "h15_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "DsDtMZzvQCFSX2Suc", "op": "PlaceOp", "category": "502", "name": "G/3", "hexid": "h16_11", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "6efPa7ivYByQ7fT49", "op": "PlaceOp", "category": "502", "name": "G/3", "hexid": "h16_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "24uPTSjdPtPKn5myB", "op": "PlaceOp", "category": "502", "name": "H/3", "hexid": "h16_13", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "97SDrrPbEYZLZLDBH", "op": "PlaceOp", "category": "502", "name": "I/3", "hexid": "h16_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "otwopwnCkK8svwG5i", "op": "PlaceOp", "category": "506", "name": "A/1", "hexid": "h17_11", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "8ij2ZAQQ3qRBu5Ytk", "op": "PlaceOp", "category": "506", "name": "B/1", "hexid": "h17_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "BXs4qG2n6DEWv9zAE", "op": "PlaceOp", "category": "506", "name": "C/1", "hexid": "h17_13", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "TxyGhJKLznGeRPs5C", "op": "PlaceOp", "category": "506", "name": "D/2", "hexid": "h17_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "Nb4vXTr3oEqY7ykEh", "op": "PlaceOp", "category": "506", "name": "E/2", "hexid": "h17_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "FFLJaGz3K2ekwG6J3", "op": "PlaceOp", "category": "506", "name": "F/2", "hexid": "h17_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "3PDxsjJ7svta59BC3", "op": "PlaceOp", "category": "506", "name": "G/3", "hexid": "h17_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "TyyySkaxSfvqCJ5PZ", "op": "PlaceOp", "category": "506", "name": "H/3", "hexid": "h17_18", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "k4gycks7ESB7c3q5S", "op": "PlaceOp", "category": "506", "name": "I/3", "hexid": "h18_10", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "NojZMF3wpemw6AmHX", "op": "PlaceOp", "category": "327", "name": "A/1", "hexid": "h18_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "BtjjBg57HwFvSPrpB", "op": "PlaceOp", "category": "327", "name": "B/1", "hexid": "h18_13", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "YqNSbnvB2oZuzfJ2Z", "op": "PlaceOp", "category": "327", "name": "C/1", "hexid": "h18_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "DagfEbDYgwhhFRPvK", "op": "PlaceOp", "category": "327", "name": "E/2", "hexid": "h18_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "pRFyiYnFRyJD6R3qy", "op": "PlaceOp", "category": "327", "name": "F/2", "hexid": "h18_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "qa9oX93s3heAdeahb", "op": "PlaceOp", "category": "327", "name": "G/2", "hexid": "h18_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "TB2SXrWtBfWtPcjbQ", "op": "PlaceOp", "category": "401", "name": "A/1", "hexid": "h19_10", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "JmQbR6SboJfbXCcLE", "op": "PlaceOp", "category": "401", "name": "B/1", "hexid": "h19_11", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "3ESGsgYL4HL2i5eiv", "op": "PlaceOp", "category": "401", "name": "C/1", "hexid": "h19_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "KyDpePcCTtCFZXg9v", "op": "PlaceOp", "category": "101", "name": "A/326", "hexid": "h19_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "6tagCb3xCL6nC5L6o", "op": "PlaceOp", "category": "101", "name": "B/326", "hexid": "h19_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "AiS4sQ6hbNGHHv3hD", "op": "PlaceOp", "category": "101", "name": "C/326", "hexid": "h19_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "jMepA9M6Yk5Y3h27k", "op": "PlaceOp", "category": "101", "name": "D/326", "hexid": "h19_17", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "4ZNZSJhSKJr2arQPT", "op": "PlaceOp", "category": "101", "name": "A/81", "hexid": "h20_10", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "cL37WEEYKNmdvW68r", "op": "PlaceOp", "category": "101", "name": "B/81", "hexid": "h20_11", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "tm7prEe9gNPbEk3SR", "op": "PlaceOp", "category": "101", "name": "C/81", "hexid": "h20_12", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "pqnXq2gRpHWLDKu7s", "op": "PlaceOp", "category": "101", "name": "327", "hexid": "h20_14", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "kStyrCXjxgGPLG74u", "op": "PlaceOp", "category": "101", "name": "377", "hexid": "h20_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "9canz8XpP9BJdSCmi", "op": "PlaceOp", "category": "101", "name": "463", "hexid": "h20_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "vFJPKR66qQ4g4ojAN", "op": "PlaceOp", "category": "101", "name": "907", "hexid": "h21_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "XabFKwsGNmu9YT4BM", "op": "PlaceOp", "category": "Misc US", "name": "755", "hexid": "h55_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "9F9CrwaGcRQX6y3Te", "op": "NoteOp", "text": "B or C", "hexid": "h55_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "iHJ5Fgy7o7Z7Yvvoi", "op": "PlaceOp", "category": "Misc US", "name": "687(-)", "hexid": "h56_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "7Jms4iNx5vg6dcLxu", "op": "NoteOp", "text": "Entry area F (turn 2)", "hexid": "h56_16", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "kg4ijL8Guw9Z6rC6v", "op": "NoteOp", "text": "Turn 2", "hexid": "h18_15", "player": "QFjrnDTHGgpb3y8Yp"}, {"_id": "n62zGqKTWszdGxHXb", "op": "PlaceOp", "category": "5 FJ", "name": "1/I/14", "hexid": "h62_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "sA6awr239m9qJMq8J", "op": "PlaceOp", "category": "5 FJ", "name": "2/I/14", "hexid": "h62_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "FkiFkto5c2DYyAqHc", "op": "PlaceOp", "category": "5 FJ", "name": "3/I/14", "hexid": "h62_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "73DPhkmjsQrW786Xu", "op": "PlaceOp", "category": "5 FJ", "name": "4/I/14", "hexid": "h62_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "LMDNXv9AjxQYAiTK6", "op": "PlaceOp", "category": "5 FJ", "name": "5/II/14", "hexid": "h62_16", "player": "YHPLERvE944u7LdrG"}, {"_id": "BHgCYsSf3uHT9YX9G", "op": "PlaceOp", "category": "5 FJ", "name": "6/II/14", "hexid": "h62_16", "player": "YHPLERvE944u7LdrG"}, {"_id": "S7KSMkCD7nMYv5jg6", "op": "PlaceOp", "category": "5 FJ", "name": "7/II/14", "hexid": "h62_16", "player": "YHPLERvE944u7LdrG"}, {"_id": "24BKNb8DbpritwWYw", "op": "PlaceOp", "category": "5 FJ", "name": "8/II/14", "hexid": "h62_16", "player": "YHPLERvE944u7LdrG"}, {"_id": "bGn2x8rq237PG5QnC", "op": "PlaceOp", "category": "KG 901", "name": "6/130", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "jqKMuNFazDdG7FjFG", "op": "PlaceOp", "category": "KG 901", "name": "1/I", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "vSN3P8fk8k5Xo48y3", "op": "PlaceOp", "category": "v.Fallois", "name": "1 Aufk", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "cA2W6isstJysNvD9M", "op": "PlaceOp", "category": "v.Fallois", "name": "3 Aufk", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "uNq4BS8nrDGkgNN4x", "op": "PlaceOp", "category": "v.Fallois", "name": "3/PzPio", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "5imSBNSSwRzRdzy2v", "op": "PlaceOp", "category": "v.Fallois", "name": "Arty", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "ZWBLnXyHJRDQtkZGg", "op": "PlaceOp", "category": "v.Fallois", "name": "HQ", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "Tj6nY4uHj5yZvqXMJ", "op": "PlaceOp", "category": "v.Fallois", "name": "Pz", "hexid": "h61_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "4LcDwLSButPtYJA4X", "op": "PlaceOp", "category": "705", "name": "A(-)", "hexid": "h57_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "KGdaQyRB6imMGxXJm", "op": "PlaceOp", "category": "705", "name": "B", "hexid": "h57_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "TgvywXrZhhZY6Gs8e", "op": "PlaceOp", "category": "705", "name": "C", "hexid": "h57_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "eJNH3NGTcd69GHM7r", "op": "PlaceOp", "category": "705", "name": "HHC", "hexid": "h57_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "6PtSAQAnR3LBrsdE7", "op": "PlaceOp", "category": "705", "name": "Rec", "hexid": "h57_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "32kh5EzQ7vmP3ntmx", "op": "NoteOp", "text": "Entry area F", "hexid": "h62_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "EqkoyESbc3fdv7EGw", "op": "NoteOp", "text": "Entry area E", "hexid": "h60_17", "player": "YHPLERvE944u7LdrG"}, {"_id": "kiCRKmGPt294QdPHp", "op": "NoteOp", "text": "Entry area A", "hexid": "h58_17", "player": "YHPLERvE944u7LdrG"}]
 }
