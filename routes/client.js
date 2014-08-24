@@ -3,6 +3,7 @@ Router.map(function() {
         path: '/play/:_id',
         template: 'board',
         action: function() {
+            GAnalytics.pageview('/play');
             this.render('loading');
             var router = this;
             var tableId = this.params._id;
@@ -30,6 +31,7 @@ Router.map(function() {
         path: '/',
         template: 'welcome',
         onBeforeAction: function() {
+            GAnalytics.pageview('/welcome');
             Session.set('tableId', null);
         }
     });

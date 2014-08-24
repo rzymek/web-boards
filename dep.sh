@@ -2,10 +2,10 @@
 set -e -u
 cd `dirname $0`
 git log > public/log
-meteor deploy wb.meteor.com --debug
+meteor deploy wb.meteor.com --debug --settings settings.json
 echo 'Stable? [ENTER / Ctrl+C]'
 read
 #trap "mv tests/developement ." EXIT
 #mv developement tests/
 #meteor deploy wbs.meteor.com 
-meteor deploy web-boards.meteor.com
+meteor deploy web-boards.meteor.com --settings settings.json
