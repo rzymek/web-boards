@@ -9,3 +9,9 @@ packages:
     description: svg_zoom_and_pan
     source: hosted
     version: "0.0.4"
+  webboards_core:
+    description:
+      path: "/home/rzymek/devel/github/web-boards/client/basic/../core"
+      relative: true
+    source: path
+    version: "0.0.1"
