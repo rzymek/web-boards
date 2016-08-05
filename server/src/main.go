@@ -1,40 +1,56 @@
 package main
 
 import (
-	"fmt"
+	"appengine"
+	"appengine/datastore"
+	//	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
-	"net/url"
-	"bytes"
+
+//	"net/url"
 //	"io"
 )
 
-type Message struct {
-	URL *url.URL
-	Headers string
+type RunningGame struct {
+	Game string
 }
 
 func init() {
-	http.HandleFunc("/", json_handler)
+	http.HandleFunc("/start", startGame)
 }
 
-
-func json_handler(w http.ResponseWriter, r *http.Request) {
-	m := Message{
-		URL: r.URL,
-	}
-	var buffer bytes.Buffer
-	r.Header.Write(&buffer)
-	
-	b, err := json.Marshal(m)
-	if(err != nil) {
+func jsonResponse(w http.ResponseWriter, v interface{}) {
+	b, err := json.Marshal(v)
+	if err != nil {
 		fmt.Println(err)
-	}else{
+	} else {
 		w.Write(b)
-	}	
+	}
 }
+
+func startGame(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+
+	m := RunningGame{
+		Game: "bastogne",
+	}
+	key, err := datastore.Put(c, datastore.NewIncompleteKey(c, "runningGame", nil), &m)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var game RunningGame
+	if err = datastore.Get(c, key, &game); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	jsonResponse(w, &game)
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there: %s", )
+	fmt.Fprintf(w, "Hi there: %s")
 }
 
 func main() {
