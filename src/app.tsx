@@ -1,6 +1,5 @@
-import './app.css'
 import {range} from 'remeda';
-import {CSSProperties, ReactNode} from "react";
+import {CSSProperties, ReactNode, useState} from "react";
 
 interface Unit {
     id: string;
@@ -10,9 +9,9 @@ interface Unit {
     steps: number;
     defenceStrength: number;
 
-    trajectory: 'low' | 'high';
-    type: 'area' | 'point';
-    target: 'area' | 'point' | 'both';
+    // trajectory: 'low' | 'high';
+    // type: 'area' | 'point';
+    // target: 'area' | 'point' | 'both';
 
     mode: 'fire' | 'move';
 }
@@ -114,8 +113,9 @@ function Hex({x, y}: { x: number, y: number }) {
 
 export function App() {
     const zoom = 1;
+    const [mode, setMode] = useState<'move' | 'fire'>('move')
     const unit: Unit = {
-        mode: 'move',
+        mode,
         defenceStrength: 5,
         fireStrength: 7,
         id: '2-I-26 PG',
@@ -140,7 +140,8 @@ export function App() {
         )}
         {range(1, 3).map(x =>
             range(1, 3).map(y =>
-                <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}/>
+                <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}
+                         onClick={() => setMode(m => m === 'move' ? 'fire' : 'move')}/>
             )
         )}
     </svg>
