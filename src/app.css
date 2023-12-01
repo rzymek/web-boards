@@ -18,6 +18,7 @@
 
 .card {
   padding: 2em;
+  border: solid 1px rgb(128, 128, 128);
 }
 
 .read-the-docs {
