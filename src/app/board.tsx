@@ -1,0 +1,41 @@
+import {range} from 'remeda';
+import {useState} from "react";
+import {Counter} from "./counter.tsx";
+import {Hex} from "./hex.tsx";
+import {Unit} from "./unit.tsx";
+
+export function Board() {
+    const zoom = 1;
+    const [mode, setMode] = useState<'move' | 'fire'>('move')
+    const unit: Unit = {
+        mode,
+        defenceStrength: 5,
+        fireStrength: 7,
+        id: '2-I-26 PG',
+        range: 6,
+        steps: 5,
+    }
+    return <svg width="100%" height="100%" style={{inset: 0, position: 'absolute'}}
+                viewBox={`0 0 ${zoom * 1000} ${zoom * 1000}`}>
+        <defs>
+            <filter id="solidTextBox" x="0" y="0" width="1" height="1">
+                <feFlood flood-color="red" result="bg"/>
+                <feMerge>
+                    <feMergeNode in="bg"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+        {range(-1, 8).map(x =>
+            range(-1, 8).map(y =>
+                <Hex key={`${x}.${y}`} x={x} y={y}/>
+            )
+        )}
+        {range(1, 3).map(x =>
+            range(1, 3).map(y =>
+                <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}
+                         onClick={() => setMode(m => m === 'move' ? 'fire' : 'move')}/>
+            )
+        )}
+    </svg>
+}
