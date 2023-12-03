@@ -1,20 +1,22 @@
 import {range} from 'remeda';
-import {useState} from "react";
 import {Counter} from "./counter.tsx";
 import {Hex} from "./hex.tsx";
 import {Unit} from "./unit.tsx";
+import {useDispatch} from "react-redux";
+import {counterClicked} from "./store.tsx";
 
 export function Board() {
     const zoom = 1;
-    const [mode, setMode] = useState<'move' | 'fire'>('move')
+    // const [mode, setMode] = useState<'move' | 'fire'>('move')
     const unit: Unit = {
-        mode,
+        mode: 'move',
         defenceStrength: 5,
         fireStrength: 7,
         id: '2-I-26 PG',
         range: 6,
         steps: 5,
     }
+    const dispath = useDispatch();
     return <svg width="100%" height="100%" style={{inset: 0, position: 'absolute'}}
                 viewBox={`0 0 ${zoom * 1000} ${zoom * 1000}`}>
         <defs>
@@ -34,7 +36,7 @@ export function Board() {
         {range(1, 3).map(x =>
             range(1, 3).map(y =>
                 <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}
-                         onClick={() => setMode(m => m === 'move' ? 'fire' : 'move')}/>
+                         onClick={() => dispath(counterClicked({x, y, unit}))}/>
             )
         )}
     </svg>
