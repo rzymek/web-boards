@@ -1,6 +1,5 @@
-import {configureStore, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Unit} from "./unit.tsx";
-
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Unit} from "../unit.tsx";
 
 interface SelectedCounter {
     x: number,
@@ -11,22 +10,17 @@ interface SelectedCounter {
 const initialState = {
     selected: undefined as (SelectedCounter | undefined)
 } as const;
+
 export const ui = createSlice({
     name: 'ui',
     initialState,
     reducers: {
         counterClicked: (state, action: PayloadAction<SelectedCounter>) => {
-            if(state.selected) {
+            if (state.selected) {
                 state.selected = action.payload;
-            }else{
+            } else {
                 state.selected = undefined;
             }
         }
     }
 })
-export const {counterClicked} = ui.actions;
-export const store = configureStore({
-    reducer: {
-        ui: ui.reducer
-    }
-});
