@@ -3,8 +3,11 @@ import {Unit} from "./unit.tsx";
 import {At} from "./at.tsx";
 
 export function Counter(props: {
-    unit: Unit;
-    x: number, y: number, onClick(): void
+    unit: Unit,
+    selected?: boolean,
+    x: number,
+    y: number,
+    onClick(): void,
 }) {
     const labelHeight = 20;
     const h1 = 50;
@@ -17,6 +20,10 @@ export function Counter(props: {
         fontWeight: 'bold',
         textAnchor: 'start',
     };
+    const selected:CSSProperties = {
+        stroke: 'blue',
+        strokeWidth: 5,
+    }
     const outline: CSSProperties = {
         x: -70,
         y: -70,
@@ -25,11 +32,12 @@ export function Counter(props: {
         stroke: 'gray',
         width: 140,
         height: 140,
+        ...(props.selected ? selected : {})
     };
     return <At x={props.x} y={props.y}>
         <rect style={outline}/>
         {props.unit.mode == 'move' && <polygon points="-65,60 -35,-50 -5,60 -35,25" style={{
-            fill: 'red',
+            fill: '#881f1f',
         }}/>}
         <rect x={-70} y={-65} width={140} height={labelHeight} style={{
             fill: 'white'

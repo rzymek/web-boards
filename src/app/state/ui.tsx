@@ -1,5 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {Unit} from "../unit.tsx";
+import {equals} from 'remeda'
 
 interface SelectedCounter {
     x: number,
@@ -15,11 +16,11 @@ export const ui = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        counterClicked: (state, action: PayloadAction<SelectedCounter>) => {
-            if (state.selected) {
-                state.selected = action.payload;
-            } else {
+        counterClicked: (state: Draft<typeof initialState>, action: PayloadAction<SelectedCounter>) => {
+            if(equals(state.selected, action.payload)) {
                 state.selected = undefined;
+            }else{
+                state.selected = action.payload;
             }
         }
     }

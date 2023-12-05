@@ -1,9 +1,9 @@
-import {range} from 'remeda';
+import {equals, range} from 'remeda';
 import {Counter} from "./counter.tsx";
 import {Hex} from "./hex.tsx";
 import {Unit} from "./unit.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import {counterClicked} from "./state/store.tsx";
+import {counterClicked, State} from "./state/store.tsx";
 
 export function Board() {
     const zoom = 1;
@@ -16,8 +16,8 @@ export function Board() {
         range: 6,
         steps: 5,
     }
-    const dispath = useDispatch();
-    const ui = useSelector(state => state.ui.selected);
+    const dispatch = useDispatch();
+    const selected = useSelector((state:State) => state.ui.selected);
     return <svg width="100%" height="100%" style={{inset: 0, position: 'absolute'}}
                 viewBox={`0 0 ${zoom * 1000} ${zoom * 1000}`}>
         <defs>
@@ -37,7 +37,8 @@ export function Board() {
         {range(1, 3).map(x =>
             range(1, 3).map(y =>
                 <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}
-                         onClick={() => dispath(counterClicked({x, y, unit}))}/>
+                         selected={equals(selected, {x,y,unit})}
+                         onClick={() => dispatch(counterClicked({x, y, unit}))}/>
             )
         )}
     </svg>

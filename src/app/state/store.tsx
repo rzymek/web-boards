@@ -7,3 +7,5 @@ export const store = configureStore({
         ui: ui.reducer
     }
 });
+
+export type State = ReturnType<typeof store.getState>;
