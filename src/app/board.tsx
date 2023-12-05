@@ -3,7 +3,7 @@ import {Counter} from "./counter.tsx";
 import {Hex} from "./hex.tsx";
 import {Unit} from "./unit.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import {counterClicked, State} from "./state/store.tsx";
+import {counterClicked, hexClicked, State} from "./state/store.tsx";
 
 export function Board() {
     const zoom = 1;
@@ -17,7 +17,7 @@ export function Board() {
         steps: 5,
     }
     const dispatch = useDispatch();
-    const selected = useSelector((state:State) => state.ui.selected);
+    const ui = useSelector((state: State) => state.ui);
     return <svg width="100%" height="100%" style={{inset: 0, position: 'absolute'}}
                 viewBox={`0 0 ${zoom * 1000} ${zoom * 1000}`}>
         <defs>
@@ -31,13 +31,16 @@ export function Board() {
         </defs>
         {range(-1, 8).map(x =>
             range(-1, 8).map(y =>
-                <Hex key={`${x}.${y}`} x={x} y={y}/>
+                <Hex key={`${x}.${y}`} x={x} y={y}
+                     onClick={() => dispatch(hexClicked({x, y}))}
+                     selected={equals(ui.selectedHex, {x, y})}
+                />
             )
         )}
         {range(1, 3).map(x =>
             range(1, 3).map(y =>
                 <Counter key={`${x}.${y}`} x={x} y={y} unit={unit}
-                         selected={equals(selected, {x,y,unit})}
+                         selected={equals(ui.selectedCounter, {x, y, unit})}
                          onClick={() => dispatch(counterClicked({x, y, unit}))}/>
             )
         )}

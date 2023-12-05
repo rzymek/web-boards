@@ -2,26 +2,35 @@ import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {Unit} from "../unit.tsx";
 import {equals} from 'remeda'
 
-interface SelectedCounter {
+interface Coords {
     x: number,
     y: number,
+}
+
+interface SelectedCounter extends Coords {
     unit: Unit,
 }
 
-const initialState = {
-    selected: undefined as (SelectedCounter | undefined)
-} as const;
+interface State {
+    selectedCounter?: SelectedCounter,
+    selectedHex?: Coords,
+}
+
+const initialState: State = {};
 
 export const ui = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        counterClicked: (state: Draft<typeof initialState>, action: PayloadAction<SelectedCounter>) => {
-            if(equals(state.selected, action.payload)) {
-                state.selected = undefined;
-            }else{
-                state.selected = action.payload;
+        counterClicked(state: Draft<State>, action: PayloadAction<SelectedCounter>) {
+            if (equals(state.selectedCounter, action.payload)) {
+                state.selectedCounter = undefined;
+            } else {
+                state.selectedCounter = action.payload;
             }
+        },
+        hexClicked(state:Draft<State>, action:PayloadAction<Coords>) {
+            state.selectedHex = action.payload;
         }
     }
 })
