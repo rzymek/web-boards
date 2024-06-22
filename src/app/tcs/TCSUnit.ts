@@ -1,7 +1,20 @@
-interface Position{}
-interface TCSUnit {
-    unitID: string;
+interface Position {
+}
+
+
+interface TCSUnit<Desc extends TCSUnitDesc> {
+    state: TCSUnitState;
+    desc: Readonly<Desc>;
+}
+
+interface TCSUnitState {
     mode: 'fire'|'move';
+    steps: number;
+    position: Position;
+}
+
+type TCSUnitDesc = {
+    unitID: string;
     steps: number;
     fire:{
         strength:number;
@@ -16,12 +29,12 @@ interface TCSUnit {
     }
 }
 
-interface InfantryUnit extends TCSUnit {
+interface InfantryUnitDesc extends TCSUnitDesc {
     morale: number;
 }
-interface WeaponOrVehicleUnit extends TCSUnit {
-    category:'carrier'|'vehicle'|'MG'|'mortar'|'IG';
-    type:'MG'|'3inch'
+interface WeaponOrVehicleUnitDesc extends TCSUnitDesc {
+    category: 'carrier'|'vehicle'|'MG'|'mortar'|'IG';
+    type: 'MG'|'3inch'
     defenceStrength: number;
     defenceTarget: 'B-0'|'B-1';
 }
